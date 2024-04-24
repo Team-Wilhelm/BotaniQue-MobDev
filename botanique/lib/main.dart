@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:botanique/welcome/welcome_screen.dart';
+import 'utils/app_style.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade900),
-        useMaterial3: true,
-      ),
-      home: const Placeholder(),
+      theme: appTheme,
+      home: SafeArea(child: WelcomeScreen()),
     );
   }
 }
