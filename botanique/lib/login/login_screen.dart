@@ -12,28 +12,31 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: getEdgeInsets(context),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            const AppLogo(),
-            Expanded(
-              child: LoginForm(),
+            const Align(
+              alignment: Alignment.topCenter,
+              child: AppLogo(),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const AppText(text: "Don't have an account?"),
-                TextButton(
-                  onPressed: () => {},
-                  child: const AppText(
-                    text: "Sign Up",
-                    colour: primary,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
+            LoginForm(),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const AppText(text: "Don't have an account?"),
+                  TextButton(
+                    onPressed: () => {},
+                    child: const AppText(
+                      text: "Sign Up",
+                      colour: primary,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),
