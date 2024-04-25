@@ -6,7 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CategorySelection extends StatelessWidget {
   const CategorySelection({
     super.key,
-    this.categories = const ["All Plants", "Indoor", "Outdoor"],
+    this.categories = const [
+      "All Plants",
+      "Kitchen",
+      "Bedroom",
+      "Bathroom",
+      "Living Room"
+    ],
   });
 
   final List<String> categories;

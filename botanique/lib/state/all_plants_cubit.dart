@@ -4,8 +4,9 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
   AllPlantsCubit(super.state);
 
   void selectCategory(String category) {
-    print(category);
-    emit(state.copyWith(selectedCategory: category));
+    emit(
+      state.copyWith(selectedCategory: category),
+    );
   }
 }
 

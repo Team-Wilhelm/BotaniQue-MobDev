@@ -1,3 +1,4 @@
+import 'package:botanique/style/asset_constants.dart';
 import 'package:flutter/material.dart';
 
 class AppLogo extends StatelessWidget {
@@ -13,7 +14,7 @@ class AppLogo extends StatelessWidget {
         color: Colors.white,
         image: DecorationImage(
           fit: BoxFit.fill,
-          image: AssetImage('assets/images/logo.png'),
+          image: AssetImage(AssetConstants.logo),
         ),
       ),
     );

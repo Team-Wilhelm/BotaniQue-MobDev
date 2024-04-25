@@ -2,7 +2,7 @@ import 'package:botanique/home/need_some_love_row.dart';
 import 'package:botanique/shared/app_navbar.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/app_text_field.dart';
-import 'package:botanique/utils/app_style.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -18,11 +18,12 @@ class TextSizes {
 
 class AppColors {
   static const Color primary = Color.fromRGBO(32, 64, 6, 1);
-  static const Color background = Color.fromRGBO(247, 244, 243, 1);
+  static const Color background = Color(0xFFF7F4F3);
   static const Color secondary = Color.fromRGBO(98, 159, 51, 1);
   static const Color accent = Color.fromRGBO(46, 64, 87, 100);
   static const Color welcomeScreenBackground =
       Color.fromRGBO(255, 255, 243, 0.923);
+  static const Color cardBackground = Color(0xFFfcfdfc);
 }
 
 const defaultPadding = EdgeInsets.all(16);
@@ -37,10 +38,10 @@ final appTheme = ThemeData.light().copyWith(
     primary: AppColors.primary,
     secondary: AppColors.secondary,
     background: AppColors.background,
+    surface: AppColors.cardBackground,
     onPrimary: TextColors.textLight,
     onSecondary: TextColors.textDark,
     onBackground: TextColors.textDark,
-    surface: Colors.red,
   ),
   appBarTheme: const AppBarTheme(
     elevation: 1,

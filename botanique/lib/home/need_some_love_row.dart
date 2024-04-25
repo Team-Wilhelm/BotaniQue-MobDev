@@ -1,5 +1,5 @@
 import 'package:botanique/shared/app_text.dart';
-import 'package:botanique/utils/app_style.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
 class NeedSomeLoveRow extends StatelessWidget {

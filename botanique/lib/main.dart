@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_plant/add_plant_screen.dart';
-import 'utils/app_style.dart';
+import 'style/app_style.dart';
 
 void main() {
   runApp(BlocProvider(

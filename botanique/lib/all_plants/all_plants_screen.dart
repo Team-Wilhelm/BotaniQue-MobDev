@@ -1,4 +1,6 @@
 import 'package:botanique/all_plants/category_selection.dart';
+import 'package:botanique/all_plants/plant_card.dart';
+import 'package:botanique/shared/app_navbar.dart';
 import 'package:flutter/material.dart';
 
 class AllPlantsScreen extends StatelessWidget {
@@ -13,10 +15,26 @@ class AllPlantsScreen extends StatelessWidget {
           padding: getEdgeInsets(context),
           child: Column(
             children: [
-              CategorySelection(),
+              const CategorySelection(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Expanded(
+                child: GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 10,
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 1 / 1.25,
+                  ),
+                  itemBuilder: ((context, index) => const PlantCard()),
+                ),
+              ),
             ],
           ),
         ),
+        bottomNavigationBar: AppNavbar(),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../shared/app_button.dart';
 import '../shared/app_text_field.dart';
-import '../utils/app_style.dart';
+import '../style/app_style.dart';
 
 class SignUpForm extends StatelessWidget {
   SignUpForm({

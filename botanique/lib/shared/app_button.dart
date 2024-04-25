@@ -1,5 +1,5 @@
 import 'package:botanique/shared/app_text.dart';
-import 'package:botanique/utils/app_style.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonType {
@@ -34,7 +34,10 @@ class AppButton extends StatelessWidget {
         onPressed: disabled ? null : onPressed,
         style: styleButton(context, buttonType),
         child: AppText(
-            text: text, fontPercentage: fontPercentage, colour: textColor),
+          text: text,
+          fontPercentage: fontPercentage,
+          colour: textColor,
+        ),
       ),
     );
   }
@@ -59,8 +62,13 @@ class AppButton extends StatelessWidget {
 
     return ElevatedButton.styleFrom(
       backgroundColor: backgroundColor,
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6),
+        side: buttonType == ButtonType.outline
+            ? BorderSide(color: Theme.of(context).colorScheme.primary)
+            : BorderSide.none,
+      ),
     );
   }
 
