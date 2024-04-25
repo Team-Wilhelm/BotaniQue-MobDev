@@ -1,11 +1,11 @@
-import 'package:botanique/login/login_form.dart';
+import 'package:botanique/auth/log_in_form.dart';
 import 'package:botanique/shared/app_logo.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LogInScreen extends StatelessWidget {
+  const LogInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: AppLogo(),
             ),
-            LoginForm(),
+            LogInForm(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Row(
@@ -28,6 +28,10 @@ class LoginScreen extends StatelessWidget {
                   const AppText(text: "Don't have an account?"),
                   TextButton(
                     onPressed: () => {},
+                    style: ButtonStyle(
+                      overlayColor:
+                          MaterialStateProperty.all(primary.withOpacity(0.1)),
+                    ),
                     child: const AppText(
                       text: "Sign Up",
                       colour: primary,

@@ -4,8 +4,8 @@ import '../shared/app_button.dart';
 import '../shared/app_text_field.dart';
 import '../utils/app_style.dart';
 
-class LoginForm extends StatelessWidget {
-  LoginForm({
+class SignUpForm extends StatelessWidget {
+  SignUpForm({
     super.key,
   });
 
@@ -32,9 +32,17 @@ class LoginForm extends StatelessWidget {
               TextInputType.visiblePassword, // TODO: toggle when state is added
         ),
         spacer,
+        AppTextField(
+          textFieldController: _passwordController,
+          placeholder: "Repeat Password",
+          icon: const Icon(Icons.lock),
+          textInputType:
+              TextInputType.visiblePassword, // TODO: toggle when state is added
+        ),
+        spacer,
         AppButton(
           onPressed: () => {},
-          text: "Login",
+          text: "Sign Up",
           fullWidth: true,
           // disabled: _emailController.text.isEmpty || _passwordController.text.isEmpty,
         ),

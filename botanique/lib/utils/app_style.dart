@@ -25,9 +25,11 @@ const spacer = SizedBox(
 );
 
 final appTheme = ThemeData.light().copyWith(
-  primaryColorDark: primary,
-  primaryColorLight: background,
-  primaryColor: secondary,
+  colorScheme: const ColorScheme.light(
+    primary: primary,
+    secondary: secondary,
+    background: background,
+  ),
   appBarTheme: const AppBarTheme(
     elevation: 1,
     backgroundColor: background,

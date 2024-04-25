@@ -1,4 +1,4 @@
-import 'package:botanique/login/login_screen.dart';
+import 'package:botanique/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'utils/app_style.dart';
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: SafeArea(child: LoginScreen()),
+      home: SafeArea(child: HomeScreen()),
     );
   }
 }
