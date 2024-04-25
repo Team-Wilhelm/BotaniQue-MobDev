@@ -14,18 +14,21 @@ class AppButton extends StatelessWidget {
     required this.text,
     this.buttonType = ButtonType.primary,
     this.disabled = false,
+    this.fontPercentage = textSmall,
+    this.fullWidth = false,
   });
 
   final VoidCallback onPressed;
   final String text;
   final bool disabled;
   final ButtonType buttonType;
-  final double fontPercentage = textSmall;
+  final double fontPercentage;
+  final bool fullWidth;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: fullWidth ? double.infinity : null,
       child: ElevatedButton(
         onPressed: () => {},
         style: styleButton(context, buttonType),

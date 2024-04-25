@@ -6,15 +6,16 @@ const secondary = Color.fromRGBO(98, 159, 51, 1);
 const accent = Color.fromRGBO(46, 64, 87, 100);
 
 const textDark = Color.fromRGBO(105, 103, 115, 1);
-const texSecondary = Color.fromRGBO(180, 179, 185, 1);
+const textSecondary = Color.fromRGBO(180, 179, 185, 1);
 const textLight = Color.fromRGBO(240, 240, 241, 1);
 
 // Numbers to divide the MediaQuery.of(context).size.width with
 const double textH1 = 13;
 const double textH2 = 14;
 const double textH3 = 16;
-const double textH4 = 20;
-const double textSmall = 25;
+const double textH4 = 18;
+const double textH5 = 20;
+const double textSmall = 24;
 
 const defaultPadding = EdgeInsets.all(16);
 

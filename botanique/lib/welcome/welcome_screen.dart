@@ -13,9 +13,16 @@ class WelcomeScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const AppText(text: 'Welcome to BotaniQue', fontPercentage: textH1),
           const AppText(
-              text: 'Your personal plant whisperer', fontPercentage: textH4),
+            text: 'Welcome to BotaniQue',
+            fontPercentage: textH1,
+            fontWeight: FontWeight.bold,
+          ),
+          const AppText(
+            text: 'Your personal plant whisperer',
+            fontPercentage: textH4,
+            fontWeight: FontWeight.bold,
+          ),
           spacer,
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -29,13 +36,23 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () => {},
               style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 6,
+                      horizontal: MediaQuery.of(context).size.width / 5,
                       vertical: 8)),
-              child: const AppText(text: 'Sign in', fontPercentage: textH2)),
+              child: const AppText(
+                text: 'Sign in',
+                fontPercentage: textH4,
+                colour: textLight,
+                fontWeight: FontWeight.bold,
+              )),
           spacer,
-          const AppText(text: 'Create an account', fontPercentage: textH3),
+          const AppText(text: 'Create an account', fontPercentage: textH5),
           spacer,
-          const AppText(text: 'Forgot password?', fontPercentage: textSmall),
+          const AppText(
+            text: 'Forgot password?',
+            fontPercentage: textSmall,
+            colour: textSecondary,
+            fontWeight: FontWeight.bold,
+          ),
         ],
       ),
     );

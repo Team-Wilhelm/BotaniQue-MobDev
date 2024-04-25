@@ -1,47 +1,52 @@
-import 'package:botanique/shared/app_button.dart';
-import 'package:botanique/shared/app_text_field.dart';
+import 'package:botanique/login/login_form.dart';
+import 'package:botanique/shared/app_logo.dart';
+import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
+        padding: getEdgeInsets(context),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AppTextField(
-              textFieldController: _emailController,
-              placeholder: "Email",
-              textInputType: TextInputType.emailAddress,
+            const AppLogo(),
+            Expanded(
+              child: LoginForm(),
             ),
-            spacer,
-            AppTextField(
-              textFieldController: _passwordController,
-              placeholder: "Password",
-              textInputType: TextInputType.visiblePassword,
-            ),
-            spacer,
-            AppButton(
-              onPressed: () => {},
-              text: "Login",
-              // disabled: _emailController.text.isEmpty || _passwordController.text.isEmpty,
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const AppText(text: "Don't have an account?"),
+                TextButton(
+                  onPressed: () => {},
+                  child: const AppText(
+                    text: "Sign Up",
+                    colour: primary,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  EdgeInsets getEdgeInsets(BuildContext context) {
+    double sidePadding = MediaQuery.of(context).size.width * 0.1;
+    double topPadding = MediaQuery.of(context).size.height * 0.1;
+    double bottomPadding = MediaQuery.of(context).size.height * 0.05;
+
+    return EdgeInsets.fromLTRB(
+        sidePadding, topPadding, sidePadding, bottomPadding);
   }
 }

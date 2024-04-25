@@ -7,11 +7,15 @@ class AppText extends StatelessWidget {
     required this.text,
     this.fontPercentage = textSmall,
     this.colour = textDark,
+    this.fontWeight = FontWeight.normal,
+    this.decoration = TextDecoration.none,
   });
 
   final String text;
   final Color colour;
   final double fontPercentage;
+  final FontWeight fontWeight;
+  final TextDecoration decoration;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,8 @@ class AppText extends StatelessWidget {
       style: TextStyle(
         color: colour,
         fontSize: MediaQuery.of(context).size.width / fontPercentage,
-        fontWeight: FontWeight.bold,
+        fontWeight: fontWeight,
+        decoration: decoration,
       ),
     );
   }
