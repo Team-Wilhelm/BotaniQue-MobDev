@@ -30,7 +30,7 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       width: fullWidth ? double.infinity : null,
       child: ElevatedButton(
-        onPressed: () => {},
+        onPressed: disabled ? null : onPressed,
         style: styleButton(context, buttonType),
         child: AppText(
             text: text, fontPercentage: fontPercentage, colour: textColor),
@@ -42,10 +42,10 @@ class AppButton extends StatelessWidget {
     Color backgroundColor;
     switch (buttonType) {
       case ButtonType.primary:
-        backgroundColor = Theme.of(context).primaryColorDark;
+        backgroundColor = Theme.of(context).colorScheme.primary;
         break;
       case ButtonType.secondary:
-        backgroundColor = Theme.of(context).primaryColorLight;
+        backgroundColor = Theme.of(context).colorScheme.secondary;
         break;
     }
 
@@ -64,10 +64,10 @@ class AppButton extends StatelessWidget {
     Color textColor;
     switch (buttonType) {
       case ButtonType.primary:
-        textColor = textLight;
+        textColor = TextColors.textLight;
         break;
       case ButtonType.secondary:
-        textColor = textDark;
+        textColor = TextColors.textDark;
         break;
     }
 

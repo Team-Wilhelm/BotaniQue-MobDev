@@ -13,9 +13,9 @@ class NeedSomeLoveRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: primary, width: 2),
+          bottom: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
         ),
       ),
       child: Row(

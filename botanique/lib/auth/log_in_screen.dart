@@ -1,7 +1,6 @@
 import 'package:botanique/auth/log_in_form.dart';
 import 'package:botanique/shared/app_logo.dart';
 import 'package:botanique/shared/app_text.dart';
-import 'package:botanique/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
 class LogInScreen extends StatelessWidget {
@@ -27,14 +26,19 @@ class LogInScreen extends StatelessWidget {
                 children: [
                   const AppText(text: "Don't have an account?"),
                   TextButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.pop(context),
+                      Navigator.pushNamed(context, "/signup"),
+                    },
                     style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all(primary.withOpacity(0.1)),
+                      overlayColor: MaterialStateProperty.all(Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.1)),
                     ),
-                    child: const AppText(
+                    child: AppText(
                       text: "Sign Up",
-                      colour: primary,
+                      colour: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),

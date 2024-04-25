@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../shared/app_logo.dart';
 import '../shared/app_text.dart';
-import '../utils/app_style.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -28,14 +27,19 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   const AppText(text: "Already have an account?"),
                   TextButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.pop(context),
+                      Navigator.pushNamed(context, "/login"),
+                    },
                     style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all(primary.withOpacity(0.1)),
+                      overlayColor: MaterialStateProperty.all(Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.1)),
                     ),
-                    child: const AppText(
+                    child: AppText(
                       text: "Log In",
-                      colour: primary,
+                      colour: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),

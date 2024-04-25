@@ -20,15 +20,15 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         prefixIcon: icon,
-        prefixIconColor: textSecondary,
+        prefixIconColor: TextColors.textSecondary,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
         ),
         hintText: placeholder,
-        hintStyle: const TextStyle(color: textSecondary),
+        hintStyle: const TextStyle(color: TextColors.textSecondary),
         filled: true,
-        fillColor: textSecondary.withOpacity(0.2),
+        fillColor: TextColors.textSecondary.withOpacity(0.2),
         contentPadding:
             const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),

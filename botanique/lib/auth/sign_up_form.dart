@@ -41,7 +41,9 @@ class SignUpForm extends StatelessWidget {
         ),
         spacer,
         AppButton(
-          onPressed: () => {},
+          onPressed: () => {
+            Navigator.pushNamed(context, "/home"), // TODO: review
+          },
           text: "Sign Up",
           fullWidth: true,
           // disabled: _emailController.text.isEmpty || _passwordController.text.isEmpty,

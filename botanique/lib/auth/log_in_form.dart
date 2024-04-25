@@ -33,7 +33,9 @@ class LogInForm extends StatelessWidget {
         ),
         spacer,
         AppButton(
-          onPressed: () => {},
+          onPressed: () => {
+            Navigator.pushNamed(context, "/home"),
+          },
           text: "Log In",
           fullWidth: true,
           // disabled: _emailController.text.isEmpty || _passwordController.text.isEmpty,

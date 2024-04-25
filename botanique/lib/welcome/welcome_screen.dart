@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -33,7 +33,9 @@ class WelcomeScreen extends StatelessWidget {
           ),
           spacer,
           ElevatedButton(
-              onPressed: () => {},
+              onPressed: () => {
+                    Navigator.pushNamed(context, "/login"),
+                  },
               style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width / 5,
@@ -41,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
               child: const AppText(
                 text: 'Sign in',
                 fontPercentage: textH4,
-                colour: textLight,
+                colour: TextColors.textLight,
                 fontWeight: FontWeight.bold,
               )),
           spacer,
@@ -50,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
           const AppText(
             text: 'Forgot password?',
             fontPercentage: textSmall,
-            colour: textSecondary,
+            colour: TextColors.textSecondary,
             fontWeight: FontWeight.bold,
           ),
         ],
