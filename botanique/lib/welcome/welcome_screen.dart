@@ -10,7 +10,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: welcomeScreenBackground,
+        backgroundColor: AppColors.welcomeScreenBackground,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -31,7 +31,9 @@ class HomeScreen extends StatelessWidget {
               AppTextField(
                 textFieldController: TextEditingController(),
                 placeholder: "Search for a plant...",
-                icon: const Icon(Icons.search),
+                suffixIcon: const Icon(Icons.search),
+                fillColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(0.3),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,

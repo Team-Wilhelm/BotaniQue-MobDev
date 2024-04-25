@@ -7,28 +7,34 @@ class AppTextField extends StatelessWidget {
     required this.textFieldController,
     required this.placeholder,
     this.textInputType = TextInputType.text,
-    this.icon,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.fillColor = TextColors.textSecondary,
   });
 
   final TextEditingController textFieldController;
   final String placeholder;
   final TextInputType textInputType;
-  final Icon? icon;
+  final Icon? prefixIcon;
+  final Icon? suffixIcon;
+  final Color fillColor;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        prefixIcon: icon,
-        prefixIconColor: TextColors.textSecondary,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
         ),
+        prefixIcon: prefixIcon,
+        prefixIconColor: fillColor,
+        suffixIcon: suffixIcon,
+        suffixIconColor: fillColor,
         hintText: placeholder,
-        hintStyle: const TextStyle(color: TextColors.textSecondary),
+        hintStyle: TextStyle(color: fillColor),
         filled: true,
-        fillColor: TextColors.textSecondary.withOpacity(0.2),
+        fillColor: fillColor.withOpacity(0.2),
         contentPadding:
             const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),

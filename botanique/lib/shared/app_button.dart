@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 enum ButtonType {
   primary,
   secondary,
+  outline,
 }
 
 class AppButton extends StatelessWidget {
@@ -47,6 +48,9 @@ class AppButton extends StatelessWidget {
       case ButtonType.secondary:
         backgroundColor = Theme.of(context).colorScheme.secondary;
         break;
+      case ButtonType.outline:
+        backgroundColor = Colors.transparent;
+        break;
     }
 
     if (disabled) {
@@ -68,6 +72,9 @@ class AppButton extends StatelessWidget {
         break;
       case ButtonType.secondary:
         textColor = TextColors.textDark;
+        break;
+      case ButtonType.outline:
+        textColor = AppColors.primary;
         break;
     }
 

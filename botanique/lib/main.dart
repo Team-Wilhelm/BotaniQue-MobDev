@@ -3,18 +3,25 @@ import 'package:botanique/auth/log_in_screen.dart';
 import 'package:botanique/auth/sign_up_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/settings/settings_screen.dart';
+import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_plant/add_plant_screen.dart';
 import 'utils/app_style.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(BlocProvider(
+    create: (context) => AllPlantsCubit(
+      AllPlantsState.initial(),
+    ),
+    child: const BotaniQueApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BotaniQueApp extends StatelessWidget {
+  const BotaniQueApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: "/welcome",
+      initialRoute: "/plants",
       routes: {
         "/welcome": (context) => WelcomeScreen(),
         "/home": (context) => HomeScreen(),

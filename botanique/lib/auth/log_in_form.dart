@@ -20,14 +20,14 @@ class LogInForm extends StatelessWidget {
         AppTextField(
           textFieldController: _emailController,
           placeholder: "Email",
-          icon: const Icon(Icons.email),
+          prefixIcon: const Icon(Icons.email),
           textInputType: TextInputType.emailAddress,
         ),
         spacer,
         AppTextField(
           textFieldController: _passwordController,
           placeholder: "Password",
-          icon: const Icon(Icons.lock),
+          prefixIcon: const Icon(Icons.lock),
           textInputType:
               TextInputType.visiblePassword, // TODO: toggle when state is added
         ),
