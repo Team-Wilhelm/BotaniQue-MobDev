@@ -9,6 +9,7 @@ class AppNavbar extends StatelessWidget {
       showSelectedLabels: false,
       showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
+      fixedColor: Theme.of(context).colorScheme.secondary,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
