@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
         "/plants": (context) => AllPlantsScreen(),
         "/add_plant": (context) => AddPlantScreen(),
       },
-      home: SafeArea(child: WelcomeScreen()),
     );
   }
 }

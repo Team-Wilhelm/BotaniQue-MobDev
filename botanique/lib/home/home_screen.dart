@@ -12,55 +12,57 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: SingleChildScrollView(
-        padding: getEdgeInsets(context),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              text: "Hi, $name",
-              fontPercentage: TextSizes.h3,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            AppTextField(
-              textFieldController: TextEditingController(),
-              placeholder: "Search for a plant...",
-              icon: const Icon(Icons.search),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText(
-                  text: "These plants need some love",
-                  fontPercentage: TextSizes.h5,
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                NeedSomeLoveRow(),
-                NeedSomeLoveRow(),
-                NeedSomeLoveRow(),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            const AppText(
-              text: "More plants",
-              fontPercentage: TextSizes.h5,
-            ),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: SingleChildScrollView(
+          padding: getEdgeInsets(context),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                text: "Hi, $name",
+                fontPercentage: TextSizes.h3,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              AppTextField(
+                textFieldController: TextEditingController(),
+                placeholder: "Search for a plant...",
+                icon: const Icon(Icons.search),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    text: "These plants need some love",
+                    fontPercentage: TextSizes.h5,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  NeedSomeLoveRow(),
+                  NeedSomeLoveRow(),
+                  NeedSomeLoveRow(),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              const AppText(
+                text: "More plants",
+                fontPercentage: TextSizes.h5,
+              ),
+            ],
+          ),
         ),
+        bottomNavigationBar: const AppNavbar(),
       ),
-      bottomNavigationBar: const AppNavbar(),
     );
   }
 

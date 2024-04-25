@@ -8,46 +8,49 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Padding(
-        padding: getEdgeInsets(context),
-        child: Stack(
-          children: [
-            const Align(
-              alignment: Alignment.topCenter,
-              child: AppLogo(),
-            ),
-            LogInForm(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const AppText(text: "Don't have an account?"),
-                  TextButton(
-                    onPressed: () => {
-                      Navigator.pop(context),
-                      Navigator.pushNamed(context, "/signup"),
-                    },
-                    style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all(Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.1)),
-                    ),
-                    child: AppText(
-                      text: "Sign Up",
-                      colour: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Padding(
+          padding: getEdgeInsets(context),
+          child: Stack(
+            children: [
+              const Align(
+                alignment: Alignment.topCenter,
+                child: AppLogo(),
               ),
-            )
-          ],
+              LogInForm(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const AppText(text: "Don't have an account?"),
+                    TextButton(
+                      onPressed: () => {
+                        Navigator.pop(context),
+                        Navigator.pushNamed(context, "/signup"),
+                      },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(
+                            Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.1)),
+                      ),
+                      child: AppText(
+                        text: "Sign Up",
+                        colour: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

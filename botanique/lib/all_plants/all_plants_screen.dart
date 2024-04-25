@@ -5,8 +5,12 @@ class AllPlantsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: const Text("All Plants"),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: const Text("All Plants"),
+        ),
+      ),
     );
   }
 }
