@@ -37,7 +37,7 @@ class BotaniQueApp extends StatelessWidget {
         "/signup": (context) => SignUpScreen(),
         "/settings": (context) => SettingsScreen(),
         "/plants": (context) => AllPlantsScreen(),
-        "/add_plant": (context) => AddPlantScreen(),
+        "/add-plant": (context) => AddPlantScreen(),
       },
     );
   }

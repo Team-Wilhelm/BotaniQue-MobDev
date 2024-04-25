@@ -14,9 +14,7 @@ class _AppNavbarState extends State<AppNavbar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       onTap: (index) {
-        setState(() {
-          _selectedIndex = index;
-        });
+        onItemTapped(index);
       },
       showSelectedLabels: false,
       showUnselectedLabels: false,
@@ -46,5 +44,29 @@ class _AppNavbarState extends State<AppNavbar> {
         ),
       ],
     );
+  }
+
+  void onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, "/home");
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, "/plants");
+        break;
+      case 2:
+        Navigator.pushNamed(context, "/add-plant");
+        break;
+      case 3:
+        Navigator.pushReplacementNamed(context, "/scan-plant");
+        break;
+      case 4:
+        Navigator.pushReplacementNamed(context, "/settings");
+        break;
+    }
   }
 }
