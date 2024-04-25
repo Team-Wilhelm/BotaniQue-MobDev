@@ -1,3 +1,4 @@
+import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/utils/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -12,9 +13,9 @@ class WelcomeScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Welcome to BotaniQue', style: styleText(textDark, textH1, context)),
-          Text('Your personal plant whisperer',
-              style: styleText(textDark, textH4, context)),
+          const AppText(text: 'Welcome to BotaniQue', fontPercentage: textH1),
+          const AppText(
+              text: 'Your personal plant whisperer', fontPercentage: textH4),
           spacer,
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -28,25 +29,15 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () => {},
               style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 6, vertical: 8)),
-              child: Text('Sign in', style: styleText(textLight, textH2, context))),
+                      horizontal: MediaQuery.of(context).size.width / 6,
+                      vertical: 8)),
+              child: const AppText(text: 'Sign in', fontPercentage: textH2)),
           spacer,
-          Text(
-            'Create an account',
-            style: styleText(textDark, textH3, context),
-          ),
+          const AppText(text: 'Create an account', fontPercentage: textH3),
           spacer,
-          Text(
-            'Forgot password?',
-            style: styleText(texSecondary, textSmall, context),
-          )
+          const AppText(text: 'Forgot password?', fontPercentage: textSmall),
         ],
       ),
     );
-  }
-
-  TextStyle styleText(Color colour, double fontPercentage, BuildContext context) {
-    var fontSize = MediaQuery.of(context).size.width / fontPercentage;
-    return TextStyle(color: colour, fontSize: fontSize, fontWeight: FontWeight.bold);
   }
 }

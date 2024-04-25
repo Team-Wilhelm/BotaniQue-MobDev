@@ -1,5 +1,6 @@
+import 'package:botanique/login/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:botanique/welcome/welcome_screen.dart';
+
 import 'utils/app_style.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: SafeArea(child: WelcomeScreen()),
+      home: SafeArea(child: LoginScreen()),
     );
   }
 }
