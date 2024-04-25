@@ -14,7 +14,7 @@ class AppButton extends StatelessWidget {
     required this.text,
     this.buttonType = ButtonType.primary,
     this.disabled = false,
-    this.fontPercentage = textSmall,
+    this.fontPercentage = TextSizes.regular,
     this.fullWidth = false,
   });
 

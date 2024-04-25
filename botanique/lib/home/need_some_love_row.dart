@@ -15,7 +15,8 @@ class NeedSomeLoveRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
+          bottom: BorderSide(
+              color: Theme.of(context).colorScheme.primary, width: 2),
         ),
       ),
       child: Row(
@@ -32,14 +33,14 @@ class NeedSomeLoveRow extends StatelessWidget {
             children: [
               AppText(
                 text: plantName,
-                fontPercentage: textH5,
+                fontPercentage: TextSizes.h5,
               ),
               AppText(text: plantNeed),
             ],
           ),
           AppText(
             text: plantMood,
-            fontPercentage: textH2,
+            fontPercentage: TextSizes.h2,
           ),
         ],
       ),

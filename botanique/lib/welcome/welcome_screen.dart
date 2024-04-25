@@ -9,18 +9,18 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: welcomeScreenBackground,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const AppText(
             text: 'Welcome to BotaniQue',
-            fontPercentage: textH1,
+            fontPercentage: TextSizes.h1,
             fontWeight: FontWeight.bold,
           ),
           const AppText(
             text: 'Your personal plant whisperer',
-            fontPercentage: textH4,
+            fontPercentage: TextSizes.h4,
             fontWeight: FontWeight.bold,
           ),
           spacer,
@@ -42,16 +42,17 @@ class WelcomeScreen extends StatelessWidget {
                       vertical: 8)),
               child: const AppText(
                 text: 'Sign in',
-                fontPercentage: textH4,
+                fontPercentage: TextSizes.h4,
                 colour: TextColors.textLight,
                 fontWeight: FontWeight.bold,
               )),
           spacer,
-          const AppText(text: 'Create an account', fontPercentage: textH5),
+          const AppText(
+              text: 'Create an account', fontPercentage: TextSizes.h5),
           spacer,
           const AppText(
             text: 'Forgot password?',
-            fontPercentage: textSmall,
+            fontPercentage: TextSizes.regular,
             colour: TextColors.textSecondary,
             fontWeight: FontWeight.bold,
           ),
