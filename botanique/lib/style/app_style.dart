@@ -16,14 +16,16 @@ class TextSizes {
   static const double regular = 24;
 }
 
+// TODO: colour scheme
 class AppColors {
   static const Color primary = Color.fromRGBO(32, 64, 6, 1);
-  static const Color background = Color(0xFFF7F4F3);
+  static const Color background = Color(0xFFfdf1e3); // white: Color(0xFFF7F4F3);
   static const Color secondary = Color.fromRGBO(98, 159, 51, 1);
   static const Color accent = Color.fromRGBO(46, 64, 87, 100);
   static const Color welcomeScreenBackground =
       Color.fromRGBO(255, 255, 243, 0.923);
-  static const Color cardBackground = Color(0xFFf0f9f6);
+  static const Color cardBackground =
+      const Color(0xFFfadbb8); // white: Color(0xFFf0f9f6);
 }
 
 const defaultPadding = EdgeInsets.all(16);

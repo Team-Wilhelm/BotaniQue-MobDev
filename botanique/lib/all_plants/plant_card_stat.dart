@@ -25,10 +25,6 @@ class PlantCardStat extends StatelessWidget {
             width: _imageSize,
             height: _imageSize,
           ),
-          /*AppText(
-            text: statValue,
-            fontSize: 30,
-          ),*/
         ],
       ),
     );

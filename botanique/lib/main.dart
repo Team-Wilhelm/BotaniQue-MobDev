@@ -1,5 +1,5 @@
 import 'package:botanique/all_plants/all_plants_screen.dart';
-import 'package:botanique/all_plants/plant_detail_screen.dart';
+import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
 import 'package:botanique/auth/log_in_screen.dart';
 import 'package:botanique/auth/sign_up_screen.dart';
 import 'package:botanique/home/home_screen.dart';
