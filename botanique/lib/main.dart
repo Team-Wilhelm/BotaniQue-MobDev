@@ -13,10 +13,14 @@ import 'add_plant/add_plant_screen.dart';
 import 'style/app_style.dart';
 
 void main() {
-  runApp(BlocProvider(
-    create: (context) => AllPlantsCubit(
-      AllPlantsState.initial(),
-    ),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<AllPlantsCubit>(
+        create: (context) => AllPlantsCubit(
+          AllPlantsState.initial(),
+        ),
+      ),
+    ],
     child: const BotaniQueApp(),
   ));
 }
@@ -30,7 +34,7 @@ class BotaniQueApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: "/plant-detail",
+      initialRoute: "/welcome",
       routes: {
         "/welcome": (context) => WelcomeScreen(),
         "/home": (context) => HomeScreen(),

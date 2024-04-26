@@ -14,9 +14,18 @@ class PlantDetailScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const PlantDetailTopBar(),
-          const SizedBox(height: 20),
-          Image.network(NetworkConstants.plantPlaceholder),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: const DecorationImage(
+                image: NetworkImage(NetworkConstants.plantPlaceholder),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(

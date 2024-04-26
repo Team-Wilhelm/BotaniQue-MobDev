@@ -34,15 +34,14 @@ class WelcomeScreen extends StatelessWidget {
             ),
             spacer,
             ElevatedButton(
-                onPressed: () => {
-                      Navigator.pushNamed(context, "/login"),
-                    },
+                onPressed: () =>
+                    Navigator.of(context).pushReplacementNamed("/login"),
                 style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 5,
                         vertical: 8)),
                 child: const AppText(
-                  text: 'Sign in',
+                  text: 'Log In',
                   fontSize: TextSizes.h4,
                   colour: TextColors.textLight,
                   fontWeight: FontWeight.bold,
