@@ -5,7 +5,7 @@ class AppText extends StatelessWidget {
   const AppText({
     super.key,
     required this.text,
-    this.fontPercentage = TextSizes.regular,
+    this.fontSize = TextSizes.regular,
     this.colour = TextColors.textDark,
     this.fontWeight = FontWeight.normal,
     this.decoration = TextDecoration.none,
@@ -13,7 +13,7 @@ class AppText extends StatelessWidget {
 
   final String text;
   final Color colour;
-  final double fontPercentage;
+  final double fontSize;
   final FontWeight fontWeight;
   final TextDecoration decoration;
 
@@ -23,7 +23,7 @@ class AppText extends StatelessWidget {
       text,
       style: TextStyle(
         color: colour,
-        fontSize: MediaQuery.of(context).size.width / fontPercentage,
+        fontSize: MediaQuery.of(context).size.width / fontSize,
         fontWeight: fontWeight,
         decoration: decoration,
       ),

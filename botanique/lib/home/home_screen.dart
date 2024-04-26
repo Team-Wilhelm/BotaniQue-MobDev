@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               AppText(
                 text: "Hi, $name",
-                fontPercentage: TextSizes.h3,
+                fontSize: TextSizes.h3,
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(
@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   AppText(
                     text: "These plants need some love",
-                    fontPercentage: TextSizes.h5,
+                    fontSize: TextSizes.h5,
                   ),
                   SizedBox(
                     height: 8,
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const AppText(
                 text: "More plants",
-                fontPercentage: TextSizes.h5,
+                fontSize: TextSizes.h5,
               ),
             ],
           ),

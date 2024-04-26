@@ -1,6 +1,8 @@
 import 'package:botanique/all_plants/category_selection.dart';
 import 'package:botanique/all_plants/plant_card.dart';
 import 'package:botanique/shared/app_navbar.dart';
+import 'package:botanique/shared/app_text.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
 class AllPlantsScreen extends StatelessWidget {
@@ -14,20 +16,23 @@ class AllPlantsScreen extends StatelessWidget {
         body: Padding(
           padding: getEdgeInsets(context),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const AppText(
+                text: "My Plants",
+                fontSize: TextSizes.h2,
+                fontWeight: FontWeight.bold,
+              ),
+              _getSpacer(context),
               const CategorySelection(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              _getSpacer(context),
               Expanded(
-                child: GridView.builder(
+                child: ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8),
                   scrollDirection: Axis.vertical,
                   itemCount: 10,
                   physics: const BouncingScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 1 / 1.25,
-                  ),
                   itemBuilder: ((context, index) => const PlantCard()),
                 ),
               ),
@@ -41,9 +46,17 @@ class AllPlantsScreen extends StatelessWidget {
 
   EdgeInsets getEdgeInsets(BuildContext context) {
     double sidePadding = MediaQuery.of(context).size.width * 0.05;
-    double topAndBottomPadding = MediaQuery.of(context).size.height * 0.02;
+    double topPadding = MediaQuery.of(context).size.height * 0.05;
 
-    return EdgeInsets.symmetric(
-        horizontal: sidePadding, vertical: topAndBottomPadding);
+    return EdgeInsets.fromLTRB(
+      sidePadding,
+      topPadding,
+      sidePadding,
+      0,
+    );
+  }
+
+  Widget _getSpacer(BuildContext context) {
+    return SizedBox(height: MediaQuery.of(context).size.height * 0.02);
   }
 }

@@ -1,6 +1,9 @@
 class AssetConstants {
-  static const String logo = 'assets/images/logo.png';
-  static const String humidity = 'assets/images/humidity.png';
-  static const String light = 'assets/images/sun.png';
-  static const String soilMoisture = 'assets/images/dew.png';
+  static const String _assetPath = 'assets/images/';
+  static const String _minimalisticAssetPath = '${_assetPath}minimalistic/';
+
+  static const String logo = '${_assetPath}logo.png';
+  static const String humidity = '${_minimalisticAssetPath}humidity.png';
+  static const String light = '${_minimalisticAssetPath}sun.png';
+  static const String soilMoisture = '${_minimalisticAssetPath}moisture.png';
 }

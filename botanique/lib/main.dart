@@ -1,4 +1,5 @@
 import 'package:botanique/all_plants/all_plants_screen.dart';
+import 'package:botanique/all_plants/plant_detail_screen.dart';
 import 'package:botanique/auth/log_in_screen.dart';
 import 'package:botanique/auth/sign_up_screen.dart';
 import 'package:botanique/home/home_screen.dart';
@@ -29,7 +30,7 @@ class BotaniQueApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: "/plants",
+      initialRoute: "/plant-detail",
       routes: {
         "/welcome": (context) => WelcomeScreen(),
         "/home": (context) => HomeScreen(),
@@ -38,6 +39,7 @@ class BotaniQueApp extends StatelessWidget {
         "/settings": (context) => SettingsScreen(),
         "/plants": (context) => AllPlantsScreen(),
         "/add-plant": (context) => AddPlantScreen(),
+        "/plant-detail": (context) => PlantDetailScreen(),
       },
     );
   }

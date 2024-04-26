@@ -16,12 +16,12 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             const AppText(
               text: 'Welcome to BotaniQue',
-              fontPercentage: TextSizes.h1,
+              fontSize: TextSizes.h1,
               fontWeight: FontWeight.bold,
             ),
             const AppText(
               text: 'Your personal plant whisperer',
-              fontPercentage: TextSizes.h4,
+              fontSize: TextSizes.h4,
               fontWeight: FontWeight.bold,
             ),
             spacer,
@@ -43,17 +43,16 @@ class WelcomeScreen extends StatelessWidget {
                         vertical: 8)),
                 child: const AppText(
                   text: 'Sign in',
-                  fontPercentage: TextSizes.h4,
+                  fontSize: TextSizes.h4,
                   colour: TextColors.textLight,
                   fontWeight: FontWeight.bold,
                 )),
             spacer,
-            const AppText(
-                text: 'Create an account', fontPercentage: TextSizes.h5),
+            const AppText(text: 'Create an account', fontSize: TextSizes.h5),
             spacer,
             const AppText(
               text: 'Forgot password?',
-              fontPercentage: TextSizes.regular,
+              fontSize: TextSizes.regular,
               colour: TextColors.textSecondary,
               fontWeight: FontWeight.bold,
             ),

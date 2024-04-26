@@ -23,7 +23,7 @@ class AppColors {
   static const Color accent = Color.fromRGBO(46, 64, 87, 100);
   static const Color welcomeScreenBackground =
       Color.fromRGBO(255, 255, 243, 0.923);
-  static const Color cardBackground = Color(0xFFfcfdfc);
+  static const Color cardBackground = Color(0xFFf0f9f6);
 }
 
 const defaultPadding = EdgeInsets.all(16);

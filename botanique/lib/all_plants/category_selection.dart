@@ -40,6 +40,7 @@ class CategorySelection extends StatelessWidget {
                         buttonType: snapshot.selectedCategory == category
                             ? ButtonType.primary
                             : ButtonType.outline,
+                        buttonShape: ButtonShape.rounded,
                       ),
                     ),
                   )

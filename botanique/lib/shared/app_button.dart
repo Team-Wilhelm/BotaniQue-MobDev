@@ -8,12 +8,18 @@ enum ButtonType {
   outline,
 }
 
+enum ButtonShape {
+  square,
+  rounded,
+}
+
 class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
     required this.onPressed,
     required this.text,
     this.buttonType = ButtonType.primary,
+    this.buttonShape = ButtonShape.square,
     this.disabled = false,
     this.fontPercentage = TextSizes.regular,
     this.fullWidth = false,
@@ -23,6 +29,7 @@ class AppButton extends StatelessWidget {
   final String text;
   final bool disabled;
   final ButtonType buttonType;
+  final ButtonShape buttonShape;
   final double fontPercentage;
   final bool fullWidth;
 
@@ -35,7 +42,7 @@ class AppButton extends StatelessWidget {
         style: styleButton(context, buttonType),
         child: AppText(
           text: text,
-          fontPercentage: fontPercentage,
+          fontSize: fontPercentage,
           colour: textColor,
         ),
       ),
@@ -64,7 +71,7 @@ class AppButton extends StatelessWidget {
       backgroundColor: backgroundColor,
       elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: borderRadius,
         side: buttonType == ButtonType.outline
             ? BorderSide(color: Theme.of(context).colorScheme.primary)
             : BorderSide.none,
@@ -91,5 +98,14 @@ class AppButton extends StatelessWidget {
     }
 
     return textColor;
+  }
+
+  BorderRadius get borderRadius {
+    switch (buttonShape) {
+      case ButtonShape.square:
+        return BorderRadius.circular(6);
+      case ButtonShape.rounded:
+        return BorderRadius.circular(20);
+    }
   }
 }

@@ -9,41 +9,60 @@ class PlantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, "/plant-detail");
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(8),
+          /*boxShadow: [
+            BoxShadow(
+              color: TextColors.textSecondary.withOpacity(0.2),
+              blurRadius: 3,
+              offset: const Offset(3, 3),
+            ),
+          ],
+          */
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const AppText(
+                    text: "Plant Name",
+                    fontSize: TextSizes.h4,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        PlantCardStat(
+                            statValue: "67%",
+                            statImage: AssetConstants.humidity),
+                        _getSpacer(),
+                        PlantCardStat(
+                            statValue: "20%", statImage: AssetConstants.light),
+                        _getSpacer(),
+                        PlantCardStat(
+                            statValue: "89%",
+                            statImage: AssetConstants.soilMoisture),
+                      ]),
+                ],
+              ),
               getPlantImage(context),
-              const SizedBox(height: 8),
-              const AppText(text: "Plant Name"),
             ],
           ),
-          const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                PlantCardStat(
-                    statValue: "67%", statImage: AssetConstants.humidity),
-                PlantCardStat(
-                    statValue: "20%", statImage: AssetConstants.light),
-                PlantCardStat(
-                    statValue: "89%", statImage: AssetConstants.soilMoisture),
-              ]),
-        ],
+        ),
       ),
     );
   }
@@ -51,18 +70,20 @@ class PlantCard extends StatelessWidget {
   Container getPlantImage(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.width * 0.4,
+      width: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.accent,
-          width: 1,
-        ),
         borderRadius: BorderRadius.circular(8),
         image: const DecorationImage(
           image: AssetImage(AssetConstants.logo),
           fit: BoxFit.cover,
         ),
       ),
+    );
+  }
+
+  Widget _getSpacer() {
+    return const SizedBox(
+      width: 8,
     );
   }
 }
