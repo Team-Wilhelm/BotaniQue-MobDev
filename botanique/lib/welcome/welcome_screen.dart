@@ -1,4 +1,5 @@
-import 'package:botanique/utils/app_style.dart';
+import 'package:botanique/shared/app_text.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -7,46 +8,56 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Welcome to BotaniQue', style: styleText(textDark, textH1, context)),
-          Text('Your personal plant whisperer',
-              style: styleText(textDark, textH4, context)),
-          spacer,
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width,
-            child: Lottie.network(
-                'https://lottie.host/bb24e446-457b-4a11-9ee1-238202f7b46d/nZCAZvKzWr.json',
-                repeat: false),
-          ),
-          spacer,
-          ElevatedButton(
-              onPressed: () => {},
-              style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 6, vertical: 8)),
-              child: Text('Sign in', style: styleText(textLight, textH2, context))),
-          spacer,
-          Text(
-            'Create an account',
-            style: styleText(textDark, textH3, context),
-          ),
-          spacer,
-          Text(
-            'Forgot password?',
-            style: styleText(texSecondary, textSmall, context),
-          )
-        ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.welcomeScreenBackground,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const AppText(
+              text: 'Welcome to BotaniQue',
+              fontSize: TextSizes.h1,
+              fontWeight: FontWeight.bold,
+            ),
+            const AppText(
+              text: 'Your personal plant whisperer',
+              fontSize: TextSizes.h4,
+              fontWeight: FontWeight.bold,
+            ),
+            spacer,
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width,
+              child: Lottie.network(
+                  'https://lottie.host/bb24e446-457b-4a11-9ee1-238202f7b46d/nZCAZvKzWr.json',
+                  repeat: false),
+            ),
+            spacer,
+            ElevatedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushReplacementNamed("/login"),
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 5,
+                        vertical: 8)),
+                child: const AppText(
+                  text: 'Log In',
+                  fontSize: TextSizes.h4,
+                  colour: TextColors.textLight,
+                  fontWeight: FontWeight.bold,
+                )),
+            spacer,
+            const AppText(text: 'Create an account', fontSize: TextSizes.h5),
+            spacer,
+            const AppText(
+              text: 'Forgot password?',
+              fontSize: TextSizes.regular,
+              colour: TextColors.textSecondary,
+              fontWeight: FontWeight.bold,
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  TextStyle styleText(Color colour, double fontPercentage, BuildContext context) {
-    var fontSize = MediaQuery.of(context).size.width / fontPercentage;
-    return TextStyle(color: colour, fontSize: fontSize, fontWeight: FontWeight.bold);
   }
 }
