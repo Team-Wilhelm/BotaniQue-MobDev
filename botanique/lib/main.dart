@@ -1,11 +1,9 @@
 import 'package:botanique/all_plants/all_plants_screen.dart';
-import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
-import 'package:botanique/auth/log_in_screen.dart';
-import 'package:botanique/auth/sign_up_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/settings/settings_screen.dart';
+import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
-import 'package:botanique/welcome/welcome_screen.dart';
+import 'package:botanique/state/current_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,31 +18,54 @@ void main() {
           AllPlantsState.initial(),
         ),
       ),
+      BlocProvider<CurrentPageCubit>(
+        create: (context) => CurrentPageCubit(),
+      ),
     ],
-    child: const BotaniQueApp(),
+    child: BotaniQueApp(),
   ));
 }
 
 class BotaniQueApp extends StatelessWidget {
-  const BotaniQueApp({super.key});
+  BotaniQueApp({
+    super.key,
+  });
+
+  final _pageController = PageController();
+
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const AllPlantsScreen(),
+    const AddPlantScreen(),
+    const SettingsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'BotaniQue',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: "/welcome",
-      routes: {
-        "/welcome": (context) => WelcomeScreen(),
-        "/home": (context) => HomeScreen(),
-        "/login": (context) => LogInScreen(),
-        "/signup": (context) => SignUpScreen(),
-        "/settings": (context) => SettingsScreen(),
-        "/plants": (context) => AllPlantsScreen(),
-        "/add-plant": (context) => AddPlantScreen(),
-        "/plant-detail": (context) => PlantDetailScreen(),
-      },
+      home: Scaffold(
+        body: BlocConsumer<CurrentPageCubit, int>(
+            listener: (context, state) => {
+                  _pageController.animateToPage(
+                    state,
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                  )
+                },
+            builder: (context, state) {
+              return PageView(
+                controller: _pageController,
+                onPageChanged: (index) {
+                  context.read<CurrentPageCubit>().changePage(index);
+                },
+                children: _screens,
+              );
+            }),
+        bottomNavigationBar: const AppNavbar(),
+      ),
     );
   }
 }

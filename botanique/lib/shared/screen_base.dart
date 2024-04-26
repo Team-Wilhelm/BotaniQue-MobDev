@@ -23,7 +23,7 @@ class ScreenBase extends StatelessWidget {
           ),
           child: child,
         ),
-        bottomNavigationBar: const AppNavbar(),
+        // bottomNavigationBar: const AppNavbar(),
       ),
     );
   }
