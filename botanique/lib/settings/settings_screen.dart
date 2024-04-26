@@ -1,3 +1,4 @@
+import 'package:botanique/shared/screen_base.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -5,13 +6,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Center(
-          child: const Text("Settings"),
-        ),
-      ),
+    return ScreenBase(
+      child: const Text("Settings"),
     );
   }
 }

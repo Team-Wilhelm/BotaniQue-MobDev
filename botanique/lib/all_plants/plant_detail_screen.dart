@@ -1,3 +1,4 @@
+import 'package:botanique/shared/screen_base.dart';
 import 'package:flutter/material.dart';
 
 class PlantDetailScreen extends StatelessWidget {
@@ -5,6 +6,12 @@ class PlantDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ScreenBase(
+      child: Column(
+        children: [
+          const Text("Plant Detail Screen"),
+        ],
+      ),
+    );
   }
 }
