@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_plant/add_plant_screen.dart';
+import 'state/camera_access_bloc.dart';
 import 'style/app_style.dart';
 
 void main() {
@@ -20,6 +21,9 @@ void main() {
       ),
       BlocProvider<CurrentPageCubit>(
         create: (context) => CurrentPageCubit(),
+      ),
+      BlocProvider<CameraAccessBloc>(
+        create: (context) => CameraAccessBloc(),
       ),
     ],
     child: BotaniQueApp(),

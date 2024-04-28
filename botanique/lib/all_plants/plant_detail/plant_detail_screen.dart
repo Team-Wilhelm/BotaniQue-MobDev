@@ -1,3 +1,4 @@
+import 'package:botanique/shared/app_image_preview.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/style/asset_constants.dart';
@@ -18,15 +19,8 @@ class PlantDetailScreen extends StatelessWidget {
             title: 'Plant Name',
           ),
           const SizedBox(height: 16),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: const DecorationImage(
-                image: NetworkImage(NetworkConstants.plantPlaceholder),
-                fit: BoxFit.cover,
-              ),
-            ),
+          const AppImagePreview(
+            imageUrl: NetworkConstants.plantPlaceholder,
           ),
           const SizedBox(height: 16),
           Container(

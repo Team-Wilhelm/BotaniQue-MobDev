@@ -1,9 +1,14 @@
+import 'package:botanique/shared/app_image_preview.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:botanique/style/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../state/camera_access_bloc.dart';
 
 class AddPlantScreen extends StatefulWidget {
   const AddPlantScreen({super.key});
@@ -20,17 +25,13 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   void initState() {
     steps = [
       AppStep(
-        title: "Step 1",
+        title: "Let's start simple!",
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const AppText(
-              text: "Let's start simple!",
+              text: "What do you call your green friend?",
             ),
-            _getSpacer(),
-            const AppText(
-                text: "What do you call your green friend?",
-                fontSize: FontSizes.h6),
             _getSpacer(),
             AppTextField(
               textFieldController: _plantNameController,
@@ -60,11 +61,27 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         ),
       ),
       AppStep(
-        title: "Step 2",
-        content: Column(),
+        title: "Time to put a face to that name!",
+        content: Column(
+          children: [
+            const AppText(text: "Add a photo of your plant"),
+            const AppText(
+              text: "This step is optional",
+              fontSize: FontSizes.tiny,
+            ),
+            _getSpacer(),
+            AppImagePreview(
+              imageUrl: NetworkConstants.plantPlaceholder,
+              hasCameraOverlay: true,
+              onTap: () {
+                context.read<CameraAccessBloc>().add(CameraAccessRequested());
+              },
+            ),
+          ],
+        ),
       ),
       AppStep(
-        title: "Step 3",
+        title: "When does your plant feels its best?",
         content: Column(),
       ),
     ];
@@ -90,6 +107,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
     final plantName = _plantNameController.text == ""
         ? "your plant"
         : _plantNameController.text;
-    return "Does $plantName belong to a collection?";
+    return "Does $plantName belong to any collections?";
   }
 }

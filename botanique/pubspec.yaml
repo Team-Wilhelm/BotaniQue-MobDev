@@ -39,6 +39,7 @@ dependencies:
   freezed: ^2.5.2
   equatable: ^2.0.5
   flutter_animate: ^4.5.0
+  camera: ^0.10.5+9
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ flutter:
     - assets/images/minimalistic/humidity.png
     - assets/images/minimalistic/sun.png
     - assets/images/minimalistic/temperature.png
+    - assets/images/minimalistic/camera.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
