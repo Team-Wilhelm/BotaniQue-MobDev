@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../shared/app_text.dart';
-import '../../style/app_style.dart';
+import '../style/app_style.dart';
+import 'app_text.dart';
 
-class PlantDetailTopBar extends StatelessWidget {
-  const PlantDetailTopBar({super.key});
+class TopBar extends StatelessWidget {
+  const TopBar({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +26,9 @@ class PlantDetailTopBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        const AppText(
-          text: "Plant Detail",
-          fontSize: TextSizes.h5,
+        AppText(
+          text: title,
+          fontSize: FontSizes.h5,
           fontWeight: FontWeight.bold,
         ),
         IconButton(

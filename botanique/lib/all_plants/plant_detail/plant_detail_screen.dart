@@ -1,8 +1,9 @@
-import 'package:botanique/all_plants/plant_detail/detail_top_bar.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/style/asset_constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../shared/top_bar.dart';
 
 class PlantDetailScreen extends StatelessWidget {
   const PlantDetailScreen({super.key});
@@ -13,7 +14,9 @@ class PlantDetailScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const PlantDetailTopBar(),
+          const TopBar(
+            title: 'Plant Name',
+          ),
           const SizedBox(height: 16),
           Container(
             height: MediaQuery.of(context).size.height * 0.3,

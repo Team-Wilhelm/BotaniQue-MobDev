@@ -5,7 +5,7 @@ class AppText extends StatelessWidget {
   const AppText({
     super.key,
     required this.text,
-    this.fontSize = TextSizes.regular,
+    this.fontSize = FontSizes.regular,
     this.colour = TextColors.textDark,
     this.fontWeight = FontWeight.normal,
     this.decoration = TextDecoration.none,

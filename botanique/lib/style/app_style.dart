@@ -7,19 +7,23 @@ class TextColors {
 }
 
 // Numbers to divide the MediaQuery.of(context).size.width with
-class TextSizes {
+class FontSizes {
   static const double h1 = 13;
   static const double h2 = 14;
   static const double h3 = 16;
   static const double h4 = 18;
   static const double h5 = 20;
+  static const double h6 = 22;
   static const double regular = 24;
+  static const double small = 30;
+  static const double tiny = 34;
 }
 
 // TODO: colour scheme
 class AppColors {
   static const Color primary = Color.fromRGBO(32, 64, 6, 1);
-  static const Color background = Color(0xFFfdf1e3); // white: Color(0xFFF7F4F3);
+  static const Color background =
+      Color(0xFFfdf1e3); // white: Color(0xFFF7F4F3);
   static const Color secondary = Color.fromRGBO(98, 159, 51, 1);
   static const Color accent = Color.fromRGBO(46, 64, 87, 100);
   static const Color welcomeScreenBackground =
@@ -50,7 +54,7 @@ final appTheme = ThemeData.light().copyWith(
     backgroundColor: AppColors.background,
     iconTheme: IconThemeData(color: TextColors.textDark),
     titleTextStyle:
-        TextStyle(color: TextColors.textDark, fontSize: TextSizes.h1),
+        TextStyle(color: TextColors.textDark, fontSize: FontSizes.h1),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

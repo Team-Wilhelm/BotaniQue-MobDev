@@ -33,14 +33,14 @@ class NeedSomeLoveRow extends StatelessWidget {
             children: [
               AppText(
                 text: plantName,
-                fontSize: TextSizes.h5,
+                fontSize: FontSizes.h5,
               ),
               AppText(text: plantNeed),
             ],
           ),
           AppText(
             text: plantMood,
-            fontSize: TextSizes.h2,
+            fontSize: FontSizes.h2,
           ),
         ],
       ),
