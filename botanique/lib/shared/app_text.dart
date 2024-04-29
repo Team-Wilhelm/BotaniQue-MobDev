@@ -9,6 +9,7 @@ class AppText extends StatelessWidget {
     this.colour = TextColors.textDark,
     this.fontWeight = FontWeight.normal,
     this.decoration = TextDecoration.none,
+    this.textAlign = TextAlign.left,
   });
 
   final String text;
@@ -16,11 +17,13 @@ class AppText extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final TextDecoration decoration;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      textAlign: textAlign,
       style: TextStyle(
         color: colour,
         fontSize: MediaQuery.of(context).size.width / fontSize,

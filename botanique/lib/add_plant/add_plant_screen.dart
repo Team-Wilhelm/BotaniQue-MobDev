@@ -6,7 +6,6 @@ import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../shared/app_button.dart';
 import '../shared/app_image_preview.dart';
 import '../state/camera_access_bloc.dart';
 import '../style/asset_constants.dart';
@@ -100,52 +99,69 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
     return AppStep(
       title: "Time to put a face to that name!",
       content: BlocBuilder<CameraAccessBloc, CameraState>(
-          builder: (context, snapshot) {
-        if (snapshot is PictureSelected) {
-          return Column(
-            children: [
-              const AppText(text: "Here's your plant!"),
-              _getSpacer(),
-              AppImagePreview(
-                imageUrl: snapshot.image.path,
-                hasCameraOverlay: false,
-                imageType: ImageType.file,
-              ),
-              const AppText(
-                text:
-                    "You can always choose a different photo if you're not too happy with it",
-                fontSize: FontSizes.tiny,
-              ),
-              _getSpacer(),
-              AppButton(
-                text: "Try again",
-                onPressed: () {
-                  showChoiceDialog(context: context);
-                },
-              ),
-            ],
-          );
-        }
-
-        return Column(
-          children: [
-            const AppText(text: "Add a photo of your plant"),
-            const AppText(
-              text: "This step is optional",
-              fontSize: FontSizes.tiny,
-            ),
-            _getSpacer(),
-            AppImagePreview(
-              imageUrl: NetworkConstants.plantPlaceholder,
-              hasCameraOverlay: true,
-              onTap: () {
-                showChoiceDialog(context: context);
-              },
-            ),
-          ],
-        );
-      }),
+        builder: (context, snapshot) {
+          if (snapshot is PictureSelected) {
+            return Column(
+              children: [
+                const AppText(text: "Here's your plant!"),
+                _getSpacer(),
+                AppImagePreview(
+                  imageUrl: snapshot.image.path,
+                  hasCameraOverlay: false,
+                  imageType: ImageType.file,
+                ),
+                _getSpacer(),
+                const AppText(
+                  text: "Wanna try again? Click on the image!",
+                  fontSize: FontSizes.tiny,
+                ),
+              ],
+            );
+          } else {
+            return Column(
+              children: [
+                AppText(text: _getNoPictureTitle(snapshot)),
+                AppText(
+                  text: _getNoPictureSubtitle(snapshot),
+                  fontSize: FontSizes.tiny,
+                ),
+                _getSpacer(),
+                AppImagePreview(
+                  imageUrl: NetworkConstants.plantPlaceholder,
+                  hasCameraOverlay: snapshot is InitialNoPictureSelected,
+                  onTap: () {
+                    showChoiceDialog(context: context);
+                  },
+                ),
+                if (snapshot is NoPictureSelected) ...[
+                  _getSpacer(),
+                  const AppText(
+                    text: "Wanna try again? Click on the image!",
+                    fontSize: FontSizes.tiny,
+                  ),
+                ],
+              ],
+            );
+          }
+        },
+      ),
     );
+  }
+
+  String _getNoPictureTitle(CameraState snapshot) {
+    if (snapshot is InitialNoPictureSelected) {
+      return "Add a photo of your plant";
+    } else {
+      return "We couldn't get a photo of your plant😿";
+    }
+  }
+
+  String _getNoPictureSubtitle(CameraState snapshot) {
+    if (snapshot is InitialNoPictureSelected) {
+      return "This step is optional";
+    } else {
+      return "That's okay though, we can use this one instead!";
+    }
   }
 
   Future<void> showChoiceDialog({required BuildContext context}) async {
