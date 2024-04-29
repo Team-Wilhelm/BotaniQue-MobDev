@@ -3,7 +3,6 @@ import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';
 import 'package:botanique/style/app_style.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -102,27 +101,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
       title: "Time to put a face to that name!",
       content: BlocBuilder<CameraAccessBloc, CameraState>(
           builder: (context, snapshot) {
-        final cameraAccessBloc = context.read<CameraAccessBloc>();
-        if (snapshot is CameraAccessGranted) {
-          return Stack(
-            children: [
-              CameraPreview(snapshot.cameraController),
-              Positioned(
-                bottom: 16,
-                right: 16,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    cameraAccessBloc.add(
-                      PictureButtonPressed(
-                          cameraController: snapshot.cameraController),
-                    );
-                  },
-                  child: const Icon(Icons.camera_alt),
-                ),
-              ),
-            ],
-          );
-        } else if (snapshot is PictureTaken) {
+        if (snapshot is PictureSelected) {
           return Column(
             children: [
               const AppText(text: "Here's your plant!"),
@@ -134,14 +113,14 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
               ),
               const AppText(
                 text:
-                    "You can always retake the photo if you're not too happy with it",
+                    "You can always choose a different photo if you're not too happy with it",
                 fontSize: FontSizes.tiny,
               ),
               _getSpacer(),
               AppButton(
-                text: "Retake photo",
+                text: "Try again",
                 onPressed: () {
-                  cameraAccessBloc.add(CameraAccessRequested());
+                  showChoiceDialog(context: context);
                 },
               ),
             ],
@@ -160,12 +139,43 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
               imageUrl: NetworkConstants.plantPlaceholder,
               hasCameraOverlay: true,
               onTap: () {
-                cameraAccessBloc.add(CameraAccessRequested());
+                showChoiceDialog(context: context);
               },
             ),
           ],
         );
       }),
+    );
+  }
+
+  Future<void> showChoiceDialog({required BuildContext context}) async {
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog.adaptive(
+          title: const Text("How would you like to add a photo of your plant?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+                context
+                    .read<CameraAccessBloc>()
+                    .add(GetImageFromCameraRequested());
+              },
+              child: const Text("Take a photo"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+                context
+                    .read<CameraAccessBloc>()
+                    .add(GetImageFromGalleryRequested());
+              },
+              child: const Text("Select from gallery"),
+            ),
+          ],
+        );
+      },
     );
   }
 }

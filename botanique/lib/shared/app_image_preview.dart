@@ -40,7 +40,7 @@ class AppImagePreview extends StatelessWidget {
         ),
         child: hasCameraOverlay
             ? Center(
-                child: Image.network(
+                child: Image.asset(
                   AssetConstants.camera,
                   width: 50,
                   height: 50,

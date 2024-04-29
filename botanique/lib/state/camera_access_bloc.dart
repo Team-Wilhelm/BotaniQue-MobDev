@@ -1,27 +1,28 @@
-import 'package:camera/camera.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'camera_repository.dart';
 
 class CameraAccessBloc extends Bloc<CameraEvent, CameraState> {
-  final CameraRepository cameraRepository = CameraRepository();
+  final PictureRepository pictureRepository = PictureRepository();
 
-  CameraAccessBloc() : super(CameraAccessDenied()) {
-    on<CameraAccessRequested>((event, emit) async {
-      final CameraController? cameraController =
-          await cameraRepository.requestCameraAccess();
-
-      if (cameraController != null) {
-        emit(CameraAccessGranted(cameraController: cameraController));
+  CameraAccessBloc() : super(InitialNoPictureSelected()) {
+    on<GetImageFromCameraRequested>((event, emit) async {
+      final image = await pictureRepository.getImageFromCamera();
+      if (image != null) {
+        emit(PictureSelected(image: image));
       } else {
-        emit(CameraAccessDenied());
+        emit(NoPictureSelected());
       }
     });
 
-    on<PictureButtonPressed>((event, emit) async {
-      final image = await event.cameraController.takePicture();
-
-      emit(PictureTaken(image: image));
+    on<GetImageFromGalleryRequested>((event, emit) async {
+      final image = await pictureRepository.pickImageFromGallery();
+      if (image != null) {
+        emit(PictureSelected(image: image));
+      } else {
+        emit(NoPictureSelected());
+      }
     });
   }
 }
@@ -29,27 +30,19 @@ class CameraAccessBloc extends Bloc<CameraEvent, CameraState> {
 abstract class CameraEvent {}
 
 // Events that can be triggered by the user
-class CameraAccessRequested extends CameraEvent {}
+class GetImageFromCameraRequested extends CameraEvent {}
+class GetImageFromGalleryRequested extends CameraEvent {}
 
-class PictureButtonPressed extends CameraEvent {
-  final CameraController cameraController;
-
-  PictureButtonPressed({required this.cameraController});
-}
-
-// Possible outcomes of the dialog
+// Possible outcomes
 abstract class CameraState {}
 
-class CameraAccessGranted extends CameraState {
-  final CameraController cameraController;
+class InitialNoPictureSelected extends CameraState {}
 
-  CameraAccessGranted({required this.cameraController});
-}
-
-class CameraAccessDenied extends CameraState {}
-
-class PictureTaken extends CameraState {
+class PictureSelected extends CameraState {
   final XFile image;
 
-  PictureTaken({required this.image});
+  PictureSelected({required this.image});
 }
+
+class NoPictureSelected extends CameraState {}
+

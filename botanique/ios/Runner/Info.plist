@@ -4,6 +4,10 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>In order to fill this app with pictures of your leafy friends, we need access to your camera.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow access to microphone for video recording</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In case you want to upload previously taken pictures, let us use your gallery.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
