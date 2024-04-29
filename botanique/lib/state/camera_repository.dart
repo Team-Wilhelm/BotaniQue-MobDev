@@ -8,25 +8,27 @@ class CameraRepository {
     "AudioAccessRestricted"
   ];
 
-  Future<bool> requestCameraAccess() async {
+  Future<CameraController?> requestCameraAccess() async {
     final cameras = await availableCameras();
     final CameraController cameraController = CameraController(
-      cameras.first,
+      cameras
+          .where((element) => element.lensDirection == CameraLensDirection.back)
+          .first,
       ResolutionPreset.medium,
     );
 
     try {
-      cameraController.initialize().then((value) => null);
+      await cameraController.initialize();
     } catch (e) {
       if (e is CameraException && _audioExceptions.contains(e.code)) {
         // We don't care about audio permissions
-        return true;
+        return cameraController;
       }
 
       print(e);
-      return false;
+      return null;
     }
 
-    return true;
+    return cameraController;
   }
 }
