@@ -2,13 +2,14 @@ import 'package:botanique/all_plants/all_plants_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
+import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/current_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_plant/add_plant_screen.dart';
-import 'state/camera_access_bloc.dart';
+import 'state/add_plant/camera_access_bloc.dart';
 import 'style/app_style.dart';
 
 void main() {
@@ -24,6 +25,9 @@ void main() {
       ),
       BlocProvider<CameraAccessBloc>(
         create: (context) => CameraAccessBloc(),
+      ),
+      BlocProvider<PlantRequirementsCubit>(
+        create: (context) => PlantRequirementsCubit(),
       ),
     ],
     child: BotaniQueApp(),

@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/app_image_preview.dart';
-import '../state/camera_access_bloc.dart';
+import '../state/add_plant/camera_access_bloc.dart';
+import '../state/add_plant/plant_requirements_cubit.dart';
 import '../style/asset_constants.dart';
 
 class AddPlantScreen extends StatefulWidget {
@@ -23,14 +24,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
 
   @override
   void initState() {
-    steps = [
-      _buildFirstStep(),
-      _buildSecondStep(),
-      AppStep(
-        title: "When does your plant feels its best?",
-        content: Column(),
-      ),
-    ];
+    steps = [_buildFirstStep(), _buildSecondStep(), _buildThirdStep()];
     super.initState();
   }
 
@@ -109,6 +103,9 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                   imageUrl: snapshot.image.path,
                   hasCameraOverlay: false,
                   imageType: ImageType.file,
+                  onTap: () {
+                    showChoiceDialog(context: context);
+                  },
                 ),
                 _getSpacer(),
                 const AppText(
@@ -146,6 +143,78 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         },
       ),
     );
+  }
+
+  AppStep _buildThirdStep() {
+    return AppStep(
+      title: "When does your plant feels its best?",
+      content: BlocBuilder<PlantRequirementsCubit, PlantRequirementsState>(
+          builder: (context, snapshot) {
+        final PlantRequirementsCubit requirementsCubit =
+            context.read<PlantRequirementsCubit>();
+        return Column(
+          children: [
+            const AppText(text: "How humid should the environment be?"),
+            Slider.adaptive(
+              value: snapshot.humidityLevel.toDouble(),
+              min: 0,
+              max: 2,
+              divisions: 2,
+              label: _getSliderLabel(snapshot.humidityLevel),
+              onChanged: (value) {
+                requirementsCubit.updateHumidityLevel(value.toInt());
+              },
+            ),
+            const AppText(text: "What about the preferred soil moisture?"),
+            Slider.adaptive(
+              value: snapshot.soilMoistureLevel.toDouble(),
+              min: 0,
+              max: 2,
+              divisions: 2,
+              label: _getSliderLabel(snapshot.soilMoistureLevel),
+              onChanged: (value) {
+                requirementsCubit.updateSoilMoistureLevel(value.toInt());
+              },
+            ),
+            const AppText(text: "How much light does it need?"),
+            Slider.adaptive(
+              value: snapshot.lightLevel.toDouble(),
+              min: 0,
+              max: 2,
+              divisions: 2,
+              label: _getSliderLabel(snapshot.lightLevel),
+              onChanged: (value) {
+                requirementsCubit.updateLightLevel(value.toInt());
+              },
+            ),
+            const AppText(text: "What's the ideal temperature?"),
+            Slider.adaptive(
+              value: snapshot.temperatureLevel.toDouble(),
+              min: 0,
+              max: 40,
+              divisions: 40,
+              label: "${snapshot.temperatureLevel}°C",
+              onChanged: (value) {
+                requirementsCubit.updateTemperatureLevel(value.toInt());
+              },
+            ),
+          ],
+        );
+      }),
+    );
+  }
+
+  String _getSliderLabel(int value) {
+    switch (value) {
+      case 0:
+        return "Low";
+      case 1:
+        return "Medium";
+      case 2:
+        return "High";
+      default:
+        return "Low";
+    }
   }
 
   String _getNoPictureTitle(CameraState snapshot) {

@@ -30,6 +30,7 @@ class AppStepperProgress extends StatelessWidget {
                 width: _getProgressIndicatorSize(context),
                 child: CircularProgressIndicator.adaptive(
                   value: (currentStep + 1) / totalSteps,
+                  strokeWidth: 7,
                 ),
               ),
               AppText(
