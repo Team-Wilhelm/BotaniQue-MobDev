@@ -147,7 +147,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
 
   AppStep _buildThirdStep() {
     return AppStep(
-      title: "When does your plant feels its best?",
+      title: "When does your plant feel best?",
       content: BlocBuilder<PlantRequirementsCubit, PlantRequirementsState>(
           builder: (context, snapshot) {
         final PlantRequirementsCubit requirementsCubit =

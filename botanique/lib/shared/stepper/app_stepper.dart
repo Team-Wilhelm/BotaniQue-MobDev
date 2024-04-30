@@ -40,18 +40,30 @@ class _AppStepperState extends State<AppStepper> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: PageView(
-        controller: _pageController,
-        onPageChanged: (value) {
-          setState(() {
-            _currentStep = value;
-          });
-        },
-        children: widget.steps
-            .map(
-              (step) => _buildStep(step),
-            )
-            .toList(),
+      child: Column(
+        children: [
+          AppStepperProgress(
+            currentStep: _currentStep,
+            totalSteps: widget.steps.length,
+            stepTitle: widget.steps[_currentStep].title,
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (value) {
+                setState(() {
+                  _currentStep = value;
+                });
+              },
+              children: widget.steps
+                  .map(
+                    (step) => _buildStep(step),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -60,12 +72,6 @@ class _AppStepperState extends State<AppStepper> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          AppStepperProgress(
-            currentStep: _currentStep,
-            totalSteps: widget.steps.length,
-            stepTitle: step.title,
-          ),
-          const SizedBox(height: 16),
           step.content,
           const SizedBox(height: 16),
           Row(
