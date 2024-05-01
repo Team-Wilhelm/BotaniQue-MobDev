@@ -58,9 +58,6 @@ class BotaniQueApp extends StatelessWidget {
             builder: (context, state) {
               return PageView(
                 controller: _pageController,
-                onPageChanged: (index) {
-                  context.read<CurrentPageCubit>().changePage(index);
-                },
                 children: _screens,
               );
             }),
