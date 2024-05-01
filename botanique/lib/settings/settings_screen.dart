@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:botanique/settings/panel_content/panel_content.dart';
 import 'package:flutter/material.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
@@ -13,25 +12,42 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  int openPanelId = -1; // Ensure this starts with a neutral value.
+  int openPanelId = -1;
+  late List<PanelItem> panelItems;
 
   @override
-  Widget build(BuildContext context) {
-    List<PanelItem> items = <PanelItem>[
+  void initState() {
+    panelItems = <PanelItem>[
       PanelItem(
           id: 1,
           headerValue: 'Username',
-          expandedValue: 'Change your username here'),
+          panelContent: PanelContent(),
+          controller: ExpansionTileController()),
       PanelItem(
           id: 2,
           headerValue: 'Password',
-          expandedValue: 'Change your password here'),
+          panelContent: PanelContent(),
+          controller: ExpansionTileController()),
       PanelItem(
           id: 3,
           headerValue: 'Profile Picture',
-          expandedValue: 'Update your profile picture here'),
+          panelContent: PanelContent(),
+          controller: ExpansionTileController()),
     ];
+    super.initState();
+  }
 
+  void _handleTileToggle(PanelItem item) {
+    setState(() {
+      if (openPanelId > 0) {
+        panelItems.elementAt(openPanelId-1).controller.collapse();
+      }
+      openPanelId = item.id;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return ScreenBase(
       child: SingleChildScrollView(
         child: Column(
@@ -41,7 +57,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 fontSize: TextSizes.h1,
                 fontWeight: FontWeight.bold),
             spacer,
-            ...items.map((item) => _buildExpansionTile(item)).toList(),
+            ...panelItems.map((item) => _buildExpansionTile(item)),
+            spacer,
+            const AppText(
+                text: "Badges",
+                fontSize: TextSizes.h1,
+                fontWeight: FontWeight.bold),
           ],
         ),
       ),
@@ -53,32 +74,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
+          controller: item.controller,
           tilePadding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           childrenPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          initiallyExpanded: item.id == openPanelId,
+          initiallyExpanded: false,
           key: PageStorageKey<int>(item.id),
           iconColor: AppColors.accent,
           title: AppText(
               text: item.headerValue,
               fontSize: TextSizes.h3,
               fontWeight: FontWeight.bold),
-          onExpansionChanged: (bool expanded) {
-            setState(() {
-              if (expanded) {
-                openPanelId = item.id;
-              } else if (openPanelId == item.id) {
-                openPanelId = -1;
-              }
-            });
-          },
+          onExpansionChanged: (bool expanded) => _handleTileToggle(item),
           children: [
-            ListTile(
-              title: AppText(text: item.expandedValue),
-              subtitle: const AppText(text: 'Tap to edit'),
-              onTap: () {
-                // Additional actions can be triggered here.
-              },
-            ),
+            item.panelContent,
           ],
         ),
       ),
@@ -88,14 +96,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
 class PanelItem {
   int id; // Unique identifier, used for handling expansion state
+  ExpansionTileController controller;
   String headerValue;
-  String expandedValue;
+  Widget panelContent;
 
   PanelItem({
     required this.id,
+    required this.controller,
     required this.headerValue,
-    required this.expandedValue,
+    required this.panelContent,
   });
 }
-
-
