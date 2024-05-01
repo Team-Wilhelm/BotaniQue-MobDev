@@ -10,11 +10,15 @@ _$ClientWantsToRemoveBackgroundFromImageImpl
     _$$ClientWantsToRemoveBackgroundFromImageImplFromJson(
             Map<String, dynamic> json) =>
         _$ClientWantsToRemoveBackgroundFromImageImpl(
-          image: const XFileConverter().fromJson(json['image'] as String),
+          base64Image: json['base64Image'] as String,
+          jwt: json['jwt'] as String,
+          eventType: json['eventType'] as String,
         );
 
 Map<String, dynamic> _$$ClientWantsToRemoveBackgroundFromImageImplToJson(
         _$ClientWantsToRemoveBackgroundFromImageImpl instance) =>
     <String, dynamic>{
-      'image': const XFileConverter().toJson(instance.image),
+      'base64Image': instance.base64Image,
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
     };

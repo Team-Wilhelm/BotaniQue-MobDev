@@ -22,8 +22,9 @@ ClientWantsToRemoveBackgroundFromImage
 
 /// @nodoc
 mixin _$ClientWantsToRemoveBackgroundFromImage {
-  @XFileConverter()
-  XFile get image => throw _privateConstructorUsedError;
+  String get base64Image => throw _privateConstructorUsedError;
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +41,7 @@ abstract class $ClientWantsToRemoveBackgroundFromImageCopyWith<$Res> {
       _$ClientWantsToRemoveBackgroundFromImageCopyWithImpl<$Res,
           ClientWantsToRemoveBackgroundFromImage>;
   @useResult
-  $Res call({@XFileConverter() XFile image});
+  $Res call({String base64Image, String jwt, String eventType});
 }
 
 /// @nodoc
@@ -57,13 +58,23 @@ class _$ClientWantsToRemoveBackgroundFromImageCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = null,
+    Object? base64Image = null,
+    Object? jwt = null,
+    Object? eventType = null,
   }) {
     return _then(_value.copyWith(
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as XFile,
+      base64Image: null == base64Image
+          ? _value.base64Image
+          : base64Image // ignore: cast_nullable_to_non_nullable
+              as String,
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -77,7 +88,7 @@ abstract class _$$ClientWantsToRemoveBackgroundFromImageImplCopyWith<$Res>
       __$$ClientWantsToRemoveBackgroundFromImageImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@XFileConverter() XFile image});
+  $Res call({String base64Image, String jwt, String eventType});
 }
 
 /// @nodoc
@@ -93,13 +104,23 @@ class __$$ClientWantsToRemoveBackgroundFromImageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = null,
+    Object? base64Image = null,
+    Object? jwt = null,
+    Object? eventType = null,
   }) {
     return _then(_$ClientWantsToRemoveBackgroundFromImageImpl(
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as XFile,
+      base64Image: null == base64Image
+          ? _value.base64Image
+          : base64Image // ignore: cast_nullable_to_non_nullable
+              as String,
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -109,19 +130,22 @@ class __$$ClientWantsToRemoveBackgroundFromImageImplCopyWithImpl<$Res>
 class _$ClientWantsToRemoveBackgroundFromImageImpl
     implements _ClientWantsToRemoveBackgroundFromImage {
   const _$ClientWantsToRemoveBackgroundFromImageImpl(
-      {@XFileConverter() required this.image});
+      {required this.base64Image, required this.jwt, required this.eventType});
 
   factory _$ClientWantsToRemoveBackgroundFromImageImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$ClientWantsToRemoveBackgroundFromImageImplFromJson(json);
 
   @override
-  @XFileConverter()
-  final XFile image;
+  final String base64Image;
+  @override
+  final String jwt;
+  @override
+  final String eventType;
 
   @override
   String toString() {
-    return 'ClientWantsToRemoveBackgroundFromImage(image: $image)';
+    return 'ClientWantsToRemoveBackgroundFromImage(base64Image: $base64Image, jwt: $jwt, eventType: $eventType)';
   }
 
   @override
@@ -129,12 +153,16 @@ class _$ClientWantsToRemoveBackgroundFromImageImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ClientWantsToRemoveBackgroundFromImageImpl &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.base64Image, base64Image) ||
+                other.base64Image == base64Image) &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, image);
+  int get hashCode => Object.hash(runtimeType, base64Image, jwt, eventType);
 
   @JsonKey(ignore: true)
   @override
@@ -156,7 +184,9 @@ class _$ClientWantsToRemoveBackgroundFromImageImpl
 abstract class _ClientWantsToRemoveBackgroundFromImage
     implements ClientWantsToRemoveBackgroundFromImage {
   const factory _ClientWantsToRemoveBackgroundFromImage(
-          {@XFileConverter() required final XFile image}) =
+          {required final String base64Image,
+          required final String jwt,
+          required final String eventType}) =
       _$ClientWantsToRemoveBackgroundFromImageImpl;
 
   factory _ClientWantsToRemoveBackgroundFromImage.fromJson(
@@ -164,8 +194,11 @@ abstract class _ClientWantsToRemoveBackgroundFromImage
       _$ClientWantsToRemoveBackgroundFromImageImpl.fromJson;
 
   @override
-  @XFileConverter()
-  XFile get image;
+  String get base64Image;
+  @override
+  String get jwt;
+  @override
+  String get eventType;
   @override
   @JsonKey(ignore: true)
   _$$ClientWantsToRemoveBackgroundFromImageImplCopyWith<

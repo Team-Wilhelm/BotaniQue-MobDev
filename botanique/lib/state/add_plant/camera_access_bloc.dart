@@ -24,6 +24,14 @@ class CameraAccessBloc extends Bloc<CameraEvent, CameraState> {
         emit(NoPictureSelected());
       }
     });
+
+    on<PictureBackgroundRemovalRequested>((event, emit) async {
+      emit(PictureBackgroundRemovalInProgress());
+    });
+
+    on<PictureBackgroundRemovalSuccess>((event, emit) async {
+      emit(PictureReady(image: event.image));
+    });
   }
 }
 
@@ -31,7 +39,16 @@ abstract class CameraEvent {}
 
 // Events that can be triggered by the user
 class GetImageFromCameraRequested extends CameraEvent {}
+
 class GetImageFromGalleryRequested extends CameraEvent {}
+
+class PictureBackgroundRemovalRequested extends CameraEvent {}
+
+class PictureBackgroundRemovalSuccess extends CameraEvent {
+  final XFile image;
+
+  PictureBackgroundRemovalSuccess({required this.image});
+}
 
 // Possible outcomes
 abstract class CameraState {}
@@ -44,5 +61,12 @@ class PictureSelected extends CameraState {
   PictureSelected({required this.image});
 }
 
-class NoPictureSelected extends CameraState {}
+class PictureBackgroundRemovalInProgress extends CameraState {}
 
+class PictureReady extends CameraState {
+  final XFile image;
+
+  PictureReady({required this.image});
+}
+
+class NoPictureSelected extends CameraState {}

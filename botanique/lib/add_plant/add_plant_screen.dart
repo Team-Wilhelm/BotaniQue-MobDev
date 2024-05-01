@@ -1,7 +1,10 @@
+import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/state/xfile_converter.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,55 +95,78 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   AppStep _buildSecondStep() {
     return AppStep(
       title: "Time to put a face to that name!",
-      content: BlocBuilder<CameraAccessBloc, CameraState>(
-        builder: (context, snapshot) {
-          if (snapshot is PictureSelected) {
-            return Column(
-              children: [
-                const AppText(text: "Here's your plant!"),
-                _getSpacer(),
-                AppImagePreview(
-                  imageUrl: snapshot.image.path,
-                  hasCameraOverlay: false,
-                  imageType: ImageType.file,
-                  onTap: () {
-                    showChoiceDialog(context: context);
-                  },
-                ),
-                _getSpacer(),
-                const AppText(
-                  text: "Wanna try again? Click on the image!",
-                  fontSize: FontSizes.tiny,
-                ),
-              ],
-            );
-          } else {
-            return Column(
-              children: [
-                AppText(text: _getNoPictureTitle(snapshot)),
-                AppText(
-                  text: _getNoPictureSubtitle(snapshot),
-                  fontSize: FontSizes.tiny,
-                ),
-                _getSpacer(),
-                AppImagePreview(
-                  imageUrl: NetworkConstants.plantPlaceholder,
-                  hasCameraOverlay: snapshot is InitialNoPictureSelected,
-                  onTap: () {
-                    showChoiceDialog(context: context);
-                  },
-                ),
-                if (snapshot is NoPictureSelected) ...[
+      content: BlocListener<WebSocketBloc, AppState>(
+        listener: (context, state) {
+          if (state.addPlantImage != null) {
+            context.read<CameraAccessBloc>().add(
+                PictureBackgroundRemovalSuccess(image: state.addPlantImage!));
+          }
+        },
+        child: BlocBuilder<CameraAccessBloc, CameraState>(
+          builder: (context, snapshot) {
+            if (snapshot is PictureReady) {
+              return Column(
+                children: [
+                  const AppText(text: "Here's your plant!"),
+                  _getSpacer(),
+                  AppImagePreview(
+                    imageUrl: snapshot.image.path,
+                    hasCameraOverlay: false,
+                    imageType: ImageType.file,
+                    onTap: () {
+                      showChoiceDialog(context: context);
+                    },
+                  ),
                   _getSpacer(),
                   const AppText(
                     text: "Wanna try again? Click on the image!",
                     fontSize: FontSizes.tiny,
                   ),
                 ],
-              ],
-            );
-          }
-        },
+              );
+            } else if (snapshot is PictureSelected) {
+              context
+                  .read<CameraAccessBloc>()
+                  .add(PictureBackgroundRemovalRequested());
+              context.read<WebSocketBloc>().add(
+                    ClientWantsToRemoveBackgroundFromImage(
+                      base64Image: XFileConverter.toBase64(snapshot.image),
+                      jwt:
+                          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImJvYkBhcHAuY29tIiwibmFtZSI6ImJvYiJ9.kLzk-MIbyaeW1vzi9i27sprMR8teotV7E59dyJ7kdgOOK3VwhjvRwzzdZefiUWIH_0iXk6kP0BGaFRXMLwgLhA",
+                      eventType: "ClientWantsToRemoveBackgroundFromImage",
+                    ),
+                  );
+              return CircularProgressIndicator();
+            } else if (snapshot is PictureBackgroundRemovalInProgress) {
+              return CircularProgressIndicator();
+            } else {
+              return Column(
+                children: [
+                  AppText(text: _getNoPictureTitle(snapshot)),
+                  AppText(
+                    text: _getNoPictureSubtitle(snapshot),
+                    fontSize: FontSizes.tiny,
+                  ),
+                  _getSpacer(),
+                  AppImagePreview(
+                    imageUrl: NetworkConstants.plantPlaceholder,
+                    hasCameraOverlay: snapshot is InitialNoPictureSelected,
+                    onTap: () {
+                      showChoiceDialog(context: context);
+                    },
+                  ),
+                  if (snapshot is NoPictureSelected) ...[
+                    _getSpacer(),
+                    const AppText(
+                      text: "Wanna try again? Click on the image!",
+                      fontSize: FontSizes.tiny,
+                    ),
+                  ],
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }
