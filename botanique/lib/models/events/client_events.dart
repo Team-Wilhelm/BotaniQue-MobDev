@@ -1,3 +1,4 @@
+import 'package:botanique/models/dtos/create_plant_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'client_events.freezed.dart';
@@ -29,4 +30,16 @@ class ClientWantsToRemoveBackgroundFromImage extends ClientEventWithJwt
   factory ClientWantsToRemoveBackgroundFromImage.fromJson(
           Map<String, dynamic> json) =>
       _$ClientWantsToRemoveBackgroundFromImageFromJson(json);
+}
+
+@freezed
+class ClientWantsToCreatePlant extends ClientEventWithJwt with _$ClientWantsToCreatePlant {
+  const factory ClientWantsToCreatePlant({
+    required CreatePlantDto createPlantDto,
+    required String jwt,
+    required String eventType,
+  }) = _ClientWantsToCreatePlant;
+
+  factory ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToCreatePlantFromJson(json);
 }

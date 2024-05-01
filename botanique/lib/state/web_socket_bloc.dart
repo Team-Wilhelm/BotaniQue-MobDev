@@ -12,6 +12,7 @@ import '../models/events/server_events.dart';
 class WebSocketBloc extends Bloc<BaseEvent, AppState> {
   final WebSocketChannel channel;
   late StreamSubscription _channelSubscription;
+  final String jwt = ''; // TODO: get from logging in
 
   WebSocketBloc({required this.channel}) : super(AppState.empty()) {
     // Client events
@@ -20,12 +21,13 @@ class WebSocketBloc extends Bloc<BaseEvent, AppState> {
     // Server events
     on<ServerSendsImageWithoutBackground>(
       (event, emit) {
-        print("image received");
         final XFile image = XFileConverter.fromBase64(event.base64Image);
         final newState = state.copyWith(addPlantImage: image);
         emit(newState);
       },
     );
+
+    // TODO on<ServerAddsPlant> etc.
 
     // Feed deserialized events from server into this bloc
     _channelSubscription = channel.stream
@@ -35,8 +37,14 @@ class WebSocketBloc extends Bloc<BaseEvent, AppState> {
   }
 
   FutureOr<void> _onClientEvent(ClientEvent event, Emitter<AppState> emit) {
-    print("Sending event to server");
     channel.sink.add(jsonEncode(event.toJson()));
+  }
+
+  @override
+  Future<void> close() async {
+    _channelSubscription.cancel();
+    channel.sink.close();
+    super.close();
   }
 }
 

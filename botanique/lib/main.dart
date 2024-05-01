@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
-import 'state/add_plant/camera_access_bloc.dart';
+import 'state/add_plant/add_plant_bloc.dart';
 import 'style/app_style.dart';
 
 void main() {
@@ -32,8 +32,8 @@ void main() {
       BlocProvider<CurrentPageCubit>(
         create: (context) => CurrentPageCubit(),
       ),
-      BlocProvider<CameraAccessBloc>(
-        create: (context) => CameraAccessBloc(),
+      BlocProvider<AddPlantBloc>(
+        create: (context) => AddPlantBloc(),
       ),
       BlocProvider<PlantRequirementsCubit>(
         create: (context) => PlantRequirementsCubit(),

@@ -205,3 +205,198 @@ abstract class _ClientWantsToRemoveBackgroundFromImage
           _$ClientWantsToRemoveBackgroundFromImageImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+ClientWantsToCreatePlant _$ClientWantsToCreatePlantFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsToCreatePlant.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsToCreatePlant {
+  CreatePlantDto get createPlantDto => throw _privateConstructorUsedError;
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsToCreatePlantCopyWith<ClientWantsToCreatePlant> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsToCreatePlantCopyWith<$Res> {
+  factory $ClientWantsToCreatePlantCopyWith(ClientWantsToCreatePlant value,
+          $Res Function(ClientWantsToCreatePlant) then) =
+      _$ClientWantsToCreatePlantCopyWithImpl<$Res, ClientWantsToCreatePlant>;
+  @useResult
+  $Res call({CreatePlantDto createPlantDto, String jwt, String eventType});
+
+  $CreatePlantDtoCopyWith<$Res> get createPlantDto;
+}
+
+/// @nodoc
+class _$ClientWantsToCreatePlantCopyWithImpl<$Res,
+        $Val extends ClientWantsToCreatePlant>
+    implements $ClientWantsToCreatePlantCopyWith<$Res> {
+  _$ClientWantsToCreatePlantCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? createPlantDto = null,
+    Object? jwt = null,
+    Object? eventType = null,
+  }) {
+    return _then(_value.copyWith(
+      createPlantDto: null == createPlantDto
+          ? _value.createPlantDto
+          : createPlantDto // ignore: cast_nullable_to_non_nullable
+              as CreatePlantDto,
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CreatePlantDtoCopyWith<$Res> get createPlantDto {
+    return $CreatePlantDtoCopyWith<$Res>(_value.createPlantDto, (value) {
+      return _then(_value.copyWith(createPlantDto: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsToCreatePlantImplCopyWith<$Res>
+    implements $ClientWantsToCreatePlantCopyWith<$Res> {
+  factory _$$ClientWantsToCreatePlantImplCopyWith(
+          _$ClientWantsToCreatePlantImpl value,
+          $Res Function(_$ClientWantsToCreatePlantImpl) then) =
+      __$$ClientWantsToCreatePlantImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({CreatePlantDto createPlantDto, String jwt, String eventType});
+
+  @override
+  $CreatePlantDtoCopyWith<$Res> get createPlantDto;
+}
+
+/// @nodoc
+class __$$ClientWantsToCreatePlantImplCopyWithImpl<$Res>
+    extends _$ClientWantsToCreatePlantCopyWithImpl<$Res,
+        _$ClientWantsToCreatePlantImpl>
+    implements _$$ClientWantsToCreatePlantImplCopyWith<$Res> {
+  __$$ClientWantsToCreatePlantImplCopyWithImpl(
+      _$ClientWantsToCreatePlantImpl _value,
+      $Res Function(_$ClientWantsToCreatePlantImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? createPlantDto = null,
+    Object? jwt = null,
+    Object? eventType = null,
+  }) {
+    return _then(_$ClientWantsToCreatePlantImpl(
+      createPlantDto: null == createPlantDto
+          ? _value.createPlantDto
+          : createPlantDto // ignore: cast_nullable_to_non_nullable
+              as CreatePlantDto,
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsToCreatePlantImpl implements _ClientWantsToCreatePlant {
+  const _$ClientWantsToCreatePlantImpl(
+      {required this.createPlantDto,
+      required this.jwt,
+      required this.eventType});
+
+  factory _$ClientWantsToCreatePlantImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClientWantsToCreatePlantImplFromJson(json);
+
+  @override
+  final CreatePlantDto createPlantDto;
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+
+  @override
+  String toString() {
+    return 'ClientWantsToCreatePlant(createPlantDto: $createPlantDto, jwt: $jwt, eventType: $eventType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsToCreatePlantImpl &&
+            (identical(other.createPlantDto, createPlantDto) ||
+                other.createPlantDto == createPlantDto) &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, createPlantDto, jwt, eventType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsToCreatePlantImplCopyWith<_$ClientWantsToCreatePlantImpl>
+      get copyWith => __$$ClientWantsToCreatePlantImplCopyWithImpl<
+          _$ClientWantsToCreatePlantImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsToCreatePlantImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsToCreatePlant implements ClientWantsToCreatePlant {
+  const factory _ClientWantsToCreatePlant(
+      {required final CreatePlantDto createPlantDto,
+      required final String jwt,
+      required final String eventType}) = _$ClientWantsToCreatePlantImpl;
+
+  factory _ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsToCreatePlantImpl.fromJson;
+
+  @override
+  CreatePlantDto get createPlantDto;
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsToCreatePlantImplCopyWith<_$ClientWantsToCreatePlantImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

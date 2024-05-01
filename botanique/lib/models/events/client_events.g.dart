@@ -22,3 +22,20 @@ Map<String, dynamic> _$$ClientWantsToRemoveBackgroundFromImageImplToJson(
       'jwt': instance.jwt,
       'eventType': instance.eventType,
     };
+
+_$ClientWantsToCreatePlantImpl _$$ClientWantsToCreatePlantImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClientWantsToCreatePlantImpl(
+      createPlantDto: CreatePlantDto.fromJson(
+          json['createPlantDto'] as Map<String, dynamic>),
+      jwt: json['jwt'] as String,
+      eventType: json['eventType'] as String,
+    );
+
+Map<String, dynamic> _$$ClientWantsToCreatePlantImplToJson(
+        _$ClientWantsToCreatePlantImpl instance) =>
+    <String, dynamic>{
+      'createPlantDto': instance.createPlantDto,
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+    };

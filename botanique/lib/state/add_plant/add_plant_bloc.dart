@@ -1,12 +1,13 @@
+import 'package:botanique/models/dtos/create_requirements_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'camera_repository.dart';
 
-class CameraAccessBloc extends Bloc<CameraEvent, CameraState> {
+class AddPlantBloc extends Bloc<AddPlantEvent, AddPlantState> {
   final PictureRepository pictureRepository = PictureRepository();
 
-  CameraAccessBloc() : super(InitialNoPictureSelected()) {
+  AddPlantBloc() : super(InitialNoPictureSelected()) {
     on<GetImageFromCameraRequested>((event, emit) async {
       final image = await pictureRepository.getImageFromCamera();
       if (image != null) {
@@ -32,41 +33,62 @@ class CameraAccessBloc extends Bloc<CameraEvent, CameraState> {
     on<PictureBackgroundRemovalSuccess>((event, emit) async {
       emit(PictureReady(image: event.image));
     });
+
+    on<FinishPressed>((event, emit) async {
+      emit(PlantAddInProgress());
+    });
   }
 }
 
-abstract class CameraEvent {}
+abstract class AddPlantEvent {}
 
 // Events that can be triggered by the user
-class GetImageFromCameraRequested extends CameraEvent {}
+class GetImageFromCameraRequested extends AddPlantEvent {}
 
-class GetImageFromGalleryRequested extends CameraEvent {}
+class GetImageFromGalleryRequested extends AddPlantEvent {}
 
-class PictureBackgroundRemovalRequested extends CameraEvent {}
+class PictureBackgroundRemovalRequested extends AddPlantEvent {}
 
-class PictureBackgroundRemovalSuccess extends CameraEvent {
+class PictureBackgroundRemovalSuccess extends AddPlantEvent {
   final XFile image;
 
   PictureBackgroundRemovalSuccess({required this.image});
 }
 
+class FinishPressed extends AddPlantEvent {
+  final String? plantName;
+  final CreateRequirementsDto? requirements;
+
+  FinishPressed({
+    this.plantName,
+    required this.requirements,
+  });
+}
+
 // Possible outcomes
-abstract class CameraState {}
+abstract class AddPlantState {}
 
-class InitialNoPictureSelected extends CameraState {}
+class InitialNoPictureSelected extends AddPlantState {} // Initial state
 
-class PictureSelected extends CameraState {
+class NoPictureSelected
+    extends AddPlantState {} // When the user cancels the camera or gallery
+
+class PictureSelected extends AddPlantState {
   final XFile image;
 
   PictureSelected({required this.image});
 }
 
-class PictureBackgroundRemovalInProgress extends CameraState {}
+class PictureBackgroundRemovalInProgress extends AddPlantState {}
 
-class PictureReady extends CameraState {
+class PictureReady extends AddPlantState {
   final XFile image;
 
   PictureReady({required this.image});
 }
 
-class NoPictureSelected extends CameraState {}
+class PlantAddSuccess extends AddPlantState {}
+
+class PlantAddFailed extends AddPlantState {}
+
+class PlantAddInProgress extends AddPlantState {}
