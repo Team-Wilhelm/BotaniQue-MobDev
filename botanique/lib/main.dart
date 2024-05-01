@@ -5,14 +5,23 @@ import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/current_page_cubit.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
 import 'state/add_plant/camera_access_bloc.dart';
 import 'style/app_style.dart';
 
 void main() {
+  // Configure logging for bloc
+  //Bloc.observer = LoggerBlocObserver();
+
+  // Connect to WebSocket
+  final wsUri = Uri.parse('ws://10.0.2.2:8181');
+  final channel = WebSocketChannel.connect(wsUri);
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<AllPlantsCubit>(
@@ -29,6 +38,9 @@ void main() {
       BlocProvider<PlantRequirementsCubit>(
         create: (context) => PlantRequirementsCubit(),
       ),
+      BlocProvider<WebSocketBloc>(
+        create: (context) => WebSocketBloc(channel: channel),
+      )
     ],
     child: BotaniQueApp(),
   ));
