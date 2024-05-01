@@ -14,23 +14,23 @@ class AddPlantFirstStepContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AppText(
           text: "What do you call your green friend?",
         ),
-        _getSpacer(),
+        const SizedBox(height: 8),
         AppTextField(
           textFieldController: plantNameController,
           placeholder: "Plant Name",
         ),
-        _getSpacer(),
+        const SizedBox(height: 24),
         AppText(text: collectionQuestion),
         const AppText(
           text: "This field is optional",
           fontSize: FontSizes.tiny,
         ),
-        _getSpacer(),
+        const SizedBox(height: 12),
         DropdownButton(
           items: const [
             DropdownMenuItem(
@@ -53,9 +53,5 @@ class AddPlantFirstStepContent extends StatelessWidget {
         ? "your plant"
         : plantNameController.text;
     return "Does $plantName belong to any collections?";
-  }
-
-  Widget _getSpacer() {
-    return const SizedBox(height: 8);
   }
 }

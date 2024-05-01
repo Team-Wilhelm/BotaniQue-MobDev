@@ -18,3 +18,39 @@ Map<String, dynamic> _$$ServerSendsImageWithoutBackgroundImplToJson(
     <String, dynamic>{
       'base64Image': instance.base64Image,
     };
+
+_$ServerSendsPlantImpl _$$ServerSendsPlantImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerSendsPlantImpl(
+      plant: Plant.fromJson(json['plant'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ServerSendsPlantImplToJson(
+        _$ServerSendsPlantImpl instance) =>
+    <String, dynamic>{
+      'plant': instance.plant,
+    };
+
+_$ServerCreatesNewPlantImpl _$$ServerCreatesNewPlantImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerCreatesNewPlantImpl(
+      plant: Plant.fromJson(json['plant'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ServerCreatesNewPlantImplToJson(
+        _$ServerCreatesNewPlantImpl instance) =>
+    <String, dynamic>{
+      'plant': instance.plant,
+    };
+
+_$ServerSendsErrorMessageImpl _$$ServerSendsErrorMessageImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerSendsErrorMessageImpl(
+      error: json['error'] as String,
+    );
+
+Map<String, dynamic> _$$ServerSendsErrorMessageImplToJson(
+        _$ServerSendsErrorMessageImpl instance) =>
+    <String, dynamic>{
+      'error': instance.error,
+    };

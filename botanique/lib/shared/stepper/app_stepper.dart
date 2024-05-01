@@ -18,15 +18,15 @@ class AppStep {
 class AppStepper extends StatefulWidget {
   const AppStepper({
     super.key,
-    this.onStepContinue,
-    this.onStepCancel,
+    this.onNextPressed,
+    this.onBackPressed,
     required this.steps,
-    this.onFinish,
+    this.onFinishPressed,
   });
 
-  final VoidCallback? onStepContinue;
-  final VoidCallback? onStepCancel;
-  final VoidCallback? onFinish;
+  final VoidCallback? onNextPressed;
+  final VoidCallback? onBackPressed;
+  final VoidCallback? onFinishPressed;
   final List<AppStep> steps;
 
   @override
@@ -34,22 +34,21 @@ class AppStepper extends StatefulWidget {
 }
 
 class _AppStepperState extends State<AppStepper> {
-  int _currentStep = 0;
   final PageController _pageController = PageController();
+  int _currentStep = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          AppStepperProgress(
-            currentStep: _currentStep,
-            totalSteps: widget.steps.length,
-            stepTitle: widget.steps[_currentStep].title,
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: PageView(
+    return Column(
+      children: [
+        AppStepperProgress(
+          currentStep: _currentStep,
+          totalSteps: widget.steps.length,
+          stepTitle: widget.steps[_currentStep].title,
+        ),
+        const SizedBox(height: 24),
+        Expanded(
+          child: PageView(
               controller: _pageController,
               onPageChanged: (value) {
                 setState(() {
@@ -57,24 +56,14 @@ class _AppStepperState extends State<AppStepper> {
                 });
               },
               children: widget.steps
-                  .map(
-                    (step) => _buildStep(step),
-                  )
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStep(AppStep step) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          step.content,
-          const SizedBox(height: 16),
-          Row(
+                  .map((step) => SingleChildScrollView(
+                        child: step.content,
+                      ))
+                  .toList()),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (_currentStep > 0)
@@ -86,8 +75,8 @@ class _AppStepperState extends State<AppStepper> {
                 AppButton(onPressed: onFinishPressed, text: "Finish")
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -96,8 +85,8 @@ class _AppStepperState extends State<AppStepper> {
       return;
     }
 
-    if (widget.onStepContinue != null) {
-      widget.onStepContinue!();
+    if (widget.onNextPressed != null) {
+      widget.onNextPressed!();
     }
 
     _pageController.nextPage(
@@ -111,8 +100,8 @@ class _AppStepperState extends State<AppStepper> {
       return;
     }
 
-    if (widget.onStepCancel != null) {
-      widget.onStepCancel!();
+    if (widget.onBackPressed != null) {
+      widget.onBackPressed!();
     }
 
     _pageController.previousPage(
@@ -122,8 +111,8 @@ class _AppStepperState extends State<AppStepper> {
   }
 
   void onFinishPressed() {
-    if (widget.onFinish != null) {
-      widget.onFinish!();
+    if (widget.onFinishPressed != null) {
+      widget.onFinishPressed!();
     }
   }
 

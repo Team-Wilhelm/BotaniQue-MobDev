@@ -1,8 +1,7 @@
-import 'package:botanique/models/dtos/create_requirements_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'camera_repository.dart';
+import '../../util/camera_repository.dart';
 
 class AddPlantBloc extends Bloc<AddPlantEvent, AddPlantState> {
   final PictureRepository pictureRepository = PictureRepository();
@@ -55,15 +54,7 @@ class PictureBackgroundRemovalSuccess extends AddPlantEvent {
   PictureBackgroundRemovalSuccess({required this.image});
 }
 
-class FinishPressed extends AddPlantEvent {
-  final String? plantName;
-  final CreateRequirementsDto? requirements;
-
-  FinishPressed({
-    this.plantName,
-    required this.requirements,
-  });
-}
+class FinishPressed extends AddPlantEvent {}
 
 // Possible outcomes
 abstract class AddPlantState {}

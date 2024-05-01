@@ -20,10 +20,13 @@ CreatePlantDto _$CreatePlantDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CreatePlantDto {
-  String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
-  CreateRequirementsDto get requirements => throw _privateConstructorUsedError;
+  String get userEmail => throw _privateConstructorUsedError;
+  String? get collectionId => throw _privateConstructorUsedError;
+  String? get deviceId => throw _privateConstructorUsedError;
+  String get nickname => throw _privateConstructorUsedError;
+  String? get base64Image => throw _privateConstructorUsedError;
+  CreateRequirementsDto get createRequirementsDto =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,12 +41,14 @@ abstract class $CreatePlantDtoCopyWith<$Res> {
       _$CreatePlantDtoCopyWithImpl<$Res, CreatePlantDto>;
   @useResult
   $Res call(
-      {String name,
-      String description,
-      String imageUrl,
-      CreateRequirementsDto requirements});
+      {String userEmail,
+      String? collectionId,
+      String? deviceId,
+      String nickname,
+      String? base64Image,
+      CreateRequirementsDto createRequirementsDto});
 
-  $CreateRequirementsDtoCopyWith<$Res> get requirements;
+  $CreateRequirementsDtoCopyWith<$Res> get createRequirementsDto;
 }
 
 /// @nodoc
@@ -59,36 +64,47 @@ class _$CreatePlantDtoCopyWithImpl<$Res, $Val extends CreatePlantDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? description = null,
-    Object? imageUrl = null,
-    Object? requirements = null,
+    Object? userEmail = null,
+    Object? collectionId = freezed,
+    Object? deviceId = freezed,
+    Object? nickname = null,
+    Object? base64Image = freezed,
+    Object? createRequirementsDto = null,
   }) {
     return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      collectionId: freezed == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      requirements: null == requirements
-          ? _value.requirements
-          : requirements // ignore: cast_nullable_to_non_nullable
+      base64Image: freezed == base64Image
+          ? _value.base64Image
+          : base64Image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createRequirementsDto: null == createRequirementsDto
+          ? _value.createRequirementsDto
+          : createRequirementsDto // ignore: cast_nullable_to_non_nullable
               as CreateRequirementsDto,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CreateRequirementsDtoCopyWith<$Res> get requirements {
-    return $CreateRequirementsDtoCopyWith<$Res>(_value.requirements, (value) {
-      return _then(_value.copyWith(requirements: value) as $Val);
+  $CreateRequirementsDtoCopyWith<$Res> get createRequirementsDto {
+    return $CreateRequirementsDtoCopyWith<$Res>(_value.createRequirementsDto,
+        (value) {
+      return _then(_value.copyWith(createRequirementsDto: value) as $Val);
     });
   }
 }
@@ -102,13 +118,15 @@ abstract class _$$CreatePlantDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
-      String description,
-      String imageUrl,
-      CreateRequirementsDto requirements});
+      {String userEmail,
+      String? collectionId,
+      String? deviceId,
+      String nickname,
+      String? base64Image,
+      CreateRequirementsDto createRequirementsDto});
 
   @override
-  $CreateRequirementsDtoCopyWith<$Res> get requirements;
+  $CreateRequirementsDtoCopyWith<$Res> get createRequirementsDto;
 }
 
 /// @nodoc
@@ -122,27 +140,37 @@ class __$$CreatePlantDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? description = null,
-    Object? imageUrl = null,
-    Object? requirements = null,
+    Object? userEmail = null,
+    Object? collectionId = freezed,
+    Object? deviceId = freezed,
+    Object? nickname = null,
+    Object? base64Image = freezed,
+    Object? createRequirementsDto = null,
   }) {
     return _then(_$CreatePlantDtoImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      collectionId: freezed == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      requirements: null == requirements
-          ? _value.requirements
-          : requirements // ignore: cast_nullable_to_non_nullable
+      base64Image: freezed == base64Image
+          ? _value.base64Image
+          : base64Image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createRequirementsDto: null == createRequirementsDto
+          ? _value.createRequirementsDto
+          : createRequirementsDto // ignore: cast_nullable_to_non_nullable
               as CreateRequirementsDto,
     ));
   }
@@ -152,26 +180,32 @@ class __$$CreatePlantDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CreatePlantDtoImpl implements _CreatePlantDto {
   _$CreatePlantDtoImpl(
-      {required this.name,
-      required this.description,
-      required this.imageUrl,
-      required this.requirements});
+      {required this.userEmail,
+      required this.collectionId,
+      required this.deviceId,
+      required this.nickname,
+      required this.base64Image,
+      required this.createRequirementsDto});
 
   factory _$CreatePlantDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CreatePlantDtoImplFromJson(json);
 
   @override
-  final String name;
+  final String userEmail;
   @override
-  final String description;
+  final String? collectionId;
   @override
-  final String imageUrl;
+  final String? deviceId;
   @override
-  final CreateRequirementsDto requirements;
+  final String nickname;
+  @override
+  final String? base64Image;
+  @override
+  final CreateRequirementsDto createRequirementsDto;
 
   @override
   String toString() {
-    return 'CreatePlantDto(name: $name, description: $description, imageUrl: $imageUrl, requirements: $requirements)';
+    return 'CreatePlantDto(userEmail: $userEmail, collectionId: $collectionId, deviceId: $deviceId, nickname: $nickname, base64Image: $base64Image, createRequirementsDto: $createRequirementsDto)';
   }
 
   @override
@@ -179,19 +213,24 @@ class _$CreatePlantDtoImpl implements _CreatePlantDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreatePlantDtoImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
-            (identical(other.requirements, requirements) ||
-                other.requirements == requirements));
+            (identical(other.userEmail, userEmail) ||
+                other.userEmail == userEmail) &&
+            (identical(other.collectionId, collectionId) ||
+                other.collectionId == collectionId) &&
+            (identical(other.deviceId, deviceId) ||
+                other.deviceId == deviceId) &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname) &&
+            (identical(other.base64Image, base64Image) ||
+                other.base64Image == base64Image) &&
+            (identical(other.createRequirementsDto, createRequirementsDto) ||
+                other.createRequirementsDto == createRequirementsDto));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, description, imageUrl, requirements);
+  int get hashCode => Object.hash(runtimeType, userEmail, collectionId,
+      deviceId, nickname, base64Image, createRequirementsDto);
 
   @JsonKey(ignore: true)
   @override
@@ -210,23 +249,29 @@ class _$CreatePlantDtoImpl implements _CreatePlantDto {
 
 abstract class _CreatePlantDto implements CreatePlantDto {
   factory _CreatePlantDto(
-          {required final String name,
-          required final String description,
-          required final String imageUrl,
-          required final CreateRequirementsDto requirements}) =
+          {required final String userEmail,
+          required final String? collectionId,
+          required final String? deviceId,
+          required final String nickname,
+          required final String? base64Image,
+          required final CreateRequirementsDto createRequirementsDto}) =
       _$CreatePlantDtoImpl;
 
   factory _CreatePlantDto.fromJson(Map<String, dynamic> json) =
       _$CreatePlantDtoImpl.fromJson;
 
   @override
-  String get name;
+  String get userEmail;
   @override
-  String get description;
+  String? get collectionId;
   @override
-  String get imageUrl;
+  String? get deviceId;
   @override
-  CreateRequirementsDto get requirements;
+  String get nickname;
+  @override
+  String? get base64Image;
+  @override
+  CreateRequirementsDto get createRequirementsDto;
   @override
   @JsonKey(ignore: true)
   _$$CreatePlantDtoImplCopyWith<_$CreatePlantDtoImpl> get copyWith =>

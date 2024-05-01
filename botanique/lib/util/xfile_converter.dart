@@ -15,4 +15,8 @@ class XFileConverter {
   static String toBase64(XFile xFile) {
     return base64Encode(File(xFile.path).readAsBytesSync());
   }
+
+  static String toBase64FromFilePath(String filePath) {
+    return base64Encode(File(filePath).readAsBytesSync());
+  }
 }

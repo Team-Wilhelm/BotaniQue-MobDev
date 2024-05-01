@@ -33,7 +33,8 @@ class ClientWantsToRemoveBackgroundFromImage extends ClientEventWithJwt
 }
 
 @freezed
-class ClientWantsToCreatePlant extends ClientEventWithJwt with _$ClientWantsToCreatePlant {
+class ClientWantsToCreatePlant extends ClientEventWithJwt
+    with _$ClientWantsToCreatePlant {
   const factory ClientWantsToCreatePlant({
     required CreatePlantDto createPlantDto,
     required String jwt,

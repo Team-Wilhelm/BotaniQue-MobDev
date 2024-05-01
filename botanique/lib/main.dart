@@ -6,6 +6,7 @@ import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/current_page_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -19,31 +20,35 @@ void main() {
   //Bloc.observer = LoggerBlocObserver();
 
   // Connect to WebSocket
-  final wsUri = Uri.parse('ws://10.0.2.2:8181');
+  final wsUri = kIsWeb
+      ? Uri.parse('ws://0.0.0.0:8181')
+      : Uri.parse('ws://10.0.2.2:8181');
   final channel = WebSocketChannel.connect(wsUri);
 
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider<AllPlantsCubit>(
-        create: (context) => AllPlantsCubit(
-          AllPlantsState.initial(),
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AllPlantsCubit>(
+          create: (context) => AllPlantsCubit(
+            AllPlantsState.initial(),
+          ),
         ),
-      ),
-      BlocProvider<CurrentPageCubit>(
-        create: (context) => CurrentPageCubit(),
-      ),
-      BlocProvider<AddPlantBloc>(
-        create: (context) => AddPlantBloc(),
-      ),
-      BlocProvider<PlantRequirementsCubit>(
-        create: (context) => PlantRequirementsCubit(),
-      ),
-      BlocProvider<WebSocketBloc>(
-        create: (context) => WebSocketBloc(channel: channel),
-      )
-    ],
-    child: BotaniQueApp(),
-  ));
+        BlocProvider<CurrentPageCubit>(
+          create: (context) => CurrentPageCubit(),
+        ),
+        BlocProvider<AddPlantBloc>(
+          create: (context) => AddPlantBloc(),
+        ),
+        BlocProvider<PlantRequirementsCubit>(
+          create: (context) => PlantRequirementsCubit(),
+        ),
+        BlocProvider<WebSocketBloc>(
+          create: (context) => WebSocketBloc(channel: channel),
+        )
+      ],
+      child: BotaniQueApp(),
+    ),
+  );
 }
 
 class BotaniQueApp extends StatelessWidget {
