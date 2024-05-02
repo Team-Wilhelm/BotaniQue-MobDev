@@ -21,7 +21,7 @@ class AppButton extends StatelessWidget {
     this.buttonType = ButtonType.primary,
     this.buttonShape = ButtonShape.square,
     this.disabled = false,
-    this.fontPercentage = TextSizes.regular,
+    this.fontPercentage = FontSizes.regular,
     this.fullWidth = false,
   });
 

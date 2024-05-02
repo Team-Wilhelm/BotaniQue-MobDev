@@ -8,6 +8,7 @@ class AssetConstants {
   static const String light = '${_minimalisticAssetPath}sun.png';
   static const String soilMoisture = '${_minimalisticAssetPath}moisture.png';
   static const String temperature = '${_minimalisticAssetPath}temperature.png';
+  static const String camera = '${_minimalisticAssetPath}camera.png';
 }
 
 class NetworkConstants {
