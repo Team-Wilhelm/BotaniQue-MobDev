@@ -5,6 +5,7 @@ import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/current_page_cubit.dart';
+import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,8 @@ void main() {
   //Bloc.observer = LoggerBlocObserver();
 
   // Connect to WebSocket
-  final wsUri = kIsWeb
-      ? Uri.parse('ws://0.0.0.0:8181')
-      : Uri.parse('ws://10.0.2.2:8181');
+  final wsUri =
+      kIsWeb ? Uri.parse('ws://0.0.0.0:8181') : Uri.parse('ws://10.0.2.2:8181');
   final channel = WebSocketChannel.connect(wsUri);
 
   runApp(
@@ -44,7 +44,9 @@ void main() {
         ),
         BlocProvider<WebSocketBloc>(
           create: (context) => WebSocketBloc(channel: channel),
-        )
+        ),
+        BlocProvider<UpdateUserCubit>(
+          create: (context) => UpdateUserCubit())
       ],
       child: BotaniQueApp(),
     ),
