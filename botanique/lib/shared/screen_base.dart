@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'navigation/app_navbar.dart';
 
 class ScreenBase extends StatelessWidget {
   const ScreenBase({

@@ -16,7 +16,7 @@ class AllPlantsScreen extends StatelessWidget {
         children: [
           const AppText(
             text: "My Plants",
-            fontSize: TextSizes.h2,
+            fontSize: FontSizes.h2,
             fontWeight: FontWeight.bold,
           ),
           _getSpacer(context),

@@ -41,7 +41,7 @@ class PlantCard extends StatelessWidget {
                 children: [
                   const AppText(
                     text: "Plant Name",
-                    fontSize: TextSizes.h4,
+                    fontSize: FontSizes.h4,
                   ),
                   const SizedBox(
                     height: 16,
