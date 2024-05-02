@@ -2,6 +2,7 @@ import 'package:botanique/add_plant/steps/add_plant_first_step.dart';
 import 'package:botanique/add_plant/steps/add_plant_second_step.dart';
 import 'package:botanique/add_plant/steps/add_plant_third_step.dart';
 import 'package:botanique/models/dtos/create_plant_dto.dart';
+import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';
 import 'package:botanique/state/navigation_cubit.dart';
@@ -55,9 +56,9 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   @override
   Widget build(BuildContext context) {
     return ScreenBase(
-      child: BlocListener<WebSocketBloc, AppState>(
+      child: BlocListener<WebSocketBloc, ServerEvent>(
         listener: (context, state) {
-          if (state.newlyAddedPlant != null) {
+          if (state is ServerCreatesNewPlant ) {
             // TODO: better user feedback on success and error
             context
                 .read<NavigationCubit>()
@@ -65,7 +66,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
             context.read<WebSocketBloc>().add(ResetState());
             context.read<PlantRequirementsCubit>().reset();
             context.read<AddPlantBloc>().add(ResetAddPlantState());
-          } else if (state.error != null) {
+          } else if (state is ServerSendsErrorMessage) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.error!),

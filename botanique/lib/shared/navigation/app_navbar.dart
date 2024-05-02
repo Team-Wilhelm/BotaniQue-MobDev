@@ -1,5 +1,4 @@
 import 'package:botanique/shared/navigation/app_navigation_item.dart';
-import 'package:botanique/state/navigation_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../../util/navigation_constants.dart';

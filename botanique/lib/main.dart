@@ -2,6 +2,7 @@ import 'package:botanique/all_plants/all_plants_screen.dart';
 import 'package:botanique/auth/log_in_screen.dart';
 import 'package:botanique/auth/sign_up_screen.dart';
 import 'package:botanique/home/home_screen.dart';
+import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
@@ -74,7 +75,8 @@ class BotaniQueApp extends StatelessWidget {
   Widget build(BuildContext context) {
     _pageController =
         PageController(initialPage: context.read<NavigationCubit>().state);
-    return BlocBuilder<WebSocketBloc, AppState>(builder: (context, snapshot) {
+    return BlocBuilder<WebSocketBloc, ServerEvent>(
+        builder: (context, snapshot) {
       return MaterialApp(
         title: 'BotaniQue',
         debugShowCheckedModeBanner: false,
@@ -95,7 +97,7 @@ class BotaniQueApp extends StatelessWidget {
                 );
               }),
           bottomNavigationBar: AppNavbar(
-            isHidden: !snapshot.isAuthenticated,
+            isHidden: false, // TODO: fix
           ),
         ),
       );

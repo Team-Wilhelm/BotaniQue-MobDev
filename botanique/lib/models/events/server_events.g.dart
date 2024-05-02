@@ -54,3 +54,27 @@ Map<String, dynamic> _$$ServerSendsErrorMessageImplToJson(
     <String, dynamic>{
       'error': instance.error,
     };
+
+_$ServerAuthenticatesUserImpl _$$ServerAuthenticatesUserImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerAuthenticatesUserImpl(
+      jwt: json['jwt'] as String,
+    );
+
+Map<String, dynamic> _$$ServerAuthenticatesUserImplToJson(
+        _$ServerAuthenticatesUserImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+    };
+
+_$ServerRejectsWrongCredentialsImpl
+    _$$ServerRejectsWrongCredentialsImplFromJson(Map<String, dynamic> json) =>
+        _$ServerRejectsWrongCredentialsImpl(
+          error: json['error'] as String,
+        );
+
+Map<String, dynamic> _$$ServerRejectsWrongCredentialsImplToJson(
+        _$ServerRejectsWrongCredentialsImpl instance) =>
+    <String, dynamic>{
+      'error': instance.error,
+    };

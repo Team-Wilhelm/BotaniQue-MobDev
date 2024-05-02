@@ -18,35 +18,37 @@ class AppNavigationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<NavigationCubit>();
-    return BlocBuilder<NavigationCubit, int>(builder: (context, state) {
-      return GestureDetector(
-        onTap: () {
-          cubit.changePage(routeLabel);
-        },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border(
-              top: BorderSide(
-                color: cubit.state == routeLabel // TODO: fix
-                    ? Theme.of(context).colorScheme.secondary
-                    : Colors.transparent,
-                width: 2,
-              ),
-            )),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  color: Theme.of(context).colorScheme.primary,
+    return BlocBuilder<NavigationCubit, int>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            cubit.changePage(routeLabel);
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                top: BorderSide(
+                  color: cubit.state == routeLabel // TODO: fix
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.transparent,
+                  width: 2,
                 ),
-              ],
+              )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

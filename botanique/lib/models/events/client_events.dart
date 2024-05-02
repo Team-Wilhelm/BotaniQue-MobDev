@@ -1,3 +1,4 @@
+import 'package:botanique/models/dtos/auth/log_in_dto.dart';
 import 'package:botanique/models/dtos/create_plant_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -43,4 +44,15 @@ class ClientWantsToCreatePlant extends ClientEventWithJwt
 
   factory ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToCreatePlantFromJson(json);
+}
+
+@freezed
+class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
+  factory ClientWantsToLogIn({
+    required LoginDto loginDto,
+    required String eventType,
+  }) = _ClientWantsToLogIn;
+
+  factory ClientWantsToLogIn.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToLogInFromJson(json);
 }

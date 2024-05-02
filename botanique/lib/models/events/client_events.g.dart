@@ -39,3 +39,17 @@ Map<String, dynamic> _$$ClientWantsToCreatePlantImplToJson(
       'jwt': instance.jwt,
       'eventType': instance.eventType,
     };
+
+_$ClientWantsToLogInImpl _$$ClientWantsToLogInImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClientWantsToLogInImpl(
+      loginDto: LoginDto.fromJson(json['loginDto'] as Map<String, dynamic>),
+      eventType: json['eventType'] as String,
+    );
+
+Map<String, dynamic> _$$ClientWantsToLogInImplToJson(
+        _$ClientWantsToLogInImpl instance) =>
+    <String, dynamic>{
+      'loginDto': instance.loginDto,
+      'eventType': instance.eventType,
+    };
