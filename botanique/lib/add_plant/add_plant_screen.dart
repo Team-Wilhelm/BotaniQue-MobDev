@@ -58,12 +58,11 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
     return ScreenBase(
       child: BlocListener<WebSocketBloc, ServerEvent>(
         listener: (context, state) {
-          if (state is ServerCreatesNewPlant ) {
+          if (state is ServerCreatesNewPlant) {
             // TODO: better user feedback on success and error
             context
                 .read<NavigationCubit>()
                 .changePage(NavigationConstants.home);
-            context.read<WebSocketBloc>().add(ResetState());
             context.read<PlantRequirementsCubit>().reset();
             context.read<AddPlantBloc>().add(ResetAddPlantState());
           } else if (state is ServerSendsErrorMessage) {
