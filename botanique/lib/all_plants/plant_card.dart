@@ -1,4 +1,5 @@
 import 'package:botanique/all_plants/plant_card_stat.dart';
+import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:botanique/style/asset_constants.dart';
@@ -11,7 +12,9 @@ class PlantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, "/plant-detail");
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const PlantDetailScreen();
+        }));
       },
       child: Container(
         padding: const EdgeInsets.all(12),
