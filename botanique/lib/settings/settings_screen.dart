@@ -1,8 +1,10 @@
-import 'package:botanique/settings/panel_content/panel_content.dart';
+import 'package:botanique/settings/panel_content/text_update_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/style/app_style.dart';
+import 'panel_content/panel_item.dart';
+import 'panel_content/image_update_content.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -21,17 +23,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
       PanelItem(
           id: 1,
           headerValue: 'Username',
-          panelContent: PanelContent(),
+          panelContent: TextUpdatePanel(
+            textToUpdate: "PlantLover577",
+            placeholder: "Enter new username",
+            icon: const Icon(Icons.person),
+            onSubmit: () {},
+          ),
           controller: ExpansionTileController()),
       PanelItem(
           id: 2,
           headerValue: 'Password',
-          panelContent: PanelContent(),
+          panelContent: TextUpdatePanel(
+            textToUpdate: "******",
+            placeholder: "Enter new password",
+            icon: const Icon(Icons.visibility),
+            onSubmit: () {},
+          ),
           controller: ExpansionTileController()),
       PanelItem(
           id: 3,
           headerValue: 'Profile Picture',
-          panelContent: PanelContent(),
+          panelContent: ImageUpdateContent(),
           controller: ExpansionTileController()),
     ];
     super.initState();
@@ -40,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _handleTileToggle(PanelItem item) {
     setState(() {
       if (openPanelId > 0) {
-        panelItems.elementAt(openPanelId-1).controller.collapse();
+        panelItems.elementAt(openPanelId - 1).controller.collapse();
       }
       openPanelId = item.id;
     });
@@ -78,7 +90,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           tilePadding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           childrenPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           initiallyExpanded: false,
-          key: PageStorageKey<int>(item.id),
           iconColor: AppColors.accent,
           title: AppText(
               text: item.headerValue,
@@ -92,18 +103,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
-}
-
-class PanelItem {
-  int id; // Unique identifier, used for handling expansion state
-  ExpansionTileController controller;
-  String headerValue;
-  Widget panelContent;
-
-  PanelItem({
-    required this.id,
-    required this.controller,
-    required this.headerValue,
-    required this.panelContent,
-  });
 }

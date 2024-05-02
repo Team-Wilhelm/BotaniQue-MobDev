@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-class PanelContent
- extends StatelessWidget {
-  const PanelContent
-  ({super.key});
+
+class ImageUpdateContent extends StatelessWidget {
+  const ImageUpdateContent({super.key});
 
   @override
   Widget build(BuildContext context) {
