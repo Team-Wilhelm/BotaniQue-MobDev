@@ -1,7 +1,11 @@
 import 'package:botanique/shared/app_text.dart';
+import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+
+import '../util/navigation_constants.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -34,8 +38,9 @@ class WelcomeScreen extends StatelessWidget {
             ),
             spacer,
             ElevatedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushReplacementNamed("/login"),
+                onPressed: () => context
+                    .read<NavigationCubit>()
+                    .changePage(NavigationConstants.logIn),
                 style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 5,

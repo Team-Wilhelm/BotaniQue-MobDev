@@ -15,8 +15,6 @@ class ResetState extends BaseEvent {}
 class WebSocketBloc extends Bloc<BaseEvent, AppState> {
   final WebSocketChannel channel;
   late StreamSubscription _channelSubscription;
-  String jwt =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImJvYkBhcHAuY29tIiwibmFtZSI6ImJvYiJ9.kLzk-MIbyaeW1vzi9i27sprMR8teotV7E59dyJ7kdgOOK3VwhjvRwzzdZefiUWIH_0iXk6kP0BGaFRXMLwgLhA"; // TODO: get from logging in
 
   WebSocketBloc({required this.channel}) : super(AppState.empty()) {
     // Client events
@@ -50,9 +48,9 @@ class WebSocketBloc extends Bloc<BaseEvent, AppState> {
 
   FutureOr<void> _onClientEvent(ClientEvent event, Emitter<AppState> emit) {
     if (event is ClientWantsToCreatePlant) {
-      event = event.copyWith(jwt: jwt);
+      event = event.copyWith(jwt: state.jwt!);
     } else if (event is ClientWantsToRemoveBackgroundFromImage) {
-      event = event.copyWith(jwt: jwt);
+      event = event.copyWith(jwt: state.jwt!);
     }
 
     print("Sending event: ${event.toJson()}");
@@ -68,14 +66,17 @@ class WebSocketBloc extends Bloc<BaseEvent, AppState> {
 }
 
 class AppState {
+  final String? jwt;
   final XFile? addPlantImage;
   final Plant? newlyAddedPlant;
   final String? error;
+  get isAuthenticated => jwt != null; 
 
   AppState({
     required this.addPlantImage,
     this.newlyAddedPlant,
     this.error,
+    this.jwt,
   });
 
   static AppState empty() {
@@ -86,15 +87,22 @@ class AppState {
     XFile? addPlantImage,
     Plant? newlyAddedPlant,
     String? error,
+    String? jwt,
   }) {
     return AppState(
       addPlantImage: addPlantImage ?? this.addPlantImage,
       newlyAddedPlant: newlyAddedPlant ?? this.newlyAddedPlant,
       error: error ?? this.error,
+      jwt: jwt ?? this.jwt,
     );
   }
 
   AppState reset() {
-    return AppState(addPlantImage: null, newlyAddedPlant: null, error: null);
+    return AppState(
+      addPlantImage: null,
+      newlyAddedPlant: null,
+      error: null,
+      jwt: jwt,
+    );
   }
 }

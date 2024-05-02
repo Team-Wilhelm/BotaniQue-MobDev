@@ -2,6 +2,10 @@ import 'package:botanique/auth/log_in_form.dart';
 import 'package:botanique/shared/app_logo.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../state/navigation_cubit.dart';
+import '../util/navigation_constants.dart';
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({super.key});
@@ -29,8 +33,9 @@ class LogInScreen extends StatelessWidget {
                     const AppText(text: "Don't have an account?"),
                     TextButton(
                       onPressed: () => {
-                        Navigator.pop(context),
-                        Navigator.pushNamed(context, "/signup"),
+                        context
+                            .read<NavigationCubit>()
+                            .changePage(NavigationConstants.signUp)
                       },
                       style: ButtonStyle(
                         overlayColor: MaterialStateProperty.all(

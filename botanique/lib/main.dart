@@ -1,11 +1,14 @@
 import 'package:botanique/all_plants/all_plants_screen.dart';
+import 'package:botanique/auth/log_in_screen.dart';
+import 'package:botanique/auth/sign_up_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
-import 'package:botanique/state/current_page_cubit.dart';
+import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +23,8 @@ void main() {
   //Bloc.observer = LoggerBlocObserver();
 
   // Connect to WebSocket
-  final wsUri = kIsWeb
-      ? Uri.parse('ws://0.0.0.0:8181')
-      : Uri.parse('ws://10.0.2.2:8181');
+  final wsUri =
+      kIsWeb ? Uri.parse('ws://0.0.0.0:8181') : Uri.parse('ws://10.0.2.2:8181');
   final channel = WebSocketChannel.connect(wsUri);
 
   runApp(
@@ -33,8 +35,8 @@ void main() {
             AllPlantsState.initial(),
           ),
         ),
-        BlocProvider<CurrentPageCubit>(
-          create: (context) => CurrentPageCubit(),
+        BlocProvider<NavigationCubit>(
+          create: (context) => NavigationCubit(),
         ),
         BlocProvider<AddPlantBloc>(
           create: (context) => AddPlantBloc(),
@@ -56,38 +58,47 @@ class BotaniQueApp extends StatelessWidget {
     super.key,
   });
 
-  final _pageController = PageController();
+  late final PageController _pageController;
 
   final List<Widget> _screens = [
     const HomeScreen(),
     const AllPlantsScreen(),
     const AddPlantScreen(),
     const SettingsScreen(),
+    const WelcomeScreen(),
+    const LogInScreen(),
+    const SignUpScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BotaniQue',
-      debugShowCheckedModeBanner: false,
-      theme: appTheme,
-      home: Scaffold(
-        body: BlocConsumer<CurrentPageCubit, int>(
-            listener: (context, state) => {
-                  _pageController.animateToPage(
-                    state,
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeInOut,
-                  )
-                },
-            builder: (context, state) {
-              return PageView(
-                controller: _pageController,
-                children: _screens,
-              );
-            }),
-        bottomNavigationBar: const AppNavbar(),
-      ),
-    );
+    _pageController =
+        PageController(initialPage: context.read<NavigationCubit>().state);
+    return BlocBuilder<WebSocketBloc, AppState>(builder: (context, snapshot) {
+      return MaterialApp(
+        title: 'BotaniQue',
+        debugShowCheckedModeBanner: false,
+        theme: appTheme,
+        home: Scaffold(
+          body: BlocConsumer<NavigationCubit, int>(
+              listener: (context, state) => {
+                    _pageController.animateToPage(
+                      state,
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeInOut,
+                    )
+                  },
+              builder: (context, state) {
+                return PageView(
+                  controller: _pageController,
+                  children: _screens,
+                );
+              }),
+          bottomNavigationBar: AppNavbar(
+            isHidden: !snapshot.isAuthenticated,
+          ),
+        ),
+      );
+    });
   }
 }
