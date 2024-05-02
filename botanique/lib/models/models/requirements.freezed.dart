@@ -22,14 +22,10 @@ Requirements _$RequirementsFromJson(Map<String, dynamic> json) {
 mixin _$Requirements {
   String get requirementsId => throw _privateConstructorUsedError;
   String get plantId => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get lightLevel => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get temperatureLevel => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get humidityLevel => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get soilMoistureLevel => throw _privateConstructorUsedError;
+  int get lightLevel => throw _privateConstructorUsedError;
+  int get temperatureLevel => throw _privateConstructorUsedError;
+  int get humidityLevel => throw _privateConstructorUsedError;
+  int get soilMoistureLevel => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,11 +42,10 @@ abstract class $RequirementsCopyWith<$Res> {
   $Res call(
       {String requirementsId,
       String plantId,
-      @JsonKey(fromJson: _convertNumericEnum) RequirementLevel lightLevel,
-      @JsonKey(fromJson: _convertNumericEnum) RequirementLevel temperatureLevel,
-      @JsonKey(fromJson: _convertNumericEnum) RequirementLevel humidityLevel,
-      @JsonKey(fromJson: _convertNumericEnum)
-      RequirementLevel soilMoistureLevel});
+      int lightLevel,
+      int temperatureLevel,
+      int humidityLevel,
+      int soilMoistureLevel});
 }
 
 /// @nodoc
@@ -85,19 +80,19 @@ class _$RequirementsCopyWithImpl<$Res, $Val extends Requirements>
       lightLevel: null == lightLevel
           ? _value.lightLevel
           : lightLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
       temperatureLevel: null == temperatureLevel
           ? _value.temperatureLevel
           : temperatureLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
       humidityLevel: null == humidityLevel
           ? _value.humidityLevel
           : humidityLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
       soilMoistureLevel: null == soilMoistureLevel
           ? _value.soilMoistureLevel
           : soilMoistureLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
     ) as $Val);
   }
 }
@@ -113,11 +108,10 @@ abstract class _$$RequirementsImplCopyWith<$Res>
   $Res call(
       {String requirementsId,
       String plantId,
-      @JsonKey(fromJson: _convertNumericEnum) RequirementLevel lightLevel,
-      @JsonKey(fromJson: _convertNumericEnum) RequirementLevel temperatureLevel,
-      @JsonKey(fromJson: _convertNumericEnum) RequirementLevel humidityLevel,
-      @JsonKey(fromJson: _convertNumericEnum)
-      RequirementLevel soilMoistureLevel});
+      int lightLevel,
+      int temperatureLevel,
+      int humidityLevel,
+      int soilMoistureLevel});
 }
 
 /// @nodoc
@@ -150,19 +144,19 @@ class __$$RequirementsImplCopyWithImpl<$Res>
       lightLevel: null == lightLevel
           ? _value.lightLevel
           : lightLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
       temperatureLevel: null == temperatureLevel
           ? _value.temperatureLevel
           : temperatureLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
       humidityLevel: null == humidityLevel
           ? _value.humidityLevel
           : humidityLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
       soilMoistureLevel: null == soilMoistureLevel
           ? _value.soilMoistureLevel
           : soilMoistureLevel // ignore: cast_nullable_to_non_nullable
-              as RequirementLevel,
+              as int,
     ));
   }
 }
@@ -173,10 +167,10 @@ class _$RequirementsImpl implements _Requirements {
   const _$RequirementsImpl(
       {required this.requirementsId,
       required this.plantId,
-      @JsonKey(fromJson: _convertNumericEnum) required this.lightLevel,
-      @JsonKey(fromJson: _convertNumericEnum) required this.temperatureLevel,
-      @JsonKey(fromJson: _convertNumericEnum) required this.humidityLevel,
-      @JsonKey(fromJson: _convertNumericEnum) required this.soilMoistureLevel});
+      required this.lightLevel,
+      required this.temperatureLevel,
+      required this.humidityLevel,
+      required this.soilMoistureLevel});
 
   factory _$RequirementsImpl.fromJson(Map<String, dynamic> json) =>
       _$$RequirementsImplFromJson(json);
@@ -186,17 +180,13 @@ class _$RequirementsImpl implements _Requirements {
   @override
   final String plantId;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  final RequirementLevel lightLevel;
+  final int lightLevel;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  final RequirementLevel temperatureLevel;
+  final int temperatureLevel;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  final RequirementLevel humidityLevel;
+  final int humidityLevel;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  final RequirementLevel soilMoistureLevel;
+  final int soilMoistureLevel;
 
   @override
   String toString() {
@@ -244,14 +234,10 @@ abstract class _Requirements implements Requirements {
   const factory _Requirements(
       {required final String requirementsId,
       required final String plantId,
-      @JsonKey(fromJson: _convertNumericEnum)
-      required final RequirementLevel lightLevel,
-      @JsonKey(fromJson: _convertNumericEnum)
-      required final RequirementLevel temperatureLevel,
-      @JsonKey(fromJson: _convertNumericEnum)
-      required final RequirementLevel humidityLevel,
-      @JsonKey(fromJson: _convertNumericEnum)
-      required final RequirementLevel soilMoistureLevel}) = _$RequirementsImpl;
+      required final int lightLevel,
+      required final int temperatureLevel,
+      required final int humidityLevel,
+      required final int soilMoistureLevel}) = _$RequirementsImpl;
 
   factory _Requirements.fromJson(Map<String, dynamic> json) =
       _$RequirementsImpl.fromJson;
@@ -261,17 +247,13 @@ abstract class _Requirements implements Requirements {
   @override
   String get plantId;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get lightLevel;
+  int get lightLevel;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get temperatureLevel;
+  int get temperatureLevel;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get humidityLevel;
+  int get humidityLevel;
   @override
-  @JsonKey(fromJson: _convertNumericEnum)
-  RequirementLevel get soilMoistureLevel;
+  int get soilMoistureLevel;
   @override
   @JsonKey(ignore: true)
   _$$RequirementsImplCopyWith<_$RequirementsImpl> get copyWith =>

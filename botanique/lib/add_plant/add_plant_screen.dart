@@ -57,9 +57,11 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
       child: BlocListener<WebSocketBloc, AppState>(
         listener: (context, state) {
           if (state.newlyAddedPlant != null) {
-            print("Plant added: ${state.newlyAddedPlant!.nickname}");
-            /* context.read<CurrentPageCubit>().changePage(0);
-            context.read<WebSocketBloc>().add(ResetState()); */
+            // TODO: better user feedback on success and error
+            context.read<CurrentPageCubit>().changePage(0);
+            context.read<WebSocketBloc>().add(ResetState());
+            context.read<PlantRequirementsCubit>().reset();
+            context.read<AddPlantBloc>().add(ResetAddPlantState());
           } else if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

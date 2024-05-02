@@ -36,6 +36,10 @@ class AddPlantBloc extends Bloc<AddPlantEvent, AddPlantState> {
     on<FinishPressed>((event, emit) async {
       emit(PlantAddInProgress());
     });
+
+    on<ResetAddPlantState>((event, emit) async {
+      emit(InitialNoPictureSelected());
+    });
   }
 }
 
@@ -55,6 +59,8 @@ class PictureBackgroundRemovalSuccess extends AddPlantEvent {
 }
 
 class FinishPressed extends AddPlantEvent {}
+
+class ResetAddPlantState extends AddPlantEvent {}
 
 // Possible outcomes
 abstract class AddPlantState {}

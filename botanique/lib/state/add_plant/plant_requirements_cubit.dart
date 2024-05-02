@@ -19,4 +19,8 @@ class PlantRequirementsCubit extends Cubit<CreateRequirementsDto> {
   void updateHumidityLevel(int humidityLevel) {
     emit(state.copyWith(humidityLevel: humidityLevel));
   }
+
+  void reset() {
+    emit(CreateRequirementsDto.empty());
+  }
 }

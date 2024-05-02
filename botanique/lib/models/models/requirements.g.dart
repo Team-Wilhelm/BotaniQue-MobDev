@@ -10,28 +10,18 @@ _$RequirementsImpl _$$RequirementsImplFromJson(Map<String, dynamic> json) =>
     _$RequirementsImpl(
       requirementsId: json['requirementsId'] as String,
       plantId: json['plantId'] as String,
-      lightLevel: $enumDecode(_$RequirementLevelEnumMap, json['lightLevel']),
-      temperatureLevel:
-          $enumDecode(_$RequirementLevelEnumMap, json['temperatureLevel']),
-      humidityLevel:
-          $enumDecode(_$RequirementLevelEnumMap, json['humidityLevel']),
-      soilMoistureLevel:
-          $enumDecode(_$RequirementLevelEnumMap, json['soilMoistureLevel']),
+      lightLevel: (json['lightLevel'] as num).toInt(),
+      temperatureLevel: (json['temperatureLevel'] as num).toInt(),
+      humidityLevel: (json['humidityLevel'] as num).toInt(),
+      soilMoistureLevel: (json['soilMoistureLevel'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$RequirementsImplToJson(_$RequirementsImpl instance) =>
     <String, dynamic>{
       'requirementsId': instance.requirementsId,
       'plantId': instance.plantId,
-      'lightLevel': _$RequirementLevelEnumMap[instance.lightLevel]!,
-      'temperatureLevel': _$RequirementLevelEnumMap[instance.temperatureLevel]!,
-      'humidityLevel': _$RequirementLevelEnumMap[instance.humidityLevel]!,
-      'soilMoistureLevel':
-          _$RequirementLevelEnumMap[instance.soilMoistureLevel]!,
+      'lightLevel': instance.lightLevel,
+      'temperatureLevel': instance.temperatureLevel,
+      'humidityLevel': instance.humidityLevel,
+      'soilMoistureLevel': instance.soilMoistureLevel,
     };
-
-const _$RequirementLevelEnumMap = {
-  RequirementLevel.low: 'low',
-  RequirementLevel.medium: 'medium',
-  RequirementLevel.high: 'high',
-};
