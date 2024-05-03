@@ -18,7 +18,7 @@ class AppNavigationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<NavigationCubit>();
-    return BlocBuilder<NavigationCubit, int>(
+    return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (context, state) {
         return GestureDetector(
           onTap: () {

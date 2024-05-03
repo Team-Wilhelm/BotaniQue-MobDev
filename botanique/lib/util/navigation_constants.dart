@@ -2,8 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../add_plant/add_plant_screen.dart';
 import '../all_plants/all_plants_screen.dart';
-import '../auth/log_in_screen.dart';
-import '../auth/sign_up_screen.dart';
+import '../auth/auth_screen.dart';
 import '../home/home_screen.dart';
 import '../settings/settings_screen.dart';
 import '../welcome/welcome_screen.dart';
@@ -48,12 +47,10 @@ class NavigationConstants {
       case NavigationConstants.welcome:
         return const WelcomeScreen();
       case NavigationConstants.logIn:
-        return const LogInScreen();
-      case NavigationConstants.signUp:
-        return const SignUpScreen();
+        return const AuthScreen();
+
       default:
         throw Exception('Page $pageName not found');
     }
   }
-
 }

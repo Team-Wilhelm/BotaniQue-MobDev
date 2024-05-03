@@ -11,10 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../state/navigation_cubit.dart';
 import '../util/navigation_constants.dart';
-import 'log_in_form.dart';
+import 'auth_form.dart';
 
-class LogInScreen extends StatelessWidget {
-  const LogInScreen({super.key});
+class AuthScreen extends StatelessWidget {
+  const AuthScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,32 +41,41 @@ class LogInScreen extends StatelessWidget {
           return SafeArea(
             child: Scaffold(
               backgroundColor: Theme.of(context).colorScheme.background,
-              body: Column(
-                children: [
-                  CustomPaint(
-                    painter: CurvePainter(snapshot.data!),
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: screenWidth,
+              body: BlocBuilder<NavigationCubit, NavigationState>(
+                  builder: (context, navigationState) {
+                return Column(
+                  children: [
+                    CustomPaint(
+                      painter: CurvePainter(snapshot.data!),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        width: screenWidth,
+                      ),
                     ),
-                  ),
-                  const AppText(
-                    text: "Nice to see you again!",
-                    fontSize: FontSizes.h2,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  const AppText(
-                    text: "Log in to your account",
-                    fontSize: FontSizes.small,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: getEdgeInsets(context),
-                      child: const LogInForm(),
+                    AppText(
+                      text: navigationState.isSignUpScreen
+                          ? "Create an account"
+                          : "Nice to see you again!",
+                      fontSize: FontSizes.h2,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ),
-                ],
-              ),
+                    AppText(
+                      text: navigationState.isSignUpScreen
+                          ? "Sign up to get started"
+                          : "Log in to your account",
+                      fontSize: FontSizes.small,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: getEdgeInsets(context),
+                        child: AuthForm(
+                          isSignUp: navigationState.isSignUpScreen,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
             ),
           );
         },
@@ -99,9 +108,6 @@ class CurvePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
     paint.style = PaintingStyle.fill;
-
-    // image scale
-    final scale = size.width / image.width;
 
     final canvasWidth = size.width;
     final canvasHeight = size.height;

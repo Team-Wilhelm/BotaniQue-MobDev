@@ -1,6 +1,5 @@
 import 'package:botanique/all_plants/all_plants_screen.dart';
-import 'package:botanique/auth/log_in_screen.dart';
-import 'package:botanique/auth/sign_up_screen.dart';
+import 'package:botanique/auth/auth_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/settings_screen.dart';
@@ -70,8 +69,7 @@ class BotaniQueApp extends StatelessWidget {
     const AddPlantScreen(),
     const SettingsScreen(),
     const WelcomeScreen(),
-    const LogInScreen(),
-    const SignUpScreen()
+    const AuthScreen(),
   ];
 
   @override
@@ -85,8 +83,8 @@ class BotaniQueApp extends StatelessWidget {
           );
     }
 
-    final PageController pageController =
-        PageController(initialPage: context.read<NavigationCubit>().state);
+    final PageController pageController = PageController(
+        initialPage: context.read<NavigationCubit>().state.index);
     return BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, snapshot) {
       if (snapshot is ServerAuthenticatesUser) {
@@ -97,10 +95,10 @@ class BotaniQueApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: appTheme,
         home: Scaffold(
-          body: BlocConsumer<NavigationCubit, int>(
+          body: BlocConsumer<NavigationCubit, NavigationState>(
               listener: (context, state) => {
                     pageController.animateToPage(
-                      state,
+                      state.index,
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
                     )
