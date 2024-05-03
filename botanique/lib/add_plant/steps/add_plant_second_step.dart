@@ -1,3 +1,4 @@
+import 'package:botanique/models/events/server_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +8,7 @@ import '../../shared/app_text.dart';
 import '../../state/add_plant/add_plant_bloc.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../style/app_style.dart';
-import '../../style/asset_constants.dart';
+import '../../util/asset_constants.dart';
 import '../../util/xfile_converter.dart';
 
 class AddPlantSecondStepContent extends StatelessWidget {
@@ -15,11 +16,11 @@ class AddPlantSecondStepContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<WebSocketBloc, AppState>(
+    return BlocListener<WebSocketBloc, ServerEvent>(
       listener: (context, state) {
-        if (state.addPlantImage != null) {
-          context.read<AddPlantBloc>().add(
-              PictureBackgroundRemovalSuccess(image: state.addPlantImage!));
+        if (state is ServerSendsImageWithoutBackground) {
+          context.read<AddPlantBloc>().add(PictureBackgroundRemovalSuccess(
+              image: XFileConverter.fromBase64(state.base64Image)));
         }
       },
       child: BlocBuilder<AddPlantBloc, AddPlantState>(

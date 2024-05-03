@@ -400,3 +400,342 @@ abstract class _ClientWantsToCreatePlant implements ClientWantsToCreatePlant {
   _$$ClientWantsToCreatePlantImplCopyWith<_$ClientWantsToCreatePlantImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+ClientWantsToLogIn _$ClientWantsToLogInFromJson(Map<String, dynamic> json) {
+  return _ClientWantsToLogIn.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsToLogIn {
+  LoginDto get loginDto => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsToLogInCopyWith<ClientWantsToLogIn> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsToLogInCopyWith<$Res> {
+  factory $ClientWantsToLogInCopyWith(
+          ClientWantsToLogIn value, $Res Function(ClientWantsToLogIn) then) =
+      _$ClientWantsToLogInCopyWithImpl<$Res, ClientWantsToLogIn>;
+  @useResult
+  $Res call({LoginDto loginDto, String eventType});
+
+  $LoginDtoCopyWith<$Res> get loginDto;
+}
+
+/// @nodoc
+class _$ClientWantsToLogInCopyWithImpl<$Res, $Val extends ClientWantsToLogIn>
+    implements $ClientWantsToLogInCopyWith<$Res> {
+  _$ClientWantsToLogInCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? loginDto = null,
+    Object? eventType = null,
+  }) {
+    return _then(_value.copyWith(
+      loginDto: null == loginDto
+          ? _value.loginDto
+          : loginDto // ignore: cast_nullable_to_non_nullable
+              as LoginDto,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LoginDtoCopyWith<$Res> get loginDto {
+    return $LoginDtoCopyWith<$Res>(_value.loginDto, (value) {
+      return _then(_value.copyWith(loginDto: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsToLogInImplCopyWith<$Res>
+    implements $ClientWantsToLogInCopyWith<$Res> {
+  factory _$$ClientWantsToLogInImplCopyWith(_$ClientWantsToLogInImpl value,
+          $Res Function(_$ClientWantsToLogInImpl) then) =
+      __$$ClientWantsToLogInImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({LoginDto loginDto, String eventType});
+
+  @override
+  $LoginDtoCopyWith<$Res> get loginDto;
+}
+
+/// @nodoc
+class __$$ClientWantsToLogInImplCopyWithImpl<$Res>
+    extends _$ClientWantsToLogInCopyWithImpl<$Res, _$ClientWantsToLogInImpl>
+    implements _$$ClientWantsToLogInImplCopyWith<$Res> {
+  __$$ClientWantsToLogInImplCopyWithImpl(_$ClientWantsToLogInImpl _value,
+      $Res Function(_$ClientWantsToLogInImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? loginDto = null,
+    Object? eventType = null,
+  }) {
+    return _then(_$ClientWantsToLogInImpl(
+      loginDto: null == loginDto
+          ? _value.loginDto
+          : loginDto // ignore: cast_nullable_to_non_nullable
+              as LoginDto,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsToLogInImpl implements _ClientWantsToLogIn {
+  _$ClientWantsToLogInImpl({required this.loginDto, required this.eventType});
+
+  factory _$ClientWantsToLogInImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClientWantsToLogInImplFromJson(json);
+
+  @override
+  final LoginDto loginDto;
+  @override
+  final String eventType;
+
+  @override
+  String toString() {
+    return 'ClientWantsToLogIn(loginDto: $loginDto, eventType: $eventType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsToLogInImpl &&
+            (identical(other.loginDto, loginDto) ||
+                other.loginDto == loginDto) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, loginDto, eventType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsToLogInImplCopyWith<_$ClientWantsToLogInImpl> get copyWith =>
+      __$$ClientWantsToLogInImplCopyWithImpl<_$ClientWantsToLogInImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsToLogInImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsToLogIn implements ClientWantsToLogIn {
+  factory _ClientWantsToLogIn(
+      {required final LoginDto loginDto,
+      required final String eventType}) = _$ClientWantsToLogInImpl;
+
+  factory _ClientWantsToLogIn.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsToLogInImpl.fromJson;
+
+  @override
+  LoginDto get loginDto;
+  @override
+  String get eventType;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsToLogInImplCopyWith<_$ClientWantsToLogInImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ClientWantsToCheckJwtValidity _$ClientWantsToCheckJwtValidityFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsToCheckJwtValidity.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsToCheckJwtValidity {
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsToCheckJwtValidityCopyWith<ClientWantsToCheckJwtValidity>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsToCheckJwtValidityCopyWith<$Res> {
+  factory $ClientWantsToCheckJwtValidityCopyWith(
+          ClientWantsToCheckJwtValidity value,
+          $Res Function(ClientWantsToCheckJwtValidity) then) =
+      _$ClientWantsToCheckJwtValidityCopyWithImpl<$Res,
+          ClientWantsToCheckJwtValidity>;
+  @useResult
+  $Res call({String jwt, String eventType});
+}
+
+/// @nodoc
+class _$ClientWantsToCheckJwtValidityCopyWithImpl<$Res,
+        $Val extends ClientWantsToCheckJwtValidity>
+    implements $ClientWantsToCheckJwtValidityCopyWith<$Res> {
+  _$ClientWantsToCheckJwtValidityCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsToCheckJwtValidityImplCopyWith<$Res>
+    implements $ClientWantsToCheckJwtValidityCopyWith<$Res> {
+  factory _$$ClientWantsToCheckJwtValidityImplCopyWith(
+          _$ClientWantsToCheckJwtValidityImpl value,
+          $Res Function(_$ClientWantsToCheckJwtValidityImpl) then) =
+      __$$ClientWantsToCheckJwtValidityImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt, String eventType});
+}
+
+/// @nodoc
+class __$$ClientWantsToCheckJwtValidityImplCopyWithImpl<$Res>
+    extends _$ClientWantsToCheckJwtValidityCopyWithImpl<$Res,
+        _$ClientWantsToCheckJwtValidityImpl>
+    implements _$$ClientWantsToCheckJwtValidityImplCopyWith<$Res> {
+  __$$ClientWantsToCheckJwtValidityImplCopyWithImpl(
+      _$ClientWantsToCheckJwtValidityImpl _value,
+      $Res Function(_$ClientWantsToCheckJwtValidityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+  }) {
+    return _then(_$ClientWantsToCheckJwtValidityImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsToCheckJwtValidityImpl
+    implements _ClientWantsToCheckJwtValidity {
+  _$ClientWantsToCheckJwtValidityImpl(
+      {required this.jwt, required this.eventType});
+
+  factory _$ClientWantsToCheckJwtValidityImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ClientWantsToCheckJwtValidityImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+
+  @override
+  String toString() {
+    return 'ClientWantsToCheckJwtValidity(jwt: $jwt, eventType: $eventType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsToCheckJwtValidityImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt, eventType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsToCheckJwtValidityImplCopyWith<
+          _$ClientWantsToCheckJwtValidityImpl>
+      get copyWith => __$$ClientWantsToCheckJwtValidityImplCopyWithImpl<
+          _$ClientWantsToCheckJwtValidityImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsToCheckJwtValidityImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsToCheckJwtValidity
+    implements ClientWantsToCheckJwtValidity {
+  factory _ClientWantsToCheckJwtValidity(
+      {required final String jwt,
+      required final String eventType}) = _$ClientWantsToCheckJwtValidityImpl;
+
+  factory _ClientWantsToCheckJwtValidity.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsToCheckJwtValidityImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsToCheckJwtValidityImplCopyWith<
+          _$ClientWantsToCheckJwtValidityImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

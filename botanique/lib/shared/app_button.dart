@@ -53,7 +53,7 @@ class AppButton extends StatelessWidget {
     Color backgroundColor;
     switch (buttonType) {
       case ButtonType.primary:
-        backgroundColor = Theme.of(context).colorScheme.primary;
+        backgroundColor = AppColors.primary[20]!;
         break;
       case ButtonType.secondary:
         backgroundColor = Theme.of(context).colorScheme.secondary;
@@ -73,7 +73,7 @@ class AppButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
         side: buttonType == ButtonType.outline
-            ? BorderSide(color: Theme.of(context).colorScheme.primary)
+            ? BorderSide(color: AppColors.primary[20]!)
             : BorderSide.none,
       ),
     );
@@ -89,7 +89,7 @@ class AppButton extends StatelessWidget {
         textColor = TextColors.textDark;
         break;
       case ButtonType.outline:
-        textColor = AppColors.primary;
+        textColor = AppColors.primary[20]!;
         break;
     }
 

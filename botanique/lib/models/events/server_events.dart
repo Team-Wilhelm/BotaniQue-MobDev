@@ -15,6 +15,9 @@ class ServerEvent extends BaseEvent {
       ServerSendsPlant.name => ServerSendsPlant.fromJson(json),
       ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
       ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
+      ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
+      ServerRejectsWrongCredentials.name =>
+        ServerRejectsWrongCredentials.fromJson(json),
       _ => throw "Unknown event type: $type in $json"
     };
   }
@@ -66,4 +69,31 @@ class ServerSendsErrorMessage extends ServerEvent
 
   factory ServerSendsErrorMessage.fromJson(Map<String, dynamic> json) =>
       _$ServerSendsErrorMessageFromJson(json);
+}
+
+@freezed
+class ServerAuthenticatesUser extends ServerEvent
+    with _$ServerAuthenticatesUser {
+  static const String name = "ServerAuthenticatesUser";
+
+  const factory ServerAuthenticatesUser({
+    required String jwt,
+  }) = _ServerAuthenticatesUser;
+
+  factory ServerAuthenticatesUser.fromJson(Map<String, dynamic> json) =>
+      _$ServerAuthenticatesUserFromJson(json);
+}
+
+// TODO: figure out how to extend ServerSendsErrorMessage
+@freezed
+class ServerRejectsWrongCredentials extends ServerEvent
+    with _$ServerRejectsWrongCredentials {
+  static const String name = "ServerRejectsWrongCredentials";
+
+  const factory ServerRejectsWrongCredentials({
+    required String error,
+  }) = _ServerRejectsWrongCredentials;
+
+  factory ServerRejectsWrongCredentials.fromJson(Map<String, dynamic> json) =>
+      _$ServerRejectsWrongCredentialsFromJson(json);
 }

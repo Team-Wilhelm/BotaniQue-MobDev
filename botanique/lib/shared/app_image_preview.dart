@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../style/asset_constants.dart';
+import '../util/asset_constants.dart';
 
 enum ImageType {
   network,

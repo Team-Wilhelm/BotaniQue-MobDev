@@ -615,3 +615,296 @@ abstract class _ServerSendsErrorMessage implements ServerSendsErrorMessage {
   _$$ServerSendsErrorMessageImplCopyWith<_$ServerSendsErrorMessageImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+ServerAuthenticatesUser _$ServerAuthenticatesUserFromJson(
+    Map<String, dynamic> json) {
+  return _ServerAuthenticatesUser.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerAuthenticatesUser {
+  String get jwt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerAuthenticatesUserCopyWith<ServerAuthenticatesUser> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerAuthenticatesUserCopyWith<$Res> {
+  factory $ServerAuthenticatesUserCopyWith(ServerAuthenticatesUser value,
+          $Res Function(ServerAuthenticatesUser) then) =
+      _$ServerAuthenticatesUserCopyWithImpl<$Res, ServerAuthenticatesUser>;
+  @useResult
+  $Res call({String jwt});
+}
+
+/// @nodoc
+class _$ServerAuthenticatesUserCopyWithImpl<$Res,
+        $Val extends ServerAuthenticatesUser>
+    implements $ServerAuthenticatesUserCopyWith<$Res> {
+  _$ServerAuthenticatesUserCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerAuthenticatesUserImplCopyWith<$Res>
+    implements $ServerAuthenticatesUserCopyWith<$Res> {
+  factory _$$ServerAuthenticatesUserImplCopyWith(
+          _$ServerAuthenticatesUserImpl value,
+          $Res Function(_$ServerAuthenticatesUserImpl) then) =
+      __$$ServerAuthenticatesUserImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt});
+}
+
+/// @nodoc
+class __$$ServerAuthenticatesUserImplCopyWithImpl<$Res>
+    extends _$ServerAuthenticatesUserCopyWithImpl<$Res,
+        _$ServerAuthenticatesUserImpl>
+    implements _$$ServerAuthenticatesUserImplCopyWith<$Res> {
+  __$$ServerAuthenticatesUserImplCopyWithImpl(
+      _$ServerAuthenticatesUserImpl _value,
+      $Res Function(_$ServerAuthenticatesUserImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+  }) {
+    return _then(_$ServerAuthenticatesUserImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerAuthenticatesUserImpl implements _ServerAuthenticatesUser {
+  const _$ServerAuthenticatesUserImpl({required this.jwt});
+
+  factory _$ServerAuthenticatesUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerAuthenticatesUserImplFromJson(json);
+
+  @override
+  final String jwt;
+
+  @override
+  String toString() {
+    return 'ServerAuthenticatesUser(jwt: $jwt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerAuthenticatesUserImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerAuthenticatesUserImplCopyWith<_$ServerAuthenticatesUserImpl>
+      get copyWith => __$$ServerAuthenticatesUserImplCopyWithImpl<
+          _$ServerAuthenticatesUserImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerAuthenticatesUserImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerAuthenticatesUser implements ServerAuthenticatesUser {
+  const factory _ServerAuthenticatesUser({required final String jwt}) =
+      _$ServerAuthenticatesUserImpl;
+
+  factory _ServerAuthenticatesUser.fromJson(Map<String, dynamic> json) =
+      _$ServerAuthenticatesUserImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerAuthenticatesUserImplCopyWith<_$ServerAuthenticatesUserImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRejectsWrongCredentials _$ServerRejectsWrongCredentialsFromJson(
+    Map<String, dynamic> json) {
+  return _ServerRejectsWrongCredentials.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRejectsWrongCredentials {
+  String get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRejectsWrongCredentialsCopyWith<ServerRejectsWrongCredentials>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRejectsWrongCredentialsCopyWith<$Res> {
+  factory $ServerRejectsWrongCredentialsCopyWith(
+          ServerRejectsWrongCredentials value,
+          $Res Function(ServerRejectsWrongCredentials) then) =
+      _$ServerRejectsWrongCredentialsCopyWithImpl<$Res,
+          ServerRejectsWrongCredentials>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class _$ServerRejectsWrongCredentialsCopyWithImpl<$Res,
+        $Val extends ServerRejectsWrongCredentials>
+    implements $ServerRejectsWrongCredentialsCopyWith<$Res> {
+  _$ServerRejectsWrongCredentialsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRejectsWrongCredentialsImplCopyWith<$Res>
+    implements $ServerRejectsWrongCredentialsCopyWith<$Res> {
+  factory _$$ServerRejectsWrongCredentialsImplCopyWith(
+          _$ServerRejectsWrongCredentialsImpl value,
+          $Res Function(_$ServerRejectsWrongCredentialsImpl) then) =
+      __$$ServerRejectsWrongCredentialsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ServerRejectsWrongCredentialsImplCopyWithImpl<$Res>
+    extends _$ServerRejectsWrongCredentialsCopyWithImpl<$Res,
+        _$ServerRejectsWrongCredentialsImpl>
+    implements _$$ServerRejectsWrongCredentialsImplCopyWith<$Res> {
+  __$$ServerRejectsWrongCredentialsImplCopyWithImpl(
+      _$ServerRejectsWrongCredentialsImpl _value,
+      $Res Function(_$ServerRejectsWrongCredentialsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ServerRejectsWrongCredentialsImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRejectsWrongCredentialsImpl
+    implements _ServerRejectsWrongCredentials {
+  const _$ServerRejectsWrongCredentialsImpl({required this.error});
+
+  factory _$ServerRejectsWrongCredentialsImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ServerRejectsWrongCredentialsImplFromJson(json);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ServerRejectsWrongCredentials(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRejectsWrongCredentialsImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRejectsWrongCredentialsImplCopyWith<
+          _$ServerRejectsWrongCredentialsImpl>
+      get copyWith => __$$ServerRejectsWrongCredentialsImplCopyWithImpl<
+          _$ServerRejectsWrongCredentialsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRejectsWrongCredentialsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRejectsWrongCredentials
+    implements ServerRejectsWrongCredentials {
+  const factory _ServerRejectsWrongCredentials({required final String error}) =
+      _$ServerRejectsWrongCredentialsImpl;
+
+  factory _ServerRejectsWrongCredentials.fromJson(Map<String, dynamic> json) =
+      _$ServerRejectsWrongCredentialsImpl.fromJson;
+
+  @override
+  String get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRejectsWrongCredentialsImplCopyWith<
+          _$ServerRejectsWrongCredentialsImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
