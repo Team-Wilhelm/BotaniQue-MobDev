@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
-import 'package:botanique/style/app_style.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +16,7 @@ class LogInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return BlocListener<WebSocketBloc, ServerEvent>(
       listener: (context, state) {
         if (state is ServerAuthenticatesUser) {
@@ -29,8 +29,13 @@ class LogInScreen extends StatelessWidget {
         }
       },
       child: FutureBuilder<ui.Image>(
-          future: loadImage(AssetConstants.logo),
+          future: loadImage(AssetConstants.leaves),
           builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             return SafeArea(
               child: Scaffold(
                 backgroundColor: Theme.of(context).colorScheme.background,
@@ -40,6 +45,7 @@ class LogInScreen extends StatelessWidget {
                       painter: CurvePainter(snapshot.data!),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.3,
+                        width: screenWidth,
                       ),
                     ),
                     Container(),
@@ -120,32 +126,38 @@ class CurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
-    paint.color = AppColors.primary;
     paint.style = PaintingStyle.fill;
 
-    final width = size.width;
-    final height = size.height;
+    // image scale
+    final scale = size.width / image.width;
+
+    final canvasWidth = size.width;
+    final canvasHeight = size.height;
 
     // x values for the end points
-    final x1 = width * 0.30;
-    final x2 = width * 0.66;
+    final x1 = canvasWidth * 0.30;
+    final x2 = canvasWidth * 0.66;
 
     // y values for the end points
-    final y1 = height * 0.85;
-    final y2 = y1 * 1.05;
+    final y1 = canvasHeight * 0.85;
+    final y2 = y1 * 1.03;
 
     // draw the curve
     var path = Path();
-    path.lineTo(0, height);
+    path.lineTo(0, canvasHeight);
     path.quadraticBezierTo(x1 / 2, y1, x1, y1);
-    path.quadraticBezierTo((x2 + x1) / 2, y2, x2, y2);
-    path.quadraticBezierTo((x2 + width) / 2, y2, width, height * 0.75);
-    path.lineTo(width, 0);
+    path.quadraticBezierTo((x1 + x2) / 2, (y1 + y2) / 2, x2, y2);
+    path.quadraticBezierTo(
+        (x2 + canvasWidth) / 2, y2, canvasWidth, canvasHeight * 0.75);
+    path.lineTo(canvasWidth, 0);
     path.lineTo(0, 0);
 
-    // canvas.clipPath(path);
-    // canvas.drawImage(image, Offset.zero, paint);
-    canvas.drawPath(path, paint);
+    canvas.clipPath(path);
+    canvas.drawImageRect(
+        image,
+        Rect.fromLTRB(0, 0, image.width.toDouble(), image.height.toDouble()),
+        Rect.fromLTRB(0, 0, canvasWidth, canvasHeight),
+        paint);
   }
 
   @override
