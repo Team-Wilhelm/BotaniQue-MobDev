@@ -42,6 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                     .read<NavigationCubit>()
                     .changePage(NavigationConstants.logIn),
                 style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary[20]!,
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width / 5,
                         vertical: 8)),

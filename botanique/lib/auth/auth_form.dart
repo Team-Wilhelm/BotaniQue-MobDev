@@ -23,8 +23,9 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController =
+      TextEditingController(text: "bob@app.com"); // TODO: remove
+  final _passwordController = TextEditingController(text: "password");
   final _repeatPasswordController = TextEditingController();
 
   bool _isButtonDisabled = true;

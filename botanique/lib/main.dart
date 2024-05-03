@@ -17,6 +17,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
 import 'models/events/client_events.dart';
+import 'repositories/local_storage_repository.dart';
 import 'state/add_plant/add_plant_bloc.dart';
 import 'style/app_style.dart';
 import 'util/navigation_constants.dart';
@@ -74,8 +75,7 @@ class BotaniQueApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
-    final jwt = "";
+    final jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
     if (jwt != null) {
       context.read<WebSocketBloc>().add(
             ClientWantsToCheckJwtValidity(
