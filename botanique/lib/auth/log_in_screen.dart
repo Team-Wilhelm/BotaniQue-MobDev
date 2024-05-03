@@ -1,8 +1,12 @@
+import 'dart:ui' as ui;
+
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../state/navigation_cubit.dart';
@@ -24,66 +28,70 @@ class LogInScreen extends StatelessWidget {
           )));
         }
       },
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: ListView(
-            children: [
-              CustomPaint(
-                painter: CurvePainter(AppColors.primary),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
+      child: FutureBuilder<ui.Image>(
+          future: loadImage(AssetConstants.logo),
+          builder: (context, snapshot) {
+            return SafeArea(
+              child: Scaffold(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                body: ListView(
+                  children: [
+                    CustomPaint(
+                      painter: CurvePainter(snapshot.data!),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                      ),
+                    ),
+                    Container(),
+                  ],
+                ),
+
+                /*Padding(
+                padding: getEdgeInsets(context),
+                child: Stack(
+                  children: [
+                    const Align(
+                      alignment: Alignment.topCenter,
+                      child: AppLogo(),
+                    ),
+                    const LogInForm(),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const AppText(text: "Don't have an account?"),
+                          TextButton(
+                            onPressed: () => {
+                              context
+                                  .read<NavigationCubit>()
+                                  .changePage(NavigationConstants.signUp)
+                            },
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.all(
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.1)),
+                            ),
+                            child: AppText(
+                              text: "Sign Up",
+                              colour: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Container(),
-            ],
-          ),
-
-          /*Padding(
-            padding: getEdgeInsets(context),
-            child: Stack(
-              children: [
-                const Align(
-                  alignment: Alignment.topCenter,
-                  child: AppLogo(),
-                ),
-                const LogInForm(),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const AppText(text: "Don't have an account?"),
-                      TextButton(
-                        onPressed: () => {
-                          context
-                              .read<NavigationCubit>()
-                              .changePage(NavigationConstants.signUp)
-                        },
-                        style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all(
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.1)),
-                        ),
-                        child: AppText(
-                          text: "Sign Up",
-                          colour: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          */
-        ),
-      ),
+              */
+              ),
+            );
+          }),
     );
   }
 
@@ -97,36 +105,49 @@ class LogInScreen extends StatelessWidget {
   }
 }
 
-class CurvePainter extends CustomPainter {
-  final Color color;
+Future<ui.Image> loadImage(String path) async {
+  final data = await rootBundle.load(path);
+  final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+  final frame = await codec.getNextFrame();
+  return frame.image;
+}
 
-  CurvePainter(this.color);
+class CurvePainter extends CustomPainter {
+  final ui.Image image;
+
+  CurvePainter(this.image);
 
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
-    paint.color = color;
+    paint.color = AppColors.primary;
     paint.style = PaintingStyle.fill;
 
     final width = size.width;
     final height = size.height;
 
-    final y1 = height * 1.1;
-    final x2 = width * 0.25;
-    final y2 = height * 0.85;
-    final x3 = width * 0.5;
-    final x4 = width * 0.75;
-    final y3 = height * 0.75;
+    // x values for the end points
+    final x1 = width * 0.25;
+    final x2 = width * 0.5;
+    final x3 = width * 0.75;
 
+    // y values for the end points
+    final y1 = height * 0.85;
+    final y2 = height * 0.80;
+    // final y3 = height * 0.85;
+
+    // draw the curve
     var path = Path();
-    path.lineTo(0, y1);
-    path.quadraticBezierTo(x2, y2, x3, y2);
-    path.quadraticBezierTo(x3, y2, x4, y2);
-    path.quadraticBezierTo(x4, y2, x4, y2);
-    path.quadraticBezierTo(width, y2, width, y3);
-    path.lineTo(size.width, 0);
+    path.lineTo(0, height);
+    path.quadraticBezierTo(x1 / 2, y1, x1, y1);
+    path.quadraticBezierTo((x2 + x1) / 2, y1, x2, y1);
+    path.quadraticBezierTo((x2 + x3) / 2, y1, x3, y1);
+    path.quadraticBezierTo((x3 + width) / 2, y1, width, height * 0.70);
+    path.lineTo(width, 0);
     path.lineTo(0, 0);
 
+    // canvas.clipPath(path);
+    // canvas.drawImage(image, Offset.zero, paint);
     canvas.drawPath(path, paint);
   }
 
