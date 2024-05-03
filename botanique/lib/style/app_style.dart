@@ -22,8 +22,8 @@ class FontSizes {
 // TODO: colour scheme
 class AppColors {
   static const Color primary = Color.fromRGBO(32, 64, 6, 1);
-  static const Color background =
-      Color(0xFFfdf1e3); // white: Color(0xFFF7F4F3);
+  static const Color background = Color(0xFFF7F4F3);
+  // beige: Color(0xFFfdf1e3);
   static const Color secondary = Color.fromRGBO(98, 159, 51, 1);
   static const Color accent = Color.fromRGBO(46, 64, 87, 100);
   static const Color welcomeScreenBackground =

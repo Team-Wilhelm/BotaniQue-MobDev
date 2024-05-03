@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../util/navigation_constants.dart';
 
 class NavigationCubit extends Cubit<int> {
-  NavigationCubit() : super(4);
+  NavigationCubit() : super(5);
 
   void changePage(String pageName) {
     final int index = NavigationConstants.pageNameToIndex(pageName);

@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/app_button.dart';
+import '../shared/app_text.dart';
 import '../shared/app_text_field.dart';
+import '../state/navigation_cubit.dart';
 import '../style/app_style.dart';
+import '../util/navigation_constants.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({
@@ -48,7 +51,7 @@ class _LogInFormState extends State<LogInForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         AppTextField(
           textFieldController: _emailController,
@@ -63,8 +66,8 @@ class _LogInFormState extends State<LogInForm> {
           prefixIcon: const Icon(Icons.lock),
           suffixIcon: IconButton(
             icon: _isPasswordVisible
-                ? const Icon(Icons.visibility_off)
-                : const Icon(Icons.visibility),
+                ? const Icon(Icons.visibility)
+                : const Icon(Icons.visibility_off),
             onPressed: () {
               setState(() {
                 _isPasswordVisible = !_isPasswordVisible;
@@ -75,7 +78,7 @@ class _LogInFormState extends State<LogInForm> {
               ? TextInputType.visiblePassword
               : TextInputType.text,
         ),
-        spacer,
+        const Spacer(),
         AppButton(
           onPressed: () {
             final LoginDto loginDto = LoginDto(
@@ -90,6 +93,30 @@ class _LogInFormState extends State<LogInForm> {
           text: "Log In",
           fullWidth: true,
           disabled: _isButtonDisabled,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const AppText(text: "Don't have an account?"),
+            TextButton(
+              onPressed: () => {
+                context
+                    .read<NavigationCubit>()
+                    .changePage(NavigationConstants.signUp)
+              },
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(
+                    Theme.of(context).colorScheme.primary.withOpacity(0.1)),
+              ),
+              child: AppText(
+                text: "Sign Up",
+                colour: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ],
         ),
       ],
     );
