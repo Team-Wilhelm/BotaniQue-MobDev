@@ -2,7 +2,7 @@ import 'package:botanique/all_plants/plant_card_stat.dart';
 import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
-import 'package:botanique/style/asset_constants.dart';
+import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {

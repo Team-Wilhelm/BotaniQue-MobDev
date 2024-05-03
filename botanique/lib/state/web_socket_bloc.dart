@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:botanique/models/events/client_events.dart';
+import 'package:botanique/repositories/local_storage_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -13,6 +14,9 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
   String? jwt;
 
   WebSocketBloc({required this.channel}) : super(ServerEvent()) {
+    jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
+    print("JWT: $jwt");
+
     // Client events
     on<ClientEvent>(_onClientEvent);
 
@@ -25,8 +29,10 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
     on<ServerAuthenticatesUser>(
       (event, emit) {
+        final LocalStorageRepository localStorageRepository =
+            LocalStorageRepository();
+        localStorageRepository.saveData(LocalStorageKeys.jwt, event.jwt);
         jwt = event.jwt;
-        // final newState = state.copyWith(jwt: event.jwt);
         emit(event);
       },
     );

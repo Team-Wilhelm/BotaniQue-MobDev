@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../util/camera_repository.dart';
+import '../../repositories/camera_repository.dart';
 
 class AddPlantBloc extends Bloc<AddPlantEvent, AddPlantState> {
   final PictureRepository pictureRepository = PictureRepository();

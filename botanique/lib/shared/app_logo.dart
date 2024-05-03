@@ -1,4 +1,4 @@
-import 'package:botanique/style/asset_constants.dart';
+import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 
 class AppLogo extends StatelessWidget {

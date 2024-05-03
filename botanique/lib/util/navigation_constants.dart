@@ -55,4 +55,5 @@ class NavigationConstants {
         throw Exception('Page $pageName not found');
     }
   }
+
 }

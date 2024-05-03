@@ -9,17 +9,24 @@ import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/util/asset_constants.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
+import 'models/events/client_events.dart';
+import 'repositories/local_storage_repository.dart';
 import 'state/add_plant/add_plant_bloc.dart';
 import 'style/app_style.dart';
+import 'util/navigation_constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocalStorage();
   // Configure logging for bloc
   //Bloc.observer = LoggerBlocObserver();
 
@@ -59,8 +66,6 @@ class BotaniQueApp extends StatelessWidget {
     super.key,
   });
 
-  late final PageController _pageController;
-
   final List<Widget> _screens = [
     const HomeScreen(),
     const AllPlantsScreen(),
@@ -73,10 +78,21 @@ class BotaniQueApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _pageController =
+    final jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
+    if (jwt != null) {
+      context.read<WebSocketBloc>().add(
+            ClientWantsToCheckJwtValidity(
+                jwt: jwt, eventType: "ClientWantsToCheckJwtValidity"),
+          );
+    }
+
+    final PageController pageController =
         PageController(initialPage: context.read<NavigationCubit>().state);
     return BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, snapshot) {
+          if (snapshot is ServerAuthenticatesUser) {
+            context.read<NavigationCubit>().changePage(NavigationConstants.home);
+          } 
       return MaterialApp(
         title: 'BotaniQue',
         debugShowCheckedModeBanner: false,
@@ -84,7 +100,7 @@ class BotaniQueApp extends StatelessWidget {
         home: Scaffold(
           body: BlocConsumer<NavigationCubit, int>(
               listener: (context, state) => {
-                    _pageController.animateToPage(
+                    pageController.animateToPage(
                       state,
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
@@ -92,12 +108,12 @@ class BotaniQueApp extends StatelessWidget {
                   },
               builder: (context, state) {
                 return PageView(
-                  controller: _pageController,
+                  controller: pageController,
                   children: _screens,
                 );
               }),
           bottomNavigationBar: AppNavbar(
-            isHidden: false, // TODO: fix
+            isHidden: context.read<NavigationCubit>().isNavBarHidden(),
           ),
         ),
       );

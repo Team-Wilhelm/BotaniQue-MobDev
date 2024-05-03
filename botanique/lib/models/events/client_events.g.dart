@@ -53,3 +53,17 @@ Map<String, dynamic> _$$ClientWantsToLogInImplToJson(
       'loginDto': instance.loginDto,
       'eventType': instance.eventType,
     };
+
+_$ClientWantsToCheckJwtValidityImpl
+    _$$ClientWantsToCheckJwtValidityImplFromJson(Map<String, dynamic> json) =>
+        _$ClientWantsToCheckJwtValidityImpl(
+          jwt: json['jwt'] as String,
+          eventType: json['eventType'] as String,
+        );
+
+Map<String, dynamic> _$$ClientWantsToCheckJwtValidityImplToJson(
+        _$ClientWantsToCheckJwtValidityImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+    };

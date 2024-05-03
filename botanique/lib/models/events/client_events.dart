@@ -56,3 +56,14 @@ class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
   factory ClientWantsToLogIn.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToLogInFromJson(json);
 }
+
+@freezed
+class ClientWantsToCheckJwtValidity extends ClientEventWithJwt with _$ClientWantsToCheckJwtValidity {
+  factory ClientWantsToCheckJwtValidity({
+    required String jwt,
+    required String eventType,
+  }) = _ClientWantsToCheckJwtValidity;
+
+  factory ClientWantsToCheckJwtValidity.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToCheckJwtValidityFromJson(json);
+}

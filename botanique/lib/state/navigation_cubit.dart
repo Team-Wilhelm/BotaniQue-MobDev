@@ -9,4 +9,8 @@ class NavigationCubit extends Cubit<int> {
     final int index = NavigationConstants.pageNameToIndex(pageName);
     emit(index);
   }
+
+  bool isNavBarHidden() {
+    return state >= 4;
+  }
 }

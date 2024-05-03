@@ -1,7 +1,7 @@
 import 'package:botanique/shared/app_image_preview.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
-import 'package:botanique/style/asset_constants.dart';
+import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/top_bar.dart';

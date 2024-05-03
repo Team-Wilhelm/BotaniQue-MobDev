@@ -8,7 +8,7 @@ import '../../shared/app_text.dart';
 import '../../state/add_plant/add_plant_bloc.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../style/app_style.dart';
-import '../../style/asset_constants.dart';
+import '../../util/asset_constants.dart';
 import '../../util/xfile_converter.dart';
 
 class AddPlantSecondStepContent extends StatelessWidget {
