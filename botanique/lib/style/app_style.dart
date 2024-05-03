@@ -28,8 +28,8 @@ class AppColors {
   static const Color accent = Color.fromRGBO(46, 64, 87, 100);
   static const Color welcomeScreenBackground =
       Color.fromRGBO(255, 255, 243, 0.923);
-  static const Color cardBackground =
-      const Color(0xFFfadbb8); // white: Color(0xFFf0f9f6);
+  static const Color cardBackground = Color(0xFFf0f9f6);
+  // beige const Color(0xFFfadbb8);
 }
 
 const defaultPadding = EdgeInsets.all(16);

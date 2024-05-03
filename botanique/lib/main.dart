@@ -9,7 +9,6 @@ import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
-import 'package:botanique/util/asset_constants.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
 import 'models/events/client_events.dart';
-import 'repositories/local_storage_repository.dart';
 import 'state/add_plant/add_plant_bloc.dart';
 import 'style/app_style.dart';
 import 'util/navigation_constants.dart';
@@ -78,7 +76,8 @@ class BotaniQueApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
+    // final jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
+    final jwt = "";
     if (jwt != null) {
       context.read<WebSocketBloc>().add(
             ClientWantsToCheckJwtValidity(
@@ -90,9 +89,9 @@ class BotaniQueApp extends StatelessWidget {
         PageController(initialPage: context.read<NavigationCubit>().state);
     return BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, snapshot) {
-          if (snapshot is ServerAuthenticatesUser) {
-            context.read<NavigationCubit>().changePage(NavigationConstants.home);
-          } 
+      if (snapshot is ServerAuthenticatesUser) {
+        context.read<NavigationCubit>().changePage(NavigationConstants.home);
+      }
       return MaterialApp(
         title: 'BotaniQue',
         debugShowCheckedModeBanner: false,

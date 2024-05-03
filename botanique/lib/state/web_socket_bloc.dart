@@ -15,7 +15,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
   WebSocketBloc({required this.channel}) : super(ServerEvent()) {
     jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
-    print("JWT: $jwt");
 
     // Client events
     on<ClientEvent>(_onClientEvent);

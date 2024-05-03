@@ -1,8 +1,7 @@
-import 'package:botanique/auth/log_in_form.dart';
 import 'package:botanique/models/events/server_events.dart';
-import 'package:botanique/shared/app_logo.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +27,19 @@ class LogInScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
-          body: Padding(
+          body: ListView(
+            children: [
+              CustomPaint(
+                painter: CurvePainter(AppColors.primary),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                ),
+              ),
+              Container(),
+            ],
+          ),
+
+          /*Padding(
             padding: getEdgeInsets(context),
             child: Stack(
               children: [
@@ -70,6 +81,7 @@ class LogInScreen extends StatelessWidget {
               ],
             ),
           ),
+          */
         ),
       ),
     );
@@ -82,5 +94,44 @@ class LogInScreen extends StatelessWidget {
 
     return EdgeInsets.fromLTRB(
         sidePadding, topPadding, sidePadding, bottomPadding);
+  }
+}
+
+class CurvePainter extends CustomPainter {
+  final Color color;
+
+  CurvePainter(this.color);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint();
+    paint.color = color;
+    paint.style = PaintingStyle.fill;
+
+    final width = size.width;
+    final height = size.height;
+
+    final y1 = height * 1.1;
+    final x2 = width * 0.25;
+    final y2 = height * 0.85;
+    final x3 = width * 0.5;
+    final x4 = width * 0.75;
+    final y3 = height * 0.75;
+
+    var path = Path();
+    path.lineTo(0, y1);
+    path.quadraticBezierTo(x2, y2, x3, y2);
+    path.quadraticBezierTo(x3, y2, x4, y2);
+    path.quadraticBezierTo(x4, y2, x4, y2);
+    path.quadraticBezierTo(width, y2, width, y3);
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }
