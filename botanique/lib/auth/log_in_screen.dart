@@ -127,22 +127,19 @@ class CurvePainter extends CustomPainter {
     final height = size.height;
 
     // x values for the end points
-    final x1 = width * 0.25;
-    final x2 = width * 0.5;
-    final x3 = width * 0.75;
+    final x1 = width * 0.30;
+    final x2 = width * 0.66;
 
     // y values for the end points
     final y1 = height * 0.85;
-    final y2 = height * 0.80;
-    // final y3 = height * 0.85;
+    final y2 = y1 * 1.05;
 
     // draw the curve
     var path = Path();
     path.lineTo(0, height);
     path.quadraticBezierTo(x1 / 2, y1, x1, y1);
-    path.quadraticBezierTo((x2 + x1) / 2, y1, x2, y1);
-    path.quadraticBezierTo((x2 + x3) / 2, y1, x3, y1);
-    path.quadraticBezierTo((x3 + width) / 2, y1, width, height * 0.70);
+    path.quadraticBezierTo((x2 + x1) / 2, y2, x2, y2);
+    path.quadraticBezierTo((x2 + width) / 2, y2, width, height * 0.75);
     path.lineTo(width, 0);
     path.lineTo(0, 0);
 
