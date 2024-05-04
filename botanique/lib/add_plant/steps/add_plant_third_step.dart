@@ -2,7 +2,7 @@ import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/dtos/create_requirements_dto.dart';
+import '../../models/dtos/plant_dtos.dart';
 import '../../shared/app_text.dart';
 
 class AddPlantThirdStepContent extends StatelessWidget {

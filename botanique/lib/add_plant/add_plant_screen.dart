@@ -1,7 +1,7 @@
 import 'package:botanique/add_plant/steps/add_plant_first_step.dart';
 import 'package:botanique/add_plant/steps/add_plant_second_step.dart';
 import 'package:botanique/add_plant/steps/add_plant_third_step.dart';
-import 'package:botanique/models/dtos/create_plant_dto.dart';
+import 'package:botanique/models/dtos/plant_dtos.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';

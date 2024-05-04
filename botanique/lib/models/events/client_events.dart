@@ -1,5 +1,6 @@
 import 'package:botanique/models/dtos/auth/log_in_dto.dart';
-import 'package:botanique/models/dtos/create_plant_dto.dart';
+import 'package:botanique/models/dtos/plant_dtos.dart';
+import 'package:botanique/models/models/uuid.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'client_events.freezed.dart';
@@ -13,10 +14,9 @@ abstract class ClientEvent extends BaseEvent {
   Map<String, dynamic> toJson();
 }
 
+@freezed
 abstract class ClientEventWithJwt extends ClientEvent {
-  final String jwt;
-
-  ClientEventWithJwt({required this.jwt});
+  const factory ClientEventWithJwt({required String jwt}) = _ClientEventWithJwt;
 }
 
 @freezed
@@ -67,3 +67,76 @@ class ClientWantsToCheckJwtValidity extends ClientEventWithJwt with _$ClientWant
   factory ClientWantsToCheckJwtValidity.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToCheckJwtValidityFromJson(json);
 }
+
+@freezed 
+class ClientWantsToLogOutDto extends ClientEvent with _$ClientWantsToLogOutDto {
+  factory ClientWantsToLogOutDto({
+    required String email,
+    required String eventType,
+  }) = _ClientWantsToLogOutDto;
+
+  factory ClientWantsToLogOutDto.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToLogOutDtoFromJson(json);
+}
+
+/* @freezed TODO
+class ClientWantsToSignUp extends ClientEvent with _$ClientWantsToSignUp {
+  factory ClientWantsToSignUp({
+    required RegisterUserDto registerUserDto,
+    required String eventType,
+  }) = _ClientWantsToSignUp;
+
+  factory ClientWantsToSignUp.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToSignUpFromJson(json);
+} */
+
+@freezed
+class ClientWantsPlantById extends ClientEventWithJwt with _$ClientWantsPlantById {
+factory ClientWantsPlantById({
+    required String jwt,
+    required String eventType,
+    required Uuid plantId,
+  }) = _ClientWantsPlantById;
+
+  factory ClientWantsPlantById.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsPlantByIdFromJson(json);
+}
+
+@freezed
+class ClientWantsAllPlantsDto extends ClientEventWithJwt with _$ClientWantsAllPlantsDto {
+  factory ClientWantsAllPlantsDto({
+    required String jwt,
+    required String eventType,
+    required int pageNumber,
+    required int pageSize,
+  }) = _ClientWantsAllPlantsDto;
+
+  factory ClientWantsAllPlantsDto.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsAllPlantsDtoFromJson(json);
+}
+
+@freezed
+class ClientWantsToDeletePlantDto extends ClientEventWithJwt with _$ClientWantsToDeletePlantDto {
+  factory ClientWantsToDeletePlantDto({
+    required String jwt,
+    required String eventType,
+    required Uuid plantId,
+  }) = _ClientWantsToDeletePlantDto;
+
+  factory ClientWantsToDeletePlantDto.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToDeletePlantDtoFromJson(json);
+}
+
+@freezed
+class ClientWantsToUpdatePlant extends ClientEventWithJwt with _$ClientWantsToUpdatePlant {
+  factory ClientWantsToUpdatePlant({
+    required String jwt,
+    required String eventType,
+    required Uuid plantId,
+    required UpdatePlantDto updatePlantDto,
+  }) = _ClientWantsToUpdatePlant;
+
+  factory ClientWantsToUpdatePlant.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToUpdatePlantFromJson(json);
+}
+

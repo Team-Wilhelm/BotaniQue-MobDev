@@ -106,16 +106,7 @@ class _AuthFormState extends State<AuthForm> {
         ],
         const Spacer(),
         AppButton(
-          onPressed: () {
-            final LoginDto loginDto = LoginDto(
-              email: _emailController.text,
-              password: _passwordController.text,
-            );
-            context.read<WebSocketBloc>().add(
-                  ClientWantsToLogIn(
-                      loginDto: loginDto, eventType: "ClientWantsToLogIn"),
-                );
-          },
+          onPressed: widget.isSignUp ? onSignUpPressed : onLoginPressed,
           text: widget.isSignUp ? "Sign Up" : "Log In",
           fullWidth: true,
           disabled: _isButtonDisabled,
@@ -128,5 +119,20 @@ class _AuthFormState extends State<AuthForm> {
         ),
       ],
     );
+  }
+
+  void onLoginPressed() {
+    final LoginDto loginDto = LoginDto(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+    context.read<WebSocketBloc>().add(
+          ClientWantsToLogIn(
+              loginDto: loginDto, eventType: "ClientWantsToLogIn"),
+        );
+  }
+
+  void onSignUpPressed() {
+    // register dto, wait for Maria's changes
   }
 }
