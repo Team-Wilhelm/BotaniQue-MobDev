@@ -91,56 +91,84 @@ Map<String, dynamic> _$$ServerSendsErrorMessageImplToJson(
 
 _$ServerRejectsWrongCredentialsImpl
     _$$ServerRejectsWrongCredentialsImplFromJson(Map<String, dynamic> json) =>
-        _$ServerRejectsWrongCredentialsImpl();
+        _$ServerRejectsWrongCredentialsImpl(
+          error: json['error'] as String,
+        );
 
 Map<String, dynamic> _$$ServerRejectsWrongCredentialsImplToJson(
         _$ServerRejectsWrongCredentialsImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'error': instance.error,
+    };
 
 _$ServerRespondsNotAuthenticatedImpl
     _$$ServerRespondsNotAuthenticatedImplFromJson(Map<String, dynamic> json) =>
-        _$ServerRespondsNotAuthenticatedImpl();
+        _$ServerRespondsNotAuthenticatedImpl(
+          error: json['error'] as String,
+        );
 
 Map<String, dynamic> _$$ServerRespondsNotAuthenticatedImplToJson(
         _$ServerRespondsNotAuthenticatedImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'error': instance.error,
+    };
 
 _$ServerRespondsNotAuthorizedImpl _$$ServerRespondsNotAuthorizedImplFromJson(
         Map<String, dynamic> json) =>
-    _$ServerRespondsNotAuthorizedImpl();
+    _$ServerRespondsNotAuthorizedImpl(
+      error: json['error'] as String,
+    );
 
 Map<String, dynamic> _$$ServerRespondsNotAuthorizedImplToJson(
         _$ServerRespondsNotAuthorizedImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'error': instance.error,
+    };
 
 _$ServerRespondsNotFoundImpl _$$ServerRespondsNotFoundImplFromJson(
         Map<String, dynamic> json) =>
-    _$ServerRespondsNotFoundImpl();
+    _$ServerRespondsNotFoundImpl(
+      error: json['error'] as String,
+    );
 
 Map<String, dynamic> _$$ServerRespondsNotFoundImplToJson(
         _$ServerRespondsNotFoundImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'error': instance.error,
+    };
 
 _$ServerRespondsRegisterDeviceImpl _$$ServerRespondsRegisterDeviceImplFromJson(
         Map<String, dynamic> json) =>
-    _$ServerRespondsRegisterDeviceImpl();
+    _$ServerRespondsRegisterDeviceImpl(
+      error: json['error'] as String,
+    );
 
 Map<String, dynamic> _$$ServerRespondsRegisterDeviceImplToJson(
         _$ServerRespondsRegisterDeviceImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'error': instance.error,
+    };
 
 _$ServerRespondsValidationErrorImpl
     _$$ServerRespondsValidationErrorImplFromJson(Map<String, dynamic> json) =>
-        _$ServerRespondsValidationErrorImpl();
+        _$ServerRespondsValidationErrorImpl(
+          error: json['error'] as String,
+        );
 
 Map<String, dynamic> _$$ServerRespondsValidationErrorImplToJson(
         _$ServerRespondsValidationErrorImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'error': instance.error,
+    };
 
 _$ServerRejectsInvalidFileImpl _$$ServerRejectsInvalidFileImplFromJson(
         Map<String, dynamic> json) =>
-    _$ServerRejectsInvalidFileImpl();
+    _$ServerRejectsInvalidFileImpl(
+      error: json['error'] as String,
+    );
 
 Map<String, dynamic> _$$ServerRejectsInvalidFileImplToJson(
         _$ServerRejectsInvalidFileImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'error': instance.error,
+    };

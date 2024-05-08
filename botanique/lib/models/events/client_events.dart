@@ -14,36 +14,10 @@ abstract class ClientEvent extends BaseEvent {
   Map<String, dynamic> toJson();
 }
 
-@freezed
 abstract class ClientEventWithJwt extends ClientEvent {
-  const factory ClientEventWithJwt({required String jwt}) = _ClientEventWithJwt;
-}
+  final String jwt;
 
-@freezed
-class ClientWantsToRemoveBackgroundFromImage extends ClientEventWithJwt
-    with _$ClientWantsToRemoveBackgroundFromImage {
-  const factory ClientWantsToRemoveBackgroundFromImage({
-    required String base64Image,
-    required String jwt,
-    required String eventType,
-  }) = _ClientWantsToRemoveBackgroundFromImage;
-
-  factory ClientWantsToRemoveBackgroundFromImage.fromJson(
-          Map<String, dynamic> json) =>
-      _$ClientWantsToRemoveBackgroundFromImageFromJson(json);
-}
-
-@freezed
-class ClientWantsToCreatePlant extends ClientEventWithJwt
-    with _$ClientWantsToCreatePlant {
-  const factory ClientWantsToCreatePlant({
-    required CreatePlantDto createPlantDto,
-    required String jwt,
-    required String eventType,
-  }) = _ClientWantsToCreatePlant;
-
-  factory ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToCreatePlantFromJson(json);
+  ClientEventWithJwt({required this.jwt});
 }
 
 @freezed
@@ -58,17 +32,6 @@ class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
 }
 
 @freezed
-class ClientWantsToCheckJwtValidity extends ClientEventWithJwt with _$ClientWantsToCheckJwtValidity {
-  factory ClientWantsToCheckJwtValidity({
-    required String jwt,
-    required String eventType,
-  }) = _ClientWantsToCheckJwtValidity;
-
-  factory ClientWantsToCheckJwtValidity.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToCheckJwtValidityFromJson(json);
-}
-
-@freezed 
 class ClientWantsToLogOutDto extends ClientEvent with _$ClientWantsToLogOutDto {
   factory ClientWantsToLogOutDto({
     required String email,
@@ -90,20 +53,13 @@ class ClientWantsToSignUp extends ClientEvent with _$ClientWantsToSignUp {
       _$ClientWantsToSignUpFromJson(json);
 } */
 
-@freezed
-class ClientWantsPlantById extends ClientEventWithJwt with _$ClientWantsPlantById {
-factory ClientWantsPlantById({
-    required String jwt,
-    required String eventType,
-    required Uuid plantId,
-  }) = _ClientWantsPlantById;
-
-  factory ClientWantsPlantById.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsPlantByIdFromJson(json);
-}
+/*
+  * Events with JWT
+ */
 
 @freezed
-class ClientWantsAllPlantsDto extends ClientEventWithJwt with _$ClientWantsAllPlantsDto {
+class ClientWantsAllPlantsDto extends ClientEvent
+    with _$ClientWantsAllPlantsDto {
   factory ClientWantsAllPlantsDto({
     required String jwt,
     required String eventType,
@@ -116,7 +72,8 @@ class ClientWantsAllPlantsDto extends ClientEventWithJwt with _$ClientWantsAllPl
 }
 
 @freezed
-class ClientWantsToDeletePlantDto extends ClientEventWithJwt with _$ClientWantsToDeletePlantDto {
+class ClientWantsToDeletePlantDto extends ClientEvent
+    with _$ClientWantsToDeletePlantDto {
   factory ClientWantsToDeletePlantDto({
     required String jwt,
     required String eventType,
@@ -128,7 +85,8 @@ class ClientWantsToDeletePlantDto extends ClientEventWithJwt with _$ClientWantsT
 }
 
 @freezed
-class ClientWantsToUpdatePlant extends ClientEventWithJwt with _$ClientWantsToUpdatePlant {
+class ClientWantsToUpdatePlant extends ClientEvent
+    with _$ClientWantsToUpdatePlant {
   factory ClientWantsToUpdatePlant({
     required String jwt,
     required String eventType,
@@ -140,3 +98,53 @@ class ClientWantsToUpdatePlant extends ClientEventWithJwt with _$ClientWantsToUp
       _$ClientWantsToUpdatePlantFromJson(json);
 }
 
+@freezed
+class ClientWantsPlantById extends ClientEvent with _$ClientWantsPlantById {
+  factory ClientWantsPlantById({
+    required String jwt,
+    required String eventType,
+    required Uuid plantId,
+  }) = _ClientWantsPlantById;
+
+  factory ClientWantsPlantById.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsPlantByIdFromJson(json);
+}
+
+@freezed
+class ClientWantsToCheckJwtValidity extends ClientEvent
+    with _$ClientWantsToCheckJwtValidity {
+  factory ClientWantsToCheckJwtValidity({
+    required String jwt,
+    required String eventType,
+  }) = _ClientWantsToCheckJwtValidity;
+
+  factory ClientWantsToCheckJwtValidity.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToCheckJwtValidityFromJson(json);
+}
+
+@freezed
+class ClientWantsToRemoveBackgroundFromImage extends ClientEventWithJwt
+    with _$ClientWantsToRemoveBackgroundFromImage {
+  const factory ClientWantsToRemoveBackgroundFromImage({
+    required String base64Image,
+    required String jwt,
+    required String eventType,
+  }) = _ClientWantsToRemoveBackgroundFromImage;
+
+  factory ClientWantsToRemoveBackgroundFromImage.fromJson(
+          Map<String, dynamic> json) =>
+      _$ClientWantsToRemoveBackgroundFromImageFromJson(json);
+}
+
+@freezed
+class ClientWantsToCreatePlant extends ClientEvent
+    with _$ClientWantsToCreatePlant {
+  const factory ClientWantsToCreatePlant({
+    required CreatePlantDto createPlantDto,
+    required String jwt,
+    required String eventType,
+  }) = _ClientWantsToCreatePlant;
+
+  factory ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToCreatePlantFromJson(json);
+}

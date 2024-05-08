@@ -5,6 +5,30 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'server_events.freezed.dart';
 part 'server_events.g.dart';
 
+class ServerEventHelper {
+  final List<String> _errorMessages = [
+    ServerSendsErrorMessage.name,
+    ServerRejectsWrongCredentials.name,
+    ServerRespondsNotAuthenticated.name,
+    ServerRespondsNotAuthorized.name,
+    ServerRespondsNotFound.name,
+    ServerRespondsRegisterDevice.name,
+    ServerRespondsValidationError.name,
+    ServerRejectsInvalidFile.name
+  ];
+
+  bool isErrorMessage(ServerEvent event) {
+    return event is ServerSendsErrorMessage ||
+        event is ServerRespondsNotAuthenticated ||
+        event is ServerRespondsNotAuthorized ||
+        event is ServerRejectsInvalidFile ||
+        event is ServerRespondsValidationError ||
+        event is ServerRespondsRegisterDevice ||
+        event is ServerRespondsNotFound ||
+        event is ServerRejectsWrongCredentials;
+  }
+}
+
 class ServerEvent extends BaseEvent {
   static ServerEvent fromJson(Map<String, Object?> json) {
     final type = json['eventType'];
@@ -109,75 +133,90 @@ class ServerSendsErrorMessage extends ServerEvent
 }
 
 @freezed
-class ServerRejectsWrongCredentials extends ServerSendsErrorMessage
-    with _$ServerRejectsWrongCredentials, _$ServerSendsErrorMessage {
+class ServerRejectsWrongCredentials extends ServerEvent
+    with _$ServerRejectsWrongCredentials {
   static const String name = "ServerRejectsWrongCredentials";
 
-  const factory ServerRejectsWrongCredentials() = _ServerRejectsWrongCredentials;
+  const factory ServerRejectsWrongCredentials({
+    required String error,
+  }) = _ServerRejectsWrongCredentials;
 
   factory ServerRejectsWrongCredentials.fromJson(Map<String, dynamic> json) =>
       _$ServerRejectsWrongCredentialsFromJson(json);
 }
 
-
 @freezed
-class ServerRespondsNotAuthenticated extends ServerSendsErrorMessage
-    with _$ServerRespondsNotAuthenticated, _$ServerSendsErrorMessage {
+class ServerRespondsNotAuthenticated extends ServerEvent
+    with _$ServerRespondsNotAuthenticated {
   static const String name = "ServerRespondsNotAuthenticated";
 
-  const factory ServerRespondsNotAuthenticated() =
-      _ServerRespondsNotAuthenticated;
+  const factory ServerRespondsNotAuthenticated({
+    required String error,
+  }) = _ServerRespondsNotAuthenticated;
 
   factory ServerRespondsNotAuthenticated.fromJson(Map<String, dynamic> json) =>
       _$ServerRespondsNotAuthenticatedFromJson(json);
 }
 
 @freezed
-class ServerRespondsNotAuthorized extends ServerSendsErrorMessage
-    with _$ServerRespondsNotAuthorized, _$ServerSendsErrorMessage {
+class ServerRespondsNotAuthorized extends ServerEvent
+    with _$ServerRespondsNotAuthorized {
   static const String name = "ServerRespondsNotAuthorized";
 
-  const factory ServerRespondsNotAuthorized() = _ServerRespondsNotAuthorized;
+  const factory ServerRespondsNotAuthorized({
+    required String error,
+  }) = _ServerRespondsNotAuthorized;
 
   factory ServerRespondsNotAuthorized.fromJson(Map<String, dynamic> json) =>
       _$ServerRespondsNotAuthorizedFromJson(json);
 }
 
 @freezed
-class ServerRespondsNotFound extends ServerSendsErrorMessage with _$ServerRespondsNotFound, _$ServerSendsErrorMessage {
+class ServerRespondsNotFound extends ServerEvent with _$ServerRespondsNotFound {
   static const String name = "ServerRespondsNotFound";
 
-  const factory ServerRespondsNotFound() = _ServerRespondsNotFound;
+  const factory ServerRespondsNotFound({
+    required String error,
+  }) = _ServerRespondsNotFound;
 
   factory ServerRespondsNotFound.fromJson(Map<String, dynamic> json) =>
       _$ServerRespondsNotFoundFromJson(json);
 }
 
 @freezed
-class ServerRespondsRegisterDevice extends ServerSendsErrorMessage with _$ServerRespondsRegisterDevice, _$ServerSendsErrorMessage {
+class ServerRespondsRegisterDevice extends ServerEvent
+    with _$ServerRespondsRegisterDevice {
   static const String name = "ServerRespondsRegisterDevice";
 
-  const factory ServerRespondsRegisterDevice() = _ServerRespondsRegisterDevice;
+  const factory ServerRespondsRegisterDevice({
+    required String error,
+  }) = _ServerRespondsRegisterDevice;
 
   factory ServerRespondsRegisterDevice.fromJson(Map<String, dynamic> json) =>
       _$ServerRespondsRegisterDeviceFromJson(json);
 }
 
 @freezed
-class ServerRespondsValidationError extends ServerSendsErrorMessage with _$ServerRespondsValidationError, _$ServerSendsErrorMessage {
+class ServerRespondsValidationError extends ServerEvent
+    with _$ServerRespondsValidationError {
   static const String name = "ServerRespondsValidationError";
 
-  const factory ServerRespondsValidationError() = _ServerRespondsValidationError;
+  const factory ServerRespondsValidationError({
+    required String error,
+  }) = _ServerRespondsValidationError;
 
   factory ServerRespondsValidationError.fromJson(Map<String, dynamic> json) =>
       _$ServerRespondsValidationErrorFromJson(json);
 }
 
 @freezed
-class ServerRejectsInvalidFile extends ServerSendsErrorMessage with _$ServerRejectsInvalidFile, _$ServerSendsErrorMessage {
+class ServerRejectsInvalidFile extends ServerEvent
+    with _$ServerRejectsInvalidFile {
   static const String name = "ServerRejectsInvalidFile";
 
-  const factory ServerRejectsInvalidFile() = _ServerRejectsInvalidFile;
+  const factory ServerRejectsInvalidFile({
+    required String error,
+  }) = _ServerRejectsInvalidFile;
 
   factory ServerRejectsInvalidFile.fromJson(Map<String, dynamic> json) =>
       _$ServerRejectsInvalidFileFromJson(json);
