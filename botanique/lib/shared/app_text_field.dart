@@ -16,12 +16,15 @@ class AppTextField extends StatelessWidget {
   final String placeholder;
   final TextInputType textInputType;
   final Icon? prefixIcon;
-  final Icon? suffixIcon;
+  final Widget? suffixIcon;
   final Color fillColor;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
+      obscureText: textInputType == TextInputType.visiblePassword,
+      controller: textFieldController,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -38,8 +41,6 @@ class AppTextField extends StatelessWidget {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),
-      controller: textFieldController,
-      keyboardType: textInputType,
     );
   }
 }

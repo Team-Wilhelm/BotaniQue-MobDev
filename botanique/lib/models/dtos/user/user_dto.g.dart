@@ -8,6 +8,7 @@ part of 'user_dto.dart';
 
 _$UpdateUserDtoImpl _$$UpdateUserDtoImplFromJson(Map<String, dynamic> json) =>
     _$UpdateUserDtoImpl(
+      userEmail: json['userEmail'] as String,
       username: json['username'] as String?,
       password: json['password'] as String?,
       base64Image: json['base64Image'] as String?,
@@ -15,6 +16,7 @@ _$UpdateUserDtoImpl _$$UpdateUserDtoImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$UpdateUserDtoImplToJson(_$UpdateUserDtoImpl instance) =>
     <String, dynamic>{
+      'userEmail': instance.userEmail,
       'username': instance.username,
       'password': instance.password,
       'base64Image': instance.base64Image,

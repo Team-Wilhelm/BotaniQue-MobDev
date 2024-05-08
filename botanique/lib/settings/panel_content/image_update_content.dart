@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImageUpdateContent extends StatelessWidget {
-  const ImageUpdateContent({super.key, this.base64image});
+  const ImageUpdateContent({super.key, this.base64image, required this.onDelete});
 
   final String? base64image;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +27,17 @@ class ImageUpdateContent extends StatelessWidget {
           children: [
             AppButton(
                 onPressed: () {
-                  context.read<UpdateUserCubit>().updateBase64Image("newImage");
+                  handleImageUpload();
                 },
                 text: "Upload"),
             AppButton(
-                onPressed: () {
-                  context.read<UpdateUserCubit>().deleteBase64Image();
-                },
+                onPressed: onDelete,
                 text: "Remove"),
           ],
         )
       ],
     );
   }
+
+  void handleImageUpload() {}
 }

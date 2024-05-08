@@ -20,6 +20,7 @@ UpdateUserDto _$UpdateUserDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UpdateUserDto {
+  String get userEmail => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
   String? get base64Image => throw _privateConstructorUsedError;
@@ -36,7 +37,11 @@ abstract class $UpdateUserDtoCopyWith<$Res> {
           UpdateUserDto value, $Res Function(UpdateUserDto) then) =
       _$UpdateUserDtoCopyWithImpl<$Res, UpdateUserDto>;
   @useResult
-  $Res call({String? username, String? password, String? base64Image});
+  $Res call(
+      {String userEmail,
+      String? username,
+      String? password,
+      String? base64Image});
 }
 
 /// @nodoc
@@ -52,11 +57,16 @@ class _$UpdateUserDtoCopyWithImpl<$Res, $Val extends UpdateUserDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userEmail = null,
     Object? username = freezed,
     Object? password = freezed,
     Object? base64Image = freezed,
   }) {
     return _then(_value.copyWith(
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String,
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -81,7 +91,11 @@ abstract class _$$UpdateUserDtoImplCopyWith<$Res>
       __$$UpdateUserDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? username, String? password, String? base64Image});
+  $Res call(
+      {String userEmail,
+      String? username,
+      String? password,
+      String? base64Image});
 }
 
 /// @nodoc
@@ -95,11 +109,16 @@ class __$$UpdateUserDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userEmail = null,
     Object? username = freezed,
     Object? password = freezed,
     Object? base64Image = freezed,
   }) {
     return _then(_$UpdateUserDtoImpl(
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String,
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -119,11 +138,17 @@ class __$$UpdateUserDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UpdateUserDtoImpl implements _UpdateUserDto {
-  _$UpdateUserDtoImpl({this.username, this.password, this.base64Image});
+  _$UpdateUserDtoImpl(
+      {required this.userEmail,
+      this.username,
+      this.password,
+      this.base64Image});
 
   factory _$UpdateUserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UpdateUserDtoImplFromJson(json);
 
+  @override
+  final String userEmail;
   @override
   final String? username;
   @override
@@ -133,7 +158,7 @@ class _$UpdateUserDtoImpl implements _UpdateUserDto {
 
   @override
   String toString() {
-    return 'UpdateUserDto(username: $username, password: $password, base64Image: $base64Image)';
+    return 'UpdateUserDto(userEmail: $userEmail, username: $username, password: $password, base64Image: $base64Image)';
   }
 
   @override
@@ -141,6 +166,8 @@ class _$UpdateUserDtoImpl implements _UpdateUserDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateUserDtoImpl &&
+            (identical(other.userEmail, userEmail) ||
+                other.userEmail == userEmail) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.password, password) ||
@@ -151,7 +178,8 @@ class _$UpdateUserDtoImpl implements _UpdateUserDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, username, password, base64Image);
+  int get hashCode =>
+      Object.hash(runtimeType, userEmail, username, password, base64Image);
 
   @JsonKey(ignore: true)
   @override
@@ -169,13 +197,16 @@ class _$UpdateUserDtoImpl implements _UpdateUserDto {
 
 abstract class _UpdateUserDto implements UpdateUserDto {
   factory _UpdateUserDto(
-      {final String? username,
+      {required final String userEmail,
+      final String? username,
       final String? password,
       final String? base64Image}) = _$UpdateUserDtoImpl;
 
   factory _UpdateUserDto.fromJson(Map<String, dynamic> json) =
       _$UpdateUserDtoImpl.fromJson;
 
+  @override
+  String get userEmail;
   @override
   String? get username;
   @override

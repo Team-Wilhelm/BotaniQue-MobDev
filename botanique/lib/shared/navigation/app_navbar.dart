@@ -1,13 +1,21 @@
 import 'package:botanique/shared/navigation/app_navigation_item.dart';
 import 'package:flutter/material.dart';
 
+import '../../util/navigation_constants.dart';
+
 class AppNavbar extends StatelessWidget {
   const AppNavbar({
     super.key,
+    this.isHidden = false,
   });
+
+  final bool isHidden;
 
   @override
   Widget build(BuildContext context) {
+    if (isHidden) {
+      return const SizedBox.shrink();
+    }
     return Container(
       height: 70,
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
@@ -15,17 +23,17 @@ class AppNavbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           AppNavigationItem(
-            routeIndex: 0,
+            routeLabel: NavigationConstants.home,
             label: "Home",
             icon: Icons.home,
           ),
           AppNavigationItem(
-            routeIndex: 1,
+            routeLabel: NavigationConstants.allPlants,
             label: "Plants",
             icon: Icons.grid_view,
           ),
           AppNavigationItem(
-            routeIndex: 2,
+            routeLabel: NavigationConstants.addPlant,
             label: "Add",
             icon: Icons.add_circle_outline,
           ),
@@ -35,7 +43,7 @@ class AppNavbar extends StatelessWidget {
               icon: Icons.document_scanner_outlined),
               */ // TODO: Commented out for now
           AppNavigationItem(
-            routeIndex: 3,
+            routeLabel: NavigationConstants.settings,
             label: "Settings",
             icon: Icons.settings,
           ),

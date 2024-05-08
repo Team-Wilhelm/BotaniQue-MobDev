@@ -631,6 +631,379 @@ abstract class _ServerConfirmsUpdate implements ServerConfirmsUpdate {
       get copyWith => throw _privateConstructorUsedError;
 }
 
+ServerSendsAllPlants _$ServerSendsAllPlantsFromJson(Map<String, dynamic> json) {
+  return _ServerSendsAllPlants.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerSendsAllPlants {
+  List<Plant> get plants => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerSendsAllPlantsCopyWith<ServerSendsAllPlants> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerSendsAllPlantsCopyWith<$Res> {
+  factory $ServerSendsAllPlantsCopyWith(ServerSendsAllPlants value,
+          $Res Function(ServerSendsAllPlants) then) =
+      _$ServerSendsAllPlantsCopyWithImpl<$Res, ServerSendsAllPlants>;
+  @useResult
+  $Res call({List<Plant> plants});
+}
+
+/// @nodoc
+class _$ServerSendsAllPlantsCopyWithImpl<$Res,
+        $Val extends ServerSendsAllPlants>
+    implements $ServerSendsAllPlantsCopyWith<$Res> {
+  _$ServerSendsAllPlantsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plants = null,
+  }) {
+    return _then(_value.copyWith(
+      plants: null == plants
+          ? _value.plants
+          : plants // ignore: cast_nullable_to_non_nullable
+              as List<Plant>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerSendsAllPlantsImplCopyWith<$Res>
+    implements $ServerSendsAllPlantsCopyWith<$Res> {
+  factory _$$ServerSendsAllPlantsImplCopyWith(_$ServerSendsAllPlantsImpl value,
+          $Res Function(_$ServerSendsAllPlantsImpl) then) =
+      __$$ServerSendsAllPlantsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Plant> plants});
+}
+
+/// @nodoc
+class __$$ServerSendsAllPlantsImplCopyWithImpl<$Res>
+    extends _$ServerSendsAllPlantsCopyWithImpl<$Res, _$ServerSendsAllPlantsImpl>
+    implements _$$ServerSendsAllPlantsImplCopyWith<$Res> {
+  __$$ServerSendsAllPlantsImplCopyWithImpl(_$ServerSendsAllPlantsImpl _value,
+      $Res Function(_$ServerSendsAllPlantsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plants = null,
+  }) {
+    return _then(_$ServerSendsAllPlantsImpl(
+      plants: null == plants
+          ? _value._plants
+          : plants // ignore: cast_nullable_to_non_nullable
+              as List<Plant>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerSendsAllPlantsImpl implements _ServerSendsAllPlants {
+  const _$ServerSendsAllPlantsImpl({required final List<Plant> plants})
+      : _plants = plants;
+
+  factory _$ServerSendsAllPlantsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerSendsAllPlantsImplFromJson(json);
+
+  final List<Plant> _plants;
+  @override
+  List<Plant> get plants {
+    if (_plants is EqualUnmodifiableListView) return _plants;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_plants);
+  }
+
+  @override
+  String toString() {
+    return 'ServerSendsAllPlants(plants: $plants)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerSendsAllPlantsImpl &&
+            const DeepCollectionEquality().equals(other._plants, _plants));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_plants));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerSendsAllPlantsImplCopyWith<_$ServerSendsAllPlantsImpl>
+      get copyWith =>
+          __$$ServerSendsAllPlantsImplCopyWithImpl<_$ServerSendsAllPlantsImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerSendsAllPlantsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerSendsAllPlants implements ServerSendsAllPlants {
+  const factory _ServerSendsAllPlants({required final List<Plant> plants}) =
+      _$ServerSendsAllPlantsImpl;
+
+  factory _ServerSendsAllPlants.fromJson(Map<String, dynamic> json) =
+      _$ServerSendsAllPlantsImpl.fromJson;
+
+  @override
+  List<Plant> get plants;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerSendsAllPlantsImplCopyWith<_$ServerSendsAllPlantsImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerAuthenticatesUser _$ServerAuthenticatesUserFromJson(
+    Map<String, dynamic> json) {
+  return _ServerAuthenticatesUser.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerAuthenticatesUser {
+  String get jwt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerAuthenticatesUserCopyWith<ServerAuthenticatesUser> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerAuthenticatesUserCopyWith<$Res> {
+  factory $ServerAuthenticatesUserCopyWith(ServerAuthenticatesUser value,
+          $Res Function(ServerAuthenticatesUser) then) =
+      _$ServerAuthenticatesUserCopyWithImpl<$Res, ServerAuthenticatesUser>;
+  @useResult
+  $Res call({String jwt});
+}
+
+/// @nodoc
+class _$ServerAuthenticatesUserCopyWithImpl<$Res,
+        $Val extends ServerAuthenticatesUser>
+    implements $ServerAuthenticatesUserCopyWith<$Res> {
+  _$ServerAuthenticatesUserCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerAuthenticatesUserImplCopyWith<$Res>
+    implements $ServerAuthenticatesUserCopyWith<$Res> {
+  factory _$$ServerAuthenticatesUserImplCopyWith(
+          _$ServerAuthenticatesUserImpl value,
+          $Res Function(_$ServerAuthenticatesUserImpl) then) =
+      __$$ServerAuthenticatesUserImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt});
+}
+
+/// @nodoc
+class __$$ServerAuthenticatesUserImplCopyWithImpl<$Res>
+    extends _$ServerAuthenticatesUserCopyWithImpl<$Res,
+        _$ServerAuthenticatesUserImpl>
+    implements _$$ServerAuthenticatesUserImplCopyWith<$Res> {
+  __$$ServerAuthenticatesUserImplCopyWithImpl(
+      _$ServerAuthenticatesUserImpl _value,
+      $Res Function(_$ServerAuthenticatesUserImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+  }) {
+    return _then(_$ServerAuthenticatesUserImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerAuthenticatesUserImpl implements _ServerAuthenticatesUser {
+  const _$ServerAuthenticatesUserImpl({required this.jwt});
+
+  factory _$ServerAuthenticatesUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerAuthenticatesUserImplFromJson(json);
+
+  @override
+  final String jwt;
+
+  @override
+  String toString() {
+    return 'ServerAuthenticatesUser(jwt: $jwt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerAuthenticatesUserImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerAuthenticatesUserImplCopyWith<_$ServerAuthenticatesUserImpl>
+      get copyWith => __$$ServerAuthenticatesUserImplCopyWithImpl<
+          _$ServerAuthenticatesUserImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerAuthenticatesUserImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerAuthenticatesUser implements ServerAuthenticatesUser {
+  const factory _ServerAuthenticatesUser({required final String jwt}) =
+      _$ServerAuthenticatesUserImpl;
+
+  factory _ServerAuthenticatesUser.fromJson(Map<String, dynamic> json) =
+      _$ServerAuthenticatesUserImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerAuthenticatesUserImplCopyWith<_$ServerAuthenticatesUserImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerConfirmsDelete _$ServerConfirmsDeleteFromJson(Map<String, dynamic> json) {
+  return _ServerConfirmsDelete.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerConfirmsDelete {
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerConfirmsDeleteCopyWith<$Res> {
+  factory $ServerConfirmsDeleteCopyWith(ServerConfirmsDelete value,
+          $Res Function(ServerConfirmsDelete) then) =
+      _$ServerConfirmsDeleteCopyWithImpl<$Res, ServerConfirmsDelete>;
+}
+
+/// @nodoc
+class _$ServerConfirmsDeleteCopyWithImpl<$Res,
+        $Val extends ServerConfirmsDelete>
+    implements $ServerConfirmsDeleteCopyWith<$Res> {
+  _$ServerConfirmsDeleteCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$ServerConfirmsDeleteImplCopyWith<$Res> {
+  factory _$$ServerConfirmsDeleteImplCopyWith(_$ServerConfirmsDeleteImpl value,
+          $Res Function(_$ServerConfirmsDeleteImpl) then) =
+      __$$ServerConfirmsDeleteImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ServerConfirmsDeleteImplCopyWithImpl<$Res>
+    extends _$ServerConfirmsDeleteCopyWithImpl<$Res, _$ServerConfirmsDeleteImpl>
+    implements _$$ServerConfirmsDeleteImplCopyWith<$Res> {
+  __$$ServerConfirmsDeleteImplCopyWithImpl(_$ServerConfirmsDeleteImpl _value,
+      $Res Function(_$ServerConfirmsDeleteImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerConfirmsDeleteImpl implements _ServerConfirmsDelete {
+  const _$ServerConfirmsDeleteImpl();
+
+  factory _$ServerConfirmsDeleteImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerConfirmsDeleteImplFromJson(json);
+
+  @override
+  String toString() {
+    return 'ServerConfirmsDelete()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerConfirmsDeleteImpl);
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerConfirmsDeleteImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerConfirmsDelete implements ServerConfirmsDelete {
+  const factory _ServerConfirmsDelete() = _$ServerConfirmsDeleteImpl;
+
+  factory _ServerConfirmsDelete.fromJson(Map<String, dynamic> json) =
+      _$ServerConfirmsDeleteImpl.fromJson;
+}
+
 ServerSendsErrorMessage _$ServerSendsErrorMessageFromJson(
     Map<String, dynamic> json) {
   return _ServerSendsErrorMessage.fromJson(json);
@@ -781,7 +1154,12 @@ ServerRejectsWrongCredentials _$ServerRejectsWrongCredentialsFromJson(
 
 /// @nodoc
 mixin _$ServerRejectsWrongCredentials {
+  String get error => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRejectsWrongCredentialsCopyWith<ServerRejectsWrongCredentials>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -791,6 +1169,8 @@ abstract class $ServerRejectsWrongCredentialsCopyWith<$Res> {
           $Res Function(ServerRejectsWrongCredentials) then) =
       _$ServerRejectsWrongCredentialsCopyWithImpl<$Res,
           ServerRejectsWrongCredentials>;
+  @useResult
+  $Res call({String error});
 }
 
 /// @nodoc
@@ -798,106 +1178,6 @@ class _$ServerRejectsWrongCredentialsCopyWithImpl<$Res,
         $Val extends ServerRejectsWrongCredentials>
     implements $ServerRejectsWrongCredentialsCopyWith<$Res> {
   _$ServerRejectsWrongCredentialsCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$ServerRejectsWrongCredentialsImplCopyWith<$Res> {
-  factory _$$ServerRejectsWrongCredentialsImplCopyWith(
-          _$ServerRejectsWrongCredentialsImpl value,
-          $Res Function(_$ServerRejectsWrongCredentialsImpl) then) =
-      __$$ServerRejectsWrongCredentialsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ServerRejectsWrongCredentialsImplCopyWithImpl<$Res>
-    extends _$ServerRejectsWrongCredentialsCopyWithImpl<$Res,
-        _$ServerRejectsWrongCredentialsImpl>
-    implements _$$ServerRejectsWrongCredentialsImplCopyWith<$Res> {
-  __$$ServerRejectsWrongCredentialsImplCopyWithImpl(
-      _$ServerRejectsWrongCredentialsImpl _value,
-      $Res Function(_$ServerRejectsWrongCredentialsImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ServerRejectsWrongCredentialsImpl
-    implements _ServerRejectsWrongCredentials {
-  const _$ServerRejectsWrongCredentialsImpl();
-
-  factory _$ServerRejectsWrongCredentialsImpl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$ServerRejectsWrongCredentialsImplFromJson(json);
-
-  @override
-  String toString() {
-    return 'ServerRejectsWrongCredentials()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ServerRejectsWrongCredentialsImpl);
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ServerRejectsWrongCredentialsImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ServerRejectsWrongCredentials
-    implements ServerRejectsWrongCredentials {
-  const factory _ServerRejectsWrongCredentials() =
-      _$ServerRejectsWrongCredentialsImpl;
-
-  factory _ServerRejectsWrongCredentials.fromJson(Map<String, dynamic> json) =
-      _$ServerRejectsWrongCredentialsImpl.fromJson;
-}
-
-ServerRespondsUserAlreadyExists _$ServerRespondsUserAlreadyExistsFromJson(
-    Map<String, dynamic> json) {
-  return _ServerRespondsUserAlreadyExists.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ServerRespondsUserAlreadyExists {
-  String get error => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ServerRespondsUserAlreadyExistsCopyWith<ServerRespondsUserAlreadyExists>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ServerRespondsUserAlreadyExistsCopyWith<$Res> {
-  factory $ServerRespondsUserAlreadyExistsCopyWith(
-          ServerRespondsUserAlreadyExists value,
-          $Res Function(ServerRespondsUserAlreadyExists) then) =
-      _$ServerRespondsUserAlreadyExistsCopyWithImpl<$Res,
-          ServerRespondsUserAlreadyExists>;
-  @useResult
-  $Res call({String error});
-}
-
-/// @nodoc
-class _$ServerRespondsUserAlreadyExistsCopyWithImpl<$Res,
-        $Val extends ServerRespondsUserAlreadyExists>
-    implements $ServerRespondsUserAlreadyExistsCopyWith<$Res> {
-  _$ServerRespondsUserAlreadyExistsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -919,25 +1199,25 @@ class _$ServerRespondsUserAlreadyExistsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$ServerRespondsUserAlreadyExistsImplCopyWith<$Res>
-    implements $ServerRespondsUserAlreadyExistsCopyWith<$Res> {
-  factory _$$ServerRespondsUserAlreadyExistsImplCopyWith(
-          _$ServerRespondsUserAlreadyExistsImpl value,
-          $Res Function(_$ServerRespondsUserAlreadyExistsImpl) then) =
-      __$$ServerRespondsUserAlreadyExistsImplCopyWithImpl<$Res>;
+abstract class _$$ServerRejectsWrongCredentialsImplCopyWith<$Res>
+    implements $ServerRejectsWrongCredentialsCopyWith<$Res> {
+  factory _$$ServerRejectsWrongCredentialsImplCopyWith(
+          _$ServerRejectsWrongCredentialsImpl value,
+          $Res Function(_$ServerRejectsWrongCredentialsImpl) then) =
+      __$$ServerRejectsWrongCredentialsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String error});
 }
 
 /// @nodoc
-class __$$ServerRespondsUserAlreadyExistsImplCopyWithImpl<$Res>
-    extends _$ServerRespondsUserAlreadyExistsCopyWithImpl<$Res,
-        _$ServerRespondsUserAlreadyExistsImpl>
-    implements _$$ServerRespondsUserAlreadyExistsImplCopyWith<$Res> {
-  __$$ServerRespondsUserAlreadyExistsImplCopyWithImpl(
-      _$ServerRespondsUserAlreadyExistsImpl _value,
-      $Res Function(_$ServerRespondsUserAlreadyExistsImpl) _then)
+class __$$ServerRejectsWrongCredentialsImplCopyWithImpl<$Res>
+    extends _$ServerRejectsWrongCredentialsCopyWithImpl<$Res,
+        _$ServerRejectsWrongCredentialsImpl>
+    implements _$$ServerRejectsWrongCredentialsImplCopyWith<$Res> {
+  __$$ServerRejectsWrongCredentialsImplCopyWithImpl(
+      _$ServerRejectsWrongCredentialsImpl _value,
+      $Res Function(_$ServerRejectsWrongCredentialsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -945,7 +1225,7 @@ class __$$ServerRespondsUserAlreadyExistsImplCopyWithImpl<$Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$ServerRespondsUserAlreadyExistsImpl(
+    return _then(_$ServerRejectsWrongCredentialsImpl(
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -956,27 +1236,27 @@ class __$$ServerRespondsUserAlreadyExistsImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ServerRespondsUserAlreadyExistsImpl
-    implements _ServerRespondsUserAlreadyExists {
-  const _$ServerRespondsUserAlreadyExistsImpl({required this.error});
+class _$ServerRejectsWrongCredentialsImpl
+    implements _ServerRejectsWrongCredentials {
+  const _$ServerRejectsWrongCredentialsImpl({required this.error});
 
-  factory _$ServerRespondsUserAlreadyExistsImpl.fromJson(
+  factory _$ServerRejectsWrongCredentialsImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$ServerRespondsUserAlreadyExistsImplFromJson(json);
+      _$$ServerRejectsWrongCredentialsImplFromJson(json);
 
   @override
   final String error;
 
   @override
   String toString() {
-    return 'ServerRespondsUserAlreadyExists(error: $error)';
+    return 'ServerRejectsWrongCredentials(error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ServerRespondsUserAlreadyExistsImpl &&
+            other is _$ServerRejectsWrongCredentialsImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -987,32 +1267,1087 @@ class _$ServerRespondsUserAlreadyExistsImpl
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ServerRespondsUserAlreadyExistsImplCopyWith<
-          _$ServerRespondsUserAlreadyExistsImpl>
-      get copyWith => __$$ServerRespondsUserAlreadyExistsImplCopyWithImpl<
-          _$ServerRespondsUserAlreadyExistsImpl>(this, _$identity);
+  _$$ServerRejectsWrongCredentialsImplCopyWith<
+          _$ServerRejectsWrongCredentialsImpl>
+      get copyWith => __$$ServerRejectsWrongCredentialsImplCopyWithImpl<
+          _$ServerRejectsWrongCredentialsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ServerRespondsUserAlreadyExistsImplToJson(
+    return _$$ServerRejectsWrongCredentialsImplToJson(
       this,
     );
   }
 }
 
-abstract class _ServerRespondsUserAlreadyExists
-    implements ServerRespondsUserAlreadyExists {
-  const factory _ServerRespondsUserAlreadyExists(
-      {required final String error}) = _$ServerRespondsUserAlreadyExistsImpl;
+abstract class _ServerRejectsWrongCredentials
+    implements ServerRejectsWrongCredentials {
+  const factory _ServerRejectsWrongCredentials({required final String error}) =
+      _$ServerRejectsWrongCredentialsImpl;
 
-  factory _ServerRespondsUserAlreadyExists.fromJson(Map<String, dynamic> json) =
-      _$ServerRespondsUserAlreadyExistsImpl.fromJson;
+  factory _ServerRejectsWrongCredentials.fromJson(Map<String, dynamic> json) =
+      _$ServerRejectsWrongCredentialsImpl.fromJson;
 
   @override
   String get error;
   @override
   @JsonKey(ignore: true)
-  _$$ServerRespondsUserAlreadyExistsImplCopyWith<
-          _$ServerRespondsUserAlreadyExistsImpl>
+  _$$ServerRejectsWrongCredentialsImplCopyWith<
+          _$ServerRejectsWrongCredentialsImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRespondsNotAuthenticated _$ServerRespondsNotAuthenticatedFromJson(
+    Map<String, dynamic> json) {
+  return _ServerRespondsNotAuthenticated.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRespondsNotAuthenticated {
+  String get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRespondsNotAuthenticatedCopyWith<ServerRespondsNotAuthenticated>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRespondsNotAuthenticatedCopyWith<$Res> {
+  factory $ServerRespondsNotAuthenticatedCopyWith(
+          ServerRespondsNotAuthenticated value,
+          $Res Function(ServerRespondsNotAuthenticated) then) =
+      _$ServerRespondsNotAuthenticatedCopyWithImpl<$Res,
+          ServerRespondsNotAuthenticated>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class _$ServerRespondsNotAuthenticatedCopyWithImpl<$Res,
+        $Val extends ServerRespondsNotAuthenticated>
+    implements $ServerRespondsNotAuthenticatedCopyWith<$Res> {
+  _$ServerRespondsNotAuthenticatedCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRespondsNotAuthenticatedImplCopyWith<$Res>
+    implements $ServerRespondsNotAuthenticatedCopyWith<$Res> {
+  factory _$$ServerRespondsNotAuthenticatedImplCopyWith(
+          _$ServerRespondsNotAuthenticatedImpl value,
+          $Res Function(_$ServerRespondsNotAuthenticatedImpl) then) =
+      __$$ServerRespondsNotAuthenticatedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ServerRespondsNotAuthenticatedImplCopyWithImpl<$Res>
+    extends _$ServerRespondsNotAuthenticatedCopyWithImpl<$Res,
+        _$ServerRespondsNotAuthenticatedImpl>
+    implements _$$ServerRespondsNotAuthenticatedImplCopyWith<$Res> {
+  __$$ServerRespondsNotAuthenticatedImplCopyWithImpl(
+      _$ServerRespondsNotAuthenticatedImpl _value,
+      $Res Function(_$ServerRespondsNotAuthenticatedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ServerRespondsNotAuthenticatedImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRespondsNotAuthenticatedImpl
+    implements _ServerRespondsNotAuthenticated {
+  const _$ServerRespondsNotAuthenticatedImpl({required this.error});
+
+  factory _$ServerRespondsNotAuthenticatedImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ServerRespondsNotAuthenticatedImplFromJson(json);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ServerRespondsNotAuthenticated(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRespondsNotAuthenticatedImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRespondsNotAuthenticatedImplCopyWith<
+          _$ServerRespondsNotAuthenticatedImpl>
+      get copyWith => __$$ServerRespondsNotAuthenticatedImplCopyWithImpl<
+          _$ServerRespondsNotAuthenticatedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRespondsNotAuthenticatedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRespondsNotAuthenticated
+    implements ServerRespondsNotAuthenticated {
+  const factory _ServerRespondsNotAuthenticated({required final String error}) =
+      _$ServerRespondsNotAuthenticatedImpl;
+
+  factory _ServerRespondsNotAuthenticated.fromJson(Map<String, dynamic> json) =
+      _$ServerRespondsNotAuthenticatedImpl.fromJson;
+
+  @override
+  String get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRespondsNotAuthenticatedImplCopyWith<
+          _$ServerRespondsNotAuthenticatedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRespondsNotAuthorized _$ServerRespondsNotAuthorizedFromJson(
+    Map<String, dynamic> json) {
+  return _ServerRespondsNotAuthorized.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRespondsNotAuthorized {
+  String get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRespondsNotAuthorizedCopyWith<ServerRespondsNotAuthorized>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRespondsNotAuthorizedCopyWith<$Res> {
+  factory $ServerRespondsNotAuthorizedCopyWith(
+          ServerRespondsNotAuthorized value,
+          $Res Function(ServerRespondsNotAuthorized) then) =
+      _$ServerRespondsNotAuthorizedCopyWithImpl<$Res,
+          ServerRespondsNotAuthorized>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class _$ServerRespondsNotAuthorizedCopyWithImpl<$Res,
+        $Val extends ServerRespondsNotAuthorized>
+    implements $ServerRespondsNotAuthorizedCopyWith<$Res> {
+  _$ServerRespondsNotAuthorizedCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRespondsNotAuthorizedImplCopyWith<$Res>
+    implements $ServerRespondsNotAuthorizedCopyWith<$Res> {
+  factory _$$ServerRespondsNotAuthorizedImplCopyWith(
+          _$ServerRespondsNotAuthorizedImpl value,
+          $Res Function(_$ServerRespondsNotAuthorizedImpl) then) =
+      __$$ServerRespondsNotAuthorizedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ServerRespondsNotAuthorizedImplCopyWithImpl<$Res>
+    extends _$ServerRespondsNotAuthorizedCopyWithImpl<$Res,
+        _$ServerRespondsNotAuthorizedImpl>
+    implements _$$ServerRespondsNotAuthorizedImplCopyWith<$Res> {
+  __$$ServerRespondsNotAuthorizedImplCopyWithImpl(
+      _$ServerRespondsNotAuthorizedImpl _value,
+      $Res Function(_$ServerRespondsNotAuthorizedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ServerRespondsNotAuthorizedImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRespondsNotAuthorizedImpl
+    implements _ServerRespondsNotAuthorized {
+  const _$ServerRespondsNotAuthorizedImpl({required this.error});
+
+  factory _$ServerRespondsNotAuthorizedImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ServerRespondsNotAuthorizedImplFromJson(json);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ServerRespondsNotAuthorized(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRespondsNotAuthorizedImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRespondsNotAuthorizedImplCopyWith<_$ServerRespondsNotAuthorizedImpl>
+      get copyWith => __$$ServerRespondsNotAuthorizedImplCopyWithImpl<
+          _$ServerRespondsNotAuthorizedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRespondsNotAuthorizedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRespondsNotAuthorized
+    implements ServerRespondsNotAuthorized {
+  const factory _ServerRespondsNotAuthorized({required final String error}) =
+      _$ServerRespondsNotAuthorizedImpl;
+
+  factory _ServerRespondsNotAuthorized.fromJson(Map<String, dynamic> json) =
+      _$ServerRespondsNotAuthorizedImpl.fromJson;
+
+  @override
+  String get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRespondsNotAuthorizedImplCopyWith<_$ServerRespondsNotAuthorizedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRespondsNotFound _$ServerRespondsNotFoundFromJson(
+    Map<String, dynamic> json) {
+  return _ServerRespondsNotFound.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRespondsNotFound {
+  String get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRespondsNotFoundCopyWith<ServerRespondsNotFound> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRespondsNotFoundCopyWith<$Res> {
+  factory $ServerRespondsNotFoundCopyWith(ServerRespondsNotFound value,
+          $Res Function(ServerRespondsNotFound) then) =
+      _$ServerRespondsNotFoundCopyWithImpl<$Res, ServerRespondsNotFound>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class _$ServerRespondsNotFoundCopyWithImpl<$Res,
+        $Val extends ServerRespondsNotFound>
+    implements $ServerRespondsNotFoundCopyWith<$Res> {
+  _$ServerRespondsNotFoundCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRespondsNotFoundImplCopyWith<$Res>
+    implements $ServerRespondsNotFoundCopyWith<$Res> {
+  factory _$$ServerRespondsNotFoundImplCopyWith(
+          _$ServerRespondsNotFoundImpl value,
+          $Res Function(_$ServerRespondsNotFoundImpl) then) =
+      __$$ServerRespondsNotFoundImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ServerRespondsNotFoundImplCopyWithImpl<$Res>
+    extends _$ServerRespondsNotFoundCopyWithImpl<$Res,
+        _$ServerRespondsNotFoundImpl>
+    implements _$$ServerRespondsNotFoundImplCopyWith<$Res> {
+  __$$ServerRespondsNotFoundImplCopyWithImpl(
+      _$ServerRespondsNotFoundImpl _value,
+      $Res Function(_$ServerRespondsNotFoundImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ServerRespondsNotFoundImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRespondsNotFoundImpl implements _ServerRespondsNotFound {
+  const _$ServerRespondsNotFoundImpl({required this.error});
+
+  factory _$ServerRespondsNotFoundImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerRespondsNotFoundImplFromJson(json);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ServerRespondsNotFound(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRespondsNotFoundImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRespondsNotFoundImplCopyWith<_$ServerRespondsNotFoundImpl>
+      get copyWith => __$$ServerRespondsNotFoundImplCopyWithImpl<
+          _$ServerRespondsNotFoundImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRespondsNotFoundImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRespondsNotFound implements ServerRespondsNotFound {
+  const factory _ServerRespondsNotFound({required final String error}) =
+      _$ServerRespondsNotFoundImpl;
+
+  factory _ServerRespondsNotFound.fromJson(Map<String, dynamic> json) =
+      _$ServerRespondsNotFoundImpl.fromJson;
+
+  @override
+  String get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRespondsNotFoundImplCopyWith<_$ServerRespondsNotFoundImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRespondsRegisterDevice _$ServerRespondsRegisterDeviceFromJson(
+    Map<String, dynamic> json) {
+  return _ServerRespondsRegisterDevice.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRespondsRegisterDevice {
+  String get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRespondsRegisterDeviceCopyWith<ServerRespondsRegisterDevice>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRespondsRegisterDeviceCopyWith<$Res> {
+  factory $ServerRespondsRegisterDeviceCopyWith(
+          ServerRespondsRegisterDevice value,
+          $Res Function(ServerRespondsRegisterDevice) then) =
+      _$ServerRespondsRegisterDeviceCopyWithImpl<$Res,
+          ServerRespondsRegisterDevice>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class _$ServerRespondsRegisterDeviceCopyWithImpl<$Res,
+        $Val extends ServerRespondsRegisterDevice>
+    implements $ServerRespondsRegisterDeviceCopyWith<$Res> {
+  _$ServerRespondsRegisterDeviceCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRespondsRegisterDeviceImplCopyWith<$Res>
+    implements $ServerRespondsRegisterDeviceCopyWith<$Res> {
+  factory _$$ServerRespondsRegisterDeviceImplCopyWith(
+          _$ServerRespondsRegisterDeviceImpl value,
+          $Res Function(_$ServerRespondsRegisterDeviceImpl) then) =
+      __$$ServerRespondsRegisterDeviceImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ServerRespondsRegisterDeviceImplCopyWithImpl<$Res>
+    extends _$ServerRespondsRegisterDeviceCopyWithImpl<$Res,
+        _$ServerRespondsRegisterDeviceImpl>
+    implements _$$ServerRespondsRegisterDeviceImplCopyWith<$Res> {
+  __$$ServerRespondsRegisterDeviceImplCopyWithImpl(
+      _$ServerRespondsRegisterDeviceImpl _value,
+      $Res Function(_$ServerRespondsRegisterDeviceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ServerRespondsRegisterDeviceImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRespondsRegisterDeviceImpl
+    implements _ServerRespondsRegisterDevice {
+  const _$ServerRespondsRegisterDeviceImpl({required this.error});
+
+  factory _$ServerRespondsRegisterDeviceImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ServerRespondsRegisterDeviceImplFromJson(json);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ServerRespondsRegisterDevice(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRespondsRegisterDeviceImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRespondsRegisterDeviceImplCopyWith<
+          _$ServerRespondsRegisterDeviceImpl>
+      get copyWith => __$$ServerRespondsRegisterDeviceImplCopyWithImpl<
+          _$ServerRespondsRegisterDeviceImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRespondsRegisterDeviceImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRespondsRegisterDevice
+    implements ServerRespondsRegisterDevice {
+  const factory _ServerRespondsRegisterDevice({required final String error}) =
+      _$ServerRespondsRegisterDeviceImpl;
+
+  factory _ServerRespondsRegisterDevice.fromJson(Map<String, dynamic> json) =
+      _$ServerRespondsRegisterDeviceImpl.fromJson;
+
+  @override
+  String get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRespondsRegisterDeviceImplCopyWith<
+          _$ServerRespondsRegisterDeviceImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRespondsValidationError _$ServerRespondsValidationErrorFromJson(
+    Map<String, dynamic> json) {
+  return _ServerRespondsValidationError.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRespondsValidationError {
+  String get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRespondsValidationErrorCopyWith<ServerRespondsValidationError>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRespondsValidationErrorCopyWith<$Res> {
+  factory $ServerRespondsValidationErrorCopyWith(
+          ServerRespondsValidationError value,
+          $Res Function(ServerRespondsValidationError) then) =
+      _$ServerRespondsValidationErrorCopyWithImpl<$Res,
+          ServerRespondsValidationError>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class _$ServerRespondsValidationErrorCopyWithImpl<$Res,
+        $Val extends ServerRespondsValidationError>
+    implements $ServerRespondsValidationErrorCopyWith<$Res> {
+  _$ServerRespondsValidationErrorCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRespondsValidationErrorImplCopyWith<$Res>
+    implements $ServerRespondsValidationErrorCopyWith<$Res> {
+  factory _$$ServerRespondsValidationErrorImplCopyWith(
+          _$ServerRespondsValidationErrorImpl value,
+          $Res Function(_$ServerRespondsValidationErrorImpl) then) =
+      __$$ServerRespondsValidationErrorImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ServerRespondsValidationErrorImplCopyWithImpl<$Res>
+    extends _$ServerRespondsValidationErrorCopyWithImpl<$Res,
+        _$ServerRespondsValidationErrorImpl>
+    implements _$$ServerRespondsValidationErrorImplCopyWith<$Res> {
+  __$$ServerRespondsValidationErrorImplCopyWithImpl(
+      _$ServerRespondsValidationErrorImpl _value,
+      $Res Function(_$ServerRespondsValidationErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ServerRespondsValidationErrorImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRespondsValidationErrorImpl
+    implements _ServerRespondsValidationError {
+  const _$ServerRespondsValidationErrorImpl({required this.error});
+
+  factory _$ServerRespondsValidationErrorImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ServerRespondsValidationErrorImplFromJson(json);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ServerRespondsValidationError(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRespondsValidationErrorImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRespondsValidationErrorImplCopyWith<
+          _$ServerRespondsValidationErrorImpl>
+      get copyWith => __$$ServerRespondsValidationErrorImplCopyWithImpl<
+          _$ServerRespondsValidationErrorImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRespondsValidationErrorImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRespondsValidationError
+    implements ServerRespondsValidationError {
+  const factory _ServerRespondsValidationError({required final String error}) =
+      _$ServerRespondsValidationErrorImpl;
+
+  factory _ServerRespondsValidationError.fromJson(Map<String, dynamic> json) =
+      _$ServerRespondsValidationErrorImpl.fromJson;
+
+  @override
+  String get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRespondsValidationErrorImplCopyWith<
+          _$ServerRespondsValidationErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRejectsInvalidFile _$ServerRejectsInvalidFileFromJson(
+    Map<String, dynamic> json) {
+  return _ServerRejectsInvalidFile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRejectsInvalidFile {
+  String get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRejectsInvalidFileCopyWith<ServerRejectsInvalidFile> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRejectsInvalidFileCopyWith<$Res> {
+  factory $ServerRejectsInvalidFileCopyWith(ServerRejectsInvalidFile value,
+          $Res Function(ServerRejectsInvalidFile) then) =
+      _$ServerRejectsInvalidFileCopyWithImpl<$Res, ServerRejectsInvalidFile>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class _$ServerRejectsInvalidFileCopyWithImpl<$Res,
+        $Val extends ServerRejectsInvalidFile>
+    implements $ServerRejectsInvalidFileCopyWith<$Res> {
+  _$ServerRejectsInvalidFileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRejectsInvalidFileImplCopyWith<$Res>
+    implements $ServerRejectsInvalidFileCopyWith<$Res> {
+  factory _$$ServerRejectsInvalidFileImplCopyWith(
+          _$ServerRejectsInvalidFileImpl value,
+          $Res Function(_$ServerRejectsInvalidFileImpl) then) =
+      __$$ServerRejectsInvalidFileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ServerRejectsInvalidFileImplCopyWithImpl<$Res>
+    extends _$ServerRejectsInvalidFileCopyWithImpl<$Res,
+        _$ServerRejectsInvalidFileImpl>
+    implements _$$ServerRejectsInvalidFileImplCopyWith<$Res> {
+  __$$ServerRejectsInvalidFileImplCopyWithImpl(
+      _$ServerRejectsInvalidFileImpl _value,
+      $Res Function(_$ServerRejectsInvalidFileImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ServerRejectsInvalidFileImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRejectsInvalidFileImpl implements _ServerRejectsInvalidFile {
+  const _$ServerRejectsInvalidFileImpl({required this.error});
+
+  factory _$ServerRejectsInvalidFileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerRejectsInvalidFileImplFromJson(json);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ServerRejectsInvalidFile(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRejectsInvalidFileImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRejectsInvalidFileImplCopyWith<_$ServerRejectsInvalidFileImpl>
+      get copyWith => __$$ServerRejectsInvalidFileImplCopyWithImpl<
+          _$ServerRejectsInvalidFileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRejectsInvalidFileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRejectsInvalidFile implements ServerRejectsInvalidFile {
+  const factory _ServerRejectsInvalidFile({required final String error}) =
+      _$ServerRejectsInvalidFileImpl;
+
+  factory _ServerRejectsInvalidFile.fromJson(Map<String, dynamic> json) =
+      _$ServerRejectsInvalidFileImpl.fromJson;
+
+  @override
+  String get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRejectsInvalidFileImplCopyWith<_$ServerRejectsInvalidFileImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerRejectsUpdate _$ServerRejectsUpdateFromJson(Map<String, dynamic> json) {
+  return _ServerRejectsUpdate.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerRejectsUpdate {
+  String get errorMessage => throw _privateConstructorUsedError;
+  GetUserDto get getUserDto => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerRejectsUpdateCopyWith<ServerRejectsUpdate> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerRejectsUpdateCopyWith<$Res> {
+  factory $ServerRejectsUpdateCopyWith(
+          ServerRejectsUpdate value, $Res Function(ServerRejectsUpdate) then) =
+      _$ServerRejectsUpdateCopyWithImpl<$Res, ServerRejectsUpdate>;
+  @useResult
+  $Res call({String errorMessage, GetUserDto getUserDto});
+
+  $GetUserDtoCopyWith<$Res> get getUserDto;
+}
+
+/// @nodoc
+class _$ServerRejectsUpdateCopyWithImpl<$Res, $Val extends ServerRejectsUpdate>
+    implements $ServerRejectsUpdateCopyWith<$Res> {
+  _$ServerRejectsUpdateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+    Object? getUserDto = null,
+  }) {
+    return _then(_value.copyWith(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      getUserDto: null == getUserDto
+          ? _value.getUserDto
+          : getUserDto // ignore: cast_nullable_to_non_nullable
+              as GetUserDto,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $GetUserDtoCopyWith<$Res> get getUserDto {
+    return $GetUserDtoCopyWith<$Res>(_value.getUserDto, (value) {
+      return _then(_value.copyWith(getUserDto: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerRejectsUpdateImplCopyWith<$Res>
+    implements $ServerRejectsUpdateCopyWith<$Res> {
+  factory _$$ServerRejectsUpdateImplCopyWith(_$ServerRejectsUpdateImpl value,
+          $Res Function(_$ServerRejectsUpdateImpl) then) =
+      __$$ServerRejectsUpdateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String errorMessage, GetUserDto getUserDto});
+
+  @override
+  $GetUserDtoCopyWith<$Res> get getUserDto;
+}
+
+/// @nodoc
+class __$$ServerRejectsUpdateImplCopyWithImpl<$Res>
+    extends _$ServerRejectsUpdateCopyWithImpl<$Res, _$ServerRejectsUpdateImpl>
+    implements _$$ServerRejectsUpdateImplCopyWith<$Res> {
+  __$$ServerRejectsUpdateImplCopyWithImpl(_$ServerRejectsUpdateImpl _value,
+      $Res Function(_$ServerRejectsUpdateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+    Object? getUserDto = null,
+  }) {
+    return _then(_$ServerRejectsUpdateImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      getUserDto: null == getUserDto
+          ? _value.getUserDto
+          : getUserDto // ignore: cast_nullable_to_non_nullable
+              as GetUserDto,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerRejectsUpdateImpl implements _ServerRejectsUpdate {
+  const _$ServerRejectsUpdateImpl(
+      {required this.errorMessage, required this.getUserDto});
+
+  factory _$ServerRejectsUpdateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerRejectsUpdateImplFromJson(json);
+
+  @override
+  final String errorMessage;
+  @override
+  final GetUserDto getUserDto;
+
+  @override
+  String toString() {
+    return 'ServerRejectsUpdate(errorMessage: $errorMessage, getUserDto: $getUserDto)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerRejectsUpdateImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            (identical(other.getUserDto, getUserDto) ||
+                other.getUserDto == getUserDto));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage, getUserDto);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerRejectsUpdateImplCopyWith<_$ServerRejectsUpdateImpl> get copyWith =>
+      __$$ServerRejectsUpdateImplCopyWithImpl<_$ServerRejectsUpdateImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerRejectsUpdateImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerRejectsUpdate implements ServerRejectsUpdate {
+  const factory _ServerRejectsUpdate(
+      {required final String errorMessage,
+      required final GetUserDto getUserDto}) = _$ServerRejectsUpdateImpl;
+
+  factory _ServerRejectsUpdate.fromJson(Map<String, dynamic> json) =
+      _$ServerRejectsUpdateImpl.fromJson;
+
+  @override
+  String get errorMessage;
+  @override
+  GetUserDto get getUserDto;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerRejectsUpdateImplCopyWith<_$ServerRejectsUpdateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
