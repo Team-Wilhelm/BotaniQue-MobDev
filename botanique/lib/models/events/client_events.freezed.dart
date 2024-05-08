@@ -400,3 +400,182 @@ abstract class _ClientWantsToCreatePlant implements ClientWantsToCreatePlant {
   _$$ClientWantsToCreatePlantImplCopyWith<_$ClientWantsToCreatePlantImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+ClientWantsToUpdateProfile _$ClientWantsToUpdateProfileFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsToUpdateProfile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsToUpdateProfile {
+  String get jwt => throw _privateConstructorUsedError;
+  UpdateUserDto get updateUserDto => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsToUpdateProfileCopyWith<ClientWantsToUpdateProfile>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsToUpdateProfileCopyWith<$Res> {
+  factory $ClientWantsToUpdateProfileCopyWith(ClientWantsToUpdateProfile value,
+          $Res Function(ClientWantsToUpdateProfile) then) =
+      _$ClientWantsToUpdateProfileCopyWithImpl<$Res,
+          ClientWantsToUpdateProfile>;
+  @useResult
+  $Res call({String jwt, UpdateUserDto updateUserDto});
+
+  $UpdateUserDtoCopyWith<$Res> get updateUserDto;
+}
+
+/// @nodoc
+class _$ClientWantsToUpdateProfileCopyWithImpl<$Res,
+        $Val extends ClientWantsToUpdateProfile>
+    implements $ClientWantsToUpdateProfileCopyWith<$Res> {
+  _$ClientWantsToUpdateProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? updateUserDto = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updateUserDto: null == updateUserDto
+          ? _value.updateUserDto
+          : updateUserDto // ignore: cast_nullable_to_non_nullable
+              as UpdateUserDto,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateUserDtoCopyWith<$Res> get updateUserDto {
+    return $UpdateUserDtoCopyWith<$Res>(_value.updateUserDto, (value) {
+      return _then(_value.copyWith(updateUserDto: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsToUpdateProfileImplCopyWith<$Res>
+    implements $ClientWantsToUpdateProfileCopyWith<$Res> {
+  factory _$$ClientWantsToUpdateProfileImplCopyWith(
+          _$ClientWantsToUpdateProfileImpl value,
+          $Res Function(_$ClientWantsToUpdateProfileImpl) then) =
+      __$$ClientWantsToUpdateProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt, UpdateUserDto updateUserDto});
+
+  @override
+  $UpdateUserDtoCopyWith<$Res> get updateUserDto;
+}
+
+/// @nodoc
+class __$$ClientWantsToUpdateProfileImplCopyWithImpl<$Res>
+    extends _$ClientWantsToUpdateProfileCopyWithImpl<$Res,
+        _$ClientWantsToUpdateProfileImpl>
+    implements _$$ClientWantsToUpdateProfileImplCopyWith<$Res> {
+  __$$ClientWantsToUpdateProfileImplCopyWithImpl(
+      _$ClientWantsToUpdateProfileImpl _value,
+      $Res Function(_$ClientWantsToUpdateProfileImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? updateUserDto = null,
+  }) {
+    return _then(_$ClientWantsToUpdateProfileImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      updateUserDto: null == updateUserDto
+          ? _value.updateUserDto
+          : updateUserDto // ignore: cast_nullable_to_non_nullable
+              as UpdateUserDto,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsToUpdateProfileImpl implements _ClientWantsToUpdateProfile {
+  const _$ClientWantsToUpdateProfileImpl(
+      {required this.jwt, required this.updateUserDto});
+
+  factory _$ClientWantsToUpdateProfileImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ClientWantsToUpdateProfileImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final UpdateUserDto updateUserDto;
+
+  @override
+  String toString() {
+    return 'ClientWantsToUpdateProfile(jwt: $jwt, updateUserDto: $updateUserDto)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsToUpdateProfileImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.updateUserDto, updateUserDto) ||
+                other.updateUserDto == updateUserDto));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt, updateUserDto);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsToUpdateProfileImplCopyWith<_$ClientWantsToUpdateProfileImpl>
+      get copyWith => __$$ClientWantsToUpdateProfileImplCopyWithImpl<
+          _$ClientWantsToUpdateProfileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsToUpdateProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsToUpdateProfile
+    implements ClientWantsToUpdateProfile {
+  const factory _ClientWantsToUpdateProfile(
+          {required final String jwt,
+          required final UpdateUserDto updateUserDto}) =
+      _$ClientWantsToUpdateProfileImpl;
+
+  factory _ClientWantsToUpdateProfile.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsToUpdateProfileImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  UpdateUserDto get updateUserDto;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsToUpdateProfileImplCopyWith<_$ClientWantsToUpdateProfileImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

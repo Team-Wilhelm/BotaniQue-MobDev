@@ -39,3 +39,18 @@ Map<String, dynamic> _$$ClientWantsToCreatePlantImplToJson(
       'jwt': instance.jwt,
       'eventType': instance.eventType,
     };
+
+_$ClientWantsToUpdateProfileImpl _$$ClientWantsToUpdateProfileImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClientWantsToUpdateProfileImpl(
+      jwt: json['jwt'] as String,
+      updateUserDto:
+          UpdateUserDto.fromJson(json['updateUserDto'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ClientWantsToUpdateProfileImplToJson(
+        _$ClientWantsToUpdateProfileImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'updateUserDto': instance.updateUserDto,
+    };

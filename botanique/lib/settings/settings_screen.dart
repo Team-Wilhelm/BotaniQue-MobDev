@@ -1,5 +1,6 @@
 import 'package:botanique/settings/panel_content/text_update_panel.dart';
 import 'package:botanique/state/user_cubit.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
@@ -28,15 +29,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           id: 1,
           headerValue: 'Username',
           panelContent: TextUpdatePanel(
-            textToUpdate:
-                "PlantLover577", //TODO get this from the logged in user
+            textToUpdate: context.read<UpdateUserCubit>().state.username,
             placeholder: "Enter new username",
             controller: _usernameController,
             onSubmit: () {
               context
                   .read<UpdateUserCubit>()
                   .updateUsername(_usernameController.text);
-              _handleTileToggle(1);
               _usernameController.clear();
             },
             icon: const Icon(Icons.person),
@@ -46,7 +45,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           id: 2,
           headerValue: 'Password',
           panelContent: TextUpdatePanel(
-            textToUpdate: "******", //TODO get this from the logged in user
             placeholder: "Enter new password",
             controller: _passwordController,
             icon: const Icon(Icons.visibility),
@@ -54,7 +52,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               context
                   .read<UpdateUserCubit>()
                   .updatePassword(_passwordController.text);
-              _handleTileToggle(2);
               _usernameController.clear();
             },
           ),
@@ -62,7 +59,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       PanelItem(
           id: 3,
           headerValue: 'Profile Picture',
-          panelContent: ImageUpdateContent(),
+          panelContent: ImageUpdateContent(
+            base64image: context.read<UpdateUserCubit>().state.base64Image,
+          ),
           controller: ExpansionTileController()),
     ];
     super.initState();
@@ -70,10 +69,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _handleTileToggle(int id) {
     setState(() {
-      if (openPanelId > 0) {
-        panelItems.elementAt(openPanelId - 1).controller.collapse();
+      if (openPanelId == id) {
+        panelItems[id - 1].controller.collapse();
+        openPanelId = -1;
+      } else {
+        if (openPanelId > 0) {
+          panelItems[openPanelId - 1].controller.collapse();
+        }
+        panelItems[id - 1].controller.expand();
+        openPanelId = id;
       }
-      openPanelId = id;
     });
   }
 
@@ -81,20 +86,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return ScreenBase(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const AppText(
-                text: "Settings",
-                fontSize: FontSizes.h1,
-                fontWeight: FontWeight.bold),
-            spacer,
-            ...panelItems.map((item) => _buildExpansionTile(item)),
-            spacer,
-            const AppText(
-                text: "Badges",
-                fontSize: FontSizes.h1,
-                fontWeight: FontWeight.bold),
-          ],
+        child: BlocListener<WebSocketBloc, AppState>(
+          listener: (context, state) {
+            if (state.error != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error!),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
+          child: Column(
+            children: [
+              const AppText(
+                  text: "Settings",
+                  fontSize: FontSizes.h1,
+                  fontWeight: FontWeight.bold),
+              spacer,
+              ...panelItems.map((item) => _buildExpansionTile(item)),
+              spacer,
+              const AppText(
+                  text: "Badges",
+                  fontSize: FontSizes.h1,
+                  fontWeight: FontWeight.bold),
+            ],
+          ),
         ),
       ),
     );
