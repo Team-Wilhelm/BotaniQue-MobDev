@@ -32,14 +32,14 @@ class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
 }
 
 @freezed
-class ClientWantsToLogOutDto extends ClientEvent with _$ClientWantsToLogOutDto {
-  factory ClientWantsToLogOutDto({
+class ClientWantsToLogOut extends ClientEvent with _$ClientWantsToLogOut {
+  factory ClientWantsToLogOut({
     required String email,
     required String eventType,
   }) = _ClientWantsToLogOutDto;
 
-  factory ClientWantsToLogOutDto.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToLogOutDtoFromJson(json);
+  factory ClientWantsToLogOut.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToLogOutFromJson(json);
 }
 
 /* @freezed TODO
@@ -58,30 +58,29 @@ class ClientWantsToSignUp extends ClientEvent with _$ClientWantsToSignUp {
  */
 
 @freezed
-class ClientWantsAllPlantsDto extends ClientEvent
-    with _$ClientWantsAllPlantsDto {
-  factory ClientWantsAllPlantsDto({
+class ClientWantsAllPlants extends ClientEvent with _$ClientWantsAllPlants {
+  factory ClientWantsAllPlants({
     required String jwt,
     required String eventType,
     required int pageNumber,
     required int pageSize,
   }) = _ClientWantsAllPlantsDto;
 
-  factory ClientWantsAllPlantsDto.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsAllPlantsDtoFromJson(json);
+  factory ClientWantsAllPlants.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsAllPlantsFromJson(json);
 }
 
 @freezed
-class ClientWantsToDeletePlantDto extends ClientEvent
-    with _$ClientWantsToDeletePlantDto {
-  factory ClientWantsToDeletePlantDto({
+class ClientWantsToDeletePlant extends ClientEvent
+    with _$ClientWantsToDeletePlant {
+  factory ClientWantsToDeletePlant({
     required String jwt,
     required String eventType,
     required Uuid plantId,
   }) = _ClientWantsToDeletePlantDto;
 
-  factory ClientWantsToDeletePlantDto.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToDeletePlantDtoFromJson(json);
+  factory ClientWantsToDeletePlant.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToDeletePlantFromJson(json);
 }
 
 @freezed

@@ -184,36 +184,34 @@ abstract class _ClientWantsToLogIn implements ClientWantsToLogIn {
       throw _privateConstructorUsedError;
 }
 
-ClientWantsToLogOutDto _$ClientWantsToLogOutDtoFromJson(
-    Map<String, dynamic> json) {
+ClientWantsToLogOut _$ClientWantsToLogOutFromJson(Map<String, dynamic> json) {
   return _ClientWantsToLogOutDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ClientWantsToLogOutDto {
+mixin _$ClientWantsToLogOut {
   String get email => throw _privateConstructorUsedError;
   String get eventType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ClientWantsToLogOutDtoCopyWith<ClientWantsToLogOutDto> get copyWith =>
+  $ClientWantsToLogOutCopyWith<ClientWantsToLogOut> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ClientWantsToLogOutDtoCopyWith<$Res> {
-  factory $ClientWantsToLogOutDtoCopyWith(ClientWantsToLogOutDto value,
-          $Res Function(ClientWantsToLogOutDto) then) =
-      _$ClientWantsToLogOutDtoCopyWithImpl<$Res, ClientWantsToLogOutDto>;
+abstract class $ClientWantsToLogOutCopyWith<$Res> {
+  factory $ClientWantsToLogOutCopyWith(
+          ClientWantsToLogOut value, $Res Function(ClientWantsToLogOut) then) =
+      _$ClientWantsToLogOutCopyWithImpl<$Res, ClientWantsToLogOut>;
   @useResult
   $Res call({String email, String eventType});
 }
 
 /// @nodoc
-class _$ClientWantsToLogOutDtoCopyWithImpl<$Res,
-        $Val extends ClientWantsToLogOutDto>
-    implements $ClientWantsToLogOutDtoCopyWith<$Res> {
-  _$ClientWantsToLogOutDtoCopyWithImpl(this._value, this._then);
+class _$ClientWantsToLogOutCopyWithImpl<$Res, $Val extends ClientWantsToLogOut>
+    implements $ClientWantsToLogOutCopyWith<$Res> {
+  _$ClientWantsToLogOutCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -241,7 +239,7 @@ class _$ClientWantsToLogOutDtoCopyWithImpl<$Res,
 
 /// @nodoc
 abstract class _$$ClientWantsToLogOutDtoImplCopyWith<$Res>
-    implements $ClientWantsToLogOutDtoCopyWith<$Res> {
+    implements $ClientWantsToLogOutCopyWith<$Res> {
   factory _$$ClientWantsToLogOutDtoImplCopyWith(
           _$ClientWantsToLogOutDtoImpl value,
           $Res Function(_$ClientWantsToLogOutDtoImpl) then) =
@@ -253,7 +251,7 @@ abstract class _$$ClientWantsToLogOutDtoImplCopyWith<$Res>
 
 /// @nodoc
 class __$$ClientWantsToLogOutDtoImplCopyWithImpl<$Res>
-    extends _$ClientWantsToLogOutDtoCopyWithImpl<$Res,
+    extends _$ClientWantsToLogOutCopyWithImpl<$Res,
         _$ClientWantsToLogOutDtoImpl>
     implements _$$ClientWantsToLogOutDtoImplCopyWith<$Res> {
   __$$ClientWantsToLogOutDtoImplCopyWithImpl(
@@ -295,7 +293,7 @@ class _$ClientWantsToLogOutDtoImpl implements _ClientWantsToLogOutDto {
 
   @override
   String toString() {
-    return 'ClientWantsToLogOutDto(email: $email, eventType: $eventType)';
+    return 'ClientWantsToLogOut(email: $email, eventType: $eventType)';
   }
 
   @override
@@ -327,7 +325,7 @@ class _$ClientWantsToLogOutDtoImpl implements _ClientWantsToLogOutDto {
   }
 }
 
-abstract class _ClientWantsToLogOutDto implements ClientWantsToLogOutDto {
+abstract class _ClientWantsToLogOutDto implements ClientWantsToLogOut {
   factory _ClientWantsToLogOutDto(
       {required final String email,
       required final String eventType}) = _$ClientWantsToLogOutDtoImpl;
@@ -345,13 +343,12 @@ abstract class _ClientWantsToLogOutDto implements ClientWantsToLogOutDto {
       get copyWith => throw _privateConstructorUsedError;
 }
 
-ClientWantsAllPlantsDto _$ClientWantsAllPlantsDtoFromJson(
-    Map<String, dynamic> json) {
+ClientWantsAllPlants _$ClientWantsAllPlantsFromJson(Map<String, dynamic> json) {
   return _ClientWantsAllPlantsDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ClientWantsAllPlantsDto {
+mixin _$ClientWantsAllPlants {
   String get jwt => throw _privateConstructorUsedError;
   String get eventType => throw _privateConstructorUsedError;
   int get pageNumber => throw _privateConstructorUsedError;
@@ -359,24 +356,24 @@ mixin _$ClientWantsAllPlantsDto {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ClientWantsAllPlantsDtoCopyWith<ClientWantsAllPlantsDto> get copyWith =>
+  $ClientWantsAllPlantsCopyWith<ClientWantsAllPlants> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ClientWantsAllPlantsDtoCopyWith<$Res> {
-  factory $ClientWantsAllPlantsDtoCopyWith(ClientWantsAllPlantsDto value,
-          $Res Function(ClientWantsAllPlantsDto) then) =
-      _$ClientWantsAllPlantsDtoCopyWithImpl<$Res, ClientWantsAllPlantsDto>;
+abstract class $ClientWantsAllPlantsCopyWith<$Res> {
+  factory $ClientWantsAllPlantsCopyWith(ClientWantsAllPlants value,
+          $Res Function(ClientWantsAllPlants) then) =
+      _$ClientWantsAllPlantsCopyWithImpl<$Res, ClientWantsAllPlants>;
   @useResult
   $Res call({String jwt, String eventType, int pageNumber, int pageSize});
 }
 
 /// @nodoc
-class _$ClientWantsAllPlantsDtoCopyWithImpl<$Res,
-        $Val extends ClientWantsAllPlantsDto>
-    implements $ClientWantsAllPlantsDtoCopyWith<$Res> {
-  _$ClientWantsAllPlantsDtoCopyWithImpl(this._value, this._then);
+class _$ClientWantsAllPlantsCopyWithImpl<$Res,
+        $Val extends ClientWantsAllPlants>
+    implements $ClientWantsAllPlantsCopyWith<$Res> {
+  _$ClientWantsAllPlantsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -414,7 +411,7 @@ class _$ClientWantsAllPlantsDtoCopyWithImpl<$Res,
 
 /// @nodoc
 abstract class _$$ClientWantsAllPlantsDtoImplCopyWith<$Res>
-    implements $ClientWantsAllPlantsDtoCopyWith<$Res> {
+    implements $ClientWantsAllPlantsCopyWith<$Res> {
   factory _$$ClientWantsAllPlantsDtoImplCopyWith(
           _$ClientWantsAllPlantsDtoImpl value,
           $Res Function(_$ClientWantsAllPlantsDtoImpl) then) =
@@ -426,7 +423,7 @@ abstract class _$$ClientWantsAllPlantsDtoImplCopyWith<$Res>
 
 /// @nodoc
 class __$$ClientWantsAllPlantsDtoImplCopyWithImpl<$Res>
-    extends _$ClientWantsAllPlantsDtoCopyWithImpl<$Res,
+    extends _$ClientWantsAllPlantsCopyWithImpl<$Res,
         _$ClientWantsAllPlantsDtoImpl>
     implements _$$ClientWantsAllPlantsDtoImplCopyWith<$Res> {
   __$$ClientWantsAllPlantsDtoImplCopyWithImpl(
@@ -486,7 +483,7 @@ class _$ClientWantsAllPlantsDtoImpl implements _ClientWantsAllPlantsDto {
 
   @override
   String toString() {
-    return 'ClientWantsAllPlantsDto(jwt: $jwt, eventType: $eventType, pageNumber: $pageNumber, pageSize: $pageSize)';
+    return 'ClientWantsAllPlants(jwt: $jwt, eventType: $eventType, pageNumber: $pageNumber, pageSize: $pageSize)';
   }
 
   @override
@@ -523,7 +520,7 @@ class _$ClientWantsAllPlantsDtoImpl implements _ClientWantsAllPlantsDto {
   }
 }
 
-abstract class _ClientWantsAllPlantsDto implements ClientWantsAllPlantsDto {
+abstract class _ClientWantsAllPlantsDto implements ClientWantsAllPlants {
   factory _ClientWantsAllPlantsDto(
       {required final String jwt,
       required final String eventType,
@@ -547,39 +544,37 @@ abstract class _ClientWantsAllPlantsDto implements ClientWantsAllPlantsDto {
       get copyWith => throw _privateConstructorUsedError;
 }
 
-ClientWantsToDeletePlantDto _$ClientWantsToDeletePlantDtoFromJson(
+ClientWantsToDeletePlant _$ClientWantsToDeletePlantFromJson(
     Map<String, dynamic> json) {
   return _ClientWantsToDeletePlantDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ClientWantsToDeletePlantDto {
+mixin _$ClientWantsToDeletePlant {
   String get jwt => throw _privateConstructorUsedError;
   String get eventType => throw _privateConstructorUsedError;
   String get plantId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ClientWantsToDeletePlantDtoCopyWith<ClientWantsToDeletePlantDto>
-      get copyWith => throw _privateConstructorUsedError;
+  $ClientWantsToDeletePlantCopyWith<ClientWantsToDeletePlant> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ClientWantsToDeletePlantDtoCopyWith<$Res> {
-  factory $ClientWantsToDeletePlantDtoCopyWith(
-          ClientWantsToDeletePlantDto value,
-          $Res Function(ClientWantsToDeletePlantDto) then) =
-      _$ClientWantsToDeletePlantDtoCopyWithImpl<$Res,
-          ClientWantsToDeletePlantDto>;
+abstract class $ClientWantsToDeletePlantCopyWith<$Res> {
+  factory $ClientWantsToDeletePlantCopyWith(ClientWantsToDeletePlant value,
+          $Res Function(ClientWantsToDeletePlant) then) =
+      _$ClientWantsToDeletePlantCopyWithImpl<$Res, ClientWantsToDeletePlant>;
   @useResult
   $Res call({String jwt, String eventType, String plantId});
 }
 
 /// @nodoc
-class _$ClientWantsToDeletePlantDtoCopyWithImpl<$Res,
-        $Val extends ClientWantsToDeletePlantDto>
-    implements $ClientWantsToDeletePlantDtoCopyWith<$Res> {
-  _$ClientWantsToDeletePlantDtoCopyWithImpl(this._value, this._then);
+class _$ClientWantsToDeletePlantCopyWithImpl<$Res,
+        $Val extends ClientWantsToDeletePlant>
+    implements $ClientWantsToDeletePlantCopyWith<$Res> {
+  _$ClientWantsToDeletePlantCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -612,7 +607,7 @@ class _$ClientWantsToDeletePlantDtoCopyWithImpl<$Res,
 
 /// @nodoc
 abstract class _$$ClientWantsToDeletePlantDtoImplCopyWith<$Res>
-    implements $ClientWantsToDeletePlantDtoCopyWith<$Res> {
+    implements $ClientWantsToDeletePlantCopyWith<$Res> {
   factory _$$ClientWantsToDeletePlantDtoImplCopyWith(
           _$ClientWantsToDeletePlantDtoImpl value,
           $Res Function(_$ClientWantsToDeletePlantDtoImpl) then) =
@@ -624,7 +619,7 @@ abstract class _$$ClientWantsToDeletePlantDtoImplCopyWith<$Res>
 
 /// @nodoc
 class __$$ClientWantsToDeletePlantDtoImplCopyWithImpl<$Res>
-    extends _$ClientWantsToDeletePlantDtoCopyWithImpl<$Res,
+    extends _$ClientWantsToDeletePlantCopyWithImpl<$Res,
         _$ClientWantsToDeletePlantDtoImpl>
     implements _$$ClientWantsToDeletePlantDtoImplCopyWith<$Res> {
   __$$ClientWantsToDeletePlantDtoImplCopyWithImpl(
@@ -676,7 +671,7 @@ class _$ClientWantsToDeletePlantDtoImpl
 
   @override
   String toString() {
-    return 'ClientWantsToDeletePlantDto(jwt: $jwt, eventType: $eventType, plantId: $plantId)';
+    return 'ClientWantsToDeletePlant(jwt: $jwt, eventType: $eventType, plantId: $plantId)';
   }
 
   @override
@@ -710,7 +705,7 @@ class _$ClientWantsToDeletePlantDtoImpl
 }
 
 abstract class _ClientWantsToDeletePlantDto
-    implements ClientWantsToDeletePlantDto {
+    implements ClientWantsToDeletePlant {
   factory _ClientWantsToDeletePlantDto(
       {required final String jwt,
       required final String eventType,

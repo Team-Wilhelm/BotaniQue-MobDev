@@ -29,6 +29,13 @@ class ServerEventHelper {
   }
 }
 
+/*
+  Used to initialize blocs with an initial state
+ */
+class InitialServerEvent extends ServerEvent {
+  
+}
+
 class ServerEvent extends BaseEvent {
   static ServerEvent fromJson(Map<String, Object?> json) {
     final type = json['eventType'];
@@ -38,6 +45,10 @@ class ServerEvent extends BaseEvent {
         ServerSendsImageWithoutBackground.fromJson(json),
       ServerSendsPlant.name => ServerSendsPlant.fromJson(json),
       ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
+      ServerSendsAllPlants.name => ServerSendsAllPlants.fromJson(json),
+      ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
+
+      // Errors
       ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
       ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
       ServerRejectsWrongCredentials.name =>

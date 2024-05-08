@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:botanique/models/events/client_events.dart';
-import 'package:botanique/repositories/local_storage_repository.dart';
+import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/state/broadcast_ws_channel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/events/server_events.dart';
+import '../repositories/local_storage_repository.dart';
 
-class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
+class AllPlantsBloc extends Bloc<BaseEvent, ServerEvent> {
   final BroadcastWsChannel channel;
   late StreamSubscription _channelSubscription;
   String? jwt;
 
-  WebSocketBloc({required this.channel}) : super(ServerEvent()) {
+  AllPlantsBloc({required this.channel}) : super(InitialServerEvent()) {
     jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
 
     // Client events
@@ -22,17 +22,7 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
     // Server events, by defualt, the event is just emitted, but if a different handler is registered, it will be executed instead
     on<ServerEvent>(
       (event, emit) {
-        print("WebSocketBloc: ServerEvent: $event");
-        emit(event);
-      },
-    );
-
-    on<ServerAuthenticatesUser>(
-      (event, emit) {
-        final LocalStorageRepository localStorageRepository =
-            LocalStorageRepository();
-        localStorageRepository.saveData(LocalStorageKeys.jwt, event.jwt);
-        jwt = event.jwt;
+        print("AllPlantsBloc: ServerEvent: $event");
         emit(event);
       },
     );
@@ -45,11 +35,9 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
   }
 
   FutureOr<void> _onClientEvent(ClientEvent event, Emitter<ServerEvent> emit) {
-    if (event is ClientWantsToCreatePlant) {
+    if (event is ClientWantsAllPlants) {
       event = event.copyWith(jwt: jwt!);
     } else if (event is ClientWantsToRemoveBackgroundFromImage) {
-      event = event.copyWith(jwt: jwt!);
-    } else if (event is ClientWantsAllPlants) {
       event = event.copyWith(jwt: jwt!);
     }
 

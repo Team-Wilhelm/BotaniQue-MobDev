@@ -1,7 +1,4 @@
-import 'package:botanique/shared/app_button.dart';
-import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategorySelection extends StatelessWidget {
   const CategorySelection({
@@ -17,10 +14,11 @@ class CategorySelection extends StatelessWidget {
 
   final List<String> categories;
 
+  // TODO: Implement build when BE is ready for collections
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AllPlantsCubit, AllPlantsState>(
-        bloc: context.read<AllPlantsCubit>(),
+    return Placeholder(); /*BlocBuilder<AllPlantsBloc, ServerEvent>(
+        bloc: context.read<AllPlantsBloc>(),
         builder: (context, snapshot) {
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -34,7 +32,7 @@ class CategorySelection extends StatelessWidget {
                         text: category,
                         onPressed: () {
                           context
-                              .read<AllPlantsCubit>()
+                              .read<AllPlantsBloc>()
                               .selectCategory(category);
                         },
                         buttonType: snapshot.selectedCategory == category
@@ -47,6 +45,8 @@ class CategorySelection extends StatelessWidget {
                   .toList(),
             ),
           );
-        });
+        },
+        );
+         */
   }
 }

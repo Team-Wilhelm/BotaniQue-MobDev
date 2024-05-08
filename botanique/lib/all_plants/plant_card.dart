@@ -1,12 +1,15 @@
 import 'package:botanique/all_plants/plant_card_stat.dart';
 import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
+import 'package:botanique/models/models/plant.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {
-  const PlantCard({super.key});
+  const PlantCard({super.key, required this.plant});
+
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +42,8 @@ class PlantCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const AppText(
-                    text: "Plant Name",
+                  AppText(
+                    text: plant.nickname,
                     fontSize: FontSizes.h4,
                   ),
                   const SizedBox(
