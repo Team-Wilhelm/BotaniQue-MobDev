@@ -13,18 +13,16 @@ import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:localstorage/localstorage.dart';
 
 import 'add_plant/add_plant_screen.dart';
 import 'models/events/client_events.dart';
-import 'repositories/local_storage_repository.dart';
+import 'repositories/secure_storage_repository.dart';
 import 'state/add_plant/add_plant_bloc.dart';
 import 'style/app_style.dart';
 import 'util/navigation_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initLocalStorage();
   // Configure logging for bloc
   //Bloc.observer = LoggerBlocObserver();
 
@@ -51,9 +49,11 @@ void main() async {
           create: (context) => PlantRequirementsCubit(),
         ),
         BlocProvider<WebSocketBloc>(
-            create: (context) => WebSocketBloc(channel: channel))
+            create: (context) => WebSocketBloc(
+                channel: channel,
+                navigationCubit: context.read<NavigationCubit>())),
       ],
-      child: BotaniQueApp(),
+      child: const BotaniQueApp(),
     ),
   );
 }
@@ -69,6 +69,22 @@ class BotaniQueApp extends StatefulWidget {
 
 class _BotaniQueAppState extends State<BotaniQueApp> {
   final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    SecureStorageRepository().getData(LocalStorageKeys.jwt).then((jwt) {
+      if (jwt != null) {
+        if (mounted) {
+          context.read<WebSocketBloc>().add(
+                ClientWantsToCheckJwtValidity(
+                    jwt: jwt, eventType: "ClientWantsToCheckJwtValidity"),
+              );
+        }
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -87,19 +103,15 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
 
   @override
   Widget build(BuildContext context) {
-    final jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
-    if (jwt != null) {
-      context.read<WebSocketBloc>().add(
-            ClientWantsToCheckJwtValidity(
-                jwt: jwt, eventType: "ClientWantsToCheckJwtValidity"),
-          );
-    }
-
     return BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, snapshot) {
       if (snapshot is ServerAuthenticatesUser) {
-        context.read<NavigationCubit>().changePage(NavigationConstants.allPlants); // TODO: Change to home
-    
+        context.read<WebSocketBloc>().setJwt(snapshot.jwt);
+        context
+            .read<NavigationCubit>()
+            .changePage(NavigationConstants.allPlants); // TODO: Change to home
+      } else if (snapshot is InitialServerEvent) {
+        context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
       }
       return MaterialApp(
         title: 'BotaniQue',

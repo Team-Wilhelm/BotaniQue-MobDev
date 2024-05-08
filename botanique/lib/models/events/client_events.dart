@@ -122,7 +122,7 @@ class ClientWantsToCheckJwtValidity extends ClientEvent
 }
 
 @freezed
-class ClientWantsToRemoveBackgroundFromImage extends ClientEventWithJwt
+class ClientWantsToRemoveBackgroundFromImage extends ClientEvent
     with _$ClientWantsToRemoveBackgroundFromImage {
   const factory ClientWantsToRemoveBackgroundFromImage({
     required String base64Image,

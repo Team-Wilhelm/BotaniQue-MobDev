@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextColors {
   static const textDark = Color.fromRGBO(105, 103, 115, 1);
@@ -44,26 +45,27 @@ const spacer = SizedBox(
 );
 
 final appTheme = ThemeData.light().copyWith(
-  colorScheme: ColorScheme.light(
-    primary: AppColors.primary[0]!,
-    secondary: AppColors.secondary,
-    background: AppColors.background,
-    surface: AppColors.cardBackground,
-    onPrimary: TextColors.textLight,
-    onSecondary: TextColors.textDark,
-    onBackground: TextColors.textDark,
-  ),
-  appBarTheme: const AppBarTheme(
-    elevation: 1,
-    backgroundColor: AppColors.background,
-    iconTheme: IconThemeData(color: TextColors.textDark),
-    titleTextStyle:
-        TextStyle(color: TextColors.textDark, fontSize: FontSizes.h1),
-  ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-    backgroundColor: AppColors.primary[0],
-    elevation: 1,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-  )),
-);
+    colorScheme: ColorScheme.light(
+      primary: AppColors.primary[0]!,
+      secondary: AppColors.secondary,
+      background: AppColors.background,
+      surface: AppColors.cardBackground,
+      onPrimary: TextColors.textLight,
+      onSecondary: TextColors.textDark,
+      onBackground: TextColors.textDark,
+    ),
+    appBarTheme: const AppBarTheme(
+      elevation: 1,
+      backgroundColor: AppColors.background,
+      iconTheme: IconThemeData(color: TextColors.textDark),
+      titleTextStyle:
+          TextStyle(color: TextColors.textDark, fontSize: FontSizes.h1),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        //TODO: eventually remove
+        style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.primary[0],
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    )),
+    textTheme: GoogleFonts.lexendDecaTextTheme());

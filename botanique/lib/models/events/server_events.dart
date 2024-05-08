@@ -32,9 +32,7 @@ class ServerEventHelper {
 /*
   Used to initialize blocs with an initial state
  */
-class InitialServerEvent extends ServerEvent {
-  
-}
+class InitialServerEvent extends ServerEvent {}
 
 class ServerEvent extends BaseEvent {
   static ServerEvent fromJson(Map<String, Object?> json) {
@@ -47,12 +45,22 @@ class ServerEvent extends BaseEvent {
       ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
       ServerSendsAllPlants.name => ServerSendsAllPlants.fromJson(json),
       ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
+      ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
 
       // Errors
       ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
-      ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
       ServerRejectsWrongCredentials.name =>
         ServerRejectsWrongCredentials.fromJson(json),
+      ServerRespondsNotAuthenticated.name =>
+        ServerRespondsNotAuthenticated.fromJson(json),
+      ServerRespondsNotAuthorized.name =>
+        ServerRespondsNotAuthorized.fromJson(json),
+      ServerRespondsNotFound.name => ServerRespondsNotFound.fromJson(json),
+      ServerRespondsRegisterDevice.name =>
+        ServerRespondsRegisterDevice.fromJson(json),
+      ServerRespondsValidationError.name =>
+        ServerRespondsValidationError.fromJson(json),
+      ServerRejectsInvalidFile.name => ServerRejectsInvalidFile.fromJson(json),
       _ => throw "Unknown event type: $type in $json"
     };
   }

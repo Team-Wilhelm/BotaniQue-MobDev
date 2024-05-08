@@ -18,7 +18,14 @@ class AppNavbar extends StatelessWidget {
     }
     return Container(
       height: 70,
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        border: Border(
+          top: BorderSide(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+          ),
+        ),
+      ),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

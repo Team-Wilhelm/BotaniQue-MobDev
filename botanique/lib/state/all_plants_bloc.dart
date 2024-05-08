@@ -6,7 +6,6 @@ import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/state/broadcast_ws_channel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../repositories/local_storage_repository.dart';
 
 class AllPlantsBloc extends Bloc<BaseEvent, ServerEvent> {
   final BroadcastWsChannel channel;
@@ -14,7 +13,7 @@ class AllPlantsBloc extends Bloc<BaseEvent, ServerEvent> {
   String? jwt;
 
   AllPlantsBloc({required this.channel}) : super(InitialServerEvent()) {
-    jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
+    // jwt = LocalStorageRepository().getData(LocalStorageKeys.jwt);
 
     // Client events
     on<ClientEvent>(_onClientEvent);
