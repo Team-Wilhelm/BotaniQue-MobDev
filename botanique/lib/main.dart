@@ -98,7 +98,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
     return BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, snapshot) {
       if (snapshot is ServerAuthenticatesUser) {
-        context.read<NavigationCubit>().changePage(NavigationConstants.home);
+        context.read<NavigationCubit>().changePage(NavigationConstants.allPlants); // TODO: Change to home
     
       }
       return MaterialApp(

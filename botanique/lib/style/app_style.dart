@@ -27,13 +27,12 @@ class AppColors {
     40: Color(0xFF17462c),
     60: Color(0xFF102f1e),
   };
-  static const Color background = Color(0xFFF7F4F3);
+  static const Color background = Colors.white; // Color(0xFFF7F4F3);
   // beige: Color(0xFFfdf1e3);
-  static const Color secondary = Color.fromRGBO(98, 159, 51, 1);
-  static const Color accent = Color.fromRGBO(46, 64, 87, 100);
-  static const Color welcomeScreenBackground =
-      Color.fromRGBO(255, 255, 243, 0.923);
-  static const Color cardBackground = Color(0xFFf0f9f6);
+  static const Color secondary = Color(0xFF629F33);
+  static const Color accent = Color(0x9C2E4057);
+  static const Color welcomeScreenBackground = Color(0xEBFFFFF3);
+  static const Color cardBackground = Color(0xFFe9f1ed);
   // beige const Color(0xFFfadbb8);
 }
 

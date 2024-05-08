@@ -15,26 +15,33 @@ class AllPlantsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBase(
-      child: BlocBuilder<WebSocketBloc, ServerEvent>(builder: (context, state) {
-        print(state);
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const AppText(
-              text: "My Plants",
-              fontSize: FontSizes.h2,
-              fontWeight: FontWeight.bold,
+      child: BlocBuilder<WebSocketBloc, ServerEvent>(
+        builder: (context, state) {
+          return RefreshIndicator.adaptive(
+            onRefresh: () => _requestAllPlants(context),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const AppText(
+                        text: "My Plants",
+                        fontSize: FontSizes.h2,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      _getSpacer(context),
+                      // const CategorySelection(),
+                      _getSpacer(context),
+                    ],
+                  ),
+                ),
+                _getChildFromState(context, state),
+              ],
             ),
-            _getSpacer(context),
-            // const CategorySelection(),
-            _getSpacer(context),
-
-            Expanded(
-              child: _getChildFromState(context, state),
-            ),
-          ],
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 
@@ -44,21 +51,30 @@ class AllPlantsScreen extends StatelessWidget {
 
   Widget _getChildFromState(BuildContext context, ServerEvent serverEvent) {
     if (serverEvent is! ServerSendsAllPlants) {
-      context.read<WebSocketBloc>().add(ClientWantsAllPlants(
-          jwt: "jwt",
-          eventType: "ClientWantsAllPlants",
-          pageNumber: 1,
-          pageSize: 5));
-      return const Center(child: CircularProgressIndicator());
+      _requestAllPlants(context);
+      return const SliverFillRemaining(
+        hasScrollBody: false,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     } else {
-      return ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(height: 8),
-        scrollDirection: Axis.vertical,
-        itemCount: serverEvent.plants.length,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: ((context, index) =>
-            PlantCard(plant: serverEvent.plants[index])),
+      return SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            return PlantCard(plant: serverEvent.plants[index]);
+          },
+          childCount: serverEvent.plants.length,
+        ),
       );
     }
+  }
+
+  Future<void> _requestAllPlants(BuildContext context) async {
+    context.read<WebSocketBloc>().add(ClientWantsAllPlants(
+        jwt: "jwt",
+        eventType: "ClientWantsAllPlants",
+        pageNumber: 1,
+        pageSize: 5));
   }
 }

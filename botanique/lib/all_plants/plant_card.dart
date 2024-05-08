@@ -75,7 +75,7 @@ class PlantCard extends StatelessWidget {
 
   Container getPlantImage(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.13,
       width: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
