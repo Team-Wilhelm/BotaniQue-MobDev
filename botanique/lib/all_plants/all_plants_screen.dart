@@ -17,14 +17,14 @@ class AllPlantsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBase(
       child: BlocBuilder<WebSocketBloc, ServerEvent>(
-        builder: (context, state) {
+        builder: (context, serverEvent) {
           return RefreshIndicator.adaptive(
             onRefresh: () => _getDataForAllPlantsScreen(context),
             child: CustomScrollView(
               slivers: [
                 const SliverToBoxAdapter(child: CollectionSelection()),
                 const SliverToBoxAdapter(child: SizedBox(height: 20)),
-                _getChildFromState(context, state),
+                _getChildFromState(context, serverEvent),
               ],
             ),
           );
@@ -34,8 +34,8 @@ class AllPlantsScreen extends StatelessWidget {
   }
 
   Widget _getChildFromState(BuildContext context, ServerEvent serverEvent) {
+    final collectionsCubit = context.read<CollectionsCubit>();
     if (serverEvent is ServerSendsAllCollections) {
-      final collectionsCubit = context.read<CollectionsCubit>();
       collectionsCubit.setCollections(serverEvent.collections);
       collectionsCubit.selectCollection(
           collectionsCubit.state.collections.first,
@@ -49,8 +49,8 @@ class AllPlantsScreen extends StatelessWidget {
           : serverEvent is ServerSendsPlantsForCollection
               ? serverEvent.plants
               : <Plant>[];
-
-      return AllPlantsGrid(plants: plants);
+      collectionsCubit.setCurrentPlantList(plants);
+      return const AllPlantsGrid();
     }
 
     return const SliverFillRemaining(

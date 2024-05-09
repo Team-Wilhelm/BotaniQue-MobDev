@@ -29,6 +29,11 @@ class CollectionsCubit extends Cubit<CollectionsState> {
         state.selectedCollection.collectionId, webSocketBloc);
   }
 
+  void setCurrentPlantList(List<Plant> plants) {
+    state.copyWith(previousPlantList: state.currentPlantList);
+    emit(state.copyWith(currentPlantList: plants));
+  }
+
   void _requestPlantsFromServer(
       Uuid collectionId, WebSocketBloc webSocketBloc) {
     if (collectionId == "all-plants") {
@@ -55,28 +60,35 @@ class CollectionsCubit extends Cubit<CollectionsState> {
 class CollectionsState {
   final GetCollectionDto selectedCollection;
   final List<GetCollectionDto> collections;
-  final List<Plant> plants;
+  final List<Plant> currentPlantList;
+  final List<Plant> previousPlantList;
 
-  CollectionsState(
-      {required this.selectedCollection,
-      required this.collections,
-      required this.plants});
+  CollectionsState({
+    required this.selectedCollection,
+    required this.collections,
+    required this.currentPlantList,
+    required this.previousPlantList,
+  });
 
   CollectionsState.empty()
       : this(
-            selectedCollection: GetCollectionDto.allPlants(),
-            collections: [GetCollectionDto.allPlants()],
-            plants: []);
+          selectedCollection: GetCollectionDto.allPlants(),
+          collections: [GetCollectionDto.allPlants()],
+          currentPlantList: [],
+          previousPlantList: [],
+        );
 
   CollectionsState copyWith({
     GetCollectionDto? selectedCollection,
     List<GetCollectionDto>? collections,
-    List<Plant>? plants,
+    List<Plant>? currentPlantList,
+    List<Plant>? previousPlantList,
   }) {
     return CollectionsState(
       selectedCollection: selectedCollection ?? this.selectedCollection,
       collections: collections ?? this.collections,
-      plants: plants ?? this.plants,
+      currentPlantList: currentPlantList ?? this.currentPlantList,
+      previousPlantList: previousPlantList ?? this.previousPlantList,
     );
   }
 }
