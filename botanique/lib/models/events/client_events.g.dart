@@ -150,3 +150,83 @@ Map<String, dynamic> _$$ClientWantsToCreatePlantImplToJson(
       'jwt': instance.jwt,
       'eventType': instance.eventType,
     };
+
+_$ClientWantsAllCollectionsImpl _$$ClientWantsAllCollectionsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClientWantsAllCollectionsImpl(
+      jwt: json['jwt'] as String,
+      eventType: json['eventType'] as String,
+    );
+
+Map<String, dynamic> _$$ClientWantsAllCollectionsImplToJson(
+        _$ClientWantsAllCollectionsImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+    };
+
+_$ClientWantsPlantsForCollectionImpl
+    _$$ClientWantsPlantsForCollectionImplFromJson(Map<String, dynamic> json) =>
+        _$ClientWantsPlantsForCollectionImpl(
+          jwt: json['jwt'] as String,
+          eventType: json['eventType'] as String,
+          collectionId: json['collectionId'] as String,
+        );
+
+Map<String, dynamic> _$$ClientWantsPlantsForCollectionImplToJson(
+        _$ClientWantsPlantsForCollectionImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+      'collectionId': instance.collectionId,
+    };
+
+_$ClientWantsToCreateCollectionImpl
+    _$$ClientWantsToCreateCollectionImplFromJson(Map<String, dynamic> json) =>
+        _$ClientWantsToCreateCollectionImpl(
+          jwt: json['jwt'] as String,
+          eventType: json['eventType'] as String,
+          createCollectionDto: CreateCollectionDto.fromJson(
+              json['createCollectionDto'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$$ClientWantsToCreateCollectionImplToJson(
+        _$ClientWantsToCreateCollectionImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+      'createCollectionDto': instance.createCollectionDto,
+    };
+
+_$ClientWantsToUpdateCollectionImpl
+    _$$ClientWantsToUpdateCollectionImplFromJson(Map<String, dynamic> json) =>
+        _$ClientWantsToUpdateCollectionImpl(
+          jwt: json['jwt'] as String,
+          eventType: json['eventType'] as String,
+          updateCollectionDto: UpdateCollectionDto.fromJson(
+              json['updateCollectionDto'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$$ClientWantsToUpdateCollectionImplToJson(
+        _$ClientWantsToUpdateCollectionImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+      'updateCollectionDto': instance.updateCollectionDto,
+    };
+
+_$ClientWantsToDeleteCollectionImpl
+    _$$ClientWantsToDeleteCollectionImplFromJson(Map<String, dynamic> json) =>
+        _$ClientWantsToDeleteCollectionImpl(
+          jwt: json['jwt'] as String,
+          eventType: json['eventType'] as String,
+          collectionId: json['collectionId'] as String,
+        );
+
+Map<String, dynamic> _$$ClientWantsToDeleteCollectionImplToJson(
+        _$ClientWantsToDeleteCollectionImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+      'collectionId': instance.collectionId,
+    };

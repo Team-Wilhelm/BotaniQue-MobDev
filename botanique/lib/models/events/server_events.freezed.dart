@@ -846,6 +846,561 @@ abstract class _ServerConfirmsDelete implements ServerConfirmsDelete {
       _$ServerConfirmsDeleteImpl.fromJson;
 }
 
+ServerSendsAllCollections _$ServerSendsAllCollectionsFromJson(
+    Map<String, dynamic> json) {
+  return _ServerSendsAllCollections.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerSendsAllCollections {
+  List<Collection> get collections => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerSendsAllCollectionsCopyWith<ServerSendsAllCollections> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerSendsAllCollectionsCopyWith<$Res> {
+  factory $ServerSendsAllCollectionsCopyWith(ServerSendsAllCollections value,
+          $Res Function(ServerSendsAllCollections) then) =
+      _$ServerSendsAllCollectionsCopyWithImpl<$Res, ServerSendsAllCollections>;
+  @useResult
+  $Res call({List<Collection> collections});
+}
+
+/// @nodoc
+class _$ServerSendsAllCollectionsCopyWithImpl<$Res,
+        $Val extends ServerSendsAllCollections>
+    implements $ServerSendsAllCollectionsCopyWith<$Res> {
+  _$ServerSendsAllCollectionsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collections = null,
+  }) {
+    return _then(_value.copyWith(
+      collections: null == collections
+          ? _value.collections
+          : collections // ignore: cast_nullable_to_non_nullable
+              as List<Collection>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerSendsAllCollectionsImplCopyWith<$Res>
+    implements $ServerSendsAllCollectionsCopyWith<$Res> {
+  factory _$$ServerSendsAllCollectionsImplCopyWith(
+          _$ServerSendsAllCollectionsImpl value,
+          $Res Function(_$ServerSendsAllCollectionsImpl) then) =
+      __$$ServerSendsAllCollectionsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Collection> collections});
+}
+
+/// @nodoc
+class __$$ServerSendsAllCollectionsImplCopyWithImpl<$Res>
+    extends _$ServerSendsAllCollectionsCopyWithImpl<$Res,
+        _$ServerSendsAllCollectionsImpl>
+    implements _$$ServerSendsAllCollectionsImplCopyWith<$Res> {
+  __$$ServerSendsAllCollectionsImplCopyWithImpl(
+      _$ServerSendsAllCollectionsImpl _value,
+      $Res Function(_$ServerSendsAllCollectionsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collections = null,
+  }) {
+    return _then(_$ServerSendsAllCollectionsImpl(
+      collections: null == collections
+          ? _value._collections
+          : collections // ignore: cast_nullable_to_non_nullable
+              as List<Collection>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerSendsAllCollectionsImpl implements _ServerSendsAllCollections {
+  const _$ServerSendsAllCollectionsImpl(
+      {required final List<Collection> collections})
+      : _collections = collections;
+
+  factory _$ServerSendsAllCollectionsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerSendsAllCollectionsImplFromJson(json);
+
+  final List<Collection> _collections;
+  @override
+  List<Collection> get collections {
+    if (_collections is EqualUnmodifiableListView) return _collections;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_collections);
+  }
+
+  @override
+  String toString() {
+    return 'ServerSendsAllCollections(collections: $collections)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerSendsAllCollectionsImpl &&
+            const DeepCollectionEquality()
+                .equals(other._collections, _collections));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_collections));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerSendsAllCollectionsImplCopyWith<_$ServerSendsAllCollectionsImpl>
+      get copyWith => __$$ServerSendsAllCollectionsImplCopyWithImpl<
+          _$ServerSendsAllCollectionsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerSendsAllCollectionsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerSendsAllCollections implements ServerSendsAllCollections {
+  const factory _ServerSendsAllCollections(
+          {required final List<Collection> collections}) =
+      _$ServerSendsAllCollectionsImpl;
+
+  factory _ServerSendsAllCollections.fromJson(Map<String, dynamic> json) =
+      _$ServerSendsAllCollectionsImpl.fromJson;
+
+  @override
+  List<Collection> get collections;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerSendsAllCollectionsImplCopyWith<_$ServerSendsAllCollectionsImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerSendsPlantsForCollection _$ServerSendsPlantsForCollectionFromJson(
+    Map<String, dynamic> json) {
+  return _ServerSendsPlantsForCollection.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerSendsPlantsForCollection {
+  List<Plant> get plants => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerSendsPlantsForCollectionCopyWith<ServerSendsPlantsForCollection>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerSendsPlantsForCollectionCopyWith<$Res> {
+  factory $ServerSendsPlantsForCollectionCopyWith(
+          ServerSendsPlantsForCollection value,
+          $Res Function(ServerSendsPlantsForCollection) then) =
+      _$ServerSendsPlantsForCollectionCopyWithImpl<$Res,
+          ServerSendsPlantsForCollection>;
+  @useResult
+  $Res call({List<Plant> plants});
+}
+
+/// @nodoc
+class _$ServerSendsPlantsForCollectionCopyWithImpl<$Res,
+        $Val extends ServerSendsPlantsForCollection>
+    implements $ServerSendsPlantsForCollectionCopyWith<$Res> {
+  _$ServerSendsPlantsForCollectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plants = null,
+  }) {
+    return _then(_value.copyWith(
+      plants: null == plants
+          ? _value.plants
+          : plants // ignore: cast_nullable_to_non_nullable
+              as List<Plant>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerSendsPlantsForCollectionImplCopyWith<$Res>
+    implements $ServerSendsPlantsForCollectionCopyWith<$Res> {
+  factory _$$ServerSendsPlantsForCollectionImplCopyWith(
+          _$ServerSendsPlantsForCollectionImpl value,
+          $Res Function(_$ServerSendsPlantsForCollectionImpl) then) =
+      __$$ServerSendsPlantsForCollectionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Plant> plants});
+}
+
+/// @nodoc
+class __$$ServerSendsPlantsForCollectionImplCopyWithImpl<$Res>
+    extends _$ServerSendsPlantsForCollectionCopyWithImpl<$Res,
+        _$ServerSendsPlantsForCollectionImpl>
+    implements _$$ServerSendsPlantsForCollectionImplCopyWith<$Res> {
+  __$$ServerSendsPlantsForCollectionImplCopyWithImpl(
+      _$ServerSendsPlantsForCollectionImpl _value,
+      $Res Function(_$ServerSendsPlantsForCollectionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? plants = null,
+  }) {
+    return _then(_$ServerSendsPlantsForCollectionImpl(
+      plants: null == plants
+          ? _value._plants
+          : plants // ignore: cast_nullable_to_non_nullable
+              as List<Plant>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerSendsPlantsForCollectionImpl
+    implements _ServerSendsPlantsForCollection {
+  const _$ServerSendsPlantsForCollectionImpl(
+      {required final List<Plant> plants})
+      : _plants = plants;
+
+  factory _$ServerSendsPlantsForCollectionImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ServerSendsPlantsForCollectionImplFromJson(json);
+
+  final List<Plant> _plants;
+  @override
+  List<Plant> get plants {
+    if (_plants is EqualUnmodifiableListView) return _plants;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_plants);
+  }
+
+  @override
+  String toString() {
+    return 'ServerSendsPlantsForCollection(plants: $plants)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerSendsPlantsForCollectionImpl &&
+            const DeepCollectionEquality().equals(other._plants, _plants));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_plants));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerSendsPlantsForCollectionImplCopyWith<
+          _$ServerSendsPlantsForCollectionImpl>
+      get copyWith => __$$ServerSendsPlantsForCollectionImplCopyWithImpl<
+          _$ServerSendsPlantsForCollectionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerSendsPlantsForCollectionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerSendsPlantsForCollection
+    implements ServerSendsPlantsForCollection {
+  const factory _ServerSendsPlantsForCollection(
+          {required final List<Plant> plants}) =
+      _$ServerSendsPlantsForCollectionImpl;
+
+  factory _ServerSendsPlantsForCollection.fromJson(Map<String, dynamic> json) =
+      _$ServerSendsPlantsForCollectionImpl.fromJson;
+
+  @override
+  List<Plant> get plants;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerSendsPlantsForCollectionImplCopyWith<
+          _$ServerSendsPlantsForCollectionImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerSavesCollection _$ServerSavesCollectionFromJson(
+    Map<String, dynamic> json) {
+  return _ServerSavesCollection.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerSavesCollection {
+  Collection get collection => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerSavesCollectionCopyWith<ServerSavesCollection> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerSavesCollectionCopyWith<$Res> {
+  factory $ServerSavesCollectionCopyWith(ServerSavesCollection value,
+          $Res Function(ServerSavesCollection) then) =
+      _$ServerSavesCollectionCopyWithImpl<$Res, ServerSavesCollection>;
+  @useResult
+  $Res call({Collection collection});
+
+  $CollectionCopyWith<$Res> get collection;
+}
+
+/// @nodoc
+class _$ServerSavesCollectionCopyWithImpl<$Res,
+        $Val extends ServerSavesCollection>
+    implements $ServerSavesCollectionCopyWith<$Res> {
+  _$ServerSavesCollectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collection = null,
+  }) {
+    return _then(_value.copyWith(
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as Collection,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CollectionCopyWith<$Res> get collection {
+    return $CollectionCopyWith<$Res>(_value.collection, (value) {
+      return _then(_value.copyWith(collection: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerSavesCollectionImplCopyWith<$Res>
+    implements $ServerSavesCollectionCopyWith<$Res> {
+  factory _$$ServerSavesCollectionImplCopyWith(
+          _$ServerSavesCollectionImpl value,
+          $Res Function(_$ServerSavesCollectionImpl) then) =
+      __$$ServerSavesCollectionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Collection collection});
+
+  @override
+  $CollectionCopyWith<$Res> get collection;
+}
+
+/// @nodoc
+class __$$ServerSavesCollectionImplCopyWithImpl<$Res>
+    extends _$ServerSavesCollectionCopyWithImpl<$Res,
+        _$ServerSavesCollectionImpl>
+    implements _$$ServerSavesCollectionImplCopyWith<$Res> {
+  __$$ServerSavesCollectionImplCopyWithImpl(_$ServerSavesCollectionImpl _value,
+      $Res Function(_$ServerSavesCollectionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collection = null,
+  }) {
+    return _then(_$ServerSavesCollectionImpl(
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as Collection,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerSavesCollectionImpl implements _ServerSavesCollection {
+  const _$ServerSavesCollectionImpl({required this.collection});
+
+  factory _$ServerSavesCollectionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerSavesCollectionImplFromJson(json);
+
+  @override
+  final Collection collection;
+
+  @override
+  String toString() {
+    return 'ServerSavesCollection(collection: $collection)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerSavesCollectionImpl &&
+            (identical(other.collection, collection) ||
+                other.collection == collection));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, collection);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerSavesCollectionImplCopyWith<_$ServerSavesCollectionImpl>
+      get copyWith => __$$ServerSavesCollectionImplCopyWithImpl<
+          _$ServerSavesCollectionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerSavesCollectionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerSavesCollection implements ServerSavesCollection {
+  const factory _ServerSavesCollection({required final Collection collection}) =
+      _$ServerSavesCollectionImpl;
+
+  factory _ServerSavesCollection.fromJson(Map<String, dynamic> json) =
+      _$ServerSavesCollectionImpl.fromJson;
+
+  @override
+  Collection get collection;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerSavesCollectionImplCopyWith<_$ServerSavesCollectionImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ServerDeletesCollection _$ServerDeletesCollectionFromJson(
+    Map<String, dynamic> json) {
+  return _ServerDeletesCollection.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerDeletesCollection {
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerDeletesCollectionCopyWith<$Res> {
+  factory $ServerDeletesCollectionCopyWith(ServerDeletesCollection value,
+          $Res Function(ServerDeletesCollection) then) =
+      _$ServerDeletesCollectionCopyWithImpl<$Res, ServerDeletesCollection>;
+}
+
+/// @nodoc
+class _$ServerDeletesCollectionCopyWithImpl<$Res,
+        $Val extends ServerDeletesCollection>
+    implements $ServerDeletesCollectionCopyWith<$Res> {
+  _$ServerDeletesCollectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$ServerDeletesCollectionImplCopyWith<$Res> {
+  factory _$$ServerDeletesCollectionImplCopyWith(
+          _$ServerDeletesCollectionImpl value,
+          $Res Function(_$ServerDeletesCollectionImpl) then) =
+      __$$ServerDeletesCollectionImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ServerDeletesCollectionImplCopyWithImpl<$Res>
+    extends _$ServerDeletesCollectionCopyWithImpl<$Res,
+        _$ServerDeletesCollectionImpl>
+    implements _$$ServerDeletesCollectionImplCopyWith<$Res> {
+  __$$ServerDeletesCollectionImplCopyWithImpl(
+      _$ServerDeletesCollectionImpl _value,
+      $Res Function(_$ServerDeletesCollectionImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerDeletesCollectionImpl implements _ServerDeletesCollection {
+  const _$ServerDeletesCollectionImpl();
+
+  factory _$ServerDeletesCollectionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ServerDeletesCollectionImplFromJson(json);
+
+  @override
+  String toString() {
+    return 'ServerDeletesCollection()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerDeletesCollectionImpl);
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerDeletesCollectionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerDeletesCollection implements ServerDeletesCollection {
+  const factory _ServerDeletesCollection() = _$ServerDeletesCollectionImpl;
+
+  factory _ServerDeletesCollection.fromJson(Map<String, dynamic> json) =
+      _$ServerDeletesCollectionImpl.fromJson;
+}
+
 ServerSendsErrorMessage _$ServerSendsErrorMessageFromJson(
     Map<String, dynamic> json) {
   return _ServerSendsErrorMessage.fromJson(json);

@@ -1680,3 +1680,957 @@ abstract class _ClientWantsToCreatePlant implements ClientWantsToCreatePlant {
   _$$ClientWantsToCreatePlantImplCopyWith<_$ClientWantsToCreatePlantImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+ClientWantsAllCollections _$ClientWantsAllCollectionsFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsAllCollections.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsAllCollections {
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsAllCollectionsCopyWith<ClientWantsAllCollections> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsAllCollectionsCopyWith<$Res> {
+  factory $ClientWantsAllCollectionsCopyWith(ClientWantsAllCollections value,
+          $Res Function(ClientWantsAllCollections) then) =
+      _$ClientWantsAllCollectionsCopyWithImpl<$Res, ClientWantsAllCollections>;
+  @useResult
+  $Res call({String jwt, String eventType});
+}
+
+/// @nodoc
+class _$ClientWantsAllCollectionsCopyWithImpl<$Res,
+        $Val extends ClientWantsAllCollections>
+    implements $ClientWantsAllCollectionsCopyWith<$Res> {
+  _$ClientWantsAllCollectionsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsAllCollectionsImplCopyWith<$Res>
+    implements $ClientWantsAllCollectionsCopyWith<$Res> {
+  factory _$$ClientWantsAllCollectionsImplCopyWith(
+          _$ClientWantsAllCollectionsImpl value,
+          $Res Function(_$ClientWantsAllCollectionsImpl) then) =
+      __$$ClientWantsAllCollectionsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt, String eventType});
+}
+
+/// @nodoc
+class __$$ClientWantsAllCollectionsImplCopyWithImpl<$Res>
+    extends _$ClientWantsAllCollectionsCopyWithImpl<$Res,
+        _$ClientWantsAllCollectionsImpl>
+    implements _$$ClientWantsAllCollectionsImplCopyWith<$Res> {
+  __$$ClientWantsAllCollectionsImplCopyWithImpl(
+      _$ClientWantsAllCollectionsImpl _value,
+      $Res Function(_$ClientWantsAllCollectionsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+  }) {
+    return _then(_$ClientWantsAllCollectionsImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsAllCollectionsImpl implements _ClientWantsAllCollections {
+  const _$ClientWantsAllCollectionsImpl(
+      {required this.jwt, required this.eventType});
+
+  factory _$ClientWantsAllCollectionsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClientWantsAllCollectionsImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+
+  @override
+  String toString() {
+    return 'ClientWantsAllCollections(jwt: $jwt, eventType: $eventType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsAllCollectionsImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt, eventType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsAllCollectionsImplCopyWith<_$ClientWantsAllCollectionsImpl>
+      get copyWith => __$$ClientWantsAllCollectionsImplCopyWithImpl<
+          _$ClientWantsAllCollectionsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsAllCollectionsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsAllCollections implements ClientWantsAllCollections {
+  const factory _ClientWantsAllCollections(
+      {required final String jwt,
+      required final String eventType}) = _$ClientWantsAllCollectionsImpl;
+
+  factory _ClientWantsAllCollections.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsAllCollectionsImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsAllCollectionsImplCopyWith<_$ClientWantsAllCollectionsImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ClientWantsPlantsForCollection _$ClientWantsPlantsForCollectionFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsPlantsForCollection.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsPlantsForCollection {
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+  String get collectionId => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsPlantsForCollectionCopyWith<ClientWantsPlantsForCollection>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsPlantsForCollectionCopyWith<$Res> {
+  factory $ClientWantsPlantsForCollectionCopyWith(
+          ClientWantsPlantsForCollection value,
+          $Res Function(ClientWantsPlantsForCollection) then) =
+      _$ClientWantsPlantsForCollectionCopyWithImpl<$Res,
+          ClientWantsPlantsForCollection>;
+  @useResult
+  $Res call({String jwt, String eventType, String collectionId});
+}
+
+/// @nodoc
+class _$ClientWantsPlantsForCollectionCopyWithImpl<$Res,
+        $Val extends ClientWantsPlantsForCollection>
+    implements $ClientWantsPlantsForCollectionCopyWith<$Res> {
+  _$ClientWantsPlantsForCollectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? collectionId = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      collectionId: null == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsPlantsForCollectionImplCopyWith<$Res>
+    implements $ClientWantsPlantsForCollectionCopyWith<$Res> {
+  factory _$$ClientWantsPlantsForCollectionImplCopyWith(
+          _$ClientWantsPlantsForCollectionImpl value,
+          $Res Function(_$ClientWantsPlantsForCollectionImpl) then) =
+      __$$ClientWantsPlantsForCollectionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt, String eventType, String collectionId});
+}
+
+/// @nodoc
+class __$$ClientWantsPlantsForCollectionImplCopyWithImpl<$Res>
+    extends _$ClientWantsPlantsForCollectionCopyWithImpl<$Res,
+        _$ClientWantsPlantsForCollectionImpl>
+    implements _$$ClientWantsPlantsForCollectionImplCopyWith<$Res> {
+  __$$ClientWantsPlantsForCollectionImplCopyWithImpl(
+      _$ClientWantsPlantsForCollectionImpl _value,
+      $Res Function(_$ClientWantsPlantsForCollectionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? collectionId = null,
+  }) {
+    return _then(_$ClientWantsPlantsForCollectionImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      collectionId: null == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsPlantsForCollectionImpl
+    implements _ClientWantsPlantsForCollection {
+  const _$ClientWantsPlantsForCollectionImpl(
+      {required this.jwt, required this.eventType, required this.collectionId});
+
+  factory _$ClientWantsPlantsForCollectionImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ClientWantsPlantsForCollectionImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+  @override
+  final String collectionId;
+
+  @override
+  String toString() {
+    return 'ClientWantsPlantsForCollection(jwt: $jwt, eventType: $eventType, collectionId: $collectionId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsPlantsForCollectionImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType) &&
+            (identical(other.collectionId, collectionId) ||
+                other.collectionId == collectionId));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt, eventType, collectionId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsPlantsForCollectionImplCopyWith<
+          _$ClientWantsPlantsForCollectionImpl>
+      get copyWith => __$$ClientWantsPlantsForCollectionImplCopyWithImpl<
+          _$ClientWantsPlantsForCollectionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsPlantsForCollectionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsPlantsForCollection
+    implements ClientWantsPlantsForCollection {
+  const factory _ClientWantsPlantsForCollection(
+          {required final String jwt,
+          required final String eventType,
+          required final String collectionId}) =
+      _$ClientWantsPlantsForCollectionImpl;
+
+  factory _ClientWantsPlantsForCollection.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsPlantsForCollectionImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  String get collectionId;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsPlantsForCollectionImplCopyWith<
+          _$ClientWantsPlantsForCollectionImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ClientWantsToCreateCollection _$ClientWantsToCreateCollectionFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsToCreateCollection.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsToCreateCollection {
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+  CreateCollectionDto get createCollectionDto =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsToCreateCollectionCopyWith<ClientWantsToCreateCollection>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsToCreateCollectionCopyWith<$Res> {
+  factory $ClientWantsToCreateCollectionCopyWith(
+          ClientWantsToCreateCollection value,
+          $Res Function(ClientWantsToCreateCollection) then) =
+      _$ClientWantsToCreateCollectionCopyWithImpl<$Res,
+          ClientWantsToCreateCollection>;
+  @useResult
+  $Res call(
+      {String jwt, String eventType, CreateCollectionDto createCollectionDto});
+
+  $CreateCollectionDtoCopyWith<$Res> get createCollectionDto;
+}
+
+/// @nodoc
+class _$ClientWantsToCreateCollectionCopyWithImpl<$Res,
+        $Val extends ClientWantsToCreateCollection>
+    implements $ClientWantsToCreateCollectionCopyWith<$Res> {
+  _$ClientWantsToCreateCollectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? createCollectionDto = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      createCollectionDto: null == createCollectionDto
+          ? _value.createCollectionDto
+          : createCollectionDto // ignore: cast_nullable_to_non_nullable
+              as CreateCollectionDto,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CreateCollectionDtoCopyWith<$Res> get createCollectionDto {
+    return $CreateCollectionDtoCopyWith<$Res>(_value.createCollectionDto,
+        (value) {
+      return _then(_value.copyWith(createCollectionDto: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsToCreateCollectionImplCopyWith<$Res>
+    implements $ClientWantsToCreateCollectionCopyWith<$Res> {
+  factory _$$ClientWantsToCreateCollectionImplCopyWith(
+          _$ClientWantsToCreateCollectionImpl value,
+          $Res Function(_$ClientWantsToCreateCollectionImpl) then) =
+      __$$ClientWantsToCreateCollectionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String jwt, String eventType, CreateCollectionDto createCollectionDto});
+
+  @override
+  $CreateCollectionDtoCopyWith<$Res> get createCollectionDto;
+}
+
+/// @nodoc
+class __$$ClientWantsToCreateCollectionImplCopyWithImpl<$Res>
+    extends _$ClientWantsToCreateCollectionCopyWithImpl<$Res,
+        _$ClientWantsToCreateCollectionImpl>
+    implements _$$ClientWantsToCreateCollectionImplCopyWith<$Res> {
+  __$$ClientWantsToCreateCollectionImplCopyWithImpl(
+      _$ClientWantsToCreateCollectionImpl _value,
+      $Res Function(_$ClientWantsToCreateCollectionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? createCollectionDto = null,
+  }) {
+    return _then(_$ClientWantsToCreateCollectionImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      createCollectionDto: null == createCollectionDto
+          ? _value.createCollectionDto
+          : createCollectionDto // ignore: cast_nullable_to_non_nullable
+              as CreateCollectionDto,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsToCreateCollectionImpl
+    implements _ClientWantsToCreateCollection {
+  const _$ClientWantsToCreateCollectionImpl(
+      {required this.jwt,
+      required this.eventType,
+      required this.createCollectionDto});
+
+  factory _$ClientWantsToCreateCollectionImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ClientWantsToCreateCollectionImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+  @override
+  final CreateCollectionDto createCollectionDto;
+
+  @override
+  String toString() {
+    return 'ClientWantsToCreateCollection(jwt: $jwt, eventType: $eventType, createCollectionDto: $createCollectionDto)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsToCreateCollectionImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType) &&
+            (identical(other.createCollectionDto, createCollectionDto) ||
+                other.createCollectionDto == createCollectionDto));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, jwt, eventType, createCollectionDto);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsToCreateCollectionImplCopyWith<
+          _$ClientWantsToCreateCollectionImpl>
+      get copyWith => __$$ClientWantsToCreateCollectionImplCopyWithImpl<
+          _$ClientWantsToCreateCollectionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsToCreateCollectionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsToCreateCollection
+    implements ClientWantsToCreateCollection {
+  const factory _ClientWantsToCreateCollection(
+          {required final String jwt,
+          required final String eventType,
+          required final CreateCollectionDto createCollectionDto}) =
+      _$ClientWantsToCreateCollectionImpl;
+
+  factory _ClientWantsToCreateCollection.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsToCreateCollectionImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  CreateCollectionDto get createCollectionDto;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsToCreateCollectionImplCopyWith<
+          _$ClientWantsToCreateCollectionImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ClientWantsToUpdateCollection _$ClientWantsToUpdateCollectionFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsToUpdateCollection.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsToUpdateCollection {
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+  UpdateCollectionDto get updateCollectionDto =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsToUpdateCollectionCopyWith<ClientWantsToUpdateCollection>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsToUpdateCollectionCopyWith<$Res> {
+  factory $ClientWantsToUpdateCollectionCopyWith(
+          ClientWantsToUpdateCollection value,
+          $Res Function(ClientWantsToUpdateCollection) then) =
+      _$ClientWantsToUpdateCollectionCopyWithImpl<$Res,
+          ClientWantsToUpdateCollection>;
+  @useResult
+  $Res call(
+      {String jwt, String eventType, UpdateCollectionDto updateCollectionDto});
+
+  $UpdateCollectionDtoCopyWith<$Res> get updateCollectionDto;
+}
+
+/// @nodoc
+class _$ClientWantsToUpdateCollectionCopyWithImpl<$Res,
+        $Val extends ClientWantsToUpdateCollection>
+    implements $ClientWantsToUpdateCollectionCopyWith<$Res> {
+  _$ClientWantsToUpdateCollectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? updateCollectionDto = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      updateCollectionDto: null == updateCollectionDto
+          ? _value.updateCollectionDto
+          : updateCollectionDto // ignore: cast_nullable_to_non_nullable
+              as UpdateCollectionDto,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateCollectionDtoCopyWith<$Res> get updateCollectionDto {
+    return $UpdateCollectionDtoCopyWith<$Res>(_value.updateCollectionDto,
+        (value) {
+      return _then(_value.copyWith(updateCollectionDto: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsToUpdateCollectionImplCopyWith<$Res>
+    implements $ClientWantsToUpdateCollectionCopyWith<$Res> {
+  factory _$$ClientWantsToUpdateCollectionImplCopyWith(
+          _$ClientWantsToUpdateCollectionImpl value,
+          $Res Function(_$ClientWantsToUpdateCollectionImpl) then) =
+      __$$ClientWantsToUpdateCollectionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String jwt, String eventType, UpdateCollectionDto updateCollectionDto});
+
+  @override
+  $UpdateCollectionDtoCopyWith<$Res> get updateCollectionDto;
+}
+
+/// @nodoc
+class __$$ClientWantsToUpdateCollectionImplCopyWithImpl<$Res>
+    extends _$ClientWantsToUpdateCollectionCopyWithImpl<$Res,
+        _$ClientWantsToUpdateCollectionImpl>
+    implements _$$ClientWantsToUpdateCollectionImplCopyWith<$Res> {
+  __$$ClientWantsToUpdateCollectionImplCopyWithImpl(
+      _$ClientWantsToUpdateCollectionImpl _value,
+      $Res Function(_$ClientWantsToUpdateCollectionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? updateCollectionDto = null,
+  }) {
+    return _then(_$ClientWantsToUpdateCollectionImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      updateCollectionDto: null == updateCollectionDto
+          ? _value.updateCollectionDto
+          : updateCollectionDto // ignore: cast_nullable_to_non_nullable
+              as UpdateCollectionDto,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsToUpdateCollectionImpl
+    implements _ClientWantsToUpdateCollection {
+  const _$ClientWantsToUpdateCollectionImpl(
+      {required this.jwt,
+      required this.eventType,
+      required this.updateCollectionDto});
+
+  factory _$ClientWantsToUpdateCollectionImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ClientWantsToUpdateCollectionImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+  @override
+  final UpdateCollectionDto updateCollectionDto;
+
+  @override
+  String toString() {
+    return 'ClientWantsToUpdateCollection(jwt: $jwt, eventType: $eventType, updateCollectionDto: $updateCollectionDto)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsToUpdateCollectionImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType) &&
+            (identical(other.updateCollectionDto, updateCollectionDto) ||
+                other.updateCollectionDto == updateCollectionDto));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, jwt, eventType, updateCollectionDto);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsToUpdateCollectionImplCopyWith<
+          _$ClientWantsToUpdateCollectionImpl>
+      get copyWith => __$$ClientWantsToUpdateCollectionImplCopyWithImpl<
+          _$ClientWantsToUpdateCollectionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsToUpdateCollectionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsToUpdateCollection
+    implements ClientWantsToUpdateCollection {
+  const factory _ClientWantsToUpdateCollection(
+          {required final String jwt,
+          required final String eventType,
+          required final UpdateCollectionDto updateCollectionDto}) =
+      _$ClientWantsToUpdateCollectionImpl;
+
+  factory _ClientWantsToUpdateCollection.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsToUpdateCollectionImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  UpdateCollectionDto get updateCollectionDto;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsToUpdateCollectionImplCopyWith<
+          _$ClientWantsToUpdateCollectionImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ClientWantsToDeleteCollection _$ClientWantsToDeleteCollectionFromJson(
+    Map<String, dynamic> json) {
+  return _ClientWantsToDeleteCollection.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsToDeleteCollection {
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+  String get collectionId => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsToDeleteCollectionCopyWith<ClientWantsToDeleteCollection>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsToDeleteCollectionCopyWith<$Res> {
+  factory $ClientWantsToDeleteCollectionCopyWith(
+          ClientWantsToDeleteCollection value,
+          $Res Function(ClientWantsToDeleteCollection) then) =
+      _$ClientWantsToDeleteCollectionCopyWithImpl<$Res,
+          ClientWantsToDeleteCollection>;
+  @useResult
+  $Res call({String jwt, String eventType, String collectionId});
+}
+
+/// @nodoc
+class _$ClientWantsToDeleteCollectionCopyWithImpl<$Res,
+        $Val extends ClientWantsToDeleteCollection>
+    implements $ClientWantsToDeleteCollectionCopyWith<$Res> {
+  _$ClientWantsToDeleteCollectionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? collectionId = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      collectionId: null == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsToDeleteCollectionImplCopyWith<$Res>
+    implements $ClientWantsToDeleteCollectionCopyWith<$Res> {
+  factory _$$ClientWantsToDeleteCollectionImplCopyWith(
+          _$ClientWantsToDeleteCollectionImpl value,
+          $Res Function(_$ClientWantsToDeleteCollectionImpl) then) =
+      __$$ClientWantsToDeleteCollectionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt, String eventType, String collectionId});
+}
+
+/// @nodoc
+class __$$ClientWantsToDeleteCollectionImplCopyWithImpl<$Res>
+    extends _$ClientWantsToDeleteCollectionCopyWithImpl<$Res,
+        _$ClientWantsToDeleteCollectionImpl>
+    implements _$$ClientWantsToDeleteCollectionImplCopyWith<$Res> {
+  __$$ClientWantsToDeleteCollectionImplCopyWithImpl(
+      _$ClientWantsToDeleteCollectionImpl _value,
+      $Res Function(_$ClientWantsToDeleteCollectionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? collectionId = null,
+  }) {
+    return _then(_$ClientWantsToDeleteCollectionImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      collectionId: null == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsToDeleteCollectionImpl
+    implements _ClientWantsToDeleteCollection {
+  const _$ClientWantsToDeleteCollectionImpl(
+      {required this.jwt, required this.eventType, required this.collectionId});
+
+  factory _$ClientWantsToDeleteCollectionImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ClientWantsToDeleteCollectionImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+  @override
+  final String collectionId;
+
+  @override
+  String toString() {
+    return 'ClientWantsToDeleteCollection(jwt: $jwt, eventType: $eventType, collectionId: $collectionId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsToDeleteCollectionImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType) &&
+            (identical(other.collectionId, collectionId) ||
+                other.collectionId == collectionId));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt, eventType, collectionId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsToDeleteCollectionImplCopyWith<
+          _$ClientWantsToDeleteCollectionImpl>
+      get copyWith => __$$ClientWantsToDeleteCollectionImplCopyWithImpl<
+          _$ClientWantsToDeleteCollectionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsToDeleteCollectionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsToDeleteCollection
+    implements ClientWantsToDeleteCollection {
+  const factory _ClientWantsToDeleteCollection(
+          {required final String jwt,
+          required final String eventType,
+          required final String collectionId}) =
+      _$ClientWantsToDeleteCollectionImpl;
+
+  factory _ClientWantsToDeleteCollection.fromJson(Map<String, dynamic> json) =
+      _$ClientWantsToDeleteCollectionImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  String get collectionId;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsToDeleteCollectionImplCopyWith<
+          _$ClientWantsToDeleteCollectionImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

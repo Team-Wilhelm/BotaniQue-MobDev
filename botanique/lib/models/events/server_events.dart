@@ -2,21 +2,12 @@ import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/models/plant.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../models/collections.dart';
+
 part 'server_events.freezed.dart';
 part 'server_events.g.dart';
 
 class ServerEventHelper {
-  final List<String> _errorMessages = [
-    ServerSendsErrorMessage.name,
-    ServerRejectsWrongCredentials.name,
-    ServerRespondsNotAuthenticated.name,
-    ServerRespondsNotAuthorized.name,
-    ServerRespondsNotFound.name,
-    ServerRespondsRegisterDevice.name,
-    ServerRespondsValidationError.name,
-    ServerRejectsInvalidFile.name
-  ];
-
   bool isErrorMessage(ServerEvent event) {
     return event is ServerSendsErrorMessage ||
         event is ServerRespondsNotAuthenticated ||
@@ -46,6 +37,13 @@ class ServerEvent extends BaseEvent {
       ServerSendsAllPlants.name => ServerSendsAllPlants.fromJson(json),
       ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
       ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
+
+      // Collections
+      ServerSendsAllCollections.name =>
+        ServerSendsAllCollections.fromJson(json),
+      ServerSendsPlantsForCollection.name => ServerSendsPlantsForCollection.fromJson(json),
+      ServerSavesCollection.name => ServerSavesCollection.fromJson(json),
+      ServerDeletesCollection.name => ServerDeletesCollection.fromJson(json),
 
       // Errors
       ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
@@ -133,6 +131,57 @@ class ServerConfirmsDelete extends ServerEvent with _$ServerConfirmsDelete {
 
   factory ServerConfirmsDelete.fromJson(Map<String, dynamic> json) =>
       _$ServerConfirmsDeleteFromJson(json);
+}
+
+/*
+  Collections
+ */
+@freezed
+class ServerSendsAllCollections extends ServerEvent
+    with _$ServerSendsAllCollections {
+  static const String name = "ServerSendsAllCollections";
+
+  const factory ServerSendsAllCollections({
+    required List<Collection> collections,
+  }) = _ServerSendsAllCollections;
+
+  factory ServerSendsAllCollections.fromJson(Map<String, dynamic> json) =>
+      _$ServerSendsAllCollectionsFromJson(json);
+}
+
+@freezed
+class ServerSendsPlantsForCollection extends ServerEvent
+    with _$ServerSendsPlantsForCollection {
+  static const String name = "ServerSendsPlantsForCollection";
+
+  const factory ServerSendsPlantsForCollection({
+    required List<Plant> plants,
+  }) = _ServerSendsPlantsForCollection;
+
+  factory ServerSendsPlantsForCollection.fromJson(Map<String, dynamic> json) =>
+      _$ServerSendsPlantsForCollectionFromJson(json);
+}
+
+@freezed
+class ServerSavesCollection extends ServerEvent with _$ServerSavesCollection {
+  static const String name = "ServerCreatesCollection";
+
+  const factory ServerSavesCollection({
+    required Collection collection,
+  }) = _ServerSavesCollection;
+
+  factory ServerSavesCollection.fromJson(Map<String, dynamic> json) =>
+      _$ServerSavesCollectionFromJson(json);
+}
+
+@freezed
+class ServerDeletesCollection extends ServerEvent with _$ServerDeletesCollection {
+  static const String name = "ServerDeletesCollection";
+
+  const factory ServerDeletesCollection() = _ServerDeletesCollection;
+
+  factory ServerDeletesCollection.fromJson(Map<String, dynamic> json) =>
+      _$ServerDeletesCollectionFromJson(json);
 }
 
 /*

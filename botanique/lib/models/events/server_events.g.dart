@@ -77,6 +77,55 @@ Map<String, dynamic> _$$ServerConfirmsDeleteImplToJson(
         _$ServerConfirmsDeleteImpl instance) =>
     <String, dynamic>{};
 
+_$ServerSendsAllCollectionsImpl _$$ServerSendsAllCollectionsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerSendsAllCollectionsImpl(
+      collections: (json['collections'] as List<dynamic>)
+          .map((e) => Collection.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$ServerSendsAllCollectionsImplToJson(
+        _$ServerSendsAllCollectionsImpl instance) =>
+    <String, dynamic>{
+      'collections': instance.collections,
+    };
+
+_$ServerSendsPlantsForCollectionImpl
+    _$$ServerSendsPlantsForCollectionImplFromJson(Map<String, dynamic> json) =>
+        _$ServerSendsPlantsForCollectionImpl(
+          plants: (json['plants'] as List<dynamic>)
+              .map((e) => Plant.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        );
+
+Map<String, dynamic> _$$ServerSendsPlantsForCollectionImplToJson(
+        _$ServerSendsPlantsForCollectionImpl instance) =>
+    <String, dynamic>{
+      'plants': instance.plants,
+    };
+
+_$ServerSavesCollectionImpl _$$ServerSavesCollectionImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerSavesCollectionImpl(
+      collection:
+          Collection.fromJson(json['collection'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ServerSavesCollectionImplToJson(
+        _$ServerSavesCollectionImpl instance) =>
+    <String, dynamic>{
+      'collection': instance.collection,
+    };
+
+_$ServerDeletesCollectionImpl _$$ServerDeletesCollectionImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerDeletesCollectionImpl();
+
+Map<String, dynamic> _$$ServerDeletesCollectionImplToJson(
+        _$ServerDeletesCollectionImpl instance) =>
+    <String, dynamic>{};
+
 _$ServerSendsErrorMessageImpl _$$ServerSendsErrorMessageImplFromJson(
         Map<String, dynamic> json) =>
     _$ServerSendsErrorMessageImpl(
