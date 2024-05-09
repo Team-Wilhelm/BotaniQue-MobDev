@@ -76,6 +76,16 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
         event = event.copyWith(jwt: jwt!);
       } else if (event is ClientWantsPlantById) {
         event = event.copyWith(jwt: jwt!);
+      } else if (event is ClientWantsAllCollections) {
+        event = event.copyWith(jwt: jwt!);
+      } else if (event is ClientWantsToCreateCollection) {
+        event = event.copyWith(jwt: jwt!);
+      } else if (event is ClientWantsToUpdateCollection) {
+        event = event.copyWith(jwt: jwt!);
+      } else if (event is ClientWantsToDeleteCollection) {
+        event = event.copyWith(jwt: jwt!);
+      } else if (event is ClientWantsPlantsForCollection) {
+        event = event.copyWith(jwt: jwt!);
       }
     }
 

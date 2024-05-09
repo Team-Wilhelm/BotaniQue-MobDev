@@ -1,46 +1,36 @@
+import 'package:botanique/models/events/client_events.dart';
+import 'package:botanique/models/models/collections.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/events/server_events.dart';
 import '../shared/app_button.dart';
-import '../state/all_plants_bloc.dart';
+import '../state/collections_cubit.dart';
 
-class CategorySelection extends StatelessWidget {
-  const CategorySelection({
+class CollectionSelection extends StatelessWidget {
+  const CollectionSelection({
     super.key,
-    this.categories = const [
-      "All Plants",
-      "Kitchen",
-      "Bedroom",
-      "Bathroom",
-      "Living Room"
-    ],
   });
 
-  final List<String> categories;
-
-  // TODO: Implement build when BE is ready for collections
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AllPlantsBloc, ServerEvent>(
-      bloc: context.read<AllPlantsBloc>(),
+    return BlocBuilder<CollectionsCubit, CollectionsState>(
       builder: (context, snapshot) {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: categories
+            children: snapshot.collections
                 .map(
-                  (category) => Padding(
+                  (collection) => Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: AppButton(
-                      text: category,
-                      onPressed: () {
-                        // context.read<AllPlantsBloc>().selectCategory(category);
-                      },
-                      buttonType: "All Plants" == category
-                          ? ButtonType.primary
-                          : ButtonType.inactive,
+                      text: collection.name,
+                      onPressed: () => _selectCollection(context, collection),
+                      buttonType:
+                          snapshot.selectedCollection.name == collection.name
+                              ? ButtonType.primary
+                              : ButtonType.inactive,
                       buttonShape: ButtonShape.square,
                     ),
                   ),
@@ -50,5 +40,28 @@ class CategorySelection extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _selectCollection(BuildContext context, Collection collection) {
+    context.read<CollectionsCubit>().selectCollection(collection);
+    final webSocketBloc = context.read<WebSocketBloc>();
+    if (collection.collectionId == "all-plants") {
+      webSocketBloc.add(
+        ClientWantsAllPlants(
+          jwt: "jwt",
+          eventType: "ClientWantsAllPlants",
+          pageNumber: 1,
+          pageSize: 5,
+        ),
+      );
+    } else {
+      webSocketBloc.add(
+        ClientWantsPlantsForCollection(
+          jwt: "jwt",
+          eventType: "ClientWantsCollection",
+          collectionId: collection.collectionId,
+        ),
+      );
+    }
   }
 }

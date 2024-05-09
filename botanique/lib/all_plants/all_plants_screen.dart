@@ -1,7 +1,7 @@
 import 'package:botanique/all_plants/plant_card.dart';
 import 'package:botanique/models/events/server_events.dart';
-import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/screen_base.dart';
+import 'package:botanique/state/collections_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,21 +18,22 @@ class AllPlantsScreen extends StatelessWidget {
       child: BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, state) {
           return RefreshIndicator.adaptive(
-            onRefresh: () => _requestAllPlants(context),
+            onRefresh: () => _getInitialData(context),
             child: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppTextField(
+                      /*AppTextField(
                         textFieldController:
-                            TextEditingController(), // TODO: Implement search
+                            TextEditingController(), // TODO: Implement search or remove
                         placeholder: "Search for a plant...",
                         suffixIcon: const Icon(Icons.search),
                       ),
                       _getSpacer(context),
-                      const CategorySelection(),
+                      */
+                      const CollectionSelection(),
                       _getSpacer(context),
                     ],
                   ),
@@ -52,6 +53,12 @@ class AllPlantsScreen extends StatelessWidget {
 
   Widget _getChildFromState(BuildContext context, ServerEvent serverEvent) {
     if (serverEvent is! ServerSendsAllPlants) {
+      if (serverEvent is ServerSendsAllCollections) {
+        context
+            .read<CollectionsCubit>()
+            .setCollections(serverEvent.collections);
+      }
+
       _requestAllPlants(context);
       return const SliverFillRemaining(
         hasScrollBody: false,
@@ -83,5 +90,15 @@ class AllPlantsScreen extends StatelessWidget {
         eventType: "ClientWantsAllPlants",
         pageNumber: 1,
         pageSize: 5));
+  }
+
+  Future<void> _requestCollections(BuildContext context) async {
+    context.read<WebSocketBloc>().add(const ClientWantsAllCollections(
+        jwt: "jwt", eventType: "ClientWantsAllCollections"));
+  }
+
+  Future<void> _getInitialData(BuildContext context) async {
+    _requestCollections(context);
+    _requestAllPlants(context);
   }
 }

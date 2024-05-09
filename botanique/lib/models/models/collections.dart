@@ -17,6 +17,13 @@ class Collection with _$Collection {
 
   factory Collection.fromJson(Map<String, dynamic> json) =>
       _$CollectionFromJson(json);
+
+  factory Collection.allPlants() => const Collection(
+        collectionId: "all-plants",
+        name: "All Plants",
+        userEmail: "",
+        plants: [],
+      );    
 }
 
 @freezed

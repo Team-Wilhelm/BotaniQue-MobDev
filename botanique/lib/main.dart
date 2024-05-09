@@ -5,8 +5,8 @@ import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
-import 'package:botanique/state/all_plants_bloc.dart';
 import 'package:botanique/state/broadcast_ws_channel.dart';
+import 'package:botanique/state/collections_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
@@ -34,10 +34,8 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<AllPlantsBloc>(
-          create: (context) => AllPlantsBloc(
-            channel: channel,
-          ),
+        BlocProvider<CollectionsCubit>(
+          create: (context) => CollectionsCubit(),
         ),
         BlocProvider<NavigationCubit>(
           create: (context) => NavigationCubit(),
