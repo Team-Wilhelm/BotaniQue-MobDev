@@ -1,4 +1,3 @@
-import 'package:botanique/all_plants/plant_card_stat.dart';
 import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
 import 'package:botanique/models/models/plant.dart';
 import 'package:botanique/shared/app_text.dart';
@@ -31,38 +30,47 @@ class PlantCard extends StatelessWidget {
           ],
           */
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  AppText(
-                    text: plant.nickname,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        PlantCardStat(
-                            statValue: "67%",
-                            statImage: AssetConstants.humidity),
-                        _getSpacer(),
-                        PlantCardStat(
-                            statValue: "20%", statImage: AssetConstants.light),
-                        _getSpacer(),
-                        PlantCardStat(
-                            statValue: "89%",
-                            statImage: AssetConstants.soilMoisture),
-                      ]),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              getPlantImage(context),
+              const SizedBox(height: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.045,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.background,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText(
+                      text: plant.nickname,
+                    ),
+                    const AppText(text: "🥹")
+                  ],
+                ),
               ),
-            ),
-            getPlantImage(context),
-          ],
+
+              /*Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                PlantCardStat(
+                    statValue: "67%", statImage: AssetConstants.humidity),
+                _getSpacer(),
+                PlantCardStat(
+                    statValue: "20%", statImage: AssetConstants.light),
+                _getSpacer(),
+                PlantCardStat(
+                    statValue: "89%", statImage: AssetConstants.soilMoisture),
+              ]),*/
+            ],
+          ),
         ),
       ),
     );
@@ -84,7 +92,7 @@ class PlantCard extends StatelessWidget {
     return Expanded(
       child: plant.imageUrl != ""
           ? Image.network(plant.imageUrl)
-          : Image.asset(AssetConstants.logo, fit: BoxFit.fill),
+          : Image.asset(AssetConstants.logo, fit: BoxFit.cover),
     );
   }
 

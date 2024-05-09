@@ -32,17 +32,16 @@ class CategorySelection extends StatelessWidget {
             children: categories
                 .map(
                   (category) => Padding(
-                    padding: const EdgeInsets.only(right: 6),
+                    padding: const EdgeInsets.only(right: 10),
                     child: AppButton(
                       text: category,
                       onPressed: () {
                         // context.read<AllPlantsBloc>().selectCategory(category);
                       },
-                      buttonType: /*snapshot.selectedCategory == category
+                      buttonType: "All Plants" == category
                           ? ButtonType.primary
-                          : ButtonType.outline,*/
-                          ButtonType.outline,
-                      buttonShape: ButtonShape.rounded,
+                          : ButtonType.inactive,
+                      buttonShape: ButtonShape.square,
                     ),
                   ),
                 )

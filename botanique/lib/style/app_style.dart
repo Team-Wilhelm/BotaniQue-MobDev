@@ -33,7 +33,7 @@ class AppColors {
   static const Color secondary = Color(0xFF629F33);
   static const Color accent = Color(0x9C2E4057);
   static const Color welcomeScreenBackground = Color(0xEBFFFFF3);
-  static const Color cardBackground = Color(0xFFe9f1ed);
+  static const Color cardBackground = Color(0xFFece8e5);
   // beige const Color(0xFFfadbb8);
 }
 

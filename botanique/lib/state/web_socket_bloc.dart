@@ -34,6 +34,11 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
         final secureStorageRepository = SecureStorageRepository();
         secureStorageRepository.saveData(LocalStorageKeys.jwt, event.jwt);
         jwt = event.jwt;
+
+        // Navigate to home screen
+        navigationCubit.changePage(
+            NavigationConstants.allPlants); // TODO: Change to home screen
+
         emit(event);
       },
     );

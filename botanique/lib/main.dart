@@ -49,9 +49,11 @@ void main() async {
           create: (context) => PlantRequirementsCubit(),
         ),
         BlocProvider<WebSocketBloc>(
-            create: (context) => WebSocketBloc(
-                channel: channel,
-                navigationCubit: context.read<NavigationCubit>())),
+          create: (context) => WebSocketBloc(
+            channel: channel,
+            navigationCubit: context.read<NavigationCubit>(),
+          ),
+        ),
       ],
       child: const BotaniQueApp(),
     ),
@@ -105,12 +107,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
   Widget build(BuildContext context) {
     return BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, snapshot) {
-      if (snapshot is ServerAuthenticatesUser) {
-        context.read<WebSocketBloc>().setJwt(snapshot.jwt);
-        context
-            .read<NavigationCubit>()
-            .changePage(NavigationConstants.allPlants); // TODO: Change to home
-      } else if (snapshot is InitialServerEvent) {
+      if (snapshot is InitialServerEvent) {
         context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
       }
       return MaterialApp(

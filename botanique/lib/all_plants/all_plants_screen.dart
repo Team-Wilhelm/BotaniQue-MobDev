@@ -63,10 +63,10 @@ class AllPlantsScreen extends StatelessWidget {
       return SliverAnimatedGrid(
         // TODO: maybe remove the animation, we're not really using it
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            maxCrossAxisExtent: 200,
-            childAspectRatio: 2 / 1),
+          mainAxisSpacing: 20,
+          crossAxisSpacing: 20,
+          maxCrossAxisExtent: 200,
+        ),
         itemBuilder: (context, index, animation) => FadeTransition(
           opacity: animation,
           child: PlantCard(plant: serverEvent.plants[index]),
