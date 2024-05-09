@@ -4,20 +4,16 @@ import 'dart:convert';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/repositories/secure_storage_repository.dart';
 import 'package:botanique/state/broadcast_ws_channel.dart';
-import 'package:botanique/state/navigation_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/events/server_events.dart';
-import '../util/navigation_constants.dart';
 
 class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
   final BroadcastWsChannel channel;
-  final NavigationCubit navigationCubit;
   late StreamSubscription _channelSubscription;
   String? jwt;
 
-  WebSocketBloc({required this.channel, required this.navigationCubit})
-      : super(InitialServerEvent()) {
+  WebSocketBloc({required this.channel}) : super(InitialServerEvent()) {
     // Client events
     on<ClientEvent>(_onClientEvent);
 
@@ -34,11 +30,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
         final secureStorageRepository = SecureStorageRepository();
         secureStorageRepository.saveData(LocalStorageKeys.jwt, event.jwt);
         jwt = event.jwt;
-
-        // Navigate to home screen
-        navigationCubit.changePage(
-            NavigationConstants.allPlants); // TODO: Change to home screen
-
         emit(event);
       },
     );
@@ -48,9 +39,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
         final secureStorageRepository = SecureStorageRepository();
         secureStorageRepository.deleteData(LocalStorageKeys.jwt);
         jwt = null;
-
-        // Navigate to login screen
-        navigationCubit.changePage(NavigationConstants.auth);
         emit(event);
       },
     );
@@ -85,6 +73,8 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       } else if (event is ClientWantsToDeleteCollection) {
         event = event.copyWith(jwt: jwt!);
       } else if (event is ClientWantsPlantsForCollection) {
+        event = event.copyWith(jwt: jwt!);
+      } else if (event is ClientWantsLatestConditionsForPlant) {
         event = event.copyWith(jwt: jwt!);
       }
     }

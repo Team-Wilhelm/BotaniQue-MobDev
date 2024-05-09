@@ -43,20 +43,6 @@ Map<String, dynamic> _$$ServerCreatesNewPlantImplToJson(
       'plant': instance.plant,
     };
 
-_$ServerSendsAllPlantsImpl _$$ServerSendsAllPlantsImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ServerSendsAllPlantsImpl(
-      plants: (json['plants'] as List<dynamic>)
-          .map((e) => Plant.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$ServerSendsAllPlantsImplToJson(
-        _$ServerSendsAllPlantsImpl instance) =>
-    <String, dynamic>{
-      'plants': instance.plants,
-    };
-
 _$ServerAuthenticatesUserImpl _$$ServerAuthenticatesUserImplFromJson(
         Map<String, dynamic> json) =>
     _$ServerAuthenticatesUserImpl(
@@ -76,6 +62,20 @@ _$ServerConfirmsDeleteImpl _$$ServerConfirmsDeleteImplFromJson(
 Map<String, dynamic> _$$ServerConfirmsDeleteImplToJson(
         _$ServerConfirmsDeleteImpl instance) =>
     <String, dynamic>{};
+
+_$ServerSendsLatestConditionsForPlantImpl
+    _$$ServerSendsLatestConditionsForPlantImplFromJson(
+            Map<String, dynamic> json) =>
+        _$ServerSendsLatestConditionsForPlantImpl(
+          conditionsLog: ConditionsLog.fromJson(
+              json['conditionsLog'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$$ServerSendsLatestConditionsForPlantImplToJson(
+        _$ServerSendsLatestConditionsForPlantImpl instance) =>
+    <String, dynamic>{
+      'conditionsLog': instance.conditionsLog,
+    };
 
 _$ServerSendsAllCollectionsImpl _$$ServerSendsAllCollectionsImplFromJson(
         Map<String, dynamic> json) =>

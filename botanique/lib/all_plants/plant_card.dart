@@ -1,8 +1,12 @@
 import 'package:botanique/models/models/plant.dart';
 import 'package:botanique/shared/app_text.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../models/events/client_events.dart';
+import '../style/app_style.dart';
 import 'plant_detail/plant_detail_screen.dart';
 
 class PlantCard extends StatelessWidget {
@@ -14,36 +18,11 @@ class PlantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 500),
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  PlantDetailScreen(plant: plant),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                var begin = const Offset(1.0, 0.0);
-                var end = Offset.zero;
-                var curve = Curves.ease;
-
-                var tween = Tween(begin: begin, end: end)
-                    .chain(CurveTween(curve: curve));
-
-                return SlideTransition(
-                  position: animation.drive(tween),
-                  child: AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
-                    child: child,
-                  ),
-                );
-              },
-            ));
+        context.read<WebSocketBloc>().add(ClientWantsLatestConditionsForPlant(
+            plantId: plant.plantId,
+            jwt: "jwt",
+            eventType: "ClientWantsLatestConditionsForPlant"));
+        Navigator.push(context, _getPageRouteBuilder());
       },
       child: Hero(
         tag: "plantCard${plant.plantId}",
@@ -51,14 +30,13 @@ class PlantCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
-            /*boxShadow: [
+            boxShadow: [
               BoxShadow(
                 color: TextColors.textSecondary.withOpacity(0.2),
-                blurRadius: 3,
+                blurRadius: 5,
                 offset: const Offset(3, 3),
               ),
             ],
-            */
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -112,6 +90,36 @@ class PlantCard extends StatelessWidget {
       child: plant.imageUrl != ""
           ? Image.network(plant.imageUrl)
           : Image.asset(AssetConstants.logo, fit: BoxFit.cover),
+    );
+  }
+
+  PageRouteBuilder _getPageRouteBuilder() {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          PlantDetailScreen(plant: plant),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = const Offset(1.0, 0.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            child: child,
+          ),
+        );
+      },
     );
   }
 }

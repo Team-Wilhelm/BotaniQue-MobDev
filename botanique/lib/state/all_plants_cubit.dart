@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/events/client_events.dart';
 import '../models/models/uuid.dart';
 
-class CollectionsCubit extends Cubit<CollectionsState> {
-  CollectionsCubit() : super(CollectionsState.empty());
+class AllPlantsCubit extends Cubit<AllPlantsState> {
+  AllPlantsCubit() : super(AllPlantsState.empty());
 
   void setCollections(List<GetCollectionDto> collections) {
     final collectionsWithAllOption = List<GetCollectionDto>.from(collections)
@@ -24,7 +24,7 @@ class CollectionsCubit extends Cubit<CollectionsState> {
     emit(state.copyWith(selectedCollection: collection));
   }
 
-  void getPlantsForSelectedCollection(WebSocketBloc webSocketBloc) {
+  void getPlantsForCurrentlySelectedCollection(WebSocketBloc webSocketBloc) {
     _requestPlantsFromServer(
         state.selectedCollection.collectionId, webSocketBloc);
   }
@@ -32,6 +32,22 @@ class CollectionsCubit extends Cubit<CollectionsState> {
   void setCurrentPlantList(List<Plant> plants) {
     state.copyWith(previousPlantList: state.currentPlantList);
     emit(state.copyWith(currentPlantList: plants));
+  }
+
+  Future<void> refreshData(WebSocketBloc webSocketBloc) {
+    _requestCollectionsFromServer(webSocketBloc);
+    _requestPlantsFromServer(
+        state.selectedCollection.collectionId, webSocketBloc);
+    return Future.value();
+  }
+
+  void _requestCollectionsFromServer(WebSocketBloc webSocketBloc) {
+    webSocketBloc.add(
+      const ClientWantsAllCollections(
+        jwt: "jwt",
+        eventType: "ClientWantsAllCollections",
+      ),
+    );
   }
 
   void _requestPlantsFromServer(
@@ -57,38 +73,36 @@ class CollectionsCubit extends Cubit<CollectionsState> {
   }
 }
 
-class CollectionsState {
+class AllPlantsState {
   final GetCollectionDto selectedCollection;
   final List<GetCollectionDto> collections;
-  final List<Plant> currentPlantList;
-  final List<Plant> previousPlantList;
+  final List<Plant>? currentPlantList;
 
-  CollectionsState({
+  AllPlantsState({
     required this.selectedCollection,
     required this.collections,
     required this.currentPlantList,
-    required this.previousPlantList,
   });
 
-  CollectionsState.empty()
+  AllPlantsState.empty()
       : this(
           selectedCollection: GetCollectionDto.allPlants(),
           collections: [GetCollectionDto.allPlants()],
-          currentPlantList: [],
-          previousPlantList: [],
+          currentPlantList: null,
         );
 
-  CollectionsState copyWith({
+  AllPlantsState copyWith({
     GetCollectionDto? selectedCollection,
     List<GetCollectionDto>? collections,
     List<Plant>? currentPlantList,
     List<Plant>? previousPlantList,
+    List<int>? addedPlantIndices,
+    List<int>? removedPlantIndices,
   }) {
-    return CollectionsState(
+    return AllPlantsState(
       selectedCollection: selectedCollection ?? this.selectedCollection,
       collections: collections ?? this.collections,
       currentPlantList: currentPlantList ?? this.currentPlantList,
-      previousPlantList: previousPlantList ?? this.previousPlantList,
     );
   }
 }

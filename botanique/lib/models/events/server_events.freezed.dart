@@ -473,153 +473,6 @@ abstract class _ServerCreatesNewPlant implements ServerCreatesNewPlant {
       get copyWith => throw _privateConstructorUsedError;
 }
 
-ServerSendsAllPlants _$ServerSendsAllPlantsFromJson(Map<String, dynamic> json) {
-  return _ServerSendsAllPlants.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ServerSendsAllPlants {
-  List<Plant> get plants => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ServerSendsAllPlantsCopyWith<ServerSendsAllPlants> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ServerSendsAllPlantsCopyWith<$Res> {
-  factory $ServerSendsAllPlantsCopyWith(ServerSendsAllPlants value,
-          $Res Function(ServerSendsAllPlants) then) =
-      _$ServerSendsAllPlantsCopyWithImpl<$Res, ServerSendsAllPlants>;
-  @useResult
-  $Res call({List<Plant> plants});
-}
-
-/// @nodoc
-class _$ServerSendsAllPlantsCopyWithImpl<$Res,
-        $Val extends ServerSendsAllPlants>
-    implements $ServerSendsAllPlantsCopyWith<$Res> {
-  _$ServerSendsAllPlantsCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? plants = null,
-  }) {
-    return _then(_value.copyWith(
-      plants: null == plants
-          ? _value.plants
-          : plants // ignore: cast_nullable_to_non_nullable
-              as List<Plant>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ServerSendsAllPlantsImplCopyWith<$Res>
-    implements $ServerSendsAllPlantsCopyWith<$Res> {
-  factory _$$ServerSendsAllPlantsImplCopyWith(_$ServerSendsAllPlantsImpl value,
-          $Res Function(_$ServerSendsAllPlantsImpl) then) =
-      __$$ServerSendsAllPlantsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<Plant> plants});
-}
-
-/// @nodoc
-class __$$ServerSendsAllPlantsImplCopyWithImpl<$Res>
-    extends _$ServerSendsAllPlantsCopyWithImpl<$Res, _$ServerSendsAllPlantsImpl>
-    implements _$$ServerSendsAllPlantsImplCopyWith<$Res> {
-  __$$ServerSendsAllPlantsImplCopyWithImpl(_$ServerSendsAllPlantsImpl _value,
-      $Res Function(_$ServerSendsAllPlantsImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? plants = null,
-  }) {
-    return _then(_$ServerSendsAllPlantsImpl(
-      plants: null == plants
-          ? _value._plants
-          : plants // ignore: cast_nullable_to_non_nullable
-              as List<Plant>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ServerSendsAllPlantsImpl implements _ServerSendsAllPlants {
-  const _$ServerSendsAllPlantsImpl({required final List<Plant> plants})
-      : _plants = plants;
-
-  factory _$ServerSendsAllPlantsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ServerSendsAllPlantsImplFromJson(json);
-
-  final List<Plant> _plants;
-  @override
-  List<Plant> get plants {
-    if (_plants is EqualUnmodifiableListView) return _plants;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_plants);
-  }
-
-  @override
-  String toString() {
-    return 'ServerSendsAllPlants(plants: $plants)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ServerSendsAllPlantsImpl &&
-            const DeepCollectionEquality().equals(other._plants, _plants));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_plants));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ServerSendsAllPlantsImplCopyWith<_$ServerSendsAllPlantsImpl>
-      get copyWith =>
-          __$$ServerSendsAllPlantsImplCopyWithImpl<_$ServerSendsAllPlantsImpl>(
-              this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ServerSendsAllPlantsImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ServerSendsAllPlants implements ServerSendsAllPlants {
-  const factory _ServerSendsAllPlants({required final List<Plant> plants}) =
-      _$ServerSendsAllPlantsImpl;
-
-  factory _ServerSendsAllPlants.fromJson(Map<String, dynamic> json) =
-      _$ServerSendsAllPlantsImpl.fromJson;
-
-  @override
-  List<Plant> get plants;
-  @override
-  @JsonKey(ignore: true)
-  _$$ServerSendsAllPlantsImplCopyWith<_$ServerSendsAllPlantsImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 ServerAuthenticatesUser _$ServerAuthenticatesUserFromJson(
     Map<String, dynamic> json) {
   return _ServerAuthenticatesUser.fromJson(json);
@@ -844,6 +697,174 @@ abstract class _ServerConfirmsDelete implements ServerConfirmsDelete {
 
   factory _ServerConfirmsDelete.fromJson(Map<String, dynamic> json) =
       _$ServerConfirmsDeleteImpl.fromJson;
+}
+
+ServerSendsLatestConditionsForPlant
+    _$ServerSendsLatestConditionsForPlantFromJson(Map<String, dynamic> json) {
+  return _ServerSendsLatestConditionsForPlant.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ServerSendsLatestConditionsForPlant {
+  ConditionsLog get conditionsLog => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ServerSendsLatestConditionsForPlantCopyWith<
+          ServerSendsLatestConditionsForPlant>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ServerSendsLatestConditionsForPlantCopyWith<$Res> {
+  factory $ServerSendsLatestConditionsForPlantCopyWith(
+          ServerSendsLatestConditionsForPlant value,
+          $Res Function(ServerSendsLatestConditionsForPlant) then) =
+      _$ServerSendsLatestConditionsForPlantCopyWithImpl<$Res,
+          ServerSendsLatestConditionsForPlant>;
+  @useResult
+  $Res call({ConditionsLog conditionsLog});
+
+  $ConditionsLogCopyWith<$Res> get conditionsLog;
+}
+
+/// @nodoc
+class _$ServerSendsLatestConditionsForPlantCopyWithImpl<$Res,
+        $Val extends ServerSendsLatestConditionsForPlant>
+    implements $ServerSendsLatestConditionsForPlantCopyWith<$Res> {
+  _$ServerSendsLatestConditionsForPlantCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? conditionsLog = null,
+  }) {
+    return _then(_value.copyWith(
+      conditionsLog: null == conditionsLog
+          ? _value.conditionsLog
+          : conditionsLog // ignore: cast_nullable_to_non_nullable
+              as ConditionsLog,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ConditionsLogCopyWith<$Res> get conditionsLog {
+    return $ConditionsLogCopyWith<$Res>(_value.conditionsLog, (value) {
+      return _then(_value.copyWith(conditionsLog: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ServerSendsLatestConditionsForPlantImplCopyWith<$Res>
+    implements $ServerSendsLatestConditionsForPlantCopyWith<$Res> {
+  factory _$$ServerSendsLatestConditionsForPlantImplCopyWith(
+          _$ServerSendsLatestConditionsForPlantImpl value,
+          $Res Function(_$ServerSendsLatestConditionsForPlantImpl) then) =
+      __$$ServerSendsLatestConditionsForPlantImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ConditionsLog conditionsLog});
+
+  @override
+  $ConditionsLogCopyWith<$Res> get conditionsLog;
+}
+
+/// @nodoc
+class __$$ServerSendsLatestConditionsForPlantImplCopyWithImpl<$Res>
+    extends _$ServerSendsLatestConditionsForPlantCopyWithImpl<$Res,
+        _$ServerSendsLatestConditionsForPlantImpl>
+    implements _$$ServerSendsLatestConditionsForPlantImplCopyWith<$Res> {
+  __$$ServerSendsLatestConditionsForPlantImplCopyWithImpl(
+      _$ServerSendsLatestConditionsForPlantImpl _value,
+      $Res Function(_$ServerSendsLatestConditionsForPlantImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? conditionsLog = null,
+  }) {
+    return _then(_$ServerSendsLatestConditionsForPlantImpl(
+      conditionsLog: null == conditionsLog
+          ? _value.conditionsLog
+          : conditionsLog // ignore: cast_nullable_to_non_nullable
+              as ConditionsLog,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ServerSendsLatestConditionsForPlantImpl
+    implements _ServerSendsLatestConditionsForPlant {
+  const _$ServerSendsLatestConditionsForPlantImpl(
+      {required this.conditionsLog});
+
+  factory _$ServerSendsLatestConditionsForPlantImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ServerSendsLatestConditionsForPlantImplFromJson(json);
+
+  @override
+  final ConditionsLog conditionsLog;
+
+  @override
+  String toString() {
+    return 'ServerSendsLatestConditionsForPlant(conditionsLog: $conditionsLog)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ServerSendsLatestConditionsForPlantImpl &&
+            (identical(other.conditionsLog, conditionsLog) ||
+                other.conditionsLog == conditionsLog));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, conditionsLog);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ServerSendsLatestConditionsForPlantImplCopyWith<
+          _$ServerSendsLatestConditionsForPlantImpl>
+      get copyWith => __$$ServerSendsLatestConditionsForPlantImplCopyWithImpl<
+          _$ServerSendsLatestConditionsForPlantImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ServerSendsLatestConditionsForPlantImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ServerSendsLatestConditionsForPlant
+    implements ServerSendsLatestConditionsForPlant {
+  const factory _ServerSendsLatestConditionsForPlant(
+          {required final ConditionsLog conditionsLog}) =
+      _$ServerSendsLatestConditionsForPlantImpl;
+
+  factory _ServerSendsLatestConditionsForPlant.fromJson(
+          Map<String, dynamic> json) =
+      _$ServerSendsLatestConditionsForPlantImpl.fromJson;
+
+  @override
+  ConditionsLog get conditionsLog;
+  @override
+  @JsonKey(ignore: true)
+  _$$ServerSendsLatestConditionsForPlantImplCopyWith<
+          _$ServerSendsLatestConditionsForPlantImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 ServerSendsAllCollections _$ServerSendsAllCollectionsFromJson(

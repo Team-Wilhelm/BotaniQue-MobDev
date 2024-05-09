@@ -1681,6 +1681,195 @@ abstract class _ClientWantsToCreatePlant implements ClientWantsToCreatePlant {
       get copyWith => throw _privateConstructorUsedError;
 }
 
+ClientWantsLatestConditionsForPlant
+    _$ClientWantsLatestConditionsForPlantFromJson(Map<String, dynamic> json) {
+  return _ClientWantsLatestConditionsForPlant.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClientWantsLatestConditionsForPlant {
+  String get jwt => throw _privateConstructorUsedError;
+  String get eventType => throw _privateConstructorUsedError;
+  String get plantId => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ClientWantsLatestConditionsForPlantCopyWith<
+          ClientWantsLatestConditionsForPlant>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClientWantsLatestConditionsForPlantCopyWith<$Res> {
+  factory $ClientWantsLatestConditionsForPlantCopyWith(
+          ClientWantsLatestConditionsForPlant value,
+          $Res Function(ClientWantsLatestConditionsForPlant) then) =
+      _$ClientWantsLatestConditionsForPlantCopyWithImpl<$Res,
+          ClientWantsLatestConditionsForPlant>;
+  @useResult
+  $Res call({String jwt, String eventType, String plantId});
+}
+
+/// @nodoc
+class _$ClientWantsLatestConditionsForPlantCopyWithImpl<$Res,
+        $Val extends ClientWantsLatestConditionsForPlant>
+    implements $ClientWantsLatestConditionsForPlantCopyWith<$Res> {
+  _$ClientWantsLatestConditionsForPlantCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? plantId = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      plantId: null == plantId
+          ? _value.plantId
+          : plantId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ClientWantsLatestConditionsForPlantImplCopyWith<$Res>
+    implements $ClientWantsLatestConditionsForPlantCopyWith<$Res> {
+  factory _$$ClientWantsLatestConditionsForPlantImplCopyWith(
+          _$ClientWantsLatestConditionsForPlantImpl value,
+          $Res Function(_$ClientWantsLatestConditionsForPlantImpl) then) =
+      __$$ClientWantsLatestConditionsForPlantImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt, String eventType, String plantId});
+}
+
+/// @nodoc
+class __$$ClientWantsLatestConditionsForPlantImplCopyWithImpl<$Res>
+    extends _$ClientWantsLatestConditionsForPlantCopyWithImpl<$Res,
+        _$ClientWantsLatestConditionsForPlantImpl>
+    implements _$$ClientWantsLatestConditionsForPlantImplCopyWith<$Res> {
+  __$$ClientWantsLatestConditionsForPlantImplCopyWithImpl(
+      _$ClientWantsLatestConditionsForPlantImpl _value,
+      $Res Function(_$ClientWantsLatestConditionsForPlantImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? eventType = null,
+    Object? plantId = null,
+  }) {
+    return _then(_$ClientWantsLatestConditionsForPlantImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      eventType: null == eventType
+          ? _value.eventType
+          : eventType // ignore: cast_nullable_to_non_nullable
+              as String,
+      plantId: null == plantId
+          ? _value.plantId
+          : plantId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClientWantsLatestConditionsForPlantImpl
+    implements _ClientWantsLatestConditionsForPlant {
+  const _$ClientWantsLatestConditionsForPlantImpl(
+      {required this.jwt, required this.eventType, required this.plantId});
+
+  factory _$ClientWantsLatestConditionsForPlantImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ClientWantsLatestConditionsForPlantImplFromJson(json);
+
+  @override
+  final String jwt;
+  @override
+  final String eventType;
+  @override
+  final String plantId;
+
+  @override
+  String toString() {
+    return 'ClientWantsLatestConditionsForPlant(jwt: $jwt, eventType: $eventType, plantId: $plantId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClientWantsLatestConditionsForPlantImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.eventType, eventType) ||
+                other.eventType == eventType) &&
+            (identical(other.plantId, plantId) || other.plantId == plantId));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, jwt, eventType, plantId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClientWantsLatestConditionsForPlantImplCopyWith<
+          _$ClientWantsLatestConditionsForPlantImpl>
+      get copyWith => __$$ClientWantsLatestConditionsForPlantImplCopyWithImpl<
+          _$ClientWantsLatestConditionsForPlantImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClientWantsLatestConditionsForPlantImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClientWantsLatestConditionsForPlant
+    implements ClientWantsLatestConditionsForPlant {
+  const factory _ClientWantsLatestConditionsForPlant(
+          {required final String jwt,
+          required final String eventType,
+          required final String plantId}) =
+      _$ClientWantsLatestConditionsForPlantImpl;
+
+  factory _ClientWantsLatestConditionsForPlant.fromJson(
+          Map<String, dynamic> json) =
+      _$ClientWantsLatestConditionsForPlantImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get eventType;
+  @override
+  String get plantId;
+  @override
+  @JsonKey(ignore: true)
+  _$$ClientWantsLatestConditionsForPlantImplCopyWith<
+          _$ClientWantsLatestConditionsForPlantImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 ClientWantsAllCollections _$ClientWantsAllCollectionsFromJson(
     Map<String, dynamic> json) {
   return _ClientWantsAllCollections.fromJson(json);

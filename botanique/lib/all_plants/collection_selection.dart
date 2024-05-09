@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/app_button.dart';
-import '../state/collections_cubit.dart';
+import '../state/all_plants_cubit.dart';
 
 class CollectionSelection extends StatelessWidget {
   const CollectionSelection({
@@ -13,7 +13,7 @@ class CollectionSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CollectionsCubit, CollectionsState>(
+    return BlocBuilder<AllPlantsCubit, AllPlantsState>(
       builder: (context, snapshot) {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -43,6 +43,6 @@ class CollectionSelection extends StatelessWidget {
 
   void _selectCollection(BuildContext context, GetCollectionDto collection) {
     final webSocketBloc = context.read<WebSocketBloc>();
-    context.read<CollectionsCubit>().selectCollection(collection, webSocketBloc);
+    context.read<AllPlantsCubit>().selectCollection(collection, webSocketBloc);
   }
 }

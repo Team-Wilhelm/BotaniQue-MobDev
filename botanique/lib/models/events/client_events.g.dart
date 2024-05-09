@@ -151,6 +151,23 @@ Map<String, dynamic> _$$ClientWantsToCreatePlantImplToJson(
       'eventType': instance.eventType,
     };
 
+_$ClientWantsLatestConditionsForPlantImpl
+    _$$ClientWantsLatestConditionsForPlantImplFromJson(
+            Map<String, dynamic> json) =>
+        _$ClientWantsLatestConditionsForPlantImpl(
+          jwt: json['jwt'] as String,
+          eventType: json['eventType'] as String,
+          plantId: json['plantId'] as String,
+        );
+
+Map<String, dynamic> _$$ClientWantsLatestConditionsForPlantImplToJson(
+        _$ClientWantsLatestConditionsForPlantImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'eventType': instance.eventType,
+      'plantId': instance.plantId,
+    };
+
 _$ClientWantsAllCollectionsImpl _$$ClientWantsAllCollectionsImplFromJson(
         Map<String, dynamic> json) =>
     _$ClientWantsAllCollectionsImpl(

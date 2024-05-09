@@ -1,4 +1,5 @@
 import 'package:botanique/models/events/client_events.dart';
+import 'package:botanique/models/models/conditions.dart';
 import 'package:botanique/models/models/plant.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -34,7 +35,7 @@ class ServerEvent extends BaseEvent {
         ServerSendsImageWithoutBackground.fromJson(json),
       ServerSendsPlant.name => ServerSendsPlant.fromJson(json),
       ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
-      ServerSendsAllPlants.name => ServerSendsAllPlants.fromJson(json),
+
       ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
       ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
 
@@ -101,17 +102,6 @@ class ServerCreatesNewPlant extends ServerEvent with _$ServerCreatesNewPlant {
 }
 
 @freezed
-class ServerSendsAllPlants extends ServerEvent with _$ServerSendsAllPlants {
-  static const String name = "ServerSendsAllPlants";
-  const factory ServerSendsAllPlants({
-    required List<Plant> plants,
-  }) = _ServerSendsAllPlants;
-
-  factory ServerSendsAllPlants.fromJson(Map<String, dynamic> json) =>
-      _$ServerSendsAllPlantsFromJson(json);
-}
-
-@freezed
 class ServerAuthenticatesUser extends ServerEvent
     with _$ServerAuthenticatesUser {
   static const String name = "ServerAuthenticatesUser";
@@ -132,6 +122,20 @@ class ServerConfirmsDelete extends ServerEvent with _$ServerConfirmsDelete {
 
   factory ServerConfirmsDelete.fromJson(Map<String, dynamic> json) =>
       _$ServerConfirmsDeleteFromJson(json);
+}
+
+@freezed
+class ServerSendsLatestConditionsForPlant extends ServerEvent
+    with _$ServerSendsLatestConditionsForPlant {
+  static const String name = "ServerSendsLatestConditionsForPlants";
+
+  const factory ServerSendsLatestConditionsForPlant({
+    required ConditionsLog conditionsLog,
+  }) = _ServerSendsLatestConditionsForPlant;
+
+  factory ServerSendsLatestConditionsForPlant.fromJson(
+          Map<String, dynamic> json) =>
+      _$ServerSendsLatestConditionsForPlantFromJson(json);
 }
 
 /*

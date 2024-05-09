@@ -151,6 +151,23 @@ class ClientWantsToCreatePlant extends ClientEvent
 }
 
 @freezed
+class ClientWantsLatestConditionsForPlant extends ClientEvent
+    with _$ClientWantsLatestConditionsForPlant {
+  const factory ClientWantsLatestConditionsForPlant({
+    required String jwt,
+    required String eventType,
+    required Uuid plantId,
+  }) = _ClientWantsLatestConditionsForPlant;
+
+  factory ClientWantsLatestConditionsForPlant.fromJson(
+          Map<String, dynamic> json) =>
+      _$ClientWantsLatestConditionsForPlantFromJson(json);
+}
+
+/*
+  * Collections
+ */
+@freezed
 class ClientWantsAllCollections extends ClientEvent
     with _$ClientWantsAllCollections {
   const factory ClientWantsAllCollections({

@@ -6,7 +6,7 @@ import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/broadcast_ws_channel.dart';
-import 'package:botanique/state/collections_cubit.dart';
+import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
@@ -34,8 +34,8 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<CollectionsCubit>(
-          create: (context) => CollectionsCubit(),
+        BlocProvider<AllPlantsCubit>(
+          create: (context) => AllPlantsCubit(),
         ),
         BlocProvider<NavigationCubit>(
           create: (context) => NavigationCubit(),
@@ -47,10 +47,7 @@ void main() async {
           create: (context) => PlantRequirementsCubit(),
         ),
         BlocProvider<WebSocketBloc>(
-          create: (context) => WebSocketBloc(
-            channel: channel,
-            navigationCubit: context.read<NavigationCubit>(),
-          ),
+          create: (context) => WebSocketBloc(channel: channel),
         ),
       ],
       child: const BotaniQueApp(),
@@ -103,11 +100,10 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WebSocketBloc, ServerEvent>(
-        builder: (context, snapshot) {
-      if (snapshot is InitialServerEvent) {
-        context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
-      }
+    return BlocConsumer<WebSocketBloc, ServerEvent>(
+        listener: (context, serverEvent) {
+      _handleGlobalEvents(serverEvent);
+    }, builder: (context, snapshot) {
       return MaterialApp(
         title: 'BotaniQue',
         debugShowCheckedModeBanner: false,
@@ -133,5 +129,23 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
         ),
       );
     });
+  }
+
+  void _handleGlobalEvents(ServerEvent serverEvent) {
+    if (serverEvent is InitialServerEvent) {
+      context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
+    } else if (serverEvent is ServerAuthenticatesUser) {
+      context.read<NavigationCubit>().changePage(
+          NavigationConstants.allPlants); // TODO: Change to home screen
+    } else if (serverEvent is ServerRespondsNotAuthenticated) {
+      context.read<NavigationCubit>().changePage(NavigationConstants.auth);
+    } else if (serverEvent is ServerSendsAllCollections) {
+      final collectionsCubit = context.read<AllPlantsCubit>();
+      collectionsCubit.setCollections(serverEvent.collections);
+      collectionsCubit.getPlantsForCurrentlySelectedCollection(
+          context.read<WebSocketBloc>());
+    } else if (serverEvent is ServerSendsPlantsForCollection) {
+      context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
+    }
   }
 }

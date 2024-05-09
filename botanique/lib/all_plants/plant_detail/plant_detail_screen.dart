@@ -1,9 +1,13 @@
 import 'package:botanique/shared/app_image_preview.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
+import 'package:botanique/state/all_plants_cubit.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/events/server_events.dart';
 import '../../models/models/plant.dart';
 import '../../shared/top_bar.dart';
 
@@ -18,14 +22,20 @@ class PlantDetailScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const TopBar(
-            title: 'Plant Name',
+          TopBar(
+            title: plant.nickname,
+            onBack: () {
+              context
+                  .read<AllPlantsCubit>()
+                  .getPlantsForCurrentlySelectedCollection(
+                      context.read<WebSocketBloc>());
+            },
           ),
           const SizedBox(height: 16),
           Hero(
             tag: "plantCard${plant.plantId}",
-            child: const AppImagePreview(
-              imageUrl: NetworkConstants.plantPlaceholder,
+            child: AppImagePreview(
+              imageUrl: plant.imageUrl,
             ),
           ),
           const SizedBox(height: 16),
@@ -35,25 +45,42 @@ class PlantDetailScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: Theme.of(context).colorScheme.surface,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    getStatGridTile(PlantDetailStat.soilMoisture),
-                    getStatGridTile(PlantDetailStat.light),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    getStatGridTile(PlantDetailStat.temperature),
-                    getStatGridTile(PlantDetailStat.humidity),
-                  ],
-                )
-              ],
+            child: BlocBuilder<WebSocketBloc, ServerEvent>(
+              builder: (context, serverEvent) {
+                if (serverEvent is ServerSendsLatestConditionsForPlant) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          getStatGridTile(
+                              PlantDetailStat.soilMoisture, serverEvent),
+                          const SizedBox(height: 16),
+                          getStatGridTile(PlantDetailStat.light, serverEvent),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          getStatGridTile(
+                              PlantDetailStat.temperature, serverEvent),
+                          const SizedBox(height: 16),
+                          getStatGridTile(
+                              PlantDetailStat.humidity, serverEvent),
+                        ],
+                      )
+                    ],
+                  );
+                } else if (serverEvent is ServerRespondsNotFound) {
+                  return const AppText(
+                    text: "This plant does not have any data yet. Check back later."
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
             ),
           ),
         ],
@@ -74,7 +101,8 @@ class PlantDetailScreen extends StatelessWidget {
     }
   }
 
-  Widget getStatGridTile(PlantDetailStat stat) {
+  Widget getStatGridTile(
+      PlantDetailStat stat, ServerSendsLatestConditionsForPlant event) {
     final titleAndIcon = getTitleAndIcon(stat);
     return Container(
       padding: const EdgeInsets.all(4),
@@ -93,8 +121,8 @@ class PlantDetailScreen extends StatelessWidget {
                 text: titleAndIcon[0],
                 fontWeight: FontWeight.bold,
               ),
-              const AppText(
-                text: "10%",
+              AppText(
+                text: event.conditionsLog.soilMoisture.toString(),
               ),
             ],
           ),

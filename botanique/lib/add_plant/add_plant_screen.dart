@@ -68,7 +68,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           } else if (state is ServerSendsErrorMessage) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.error!),
+                content: Text(state.error),
                 backgroundColor: Colors.red,
               ),
             );
