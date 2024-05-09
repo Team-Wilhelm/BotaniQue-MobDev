@@ -9,7 +9,7 @@ class ConditionsLog with _$ConditionsLog {
   factory ConditionsLog({
     required Uuid conditionsId,
     required Uuid plantId,
-    required DateTime timestamp,
+    required DateTime timeStamp,
     required int mood,
     required double soilMoisture,
     required double light,

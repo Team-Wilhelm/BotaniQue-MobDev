@@ -9,7 +9,7 @@ part 'server_events.freezed.dart';
 part 'server_events.g.dart';
 
 class ServerEventHelper {
-  bool isErrorMessage(ServerEvent event) {
+  static bool isErrorMessage(ServerEvent event) {
     return event is ServerSendsErrorMessage ||
         event is ServerRespondsNotAuthenticated ||
         event is ServerRespondsNotAuthorized ||
@@ -35,7 +35,6 @@ class ServerEvent extends BaseEvent {
         ServerSendsImageWithoutBackground.fromJson(json),
       ServerSendsPlant.name => ServerSendsPlant.fromJson(json),
       ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
-
       ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
       ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
 
@@ -46,6 +45,10 @@ class ServerEvent extends BaseEvent {
         ServerSendsPlantsForCollection.fromJson(json),
       ServerSavesCollection.name => ServerSavesCollection.fromJson(json),
       ServerDeletesCollection.name => ServerDeletesCollection.fromJson(json),
+
+      // Conditions
+      ServerSendsLatestConditionsForPlant.name =>
+        ServerSendsLatestConditionsForPlant.fromJson(json),
 
       // Errors
       ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
@@ -127,7 +130,7 @@ class ServerConfirmsDelete extends ServerEvent with _$ServerConfirmsDelete {
 @freezed
 class ServerSendsLatestConditionsForPlant extends ServerEvent
     with _$ServerSendsLatestConditionsForPlant {
-  static const String name = "ServerSendsLatestConditionsForPlants";
+  static const String name = "ServerSendsLatestConditionsForPlant";
 
   const factory ServerSendsLatestConditionsForPlant({
     required ConditionsLog conditionsLog,

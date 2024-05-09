@@ -75,7 +75,9 @@ class PlantDetailScreen extends StatelessWidget {
                   );
                 } else if (serverEvent is ServerRespondsNotFound) {
                   return const AppText(
-                    text: "This plant does not have any data yet. Check back later."
+                    text:
+                        "This plant does not have any data yet. \nCheck back later.",
+                    textAlign: TextAlign.center,
                   );
                 } else {
                   return const Center(child: CircularProgressIndicator());

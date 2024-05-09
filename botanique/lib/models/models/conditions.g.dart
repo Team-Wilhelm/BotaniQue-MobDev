@@ -10,7 +10,7 @@ _$ConditionsLogImpl _$$ConditionsLogImplFromJson(Map<String, dynamic> json) =>
     _$ConditionsLogImpl(
       conditionsId: json['conditionsId'] as String,
       plantId: json['plantId'] as String,
-      timestamp: DateTime.parse(json['timestamp'] as String),
+      timeStamp: DateTime.parse(json['timeStamp'] as String),
       mood: (json['mood'] as num).toInt(),
       soilMoisture: (json['soilMoisture'] as num).toDouble(),
       light: (json['light'] as num).toDouble(),
@@ -22,7 +22,7 @@ Map<String, dynamic> _$$ConditionsLogImplToJson(_$ConditionsLogImpl instance) =>
     <String, dynamic>{
       'conditionsId': instance.conditionsId,
       'plantId': instance.plantId,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'timeStamp': instance.timeStamp.toIso8601String(),
       'mood': instance.mood,
       'soilMoisture': instance.soilMoisture,
       'light': instance.light,

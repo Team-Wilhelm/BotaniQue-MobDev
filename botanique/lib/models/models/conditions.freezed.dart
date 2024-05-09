@@ -22,7 +22,7 @@ ConditionsLog _$ConditionsLogFromJson(Map<String, dynamic> json) {
 mixin _$ConditionsLog {
   String get conditionsId => throw _privateConstructorUsedError;
   String get plantId => throw _privateConstructorUsedError;
-  DateTime get timestamp => throw _privateConstructorUsedError;
+  DateTime get timeStamp => throw _privateConstructorUsedError;
   int get mood => throw _privateConstructorUsedError;
   double get soilMoisture => throw _privateConstructorUsedError;
   double get light => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $ConditionsLogCopyWith<$Res> {
   $Res call(
       {String conditionsId,
       String plantId,
-      DateTime timestamp,
+      DateTime timeStamp,
       int mood,
       double soilMoisture,
       double light,
@@ -67,7 +67,7 @@ class _$ConditionsLogCopyWithImpl<$Res, $Val extends ConditionsLog>
   $Res call({
     Object? conditionsId = null,
     Object? plantId = null,
-    Object? timestamp = null,
+    Object? timeStamp = null,
     Object? mood = null,
     Object? soilMoisture = null,
     Object? light = null,
@@ -83,9 +83,9 @@ class _$ConditionsLogCopyWithImpl<$Res, $Val extends ConditionsLog>
           ? _value.plantId
           : plantId // ignore: cast_nullable_to_non_nullable
               as String,
-      timestamp: null == timestamp
-          ? _value.timestamp
-          : timestamp // ignore: cast_nullable_to_non_nullable
+      timeStamp: null == timeStamp
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
       mood: null == mood
           ? _value.mood
@@ -122,7 +122,7 @@ abstract class _$$ConditionsLogImplCopyWith<$Res>
   $Res call(
       {String conditionsId,
       String plantId,
-      DateTime timestamp,
+      DateTime timeStamp,
       int mood,
       double soilMoisture,
       double light,
@@ -143,7 +143,7 @@ class __$$ConditionsLogImplCopyWithImpl<$Res>
   $Res call({
     Object? conditionsId = null,
     Object? plantId = null,
-    Object? timestamp = null,
+    Object? timeStamp = null,
     Object? mood = null,
     Object? soilMoisture = null,
     Object? light = null,
@@ -159,9 +159,9 @@ class __$$ConditionsLogImplCopyWithImpl<$Res>
           ? _value.plantId
           : plantId // ignore: cast_nullable_to_non_nullable
               as String,
-      timestamp: null == timestamp
-          ? _value.timestamp
-          : timestamp // ignore: cast_nullable_to_non_nullable
+      timeStamp: null == timeStamp
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
       mood: null == mood
           ? _value.mood
@@ -193,7 +193,7 @@ class _$ConditionsLogImpl implements _ConditionsLog {
   _$ConditionsLogImpl(
       {required this.conditionsId,
       required this.plantId,
-      required this.timestamp,
+      required this.timeStamp,
       required this.mood,
       required this.soilMoisture,
       required this.light,
@@ -208,7 +208,7 @@ class _$ConditionsLogImpl implements _ConditionsLog {
   @override
   final String plantId;
   @override
-  final DateTime timestamp;
+  final DateTime timeStamp;
   @override
   final int mood;
   @override
@@ -222,7 +222,7 @@ class _$ConditionsLogImpl implements _ConditionsLog {
 
   @override
   String toString() {
-    return 'ConditionsLog(conditionsId: $conditionsId, plantId: $plantId, timestamp: $timestamp, mood: $mood, soilMoisture: $soilMoisture, light: $light, temperature: $temperature, humidity: $humidity)';
+    return 'ConditionsLog(conditionsId: $conditionsId, plantId: $plantId, timeStamp: $timeStamp, mood: $mood, soilMoisture: $soilMoisture, light: $light, temperature: $temperature, humidity: $humidity)';
   }
 
   @override
@@ -233,8 +233,8 @@ class _$ConditionsLogImpl implements _ConditionsLog {
             (identical(other.conditionsId, conditionsId) ||
                 other.conditionsId == conditionsId) &&
             (identical(other.plantId, plantId) || other.plantId == plantId) &&
-            (identical(other.timestamp, timestamp) ||
-                other.timestamp == timestamp) &&
+            (identical(other.timeStamp, timeStamp) ||
+                other.timeStamp == timeStamp) &&
             (identical(other.mood, mood) || other.mood == mood) &&
             (identical(other.soilMoisture, soilMoisture) ||
                 other.soilMoisture == soilMoisture) &&
@@ -247,7 +247,7 @@ class _$ConditionsLogImpl implements _ConditionsLog {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, conditionsId, plantId, timestamp,
+  int get hashCode => Object.hash(runtimeType, conditionsId, plantId, timeStamp,
       mood, soilMoisture, light, temperature, humidity);
 
   @JsonKey(ignore: true)
@@ -268,7 +268,7 @@ abstract class _ConditionsLog implements ConditionsLog {
   factory _ConditionsLog(
       {required final String conditionsId,
       required final String plantId,
-      required final DateTime timestamp,
+      required final DateTime timeStamp,
       required final int mood,
       required final double soilMoisture,
       required final double light,
@@ -283,7 +283,7 @@ abstract class _ConditionsLog implements ConditionsLog {
   @override
   String get plantId;
   @override
-  DateTime get timestamp;
+  DateTime get timeStamp;
   @override
   int get mood;
   @override
