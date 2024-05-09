@@ -6,8 +6,7 @@ part 'user_dto.g.dart';
 @freezed
 class UpdateUserDto with _$UpdateUserDto {
   factory UpdateUserDto(
-      {required String userEmail,
-        String? username,
+      {String? username,
       String? password,
       String? base64Image}) = _UpdateUserDto;
   factory UpdateUserDto.fromJson(Map<String, dynamic> json) =>
