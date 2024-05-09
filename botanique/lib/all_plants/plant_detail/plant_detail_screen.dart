@@ -1,9 +1,9 @@
+import 'package:botanique/all_plants/plant_conditions_container.dart';
 import 'package:botanique/shared/app_image_preview.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
-import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,31 +48,7 @@ class PlantDetailScreen extends StatelessWidget {
             child: BlocBuilder<WebSocketBloc, ServerEvent>(
               builder: (context, serverEvent) {
                 if (serverEvent is ServerSendsLatestConditionsForPlant) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          getStatGridTile(
-                              PlantDetailStat.soilMoisture, serverEvent),
-                          const SizedBox(height: 16),
-                          getStatGridTile(PlantDetailStat.light, serverEvent),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          getStatGridTile(
-                              PlantDetailStat.temperature, serverEvent),
-                          const SizedBox(height: 16),
-                          getStatGridTile(
-                              PlantDetailStat.humidity, serverEvent),
-                        ],
-                      )
-                    ],
-                  );
+                  return PlantConditionsContainer(conditionsLog: serverEvent.conditionsLog);
                 } else if (serverEvent is ServerRespondsNotFound) {
                   return const AppText(
                     text:
@@ -84,49 +60,6 @@ class PlantDetailScreen extends StatelessWidget {
                 }
               },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  List<String> getTitleAndIcon(PlantDetailStat stat) {
-    switch (stat) {
-      case PlantDetailStat.soilMoisture:
-        return ["Soil Moisture", AssetConstants.soilMoisture];
-      case PlantDetailStat.temperature:
-        return ["Temperature", AssetConstants.temperature];
-      case PlantDetailStat.light:
-        return ["Light Exposure", AssetConstants.light];
-      case PlantDetailStat.humidity:
-        return ["Humidity", AssetConstants.humidity];
-    }
-  }
-
-  Widget getStatGridTile(
-      PlantDetailStat stat, ServerSendsLatestConditionsForPlant event) {
-    final titleAndIcon = getTitleAndIcon(stat);
-    return Container(
-      padding: const EdgeInsets.all(4),
-      child: Row(
-        children: [
-          Image.asset(
-            titleAndIcon[1],
-            width: 25,
-            height: 25,
-          ),
-          const SizedBox(width: 4),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                text: titleAndIcon[0],
-                fontWeight: FontWeight.bold,
-              ),
-              AppText(
-                text: event.conditionsLog.soilMoisture.toString(),
-              ),
-            ],
           ),
         ],
       ),
