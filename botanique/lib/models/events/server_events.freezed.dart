@@ -853,7 +853,7 @@ ServerSendsAllCollections _$ServerSendsAllCollectionsFromJson(
 
 /// @nodoc
 mixin _$ServerSendsAllCollections {
-  List<Collection> get collections => throw _privateConstructorUsedError;
+  List<GetCollectionDto> get collections => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -867,7 +867,7 @@ abstract class $ServerSendsAllCollectionsCopyWith<$Res> {
           $Res Function(ServerSendsAllCollections) then) =
       _$ServerSendsAllCollectionsCopyWithImpl<$Res, ServerSendsAllCollections>;
   @useResult
-  $Res call({List<Collection> collections});
+  $Res call({List<GetCollectionDto> collections});
 }
 
 /// @nodoc
@@ -890,7 +890,7 @@ class _$ServerSendsAllCollectionsCopyWithImpl<$Res,
       collections: null == collections
           ? _value.collections
           : collections // ignore: cast_nullable_to_non_nullable
-              as List<Collection>,
+              as List<GetCollectionDto>,
     ) as $Val);
   }
 }
@@ -904,7 +904,7 @@ abstract class _$$ServerSendsAllCollectionsImplCopyWith<$Res>
       __$$ServerSendsAllCollectionsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Collection> collections});
+  $Res call({List<GetCollectionDto> collections});
 }
 
 /// @nodoc
@@ -926,7 +926,7 @@ class __$$ServerSendsAllCollectionsImplCopyWithImpl<$Res>
       collections: null == collections
           ? _value._collections
           : collections // ignore: cast_nullable_to_non_nullable
-              as List<Collection>,
+              as List<GetCollectionDto>,
     ));
   }
 }
@@ -935,15 +935,15 @@ class __$$ServerSendsAllCollectionsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ServerSendsAllCollectionsImpl implements _ServerSendsAllCollections {
   const _$ServerSendsAllCollectionsImpl(
-      {required final List<Collection> collections})
+      {required final List<GetCollectionDto> collections})
       : _collections = collections;
 
   factory _$ServerSendsAllCollectionsImpl.fromJson(Map<String, dynamic> json) =>
       _$$ServerSendsAllCollectionsImplFromJson(json);
 
-  final List<Collection> _collections;
+  final List<GetCollectionDto> _collections;
   @override
-  List<Collection> get collections {
+  List<GetCollectionDto> get collections {
     if (_collections is EqualUnmodifiableListView) return _collections;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_collections);
@@ -985,14 +985,14 @@ class _$ServerSendsAllCollectionsImpl implements _ServerSendsAllCollections {
 
 abstract class _ServerSendsAllCollections implements ServerSendsAllCollections {
   const factory _ServerSendsAllCollections(
-          {required final List<Collection> collections}) =
+          {required final List<GetCollectionDto> collections}) =
       _$ServerSendsAllCollectionsImpl;
 
   factory _ServerSendsAllCollections.fromJson(Map<String, dynamic> json) =
       _$ServerSendsAllCollectionsImpl.fromJson;
 
   @override
-  List<Collection> get collections;
+  List<GetCollectionDto> get collections;
   @override
   @JsonKey(ignore: true)
   _$$ServerSendsAllCollectionsImplCopyWith<_$ServerSendsAllCollectionsImpl>

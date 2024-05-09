@@ -17,13 +17,6 @@ class Collection with _$Collection {
 
   factory Collection.fromJson(Map<String, dynamic> json) =>
       _$CollectionFromJson(json);
-
-  factory Collection.allPlants() => const Collection(
-        collectionId: "all-plants",
-        name: "All Plants",
-        userEmail: "",
-        plants: [],
-      );    
 }
 
 @freezed
@@ -45,4 +38,20 @@ class UpdateCollectionDto with _$UpdateCollectionDto {
 
   factory UpdateCollectionDto.fromJson(Map<String, dynamic> json) =>
       _$UpdateCollectionDtoFromJson(json);
+}
+
+@freezed
+class GetCollectionDto with _$GetCollectionDto {
+  factory GetCollectionDto({
+    required Uuid collectionId,
+    required String name,
+  }) = _GetCollectionDto;
+
+  factory GetCollectionDto.fromJson(Map<String, dynamic> json) =>
+      _$GetCollectionDtoFromJson(json);
+
+  factory GetCollectionDto.allPlants() => GetCollectionDto(
+        collectionId: "all-plants",
+        name: "All Plants",
+      );
 }

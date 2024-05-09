@@ -49,3 +49,17 @@ Map<String, dynamic> _$$UpdateCollectionDtoImplToJson(
       'collectionId': instance.collectionId,
       'name': instance.name,
     };
+
+_$GetCollectionDtoImpl _$$GetCollectionDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$GetCollectionDtoImpl(
+      collectionId: json['collectionId'] as String,
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$$GetCollectionDtoImplToJson(
+        _$GetCollectionDtoImpl instance) =>
+    <String, dynamic>{
+      'collectionId': instance.collectionId,
+      'name': instance.name,
+    };

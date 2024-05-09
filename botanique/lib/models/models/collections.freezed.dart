@@ -510,3 +510,159 @@ abstract class _UpdateCollectionDto implements UpdateCollectionDto {
   _$$UpdateCollectionDtoImplCopyWith<_$UpdateCollectionDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+GetCollectionDto _$GetCollectionDtoFromJson(Map<String, dynamic> json) {
+  return _GetCollectionDto.fromJson(json);
+}
+
+/// @nodoc
+mixin _$GetCollectionDto {
+  String get collectionId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GetCollectionDtoCopyWith<GetCollectionDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GetCollectionDtoCopyWith<$Res> {
+  factory $GetCollectionDtoCopyWith(
+          GetCollectionDto value, $Res Function(GetCollectionDto) then) =
+      _$GetCollectionDtoCopyWithImpl<$Res, GetCollectionDto>;
+  @useResult
+  $Res call({String collectionId, String name});
+}
+
+/// @nodoc
+class _$GetCollectionDtoCopyWithImpl<$Res, $Val extends GetCollectionDto>
+    implements $GetCollectionDtoCopyWith<$Res> {
+  _$GetCollectionDtoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collectionId = null,
+    Object? name = null,
+  }) {
+    return _then(_value.copyWith(
+      collectionId: null == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$GetCollectionDtoImplCopyWith<$Res>
+    implements $GetCollectionDtoCopyWith<$Res> {
+  factory _$$GetCollectionDtoImplCopyWith(_$GetCollectionDtoImpl value,
+          $Res Function(_$GetCollectionDtoImpl) then) =
+      __$$GetCollectionDtoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String collectionId, String name});
+}
+
+/// @nodoc
+class __$$GetCollectionDtoImplCopyWithImpl<$Res>
+    extends _$GetCollectionDtoCopyWithImpl<$Res, _$GetCollectionDtoImpl>
+    implements _$$GetCollectionDtoImplCopyWith<$Res> {
+  __$$GetCollectionDtoImplCopyWithImpl(_$GetCollectionDtoImpl _value,
+      $Res Function(_$GetCollectionDtoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collectionId = null,
+    Object? name = null,
+  }) {
+    return _then(_$GetCollectionDtoImpl(
+      collectionId: null == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GetCollectionDtoImpl implements _GetCollectionDto {
+  _$GetCollectionDtoImpl({required this.collectionId, required this.name});
+
+  factory _$GetCollectionDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GetCollectionDtoImplFromJson(json);
+
+  @override
+  final String collectionId;
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'GetCollectionDto(collectionId: $collectionId, name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCollectionDtoImpl &&
+            (identical(other.collectionId, collectionId) ||
+                other.collectionId == collectionId) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, collectionId, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCollectionDtoImplCopyWith<_$GetCollectionDtoImpl> get copyWith =>
+      __$$GetCollectionDtoImplCopyWithImpl<_$GetCollectionDtoImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GetCollectionDtoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _GetCollectionDto implements GetCollectionDto {
+  factory _GetCollectionDto(
+      {required final String collectionId,
+      required final String name}) = _$GetCollectionDtoImpl;
+
+  factory _GetCollectionDto.fromJson(Map<String, dynamic> json) =
+      _$GetCollectionDtoImpl.fromJson;
+
+  @override
+  String get collectionId;
+  @override
+  String get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetCollectionDtoImplCopyWith<_$GetCollectionDtoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

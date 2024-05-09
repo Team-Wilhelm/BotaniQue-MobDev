@@ -41,7 +41,8 @@ class ServerEvent extends BaseEvent {
       // Collections
       ServerSendsAllCollections.name =>
         ServerSendsAllCollections.fromJson(json),
-      ServerSendsPlantsForCollection.name => ServerSendsPlantsForCollection.fromJson(json),
+      ServerSendsPlantsForCollection.name =>
+        ServerSendsPlantsForCollection.fromJson(json),
       ServerSavesCollection.name => ServerSavesCollection.fromJson(json),
       ServerDeletesCollection.name => ServerDeletesCollection.fromJson(json),
 
@@ -142,7 +143,7 @@ class ServerSendsAllCollections extends ServerEvent
   static const String name = "ServerSendsAllCollections";
 
   const factory ServerSendsAllCollections({
-    required List<Collection> collections,
+    required List<GetCollectionDto> collections,
   }) = _ServerSendsAllCollections;
 
   factory ServerSendsAllCollections.fromJson(Map<String, dynamic> json) =>
@@ -175,7 +176,8 @@ class ServerSavesCollection extends ServerEvent with _$ServerSavesCollection {
 }
 
 @freezed
-class ServerDeletesCollection extends ServerEvent with _$ServerDeletesCollection {
+class ServerDeletesCollection extends ServerEvent
+    with _$ServerDeletesCollection {
   static const String name = "ServerDeletesCollection";
 
   const factory ServerDeletesCollection() = _ServerDeletesCollection;

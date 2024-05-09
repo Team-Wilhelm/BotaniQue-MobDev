@@ -81,7 +81,7 @@ _$ServerSendsAllCollectionsImpl _$$ServerSendsAllCollectionsImplFromJson(
         Map<String, dynamic> json) =>
     _$ServerSendsAllCollectionsImpl(
       collections: (json['collections'] as List<dynamic>)
-          .map((e) => Collection.fromJson(e as Map<String, dynamic>))
+          .map((e) => GetCollectionDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

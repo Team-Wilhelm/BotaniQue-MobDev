@@ -1,4 +1,4 @@
-import 'package:botanique/all_plants/plant_card.dart';
+import 'package:botanique/all_plants/all_plants_grid.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/state/collections_cubit.dart';
@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/events/client_events.dart';
-import 'category_selection.dart';
+import '../models/models/plant.dart';
+import 'collection_selection.dart';
 
 class AllPlantsScreen extends StatelessWidget {
   const AllPlantsScreen({super.key});
@@ -18,26 +19,11 @@ class AllPlantsScreen extends StatelessWidget {
       child: BlocBuilder<WebSocketBloc, ServerEvent>(
         builder: (context, state) {
           return RefreshIndicator.adaptive(
-            onRefresh: () => _getInitialData(context),
+            onRefresh: () => _getDataForAllPlantsScreen(context),
             child: CustomScrollView(
               slivers: [
-                SliverToBoxAdapter(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /*AppTextField(
-                        textFieldController:
-                            TextEditingController(), // TODO: Implement search or remove
-                        placeholder: "Search for a plant...",
-                        suffixIcon: const Icon(Icons.search),
-                      ),
-                      _getSpacer(context),
-                      */
-                      const CollectionSelection(),
-                      _getSpacer(context),
-                    ],
-                  ),
-                ),
+                const SliverToBoxAdapter(child: CollectionSelection()),
+                const SliverToBoxAdapter(child: SizedBox(height: 20)),
                 _getChildFromState(context, state),
               ],
             ),
@@ -47,49 +33,32 @@ class AllPlantsScreen extends StatelessWidget {
     );
   }
 
-  Widget _getSpacer(BuildContext context) {
-    return SizedBox(height: MediaQuery.of(context).size.height * 0.02);
-  }
-
   Widget _getChildFromState(BuildContext context, ServerEvent serverEvent) {
-    if (serverEvent is! ServerSendsAllPlants) {
-      if (serverEvent is ServerSendsAllCollections) {
-        context
-            .read<CollectionsCubit>()
-            .setCollections(serverEvent.collections);
-      }
-
-      _requestAllPlants(context);
-      return const SliverFillRemaining(
-        hasScrollBody: false,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+    if (serverEvent is ServerSendsAllCollections) {
+      final collectionsCubit = context.read<CollectionsCubit>();
+      collectionsCubit.setCollections(serverEvent.collections);
+      collectionsCubit.selectCollection(
+          collectionsCubit.state.collections.first,
+          context.read<WebSocketBloc>());
+    } else if (serverEvent is! ServerSendsAllPlants &&
+        serverEvent is! ServerSendsPlantsForCollection) {
+      _requestCollections(context);
     } else {
-      return SliverAnimatedGrid(
-        // TODO: maybe remove the animation, we're not really using it
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          maxCrossAxisExtent: 200,
-        ),
-        itemBuilder: (context, index, animation) => FadeTransition(
-          opacity: animation,
-          child: PlantCard(plant: serverEvent.plants[index]),
-        ),
+      final plants = serverEvent is ServerSendsAllPlants
+          ? serverEvent.plants
+          : serverEvent is ServerSendsPlantsForCollection
+              ? serverEvent.plants
+              : <Plant>[];
 
-        initialItemCount: serverEvent.plants.length,
-      );
+      return AllPlantsGrid(plants: plants);
     }
-  }
 
-  Future<void> _requestAllPlants(BuildContext context) async {
-    context.read<WebSocketBloc>().add(ClientWantsAllPlants(
-        jwt: "jwt",
-        eventType: "ClientWantsAllPlants",
-        pageNumber: 1,
-        pageSize: 5));
+    return const SliverFillRemaining(
+      hasScrollBody: false,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 
   Future<void> _requestCollections(BuildContext context) async {
@@ -97,8 +66,10 @@ class AllPlantsScreen extends StatelessWidget {
         jwt: "jwt", eventType: "ClientWantsAllCollections"));
   }
 
-  Future<void> _getInitialData(BuildContext context) async {
+  Future<void> _getDataForAllPlantsScreen(BuildContext context) async {
     _requestCollections(context);
-    _requestAllPlants(context);
+    context
+        .read<CollectionsCubit>()
+        .getPlantsForSelectedCollection(context.read<WebSocketBloc>());
   }
 }

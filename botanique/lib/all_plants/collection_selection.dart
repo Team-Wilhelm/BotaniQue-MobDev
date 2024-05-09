@@ -1,4 +1,3 @@
-import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
@@ -42,26 +41,8 @@ class CollectionSelection extends StatelessWidget {
     );
   }
 
-  void _selectCollection(BuildContext context, Collection collection) {
-    context.read<CollectionsCubit>().selectCollection(collection);
+  void _selectCollection(BuildContext context, GetCollectionDto collection) {
     final webSocketBloc = context.read<WebSocketBloc>();
-    if (collection.collectionId == "all-plants") {
-      webSocketBloc.add(
-        ClientWantsAllPlants(
-          jwt: "jwt",
-          eventType: "ClientWantsAllPlants",
-          pageNumber: 1,
-          pageSize: 5,
-        ),
-      );
-    } else {
-      webSocketBloc.add(
-        ClientWantsPlantsForCollection(
-          jwt: "jwt",
-          eventType: "ClientWantsCollection",
-          collectionId: collection.collectionId,
-        ),
-      );
-    }
+    context.read<CollectionsCubit>().selectCollection(collection, webSocketBloc);
   }
 }
