@@ -45,6 +45,11 @@ const spacer = SizedBox(
   height: 12,
 );
 
+const spacerDouble = SizedBox(
+  width: 24,
+  height: 24,
+);
+
 final appTheme = ThemeData.light().copyWith(
   colorScheme: ColorScheme.light(
     primary: AppColors.primary[0]!,

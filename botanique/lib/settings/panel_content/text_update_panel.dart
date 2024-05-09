@@ -9,13 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TextUpdatePanel extends StatelessWidget {
   TextUpdatePanel(
       {super.key,
-      this.textToUpdate,
       required this.placeholder,
       required this.onSubmit,
       required this.controller,
       required this.icon});
 
-  final String? textToUpdate;
   final String placeholder;
   final VoidCallback onSubmit;
   final TextEditingController controller;
@@ -25,22 +23,6 @@ class TextUpdatePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (textToUpdate != null)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const AppText(
-                text: "Current: ",
-                fontSize: FontSizes.regular,
-              ),
-              AppText(
-                text: textToUpdate!,
-                fontSize: FontSizes.regular,
-                fontWeight: FontWeight.bold,
-              ),
-            ],
-          ),
-        spacer,
         AppTextField(
           textFieldController: controller,
           placeholder: placeholder,
