@@ -23,7 +23,7 @@ class TopBar extends StatelessWidget {
             color: TextColors.textDark,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context); // TODO: Implement back navigation animation
           },
         ),
         AppText(

@@ -4,10 +4,13 @@ import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/models/plant.dart';
 import '../../shared/top_bar.dart';
 
 class PlantDetailScreen extends StatelessWidget {
-  const PlantDetailScreen({super.key});
+  const PlantDetailScreen({super.key, required this.plant});
+
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,11 @@ class PlantDetailScreen extends StatelessWidget {
             title: 'Plant Name',
           ),
           const SizedBox(height: 16),
-          const AppImagePreview(
-            imageUrl: NetworkConstants.plantPlaceholder,
+          Hero(
+            tag: "plantCard${plant.plantId}",
+            child: const AppImagePreview(
+              imageUrl: NetworkConstants.plantPlaceholder,
+            ),
           ),
           const SizedBox(height: 16),
           Container(
