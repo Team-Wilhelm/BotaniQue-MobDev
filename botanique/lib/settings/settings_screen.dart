@@ -95,8 +95,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   //TODO get data for stats
   //TODO deal with collections CRUD
-  //TODO implement image update
-  //handle server logs client out incoming event
+
+  //TODO implement image picker
+
+  //TODO handle server logs client out incoming event
+  //TODO make sure that data is put into the cubit upon logging in
 
   @override
   Widget build(BuildContext context) {
@@ -154,12 +157,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ...panelItems
                     .map((item) => _buildExpansionTile(item, diameter)),
                 spacer,
-                const AppText(
-                    text: "Collections",
-                    textAlign: TextAlign.center,
-                    fontSize: FontSizes.h2,
-                    fontWeight: FontWeight.bold),
-                spacer,
+                Padding(
+                  padding: _getSymmetricHorizontalPadding(),
+                  child: AppButton(onPressed: () {}, text: "Manage Collections"),
+                ),
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
                   child: AppButton(onPressed: () {

@@ -33,14 +33,14 @@ class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
 }
 
 @freezed
-class ClientWantsToLogOut extends ClientEvent with _$ClientWantsToLogOutDto {
+class ClientWantsToLogOut extends ClientEvent with _$ClientWantsToLogOut {
   factory ClientWantsToLogOut({
     required String email,
     required String eventType,
-  }) = _ClientWantsToLogOutDto;
+  }) = _ClientWantsToLogOut;
 
   factory ClientWantsToLogOut.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToLogOutDtoFromJson(json);
+      _$ClientWantsToLogOutFromJson(json);
 }
 
 /* @freezed TODO
