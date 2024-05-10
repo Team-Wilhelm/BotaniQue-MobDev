@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/dtos/user/user_dto.dart';
 
-class UpdateUserCubit extends Cubit<UpdateUserDto> {//TODO change email
+class UpdateUserCubit extends Cubit<UpdateUserDto> {
   UpdateUserCubit() : super(UpdateUserDto(username: null, password: null, base64Image: null));
 
   void updateUsername(String username) {

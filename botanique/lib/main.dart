@@ -54,8 +54,7 @@ void main() async {
         BlocProvider<WebSocketBloc>(
           create: (context) => WebSocketBloc(channel: channel),
         ),
-        BlocProvider<UpdateUserCubit>(
-          create: (context) => UpdateUserCubit())
+        BlocProvider<UpdateUserCubit>(create: (context) => UpdateUserCubit())
       ],
       child: BotaniQueApp(),
     ),

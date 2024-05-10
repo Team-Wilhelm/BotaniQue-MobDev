@@ -1,4 +1,3 @@
-
 import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/dtos/auth/log_in_dto.dart';
 import 'package:botanique/models/dtos/plant_dtos.dart';
@@ -34,13 +33,13 @@ class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
 }
 
 @freezed
-class ClientWantsToLogOutDto extends ClientEvent with _$ClientWantsToLogOutDto {
-  factory ClientWantsToLogOutDto({
+class ClientWantsToLogOut extends ClientEvent with _$ClientWantsToLogOutDto {
+  factory ClientWantsToLogOut({
     required String email,
     required String eventType,
   }) = _ClientWantsToLogOutDto;
 
-  factory ClientWantsToLogOutDto.fromJson(Map<String, dynamic> json) =>
+  factory ClientWantsToLogOut.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToLogOutDtoFromJson(json);
 }
 
@@ -152,12 +151,12 @@ class ClientWantsToCreatePlant extends ClientEvent
 }
 
 @freezed
-class ClientWantsToUpdateProfile extends ClientEventWithJwt with _$ClientWantsToUpdateProfile{
-  const factory ClientWantsToUpdateProfile({
-    required String jwt,
-    required UpdateUserDto updateUserDto,
-    required String eventType
-  }) = _ClientWantsToUpdateProfile;
+class ClientWantsToUpdateProfile extends ClientEventWithJwt
+    with _$ClientWantsToUpdateProfile {
+  const factory ClientWantsToUpdateProfile(
+      {required String jwt,
+      required UpdateUserDto updateUserDto,
+      required String eventType}) = _ClientWantsToUpdateProfile;
 
   factory ClientWantsToUpdateProfile.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToUpdateProfileFromJson(json);

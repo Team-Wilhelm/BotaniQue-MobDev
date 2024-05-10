@@ -184,36 +184,34 @@ abstract class _ClientWantsToLogIn implements ClientWantsToLogIn {
       throw _privateConstructorUsedError;
 }
 
-ClientWantsToLogOutDto _$ClientWantsToLogOutDtoFromJson(
-    Map<String, dynamic> json) {
+ClientWantsToLogOut _$ClientWantsToLogOutFromJson(Map<String, dynamic> json) {
   return _ClientWantsToLogOutDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ClientWantsToLogOutDto {
+mixin _$ClientWantsToLogOut {
   String get email => throw _privateConstructorUsedError;
   String get eventType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ClientWantsToLogOutDtoCopyWith<ClientWantsToLogOutDto> get copyWith =>
+  $ClientWantsToLogOutCopyWith<ClientWantsToLogOut> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ClientWantsToLogOutDtoCopyWith<$Res> {
-  factory $ClientWantsToLogOutDtoCopyWith(ClientWantsToLogOutDto value,
-          $Res Function(ClientWantsToLogOutDto) then) =
-      _$ClientWantsToLogOutDtoCopyWithImpl<$Res, ClientWantsToLogOutDto>;
+abstract class $ClientWantsToLogOutCopyWith<$Res> {
+  factory $ClientWantsToLogOutCopyWith(
+          ClientWantsToLogOut value, $Res Function(ClientWantsToLogOut) then) =
+      _$ClientWantsToLogOutCopyWithImpl<$Res, ClientWantsToLogOut>;
   @useResult
   $Res call({String email, String eventType});
 }
 
 /// @nodoc
-class _$ClientWantsToLogOutDtoCopyWithImpl<$Res,
-        $Val extends ClientWantsToLogOutDto>
-    implements $ClientWantsToLogOutDtoCopyWith<$Res> {
-  _$ClientWantsToLogOutDtoCopyWithImpl(this._value, this._then);
+class _$ClientWantsToLogOutCopyWithImpl<$Res, $Val extends ClientWantsToLogOut>
+    implements $ClientWantsToLogOutCopyWith<$Res> {
+  _$ClientWantsToLogOutCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -241,7 +239,7 @@ class _$ClientWantsToLogOutDtoCopyWithImpl<$Res,
 
 /// @nodoc
 abstract class _$$ClientWantsToLogOutDtoImplCopyWith<$Res>
-    implements $ClientWantsToLogOutDtoCopyWith<$Res> {
+    implements $ClientWantsToLogOutCopyWith<$Res> {
   factory _$$ClientWantsToLogOutDtoImplCopyWith(
           _$ClientWantsToLogOutDtoImpl value,
           $Res Function(_$ClientWantsToLogOutDtoImpl) then) =
@@ -253,7 +251,7 @@ abstract class _$$ClientWantsToLogOutDtoImplCopyWith<$Res>
 
 /// @nodoc
 class __$$ClientWantsToLogOutDtoImplCopyWithImpl<$Res>
-    extends _$ClientWantsToLogOutDtoCopyWithImpl<$Res,
+    extends _$ClientWantsToLogOutCopyWithImpl<$Res,
         _$ClientWantsToLogOutDtoImpl>
     implements _$$ClientWantsToLogOutDtoImplCopyWith<$Res> {
   __$$ClientWantsToLogOutDtoImplCopyWithImpl(
@@ -295,7 +293,7 @@ class _$ClientWantsToLogOutDtoImpl implements _ClientWantsToLogOutDto {
 
   @override
   String toString() {
-    return 'ClientWantsToLogOutDto(email: $email, eventType: $eventType)';
+    return 'ClientWantsToLogOut(email: $email, eventType: $eventType)';
   }
 
   @override
@@ -327,7 +325,7 @@ class _$ClientWantsToLogOutDtoImpl implements _ClientWantsToLogOutDto {
   }
 }
 
-abstract class _ClientWantsToLogOutDto implements ClientWantsToLogOutDto {
+abstract class _ClientWantsToLogOutDto implements ClientWantsToLogOut {
   factory _ClientWantsToLogOutDto(
       {required final String email,
       required final String eventType}) = _$ClientWantsToLogOutDtoImpl;
