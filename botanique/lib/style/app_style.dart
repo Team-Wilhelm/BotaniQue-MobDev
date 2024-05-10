@@ -35,6 +35,7 @@ class AppColors {
   static const Color welcomeScreenBackground = Color(0xEBFFFFF3);
   static const Color cardBackground = Color(0xFFece8e5);
   // beige const Color(0xFFfadbb8);
+static const Color error = Color(0xFF822143);
 }
 
 const defaultPadding = EdgeInsets.all(16);
@@ -42,6 +43,11 @@ const defaultPadding = EdgeInsets.all(16);
 const spacer = SizedBox(
   width: 12,
   height: 12,
+);
+
+const spacerDouble = SizedBox(
+  width: 24,
+  height: 24,
 );
 
 final appTheme = ThemeData.light().copyWith(

@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+class PanelItem {
+  int id; // Unique identifier, used for handling expansion state
+  ExpansionTileController controller;
+  String headerValue;
+  Widget panelContent;
+
+  PanelItem({
+    required this.id,
+    required this.controller,
+    required this.headerValue,
+    required this.panelContent,
+  });
+}
