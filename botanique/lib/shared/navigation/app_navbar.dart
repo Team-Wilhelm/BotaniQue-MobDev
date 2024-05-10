@@ -43,7 +43,7 @@ class AppNavbar extends StatelessWidget {
           AppNavigationItem(
             routeLabel: NavigationConstants.allPlants,
             label: "Plants",
-            icon: Icons.grid_view,
+            icon: Icons.eco,
             onTap: () {
               context
                   .read<AllPlantsCubit>()

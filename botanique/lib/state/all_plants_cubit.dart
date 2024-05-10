@@ -52,7 +52,7 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
 
   void _requestPlantsFromServer(
       Uuid collectionId, WebSocketBloc webSocketBloc) {
-    if (collectionId == "all-plants") {
+    if (collectionId == allPlantsCollectionId) {
       webSocketBloc.add(
         ClientWantsAllPlants(
           jwt: "jwt",

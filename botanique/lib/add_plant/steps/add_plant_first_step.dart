@@ -1,8 +1,10 @@
+import 'package:botanique/add_plant/collection_dropdown.dart';
+import 'package:botanique/shared/app_text_field.dart';
+import 'package:botanique/shared/buttons/app_icon_button.dart';
+import 'package:botanique/shared/buttons/button_style.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/app_text.dart';
-import '../../shared/app_text_field.dart';
-import '../../style/app_style.dart';
 
 class AddPlantFirstStepContent extends StatelessWidget {
   const AddPlantFirstStepContent({
@@ -14,40 +16,34 @@ class AddPlantFirstStepContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const AppText(
-          text: "What do you call your green friend?",
-        ),
-        const SizedBox(height: 8),
-        AppTextField(
-          textFieldController: plantNameController,
-          placeholder: "Plant Name",
-        ),
-        const SizedBox(height: 24),
-        AppText(text: collectionQuestion),
-        const AppText(
-          text: "This field is optional",
-          fontSize: FontSizes.tiny,
-        ),
-        const SizedBox(height: 12),
-        DropdownButton(
-          items: const [
-            DropdownMenuItem(
-              value: "Collection 1",
-              child: Text("Collection 1"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const AppText(
+              text: "What do you call your green friend?",
             ),
-            DropdownMenuItem(
-              value: "Collection 2",
-              child: Text("Collection 2"),
+            AppIconButton(
+              buttonType: ButtonType.outline,
+              icon: Icons.help_outline,
+              onPressed: () {},
+              tooltip:
+                  "Don't worry if you don't have a name, if you leave it blank we'll give it a name for you!",
             ),
           ],
-          onChanged: (value) {},
-        )
+        ),
+        AppTextField(
+            textFieldController: plantNameController, placeholder: "PlantName"),
+        const SizedBox(height: 24),
+        AppText(text: collectionQuestion),
+        const SizedBox(height: 8),
+        const CollectionDropdown(),
       ],
     );
   }
 
+  // TODO: fix this
   String get collectionQuestion {
     final plantName = plantNameController.text == ""
         ? "your plant"

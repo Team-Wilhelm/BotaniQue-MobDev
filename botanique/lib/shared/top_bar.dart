@@ -1,17 +1,33 @@
+import 'package:botanique/shared/buttons/app_icon_button.dart';
 import 'package:flutter/material.dart';
 
 import '../style/app_style.dart';
 import 'app_text.dart';
+import 'buttons/button_style.dart';
+
+class TopBarAction {
+  const TopBarAction({
+    required this.text,
+    required this.onPressed,
+    this.icon,
+  });
+
+  final String text;
+  final IconData? icon;
+  final VoidCallback onPressed;
+}
 
 class TopBar extends StatelessWidget {
   const TopBar({
     super.key,
     required this.title,
+    this.actions = const [],
     this.onBack,
   });
 
   final String title;
   final VoidCallback? onBack;
+  final List<TopBarAction>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +35,9 @@ class TopBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: TextColors.textDark,
-          ),
+        AppIconButton(
+          icon: Icons.arrow_back_ios_new,
+          buttonType: ButtonType.outline,
           onPressed: () {
             if (onBack != null) {
               onBack!();
@@ -36,10 +50,27 @@ class TopBar extends StatelessWidget {
           fontSize: FontSizes.h5,
           fontWeight: FontWeight.bold,
         ),
-        IconButton(
-          onPressed: () {},
+        PopupMenuButton<TopBarAction>(
+          tooltip: "More options",
+          elevation: 0,
           icon: const Icon(Icons.more_vert),
-          color: TextColors.textDark,
+          onSelected: (action) => action.onPressed(),
+          itemBuilder: (context) {
+            return actions!.map((action) {
+              return PopupMenuItem<TopBarAction>(
+                value: action,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText(text: action.text),
+                    const SizedBox(width: 8),
+                    if (action.icon != null)
+                      Icon(action.icon, color: TextColors.textDark),
+                  ],
+                ),
+              );
+            }).toList();
+          },
         ),
       ],
     );

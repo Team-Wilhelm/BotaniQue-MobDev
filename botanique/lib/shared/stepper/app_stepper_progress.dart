@@ -1,19 +1,19 @@
+import 'package:botanique/shared/stepper/app_stepper.dart';
 import 'package:flutter/material.dart';
 
 import '../../style/app_style.dart';
 import '../app_text.dart';
 
 class AppStepperProgress extends StatefulWidget {
-  const AppStepperProgress({
-    super.key,
-    required this.currentStep,
-    required this.totalSteps,
-    required this.stepTitle,
-  });
+  const AppStepperProgress(
+      {super.key,
+      required this.currentStepIndex,
+      required this.totalSteps,
+      required this.step});
 
-  final int currentStep;
+  final int currentStepIndex;
   final int totalSteps;
-  final String stepTitle;
+  final AppStep step;
 
   @override
   State<AppStepperProgress> createState() => _AppStepperProgressState();
@@ -42,10 +42,10 @@ class _AppStepperProgressState extends State<AppStepperProgress>
   @override
   void didUpdateWidget(AppStepperProgress oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.currentStep != oldWidget.currentStep) {
+    if (widget.currentStepIndex != oldWidget.currentStepIndex) {
       _progressAnimation = Tween<double>(
-        begin: oldWidget.currentStep / oldWidget.totalSteps,
-        end: widget.currentStep / widget.totalSteps,
+        begin: oldWidget.currentStepIndex / oldWidget.totalSteps,
+        end: widget.currentStepIndex / widget.totalSteps,
       ).animate(_progressController);
       _progressController.forward(from: 0);
     }
@@ -59,7 +59,7 @@ class _AppStepperProgressState extends State<AppStepperProgress>
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
           decoration: BoxDecoration(
-            color: AppColors.cardBackground,
+            color: AppColors.primary[0],
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -77,10 +77,15 @@ class _AppStepperProgressState extends State<AppStepperProgress>
                         value:
                             _progressAnimation.value + (1 / widget.totalSteps),
                         strokeWidth: 7,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          AppColors.primary[40]!,
+                        ),
                       ),
                     ),
                     AppText(
-                      text: "${widget.currentStep + 1}/${widget.totalSteps}",
+                      text:
+                          "${widget.currentStepIndex + 1}/${widget.totalSteps}",
+                      colour: TextColors.textLight,
                     ),
                   ],
                 ),
@@ -89,12 +94,15 @@ class _AppStepperProgressState extends State<AppStepperProgress>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText(text: widget.stepTitle),
-                  if (widget.currentStep == widget.totalSteps - 1)
-                    const AppText(
-                      text: "Almost there!",
-                      fontSize: FontSizes.tiny,
-                    ),
+                  AppText(
+                    text: widget.step.title,
+                    colour: TextColors.textLight,
+                  ),
+                  AppText(
+                    text: widget.step.subtitle ?? "",
+                    colour: TextColors.textLight,
+                    fontSize: FontSizes.tiny,
+                  ),
                 ],
               ),
             ],

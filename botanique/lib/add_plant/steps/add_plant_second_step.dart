@@ -5,25 +5,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/events/client_events.dart';
 import '../../shared/app_image_preview.dart';
 import '../../shared/app_text.dart';
-import '../../state/add_plant/add_plant_bloc.dart';
+import '../../state/add_plant/add_plant_cubit.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../style/app_style.dart';
 import '../../util/asset_constants.dart';
 import '../../util/xfile_converter.dart';
 
 class AddPlantSecondStepContent extends StatelessWidget {
-  const AddPlantSecondStepContent({super.key});
+  const AddPlantSecondStepContent({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<WebSocketBloc, ServerEvent>(
       listener: (context, state) {
         if (state is ServerSendsImageWithoutBackground) {
-          context.read<AddPlantBloc>().add(PictureBackgroundRemovalSuccess(
-              image: XFileConverter.fromBase64(state.base64Image)));
+          context
+              .read<AddPlantCubit>()
+              .setPlantPicture(XFileConverter.fromBase64(state.base64Image));
         }
       },
-      child: BlocBuilder<AddPlantBloc, AddPlantState>(
+      child: BlocBuilder<AddPlantCubit, AddPlantState>(
         builder: (context, snapshot) {
           if (snapshot is InitialNoPictureSelected ||
               snapshot is NoPictureSelected) {
@@ -32,9 +35,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
             return _getPictureReadyScreen(context, snapshot as PictureReady);
           } else {
             if (snapshot is PictureSelected) {
-              context
-                  .read<AddPlantBloc>()
-                  .add(PictureBackgroundRemovalRequested());
+              context.read<AddPlantCubit>().removePictureBackground();
               context.read<WebSocketBloc>().add(
                     ClientWantsToRemoveBackgroundFromImage(
                       jwt: "jwt",
@@ -60,16 +61,14 @@ class AddPlantSecondStepContent extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close dialog
-                context.read<AddPlantBloc>().add(GetImageFromCameraRequested());
+                context.read<AddPlantCubit>().getImageFromCamera();
               },
               child: const Text("Take a photo"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close dialog
-                context
-                    .read<AddPlantBloc>()
-                    .add(GetImageFromGalleryRequested());
+                context.read<AddPlantCubit>().getImageFromGallery();
               },
               child: const Text("Select from gallery"),
             ),

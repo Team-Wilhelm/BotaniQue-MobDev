@@ -6,6 +6,8 @@ import 'uuid.dart';
 part 'collections.freezed.dart';
 part 'collections.g.dart';
 
+const allPlantsCollectionId = "all-plants";
+
 @freezed
 class Collection with _$Collection {
   const factory Collection({
@@ -51,7 +53,12 @@ class GetCollectionDto with _$GetCollectionDto {
       _$GetCollectionDtoFromJson(json);
 
   factory GetCollectionDto.allPlants() => GetCollectionDto(
-        collectionId: "all-plants",
+        collectionId: allPlantsCollectionId,
         name: "All Plants",
       );
+
+  @override
+  String toString() {
+    return name;
+  }
 }

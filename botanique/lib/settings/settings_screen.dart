@@ -4,8 +4,6 @@ import 'package:botanique/settings/panel_content/text_update_panel.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
-import 'package:botanique/util/asset_constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';

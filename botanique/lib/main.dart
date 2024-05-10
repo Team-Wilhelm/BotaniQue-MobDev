@@ -19,7 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_plant/add_plant_screen.dart';
 import 'models/events/client_events.dart';
 import 'repositories/secure_storage_repository.dart';
-import 'state/add_plant/add_plant_bloc.dart';
+import 'state/add_plant/add_plant_cubit.dart';
 import 'style/app_style.dart';
 
 void main() async {
@@ -41,8 +41,8 @@ void main() async {
         BlocProvider<NavigationCubit>(
           create: (context) => NavigationCubit(),
         ),
-        BlocProvider<AddPlantBloc>(
-          create: (context) => AddPlantBloc(),
+        BlocProvider<AddPlantCubit>(
+          create: (context) => AddPlantCubit(),
         ),
         BlocProvider<PlantRequirementsCubit>(
           create: (context) => PlantRequirementsCubit(),
@@ -138,7 +138,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
       context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
     } else if (serverEvent is ServerAuthenticatesUser) {
       context.read<NavigationCubit>().changePage(
-          NavigationConstants.allPlants); // TODO: Change to home screen
+          NavigationConstants.addPlant); // TODO: Change to home screen
     } else if (serverEvent is ServerRespondsNotAuthenticated) {
       context.read<NavigationCubit>().changePage(NavigationConstants.auth);
     } else if (serverEvent is ServerSendsAllCollections) {

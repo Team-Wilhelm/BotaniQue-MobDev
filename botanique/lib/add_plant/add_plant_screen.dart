@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/events/client_events.dart';
 import '../models/models/plant.dart';
-import '../state/add_plant/add_plant_bloc.dart';
+import '../state/add_plant/add_plant_cubit.dart';
 import '../state/add_plant/plant_requirements_cubit.dart';
 import '../util/navigation_constants.dart';
 
@@ -31,16 +31,19 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   void initState() {
     steps = [
       AppStep(
-        title: "Let's start simple!",
+        title: "Each plant is unique!",
+        subtitle: "Let's make sure we know all about yours.",
         content:
             AddPlantFirstStepContent(plantNameController: _plantNameController),
       ),
       const AppStep(
         title: "Time to put a face to that name!",
+        subtitle: "3, 2, 1... Smile!",
         content: AddPlantSecondStepContent(),
       ),
       const AppStep(
         title: "When does your plant feel best?",
+        subtitle: "Almost there!",
         content: AddPlantThirdStepContent(),
       ),
     ];
@@ -64,7 +67,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
                 .read<NavigationCubit>()
                 .changePage(NavigationConstants.home);
             context.read<PlantRequirementsCubit>().reset();
-            context.read<AddPlantBloc>().add(ResetAddPlantState());
+            context.read<AddPlantCubit>().resetAddPlantState();
           } else if (state is ServerSendsErrorMessage) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -74,11 +77,26 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
             );
           }
         },
-        child: BlocBuilder<AddPlantBloc, AddPlantState>(
+        child: BlocConsumer<AddPlantCubit, AddPlantState>(
+          listener: (context, state) {
+            // TODO: remove maybe
+            if (state is PlantAddInProgress) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Adding plant..."),
+                ),
+              );
+            }
+          },
           builder: (context, appState) {
+            if (appState is PlantToEditSelected) {
+              _plantNameController.text = appState.plant.nickname;
+            }
+
             if (appState is PlantAddInProgress) {
               return const Center(child: CircularProgressIndicator());
             }
+
             return AppStepper(
               onFinishPressed: () => finishPressed(context: context),
               steps: steps,
@@ -97,10 +115,10 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
     final requirements = context.read<PlantRequirementsCubit>().state;
 
     String? base64Image;
-    final AddPlantState addPlantState = context.read<AddPlantBloc>().state;
+    final AddPlantState addPlantState = context.read<AddPlantCubit>().state;
     if (addPlantState is PictureReady) {
       base64Image = XFileConverter.toBase64(
-          (context.read<AddPlantBloc>().state as PictureReady).image);
+          (context.read<AddPlantCubit>().state as PictureReady).image);
     }
 
     context.read<WebSocketBloc>().add(ClientWantsToCreatePlant(
@@ -116,6 +134,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           eventType: "ClientWantsToCreatePlant",
         ));
 
-    context.read<AddPlantBloc>().add(FinishPressed());
+    context.read<AddPlantCubit>().savePlant();
   }
 }

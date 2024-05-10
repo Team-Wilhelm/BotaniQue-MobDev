@@ -3,7 +3,8 @@ import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../shared/app_button.dart';
+import '../shared/buttons/app_button.dart';
+import '../shared/buttons/button_style.dart';
 import '../state/all_plants_cubit.dart';
 
 class CollectionSelection extends StatelessWidget {
