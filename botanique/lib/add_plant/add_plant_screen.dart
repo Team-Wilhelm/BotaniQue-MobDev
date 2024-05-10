@@ -1,7 +1,6 @@
 import 'package:botanique/add_plant/steps/add_plant_first_step.dart';
 import 'package:botanique/add_plant/steps/add_plant_second_step.dart';
 import 'package:botanique/add_plant/steps/add_plant_third_step.dart';
-import 'package:botanique/models/dtos/plant_dtos.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';
@@ -12,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/events/client_events.dart';
+import '../models/models/plant.dart';
 import '../state/add_plant/add_plant_bloc.dart';
 import '../state/add_plant/plant_requirements_cubit.dart';
 import '../util/navigation_constants.dart';
@@ -68,7 +68,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           } else if (state is ServerSendsErrorMessage) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.error!),
+                content: Text(state.error),
                 backgroundColor: Colors.red,
               ),
             );

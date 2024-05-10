@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
             ElevatedButton(
                 onPressed: () => context
                     .read<NavigationCubit>()
-                    .changePage(NavigationConstants.logIn),
+                    .changePage(NavigationConstants.auth),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary[20]!,
                     padding: EdgeInsets.symmetric(

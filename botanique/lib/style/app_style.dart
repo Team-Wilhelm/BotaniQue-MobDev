@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextColors {
   static const textDark = Color.fromRGBO(105, 103, 115, 1);
@@ -27,13 +28,12 @@ class AppColors {
     40: Color(0xFF17462c),
     60: Color(0xFF102f1e),
   };
-  static const Color background = Color(0xFFF7F4F3);
+  static const Color background = Colors.white; // Color(0xFFF7F4F3);
   // beige: Color(0xFFfdf1e3);
-  static const Color secondary = Color.fromRGBO(98, 159, 51, 1);
-  static const Color accent = Color.fromRGBO(46, 64, 87, 100);
-  static const Color welcomeScreenBackground =
-      Color.fromRGBO(255, 255, 243, 0.923);
-  static const Color cardBackground = Color(0xFFf0f9f6);
+  static const Color secondary = Color(0xFF629F33);
+  static const Color accent = Color(0x9C2E4057);
+  static const Color welcomeScreenBackground = Color(0xEBFFFFF3);
+  static const Color cardBackground = Color(0xFFece8e5);
   // beige const Color(0xFFfadbb8);
 static const Color error = Color(0xFF822143);
 }
@@ -51,26 +51,27 @@ const spacerDouble = SizedBox(
 );
 
 final appTheme = ThemeData.light().copyWith(
-  colorScheme: ColorScheme.light(
-    primary: AppColors.primary[0]!,
-    secondary: AppColors.secondary,
-    background: AppColors.background,
-    surface: AppColors.cardBackground,
-    onPrimary: TextColors.textLight,
-    onSecondary: TextColors.textDark,
-    onBackground: TextColors.textDark,
-  ),
-  appBarTheme: const AppBarTheme(
-    elevation: 1,
-    backgroundColor: AppColors.background,
-    iconTheme: IconThemeData(color: TextColors.textDark),
-    titleTextStyle:
-        TextStyle(color: TextColors.textDark, fontSize: FontSizes.h1),
-  ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-    backgroundColor: AppColors.primary[0],
-    elevation: 1,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-  )),
-);
+    colorScheme: ColorScheme.light(
+      primary: AppColors.primary[0]!,
+      secondary: AppColors.secondary,
+      background: AppColors.background,
+      surface: AppColors.cardBackground,
+      onPrimary: TextColors.textLight,
+      onSecondary: TextColors.textDark,
+      onBackground: TextColors.textDark,
+    ),
+    appBarTheme: const AppBarTheme(
+      elevation: 1,
+      backgroundColor: AppColors.background,
+      iconTheme: IconThemeData(color: TextColors.textDark),
+      titleTextStyle:
+          TextStyle(color: TextColors.textDark, fontSize: FontSizes.h1),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        //TODO: eventually remove
+        style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.primary[0],
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    )),
+    textTheme: GoogleFonts.lexendDecaTextTheme());

@@ -7,9 +7,11 @@ class TopBar extends StatelessWidget {
   const TopBar({
     super.key,
     required this.title,
+    this.onBack,
   });
 
   final String title;
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,10 @@ class TopBar extends StatelessWidget {
             color: TextColors.textDark,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            if (onBack != null) {
+              onBack!();
+            }
+            Navigator.pop(context); // TODO: Implement back navigation animation
           },
         ),
         AppText(

@@ -1,9 +1,11 @@
 
 import 'package:botanique/models/dtos/user/user_dto.dart';
-import 'package:botanique/models/dtos/auth/log_in_dto.dart';
-import 'package:botanique/models/dtos/plant_dtos.dart';
+import 'package:botanique/models/auth/log_in_dto.dart';
+import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/models/models/uuid.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../models/plant.dart';
 
 part 'client_events.freezed.dart';
 part 'client_events.g.dart';
@@ -34,14 +36,14 @@ class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
 }
 
 @freezed
-class ClientWantsToLogOutDto extends ClientEvent with _$ClientWantsToLogOutDto {
-  factory ClientWantsToLogOutDto({
+class ClientWantsToLogOut extends ClientEvent with _$ClientWantsToLogOut {
+  factory ClientWantsToLogOut({
     required String email,
     required String eventType,
   }) = _ClientWantsToLogOutDto;
 
-  factory ClientWantsToLogOutDto.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToLogOutDtoFromJson(json);
+  factory ClientWantsToLogOut.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToLogOutFromJson(json);
 }
 
 /* @freezed TODO
@@ -60,30 +62,29 @@ class ClientWantsToSignUp extends ClientEvent with _$ClientWantsToSignUp {
  */
 
 @freezed
-class ClientWantsAllPlantsDto extends ClientEvent
-    with _$ClientWantsAllPlantsDto {
-  factory ClientWantsAllPlantsDto({
+class ClientWantsAllPlants extends ClientEvent with _$ClientWantsAllPlants {
+  factory ClientWantsAllPlants({
     required String jwt,
     required String eventType,
     required int pageNumber,
     required int pageSize,
   }) = _ClientWantsAllPlantsDto;
 
-  factory ClientWantsAllPlantsDto.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsAllPlantsDtoFromJson(json);
+  factory ClientWantsAllPlants.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsAllPlantsFromJson(json);
 }
 
 @freezed
-class ClientWantsToDeletePlantDto extends ClientEvent
-    with _$ClientWantsToDeletePlantDto {
-  factory ClientWantsToDeletePlantDto({
+class ClientWantsToDeletePlant extends ClientEvent
+    with _$ClientWantsToDeletePlant {
+  factory ClientWantsToDeletePlant({
     required String jwt,
     required String eventType,
     required Uuid plantId,
   }) = _ClientWantsToDeletePlantDto;
 
-  factory ClientWantsToDeletePlantDto.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToDeletePlantDtoFromJson(json);
+  factory ClientWantsToDeletePlant.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToDeletePlantFromJson(json);
 }
 
 @freezed
@@ -125,7 +126,7 @@ class ClientWantsToCheckJwtValidity extends ClientEvent
 }
 
 @freezed
-class ClientWantsToRemoveBackgroundFromImage extends ClientEventWithJwt
+class ClientWantsToRemoveBackgroundFromImage extends ClientEvent
     with _$ClientWantsToRemoveBackgroundFromImage {
   const factory ClientWantsToRemoveBackgroundFromImage({
     required String base64Image,
@@ -149,6 +150,87 @@ class ClientWantsToCreatePlant extends ClientEvent
 
   factory ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToCreatePlantFromJson(json);
+}
+
+@freezed
+class ClientWantsLatestConditionsForPlant extends ClientEvent
+    with _$ClientWantsLatestConditionsForPlant {
+  const factory ClientWantsLatestConditionsForPlant({
+    required String jwt,
+    required String eventType,
+    required Uuid plantId,
+  }) = _ClientWantsLatestConditionsForPlant;
+
+  factory ClientWantsLatestConditionsForPlant.fromJson(
+          Map<String, dynamic> json) =>
+      _$ClientWantsLatestConditionsForPlantFromJson(json);
+}
+
+/*
+  * Collections
+ */
+@freezed
+class ClientWantsAllCollections extends ClientEvent
+    with _$ClientWantsAllCollections {
+  const factory ClientWantsAllCollections({
+    required String jwt,
+    required String eventType,
+  }) = _ClientWantsAllCollections;
+
+  factory ClientWantsAllCollections.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsAllCollectionsFromJson(json);
+}
+
+@freezed
+class ClientWantsPlantsForCollection extends ClientEvent
+    with _$ClientWantsPlantsForCollection {
+  const factory ClientWantsPlantsForCollection({
+    required String jwt,
+    required String eventType,
+    required Uuid collectionId,
+  }) = _ClientWantsPlantsForCollection;
+
+  factory ClientWantsPlantsForCollection.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsPlantsForCollectionFromJson(json);
+}
+
+@freezed
+class ClientWantsToCreateCollection extends ClientEvent
+    with _$ClientWantsToCreateCollection {
+  const factory ClientWantsToCreateCollection({
+    required String jwt,
+    required String eventType,
+    required CreateCollectionDto createCollectionDto,
+  }) = _ClientWantsToCreateCollection;
+
+  factory ClientWantsToCreateCollection.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToCreateCollectionFromJson(json);
+}
+
+@freezed
+class ClientWantsToUpdateCollection extends ClientEvent
+    with _$ClientWantsToUpdateCollection {
+  const factory ClientWantsToUpdateCollection({
+    required String jwt,
+    required String eventType,
+    required UpdateCollectionDto updateCollectionDto,
+  }) = _ClientWantsToUpdateCollection;
+
+  factory ClientWantsToUpdateCollection.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToUpdateCollectionFromJson(json);
+}
+
+@freezed
+class ClientWantsToDeleteCollection extends ClientEvent
+    with _$ClientWantsToDeleteCollection {
+  const factory ClientWantsToDeleteCollection({
+    required String jwt,
+    required String eventType,
+    required Uuid collectionId,
+  }) = _ClientWantsToDeleteCollection;
+
+  factory ClientWantsToDeleteCollection.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToDeleteCollectionFromJson(json);
 }
 
 @freezed

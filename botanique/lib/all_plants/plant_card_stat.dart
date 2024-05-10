@@ -9,7 +9,7 @@ class PlantCardStat extends StatelessWidget {
 
   final String statValue;
   final String statImage;
-  final double _imageSize = 25;
+  final double _imageSize = 20;
 
   @override
   Widget build(BuildContext context) {

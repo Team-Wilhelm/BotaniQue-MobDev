@@ -1,92 +1,125 @@
-import 'package:botanique/all_plants/plant_card_stat.dart';
-import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
+import 'package:botanique/models/models/plant.dart';
 import 'package:botanique/shared/app_text.dart';
-import 'package:botanique/style/app_style.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../models/events/client_events.dart';
+import '../style/app_style.dart';
+import 'plant_detail/plant_detail_screen.dart';
 
 class PlantCard extends StatelessWidget {
-  const PlantCard({super.key});
+  const PlantCard({super.key, required this.plant});
+
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const PlantDetailScreen();
-        }));
+        context.read<WebSocketBloc>().add(ClientWantsLatestConditionsForPlant(
+            plantId: plant.plantId,
+            jwt: "jwt",
+            eventType: "ClientWantsLatestConditionsForPlant"));
+        Navigator.push(context, _getPageRouteBuilder());
       },
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          /*boxShadow: [
-            BoxShadow(
-              color: TextColors.textSecondary.withOpacity(0.2),
-              blurRadius: 3,
-              offset: const Offset(3, 3),
-            ),
-          ],
-          */
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AppText(
-                    text: "Plant Name",
-                    fontSize: FontSizes.h4,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        PlantCardStat(
-                            statValue: "67%",
-                            statImage: AssetConstants.humidity),
-                        _getSpacer(),
-                        PlantCardStat(
-                            statValue: "20%", statImage: AssetConstants.light),
-                        _getSpacer(),
-                        PlantCardStat(
-                            statValue: "89%",
-                            statImage: AssetConstants.soilMoisture),
-                      ]),
-                ],
+      child: Hero(
+        tag: "plantCard${plant.plantId}",
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: TextColors.textSecondary.withOpacity(0.2),
+                blurRadius: 5,
+                offset: const Offset(3, 3),
               ),
-              getPlantImage(context),
             ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                getPlantImage(context),
+                const SizedBox(height: 8),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.045,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppText(
+                        text: plant.nickname,
+                      ),
+                      const AppText(text: "🥹")
+                    ],
+                  ),
+                ),
+
+                /*Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  PlantCardStat(
+                      statValue: "67%", statImage: AssetConstants.humidity),
+                  _getSpacer(),
+                  PlantCardStat(
+                      statValue: "20%", statImage: AssetConstants.light),
+                  _getSpacer(),
+                  PlantCardStat(
+                      statValue: "89%", statImage: AssetConstants.soilMoisture),
+                ]),*/
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Container getPlantImage(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.1,
-      width: MediaQuery.of(context).size.width * 0.3,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        image: const DecorationImage(
-          image: AssetImage(AssetConstants.logo),
-          fit: BoxFit.cover,
-        ),
-      ),
+  Widget getPlantImage(BuildContext context) {
+    return Expanded(
+      child: plant.imageUrl != ""
+          ? Image.network(plant.imageUrl)
+          : Image.asset(AssetConstants.logo, fit: BoxFit.cover),
     );
   }
 
-  Widget _getSpacer() {
-    return const SizedBox(
-      width: 8,
+  PageRouteBuilder _getPageRouteBuilder() {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          PlantDetailScreen(plant: plant),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = const Offset(1.0, 0.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            child: child,
+          ),
+        );
+      },
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../state/navigation_cubit.dart';
+import '../../util/navigation_constants.dart';
 
 class AppNavigationItem extends StatelessWidget {
   const AppNavigationItem({
@@ -9,11 +10,13 @@ class AppNavigationItem extends StatelessWidget {
     required this.routeLabel,
     required this.label,
     required this.icon,
+    this.onTap,
   });
 
   final String routeLabel;
   final String label;
   final IconData icon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,9 @@ class AppNavigationItem extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             cubit.changePage(routeLabel);
+            if (onTap != null) {
+              onTap!();
+            }
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
@@ -30,8 +36,9 @@ class AppNavigationItem extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border(
                 top: BorderSide(
-                  color: cubit.state == routeLabel // TODO: fix
-                      ? Theme.of(context).colorScheme.secondary
+                  color: cubit.state.index ==
+                          NavigationConstants.pageNameToIndex(routeLabel)
+                      ? Theme.of(context).colorScheme.primary
                       : Colors.transparent,
                   width: 2,
                 ),

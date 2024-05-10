@@ -1,24 +1,16 @@
 import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
+import 'package:botanique/models/models/conditions.dart';
 import 'package:botanique/models/models/plant.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'server_events.freezed.dart';
+import '../models/collections.dart';
+import '../models/uuid.dart';
 
+part 'server_events.freezed.dart';
 part 'server_events.g.dart';
 
 class ServerEventHelper {
-  final List<String> _errorMessages = [
-    ServerSendsErrorMessage.name,
-    ServerRejectsWrongCredentials.name,
-    ServerRespondsNotAuthenticated.name,
-    ServerRespondsNotAuthorized.name,
-    ServerRespondsNotFound.name,
-    ServerRespondsRegisterDevice.name,
-    ServerRespondsValidationError.name,
-    ServerRejectsInvalidFile.name
-  ];
-
   static bool isErrorMessage(ServerEvent event) {
     return event is ServerSendsErrorMessage ||
         event is ServerRespondsNotAuthenticated ||
@@ -31,6 +23,11 @@ class ServerEventHelper {
   }
 }
 
+/*
+  Used to initialize blocs with an initial state
+ */
+class InitialServerEvent extends ServerEvent {}
+
 class ServerEvent extends BaseEvent {
   static ServerEvent fromJson(Map<String, Object?> json) {
     final type = json['eventType'];
@@ -40,11 +37,35 @@ class ServerEvent extends BaseEvent {
         ServerSendsImageWithoutBackground.fromJson(json),
       ServerSendsPlant.name => ServerSendsPlant.fromJson(json),
       ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
-      ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
+      ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
       ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
       ServerConfirmsUpdate.name => ServerConfirmsUpdate.fromJson(json),
+
+      // Collections
+      ServerSendsAllCollections.name =>
+        ServerSendsAllCollections.fromJson(json),
+      ServerSendsPlants.name => ServerSendsPlants.fromJson(json),
+      ServerSavesCollection.name => ServerSavesCollection.fromJson(json),
+      ServerDeletesCollection.name => ServerDeletesCollection.fromJson(json),
+
+      // Conditions
+      ServerSendsLatestConditionsForPlant.name =>
+        ServerSendsLatestConditionsForPlant.fromJson(json),
+
+      // Errors
+      ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
       ServerRejectsWrongCredentials.name =>
         ServerRejectsWrongCredentials.fromJson(json),
+      ServerRespondsNotAuthenticated.name =>
+        ServerRespondsNotAuthenticated.fromJson(json),
+      ServerRespondsNotAuthorized.name =>
+        ServerRespondsNotAuthorized.fromJson(json),
+      ServerRespondsNotFound.name => ServerRespondsNotFound.fromJson(json),
+      ServerRespondsRegisterDevice.name =>
+        ServerRespondsRegisterDevice.fromJson(json),
+      ServerRespondsValidationError.name =>
+        ServerRespondsValidationError.fromJson(json),
+      ServerRejectsInvalidFile.name => ServerRejectsInvalidFile.fromJson(json),
       ServerRejectsUpdate.name => ServerRejectsUpdate.fromJson(json),
       _ => throw "Unknown event type: $type in $json"
     };
@@ -101,18 +122,6 @@ class ServerConfirmsUpdate extends ServerEvent with _$ServerConfirmsUpdate {
 }
 
 @freezed
-class ServerSendsAllPlants extends ServerEvent with _$ServerSendsAllPlants {
-  static const String name = "ServerSendsAllPlants";
-
-  const factory ServerSendsAllPlants({
-    required List<Plant> plants,
-  }) = _ServerSendsAllPlants;
-
-  factory ServerSendsAllPlants.fromJson(Map<String, dynamic> json) =>
-      _$ServerSendsAllPlantsFromJson(json);
-}
-
-@freezed
 class ServerAuthenticatesUser extends ServerEvent
     with _$ServerAuthenticatesUser {
   static const String name = "ServerAuthenticatesUser";
@@ -133,6 +142,73 @@ class ServerConfirmsDelete extends ServerEvent with _$ServerConfirmsDelete {
 
   factory ServerConfirmsDelete.fromJson(Map<String, dynamic> json) =>
       _$ServerConfirmsDeleteFromJson(json);
+}
+
+@freezed
+class ServerSendsLatestConditionsForPlant extends ServerEvent
+    with _$ServerSendsLatestConditionsForPlant {
+  static const String name = "ServerSendsLatestConditionsForPlant";
+
+  const factory ServerSendsLatestConditionsForPlant({
+    required ConditionsLog conditionsLog,
+  }) = _ServerSendsLatestConditionsForPlant;
+
+  factory ServerSendsLatestConditionsForPlant.fromJson(
+          Map<String, dynamic> json) =>
+      _$ServerSendsLatestConditionsForPlantFromJson(json);
+}
+
+/*
+  Collections
+ */
+@freezed
+class ServerSendsAllCollections extends ServerEvent
+    with _$ServerSendsAllCollections {
+  static const String name = "ServerSendsAllCollections";
+
+  const factory ServerSendsAllCollections({
+    required List<GetCollectionDto> collections,
+  }) = _ServerSendsAllCollections;
+
+  factory ServerSendsAllCollections.fromJson(Map<String, dynamic> json) =>
+      _$ServerSendsAllCollectionsFromJson(json);
+}
+
+@freezed
+class ServerSendsPlants extends ServerEvent
+    with _$ServerSendsPlants {
+  static const String name = "ServerSendsPlants";
+
+  const factory ServerSendsPlants({
+    required List<Plant> plants,
+    Uuid? collectionId,
+  }) = _ServerSendsPlants;
+
+  factory ServerSendsPlants.fromJson(Map<String, dynamic> json) =>
+      _$ServerSendsPlantsFromJson(json);
+}
+
+@freezed
+class ServerSavesCollection extends ServerEvent with _$ServerSavesCollection {
+  static const String name = "ServerCreatesCollection";
+
+  const factory ServerSavesCollection({
+    required Collection collection,
+  }) = _ServerSavesCollection;
+
+  factory ServerSavesCollection.fromJson(Map<String, dynamic> json) =>
+      _$ServerSavesCollectionFromJson(json);
+}
+
+@freezed
+class ServerDeletesCollection extends ServerEvent
+    with _$ServerDeletesCollection {
+  static const String name = "ServerDeletesCollection";
+
+  const factory ServerDeletesCollection() = _ServerDeletesCollection;
+
+  factory ServerDeletesCollection.fromJson(Map<String, dynamic> json) =>
+      _$ServerDeletesCollectionFromJson(json);
 }
 
 /*
