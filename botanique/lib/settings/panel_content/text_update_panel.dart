@@ -1,10 +1,7 @@
 import 'package:botanique/shared/app_button.dart';
-import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/app_text_field.dart';
-import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TextUpdatePanel extends StatelessWidget {
   TextUpdatePanel(
