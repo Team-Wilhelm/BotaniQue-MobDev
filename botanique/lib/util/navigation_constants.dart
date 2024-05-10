@@ -13,7 +13,7 @@ class NavigationConstants {
   static const String addPlant = 'addPlant';
   static const String settings = 'settings';
   static const String welcome = 'welcome';
-  static const String logIn = 'logIn';
+  static const String auth = 'logIn';
   static const String signUp = 'signUp';
 
   static final Map<String, int> _pageNameIndexMap = {
@@ -22,7 +22,7 @@ class NavigationConstants {
     NavigationConstants.addPlant: 2,
     NavigationConstants.settings: 3,
     NavigationConstants.welcome: 4,
-    NavigationConstants.logIn: 5,
+    NavigationConstants.auth: 5,
     NavigationConstants.signUp: 6,
   };
 
@@ -46,7 +46,7 @@ class NavigationConstants {
         return const SettingsScreen();
       case NavigationConstants.welcome:
         return const WelcomeScreen();
-      case NavigationConstants.logIn:
+      case NavigationConstants.auth:
         return const AuthScreen();
 
       default:

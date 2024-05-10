@@ -34,7 +34,7 @@ class AppImagePreview extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             image: _getImage(),
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             colorFilter: _getFilter,
           ),
         ),

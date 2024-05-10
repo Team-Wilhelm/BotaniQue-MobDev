@@ -1,5 +1,5 @@
 import 'package:botanique/auth/auth_bottom_text.dart';
-import 'package:botanique/models/dtos/auth/log_in_dto.dart';
+import 'package:botanique/models/auth/log_in_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';

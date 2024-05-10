@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/dtos/plant_dtos.dart';
+import '../../models/models/plant.dart';
+
 
 class PlantRequirementsCubit extends Cubit<CreateRequirementsDto> {
   PlantRequirementsCubit() : super(CreateRequirementsDto.empty());

@@ -6,11 +6,12 @@ enum ButtonType {
   primary,
   secondary,
   outline,
+  inactive,
 }
 
 enum ButtonShape {
   square,
-  rounded,
+  round,
 }
 
 class AppButton extends StatelessWidget {
@@ -61,6 +62,9 @@ class AppButton extends StatelessWidget {
       case ButtonType.outline:
         backgroundColor = Colors.transparent;
         break;
+      case ButtonType.inactive:
+        backgroundColor = TextColors.textLight;
+        break;
     }
 
     if (disabled) {
@@ -91,6 +95,9 @@ class AppButton extends StatelessWidget {
       case ButtonType.outline:
         textColor = AppColors.primary[20]!;
         break;
+      case ButtonType.inactive:
+        textColor = TextColors.textSecondary;
+        break;
     }
 
     if (disabled) {
@@ -103,8 +110,8 @@ class AppButton extends StatelessWidget {
   BorderRadius get borderRadius {
     switch (buttonShape) {
       case ButtonShape.square:
-        return BorderRadius.circular(6);
-      case ButtonShape.rounded:
+        return BorderRadius.circular(8);
+      case ButtonShape.round:
         return BorderRadius.circular(20);
     }
   }
