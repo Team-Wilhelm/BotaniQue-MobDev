@@ -43,6 +43,20 @@ Map<String, dynamic> _$$ServerCreatesNewPlantImplToJson(
       'plant': instance.plant,
     };
 
+_$ServerConfirmsUpdateImpl _$$ServerConfirmsUpdateImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerConfirmsUpdateImpl(
+      getUserDto: json['getUserDto'] == null
+          ? null
+          : GetUserDto.fromJson(json['getUserDto'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ServerConfirmsUpdateImplToJson(
+        _$ServerConfirmsUpdateImpl instance) =>
+    <String, dynamic>{
+      'getUserDto': instance.getUserDto,
+    };
+
 _$ServerAuthenticatesUserImpl _$$ServerAuthenticatesUserImplFromJson(
         Map<String, dynamic> json) =>
     _$ServerAuthenticatesUserImpl(
@@ -91,18 +105,20 @@ Map<String, dynamic> _$$ServerSendsAllCollectionsImplToJson(
       'collections': instance.collections,
     };
 
-_$ServerSendsPlantsForCollectionImpl
-    _$$ServerSendsPlantsForCollectionImplFromJson(Map<String, dynamic> json) =>
-        _$ServerSendsPlantsForCollectionImpl(
-          plants: (json['plants'] as List<dynamic>)
-              .map((e) => Plant.fromJson(e as Map<String, dynamic>))
-              .toList(),
-        );
+_$ServerSendsPlantsImpl _$$ServerSendsPlantsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerSendsPlantsImpl(
+      plants: (json['plants'] as List<dynamic>)
+          .map((e) => Plant.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      collectionId: json['collectionId'] as String?,
+    );
 
-Map<String, dynamic> _$$ServerSendsPlantsForCollectionImplToJson(
-        _$ServerSendsPlantsForCollectionImpl instance) =>
+Map<String, dynamic> _$$ServerSendsPlantsImplToJson(
+        _$ServerSendsPlantsImpl instance) =>
     <String, dynamic>{
       'plants': instance.plants,
+      'collectionId': instance.collectionId,
     };
 
 _$ServerSavesCollectionImpl _$$ServerSavesCollectionImplFromJson(
@@ -220,4 +236,19 @@ Map<String, dynamic> _$$ServerRejectsInvalidFileImplToJson(
         _$ServerRejectsInvalidFileImpl instance) =>
     <String, dynamic>{
       'error': instance.error,
+    };
+
+_$ServerRejectsUpdateImpl _$$ServerRejectsUpdateImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ServerRejectsUpdateImpl(
+      errorMessage: json['errorMessage'] as String,
+      getUserDto:
+          GetUserDto.fromJson(json['getUserDto'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$ServerRejectsUpdateImplToJson(
+        _$ServerRejectsUpdateImpl instance) =>
+    <String, dynamic>{
+      'errorMessage': instance.errorMessage,
+      'getUserDto': instance.getUserDto,
     };

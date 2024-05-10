@@ -5,6 +5,7 @@ import 'package:botanique/models/models/plant.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../models/collections.dart';
+import '../models/uuid.dart';
 
 part 'server_events.freezed.dart';
 part 'server_events.g.dart';
@@ -43,8 +44,7 @@ class ServerEvent extends BaseEvent {
       // Collections
       ServerSendsAllCollections.name =>
         ServerSendsAllCollections.fromJson(json),
-      ServerSendsPlantsForCollection.name =>
-        ServerSendsPlantsForCollection.fromJson(json),
+      ServerSendsPlants.name => ServerSendsPlants.fromJson(json),
       ServerSavesCollection.name => ServerSavesCollection.fromJson(json),
       ServerDeletesCollection.name => ServerDeletesCollection.fromJson(json),
 
@@ -175,16 +175,17 @@ class ServerSendsAllCollections extends ServerEvent
 }
 
 @freezed
-class ServerSendsPlantsForCollection extends ServerEvent
-    with _$ServerSendsPlantsForCollection {
-  static const String name = "ServerSendsPlantsForCollection";
+class ServerSendsPlants extends ServerEvent
+    with _$ServerSendsPlants {
+  static const String name = "ServerSendsPlants";
 
-  const factory ServerSendsPlantsForCollection({
+  const factory ServerSendsPlants({
     required List<Plant> plants,
-  }) = _ServerSendsPlantsForCollection;
+    Uuid? collectionId,
+  }) = _ServerSendsPlants;
 
-  factory ServerSendsPlantsForCollection.fromJson(Map<String, dynamic> json) =>
-      _$ServerSendsPlantsForCollectionFromJson(json);
+  factory ServerSendsPlants.fromJson(Map<String, dynamic> json) =>
+      _$ServerSendsPlantsFromJson(json);
 }
 
 @freezed

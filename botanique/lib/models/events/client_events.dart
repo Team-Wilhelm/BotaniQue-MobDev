@@ -1,7 +1,5 @@
 
 import 'package:botanique/models/dtos/user/user_dto.dart';
-import 'package:botanique/models/dtos/auth/log_in_dto.dart';
-import 'package:botanique/models/dtos/plant_dtos.dart';
 import 'package:botanique/models/auth/log_in_dto.dart';
 import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/models/models/uuid.dart';

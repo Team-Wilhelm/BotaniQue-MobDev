@@ -2,7 +2,6 @@ import 'package:botanique/all_plants/all_plants_screen.dart';
 import 'package:botanique/auth/auth_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/models/events/server_events.dart';
-import 'package:botanique/repositories/local_storage_repository.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
@@ -51,8 +50,7 @@ void main() async {
         BlocProvider<WebSocketBloc>(
           create: (context) => WebSocketBloc(channel: channel),
         ),
-        BlocProvider<UpdateUserCubit>(
-          create: (context) => UpdateUserCubit())
+        BlocProvider<UpdateUserCubit>(create: (context) => UpdateUserCubit())
       ],
       child: const BotaniQueApp(),
     ),
@@ -148,7 +146,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
       collectionsCubit.setCollections(serverEvent.collections);
       collectionsCubit.getPlantsForCurrentlySelectedCollection(
           context.read<WebSocketBloc>());
-    } else if (serverEvent is ServerSendsPlantsForCollection) {
+    } else if (serverEvent is ServerSendsPlants) {
       context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
     }
   }

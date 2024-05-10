@@ -247,3 +247,20 @@ Map<String, dynamic> _$$ClientWantsToDeleteCollectionImplToJson(
       'eventType': instance.eventType,
       'collectionId': instance.collectionId,
     };
+
+_$ClientWantsToUpdateProfileImpl _$$ClientWantsToUpdateProfileImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClientWantsToUpdateProfileImpl(
+      jwt: json['jwt'] as String,
+      updateUserDto:
+          UpdateUserDto.fromJson(json['updateUserDto'] as Map<String, dynamic>),
+      eventType: json['eventType'] as String,
+    );
+
+Map<String, dynamic> _$$ClientWantsToUpdateProfileImplToJson(
+        _$ClientWantsToUpdateProfileImpl instance) =>
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'updateUserDto': instance.updateUserDto,
+      'eventType': instance.eventType,
+    };
