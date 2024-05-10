@@ -41,7 +41,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         subtitle: "Time to put a face to that name!",
         content: AddPlantSecondStepContent(),
       ),
-      const AppStep(
+      AppStep(
         title: "Just a few more details!",
         subtitle: "When does your plant feel best?",
         content: AddPlantThirdStepContent(),
