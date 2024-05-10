@@ -9,11 +9,13 @@ class AppStep {
     required this.title,
     this.subtitle,
     required this.content,
+    this.onStepOpened,
   });
 
   final String title;
   final String? subtitle;
   final Widget content;
+  final VoidCallbackAction? onStepOpened;
 }
 
 class AppStepper extends StatefulWidget {

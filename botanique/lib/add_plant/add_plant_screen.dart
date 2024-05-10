@@ -17,7 +17,9 @@ import '../state/add_plant/plant_requirements_cubit.dart';
 import '../util/navigation_constants.dart';
 
 class AddPlantScreen extends StatefulWidget {
-  const AddPlantScreen({super.key});
+  const AddPlantScreen({
+    super.key,
+  });
 
   @override
   State<AddPlantScreen> createState() => _AddPlantScreenState();
@@ -26,6 +28,7 @@ class AddPlantScreen extends StatefulWidget {
 class _AddPlantScreenState extends State<AddPlantScreen> {
   late List<AppStep> steps;
   final TextEditingController _plantNameController = TextEditingController();
+  final TextEditingController _deviceIdController = TextEditingController();
 
   @override
   void initState() {
@@ -33,8 +36,10 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
       AppStep(
         title: "Each plant is unique!",
         subtitle: "Let's make sure we know all about yours.",
-        content:
-            AddPlantFirstStepContent(plantNameController: _plantNameController),
+        content: AddPlantFirstStepContent(
+          plantNameController: _plantNameController,
+          deviceIdController: _deviceIdController,
+        ),
       ),
       const AppStep(
         title: "3, 2, 1... Smile!",
@@ -45,6 +50,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         title: "Just a few more details!",
         subtitle: "When does your plant feel best?",
         content: AddPlantThirdStepContent(),
+        
       ),
     ];
     super.initState();
@@ -53,6 +59,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   @override
   void dispose() {
     _plantNameController.dispose();
+    _deviceIdController.dispose();
     super.dispose();
   }
 
@@ -91,6 +98,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           builder: (context, appState) {
             if (appState is PlantToEditSelected) {
               _plantNameController.text = appState.plant.nickname;
+              _deviceIdController.text = appState.plant.deviceID.toString();
             }
 
             if (appState is PlantAddInProgress) {
@@ -128,7 +136,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
             deviceId: "264625477326660",
             nickname: _plantNameController.text,
             base64Image: base64Image,
-            createRequirementsDto: requirements,
+            createRequirementsDto: requirements.toCreateRequirementsDto(),
           ),
           jwt: "jwt",
           eventType: "ClientWantsToCreatePlant",

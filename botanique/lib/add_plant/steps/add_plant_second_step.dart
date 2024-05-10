@@ -2,7 +2,7 @@ import 'package:botanique/models/events/server_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/events/client_events.dart';
+import '../../models/models/plant.dart';
 import '../../shared/app_image_preview.dart';
 import '../../shared/app_text.dart';
 import '../../state/add_plant/add_plant_cubit.dart';
@@ -28,22 +28,21 @@ class AddPlantSecondStepContent extends StatelessWidget {
       },
       child: BlocBuilder<AddPlantCubit, AddPlantState>(
         builder: (context, snapshot) {
+          if (snapshot is PlantToEditSelected) {
+            return _displayPlantToEditPicture(snapshot.plant);
+          }
+
           if (snapshot is InitialNoPictureSelected ||
               snapshot is NoPictureSelected) {
             return _getNoPictureScreen(context, snapshot);
           } else if (snapshot is PictureReady) {
-            return _getPictureReadyScreen(context, snapshot as PictureReady);
+            return _getPictureReadyScreen(context, snapshot);
           } else {
             if (snapshot is PictureSelected) {
-              context.read<AddPlantCubit>().removePictureBackground();
-              context.read<WebSocketBloc>().add(
-                    ClientWantsToRemoveBackgroundFromImage(
-                      jwt: "jwt",
-                      base64Image: XFileConverter.toBase64(snapshot.image),
-                      eventType: "ClientWantsToRemoveBackgroundFromImage",
-                    ),
-                  );
+              context.read<AddPlantCubit>().removePictureBackground(
+                  context.read<WebSocketBloc>(), snapshot.image);
             }
+
             return const Center(child: CircularProgressIndicator.adaptive());
           }
         },
@@ -122,6 +121,20 @@ class AddPlantSecondStepContent extends StatelessWidget {
         const AppText(
           text: "Want to try again? Click on the image!",
           fontSize: FontSizes.tiny,
+        ),
+      ],
+    );
+  }
+
+  Widget _displayPlantToEditPicture(Plant plantToEdit) {
+    return Column(
+      children: [
+        const AppText(text: "Here's your plant!"),
+        const SizedBox(height: 8),
+        AppImagePreview(
+          imageUrl: plantToEdit.imageUrl,
+          hasCameraOverlay: false,
+          imageType: ImageType.network,
         ),
       ],
     );

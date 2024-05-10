@@ -1,8 +1,11 @@
 import 'package:botanique/models/models/plant.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../models/events/client_events.dart';
 import '../../repositories/camera_repository.dart';
+import '../../util/xfile_converter.dart';
 
 class AddPlantCubit extends Cubit<AddPlantState> {
   final PictureRepository pictureRepository = PictureRepository();
@@ -27,7 +30,14 @@ class AddPlantCubit extends Cubit<AddPlantState> {
     }
   }
 
-  void removePictureBackground() {
+  void removePictureBackground(WebSocketBloc webSocketBloc, XFile image) {
+    webSocketBloc.add(
+      ClientWantsToRemoveBackgroundFromImage(
+        jwt: "jwt",
+        base64Image: XFileConverter.toBase64(image),
+        eventType: "ClientWantsToRemoveBackgroundFromImage",
+      ),
+    );
     emit(PictureBackgroundRemovalInProgress());
   }
 

@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'requirements.dart';
 import 'uuid.dart';
 
 part 'plant.freezed.dart';
@@ -52,6 +51,24 @@ class UpdatePlantDto with _$UpdatePlantDto {
       _$UpdatePlantDtoFromJson(json);
 }
 
+/*
+  * Requirements
+*/
+@freezed
+class Requirements with _$Requirements {
+  const factory Requirements({
+    required Uuid requirementsId,
+    required Uuid plantId,
+    required int lightLevel,
+    required int temperatureLevel,
+    required int humidityLevel,
+    required int soilMoistureLevel,
+  }) = _Requirements;
+
+  factory Requirements.fromJson(Map<String, dynamic> json) =>
+      _$RequirementsFromJson(json);
+}
+
 @freezed
 class CreateRequirementsDto with _$CreateRequirementsDto {
   factory CreateRequirementsDto({
@@ -75,19 +92,21 @@ class CreateRequirementsDto with _$CreateRequirementsDto {
 @freezed
 class UpdateRequirementsDto with _$UpdateRequirementsDto {
   factory UpdateRequirementsDto({
-    required int? soilMoistureLevel,
-    required int? lightLevel,
-    required int? temperatureLevel,
-    required int? humidityLevel,
+    required Uuid requirementsId,
+    required int soilMoistureLevel,
+    required int lightLevel,
+    required int temperatureLevel,
+    required int humidityLevel,
   }) = _UpdateRequirementsDto;
 
   factory UpdateRequirementsDto.fromJson(Map<String, dynamic> json) =>
       _$UpdateRequirementsDtoFromJson(json);
 
   factory UpdateRequirementsDto.empty() => UpdateRequirementsDto(
-        soilMoistureLevel: null,
-        lightLevel: null,
-        temperatureLevel: null,
-        humidityLevel: null,
+        soilMoistureLevel: 0,
+        lightLevel: 0,
+        temperatureLevel: 0,
+        humidityLevel: 0,
+        requirementsId: "empty",
       );
 }

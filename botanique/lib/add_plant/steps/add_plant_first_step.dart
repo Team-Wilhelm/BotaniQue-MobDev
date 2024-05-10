@@ -10,44 +10,48 @@ class AddPlantFirstStepContent extends StatelessWidget {
   const AddPlantFirstStepContent({
     super.key,
     required this.plantNameController,
+    required this.deviceIdController,
   });
   final TextEditingController plantNameController;
+  final TextEditingController deviceIdController;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const AppText(
-              text: "What do you call your green friend?",
-            ),
-            AppIconButton(
-              buttonType: ButtonType.outline,
-              icon: Icons.help_outline,
-              onPressed: () {},
-              tooltip:
-                  "Don't worry if you don't have a name, if you leave it blank we'll give it a name for you!",
-            ),
-          ],
-        ),
-        AppTextField(
-            textFieldController: plantNameController,
-            placeholder: "Plant Name"),
-        const SizedBox(height: 24),
-        AppText(text: collectionQuestion),
-        const SizedBox(height: 8),
-        const CollectionDropdown(),
-        const SizedBox(height: 24),
-        const AppText(text: "Fill in the device ID of your plant sensor."),
-        // TODO: add scan QR code
-        const SizedBox(height: 8),
-        AppTextField(
-          textFieldController: TextEditingController(),
-          placeholder: "Device ID",
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const AppText(
+                text: "What do you call your green friend?",
+              ),
+              AppIconButton(
+                buttonType: ButtonType.outline,
+                icon: Icons.help_outline,
+                onPressed: () {},
+                tooltip:
+                    "Don't worry if you don't have a name, if you leave it blank we'll give it a name for you!",
+              ),
+            ],
+          ),
+          AppTextField(
+              textFieldController: plantNameController,
+              placeholder: "Plant Name"),
+          const SizedBox(height: 24),
+          AppText(text: collectionQuestion),
+          const SizedBox(height: 8),
+          const CollectionDropdown(),
+          const SizedBox(height: 24),
+          const AppText(text: "Fill in the device ID of your plant sensor"),
+          // TODO: add scan QR code
+          const SizedBox(height: 8),
+          AppTextField(
+            textFieldController: deviceIdController,
+            placeholder: "Device ID",
+          ),
+        ],
+      ),
     );
   }
 
