@@ -48,6 +48,8 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       event = event.copyWith(jwt: jwt!);
     } else if (event is ClientWantsToRemoveBackgroundFromImage) {
       event = event.copyWith(jwt: jwt!);
+    } else if (event is ClientWantsToUpdateProfile) {
+      event = event.copyWith(jwt: jwt!);
     }
 
     print("Sending event: ${event.toJson()}");

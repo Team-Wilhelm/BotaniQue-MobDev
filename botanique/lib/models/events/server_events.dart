@@ -1,8 +1,10 @@
+import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/models/plant.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'server_events.freezed.dart';
+
 part 'server_events.g.dart';
 
 class ServerEventHelper {
@@ -17,7 +19,7 @@ class ServerEventHelper {
     ServerRejectsInvalidFile.name
   ];
 
-  bool isErrorMessage(ServerEvent event) {
+  static bool isErrorMessage(ServerEvent event) {
     return event is ServerSendsErrorMessage ||
         event is ServerRespondsNotAuthenticated ||
         event is ServerRespondsNotAuthorized ||
@@ -40,8 +42,10 @@ class ServerEvent extends BaseEvent {
       ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
       ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
       ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
+      ServerConfirmsUpdate.name => ServerConfirmsUpdate.fromJson(json),
       ServerRejectsWrongCredentials.name =>
         ServerRejectsWrongCredentials.fromJson(json),
+      ServerRejectsUpdate.name => ServerRejectsUpdate.fromJson(json),
       _ => throw "Unknown event type: $type in $json"
     };
   }
@@ -51,6 +55,7 @@ class ServerEvent extends BaseEvent {
 class ServerSendsImageWithoutBackground extends ServerEvent
     with _$ServerSendsImageWithoutBackground {
   static const String name = "ServerSendsImageWithoutBackground";
+
   const factory ServerSendsImageWithoutBackground({
     required String base64Image,
   }) = _ServerSendsImageWithoutBackground;
@@ -63,6 +68,7 @@ class ServerSendsImageWithoutBackground extends ServerEvent
 @freezed
 class ServerSendsPlant extends ServerEvent with _$ServerSendsPlant {
   static const String name = "ServerSendsPlant";
+
   const factory ServerSendsPlant({
     required Plant plant,
   }) = _ServerSendsPlant;
@@ -74,6 +80,7 @@ class ServerSendsPlant extends ServerEvent with _$ServerSendsPlant {
 @freezed
 class ServerCreatesNewPlant extends ServerEvent with _$ServerCreatesNewPlant {
   static const String name = "ServerCreatesNewPlant";
+
   const factory ServerCreatesNewPlant({
     required Plant plant,
   }) = _ServerCreatesNewPlant;
@@ -83,8 +90,20 @@ class ServerCreatesNewPlant extends ServerEvent with _$ServerCreatesNewPlant {
 }
 
 @freezed
+class ServerConfirmsUpdate extends ServerEvent with _$ServerConfirmsUpdate {
+  static const String name = "ServerConfirmsUpdate";
+
+  const factory ServerConfirmsUpdate({GetUserDto? getUserDto}) =
+      _ServerConfirmsUpdate;
+
+  factory ServerConfirmsUpdate.fromJson(Map<String, dynamic> json) =>
+      _$ServerConfirmsUpdateFromJson(json);
+}
+
+@freezed
 class ServerSendsAllPlants extends ServerEvent with _$ServerSendsAllPlants {
   static const String name = "ServerSendsAllPlants";
+
   const factory ServerSendsAllPlants({
     required List<Plant> plants,
   }) = _ServerSendsAllPlants;
@@ -220,4 +239,16 @@ class ServerRejectsInvalidFile extends ServerEvent
 
   factory ServerRejectsInvalidFile.fromJson(Map<String, dynamic> json) =>
       _$ServerRejectsInvalidFileFromJson(json);
+}
+
+@freezed
+class ServerRejectsUpdate extends ServerEvent with _$ServerRejectsUpdate {
+  static const String name = "ServerRejectsUpdate";
+
+  const factory ServerRejectsUpdate(
+      {required String errorMessage,
+      required GetUserDto getUserDto}) = _ServerRejectsUpdate;
+
+  factory ServerRejectsUpdate.fromJson(Map<String, dynamic> json) =>
+      _$ServerRejectsUpdateFromJson(json);
 }

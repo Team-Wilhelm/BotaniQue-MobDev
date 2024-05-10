@@ -1,3 +1,5 @@
+
+import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/dtos/auth/log_in_dto.dart';
 import 'package:botanique/models/dtos/plant_dtos.dart';
 import 'package:botanique/models/models/uuid.dart';
@@ -147,4 +149,16 @@ class ClientWantsToCreatePlant extends ClientEvent
 
   factory ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToCreatePlantFromJson(json);
+}
+
+@freezed
+class ClientWantsToUpdateProfile extends ClientEventWithJwt with _$ClientWantsToUpdateProfile{
+  const factory ClientWantsToUpdateProfile({
+    required String jwt,
+    required UpdateUserDto updateUserDto,
+    required String eventType
+  }) = _ClientWantsToUpdateProfile;
+
+  factory ClientWantsToUpdateProfile.fromJson(Map<String, dynamic> json) =>
+      _$ClientWantsToUpdateProfileFromJson(json);
 }
