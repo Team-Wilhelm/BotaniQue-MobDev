@@ -37,13 +37,13 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
             AddPlantFirstStepContent(plantNameController: _plantNameController),
       ),
       const AppStep(
-        title: "Time to put a face to that name!",
-        subtitle: "3, 2, 1... Smile!",
+        title: "3, 2, 1... Smile!",
+        subtitle: "Time to put a face to that name!",
         content: AddPlantSecondStepContent(),
       ),
       const AppStep(
-        title: "When does your plant feel best?",
-        subtitle: "Almost there!",
+        title: "Just a few more details!",
+        subtitle: "When does your plant feel best?",
         content: AddPlantThirdStepContent(),
       ),
     ];

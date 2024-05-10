@@ -86,7 +86,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
           text: _getNoPictureSubtitle(snapshot),
           fontSize: FontSizes.tiny,
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         AppImagePreview(
           imageUrl: NetworkConstants.plantPlaceholder,
           hasCameraOverlay: snapshot is InitialNoPictureSelected,
@@ -97,7 +97,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
         if (snapshot is NoPictureSelected) ...[
           const SizedBox(height: 8),
           const AppText(
-            text: "Wanna try again? Click on the image!",
+            text: "Want to try again? Click on the image!",
             fontSize: FontSizes.tiny,
           ),
         ],
@@ -120,7 +120,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         const AppText(
-          text: "Wanna try again? Click on the image!",
+          text: "Want to try again? Click on the image!",
           fontSize: FontSizes.tiny,
         ),
       ],

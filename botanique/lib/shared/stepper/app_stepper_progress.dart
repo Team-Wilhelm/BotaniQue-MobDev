@@ -57,42 +57,20 @@ class _AppStepperProgressState extends State<AppStepperProgress>
       animation: _progressController,
       builder: (context, child) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+          height: _getProgressIndicatorSize(context) * 1.75,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           decoration: BoxDecoration(
             color: AppColors.primary[0],
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      height: _getProgressIndicatorSize(context),
-                      width: _getProgressIndicatorSize(context),
-                      child: CircularProgressIndicator.adaptive(
-                        value:
-                            _progressAnimation.value + (1 / widget.totalSteps),
-                        strokeWidth: 7,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColors.primary[40]!,
-                        ),
-                      ),
-                    ),
-                    AppText(
-                      text:
-                          "${widget.currentStepIndex + 1}/${widget.totalSteps}",
-                      colour: TextColors.textLight,
-                    ),
-                  ],
-                ),
-              ),
+              _getProgressIndicator(),
               const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText(
                     text: widget.step.title,
@@ -114,6 +92,30 @@ class _AppStepperProgressState extends State<AppStepperProgress>
 
   double _getProgressIndicatorSize(BuildContext context) {
     return MediaQuery.of(context).size.height * 0.07;
+  }
+
+  Widget _getProgressIndicator() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SizedBox(
+          height: _getProgressIndicatorSize(context),
+          width: _getProgressIndicatorSize(context),
+          child: CircularProgressIndicator.adaptive(
+            value: _progressAnimation.value + (1 / widget.totalSteps),
+            strokeWidth: 7,
+            valueColor: AlwaysStoppedAnimation<Color>(
+              AppColors.primary[40]!,
+            ),
+            backgroundColor: AppColors.primary[20]!,
+          ),
+        ),
+        AppText(
+          text: "${widget.currentStepIndex + 1}/${widget.totalSteps}",
+          colour: TextColors.textLight,
+        ),
+      ],
+    );
   }
 
   @override

@@ -17,12 +17,14 @@ class AppImagePreview extends StatelessWidget {
     required this.imageUrl,
     this.imageType = ImageType.network,
     this.onTap,
+    this.fit = BoxFit.cover,
   });
 
   final String imageUrl;
   final bool hasCameraOverlay;
   final VoidCallback? onTap;
   final ImageType imageType;
+  final BoxFit fit;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class AppImagePreview extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             image: _getImage(),
-            fit: BoxFit.contain,
+            fit: fit,
             colorFilter: _getFilter,
           ),
         ),

@@ -56,11 +56,7 @@ class _AppStepperState extends State<AppStepper> {
                   _currentStepIndex = value;
                 });
               },
-              children: widget.steps
-                  .map((step) => SingleChildScrollView(
-                        child: step.content,
-                      ))
-                  .toList()),
+              children: widget.steps.map((step) => step.content).toList()),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(

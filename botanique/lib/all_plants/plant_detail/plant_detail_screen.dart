@@ -58,6 +58,7 @@ class PlantDetailScreen extends StatelessWidget {
             tag: "plantCard${plant.plantId}",
             child: AppImagePreview(
               imageUrl: plant.imageUrl,
+              fit: BoxFit.contain,
             ),
           ),
           const SizedBox(height: 16),

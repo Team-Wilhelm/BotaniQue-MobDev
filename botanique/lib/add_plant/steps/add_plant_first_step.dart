@@ -16,7 +16,6 @@ class AddPlantFirstStepContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -34,11 +33,20 @@ class AddPlantFirstStepContent extends StatelessWidget {
           ],
         ),
         AppTextField(
-            textFieldController: plantNameController, placeholder: "PlantName"),
+            textFieldController: plantNameController,
+            placeholder: "Plant Name"),
         const SizedBox(height: 24),
         AppText(text: collectionQuestion),
         const SizedBox(height: 8),
         const CollectionDropdown(),
+        const SizedBox(height: 24),
+        const AppText(text: "Fill in the device ID of your plant sensor."),
+        // TODO: add scan QR code
+        const SizedBox(height: 8),
+        AppTextField(
+          textFieldController: TextEditingController(),
+          placeholder: "Device ID",
+        ),
       ],
     );
   }
