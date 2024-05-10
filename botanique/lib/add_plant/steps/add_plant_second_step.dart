@@ -29,7 +29,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
       child: BlocBuilder<AddPlantCubit, AddPlantState>(
         builder: (context, snapshot) {
           if (snapshot is PlantToEditSelected) {
-            return _displayPlantToEditPicture(snapshot.plant);
+            return _displayPlantToEditPicture(context, snapshot.plant);
           }
 
           if (snapshot is InitialNoPictureSelected ||
@@ -126,7 +126,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
     );
   }
 
-  Widget _displayPlantToEditPicture(Plant plantToEdit) {
+  Widget _displayPlantToEditPicture(BuildContext context, Plant plantToEdit) {
     return Column(
       children: [
         const AppText(text: "Here's your plant!"),
@@ -135,6 +135,14 @@ class AddPlantSecondStepContent extends StatelessWidget {
           imageUrl: plantToEdit.imageUrl,
           hasCameraOverlay: false,
           imageType: ImageType.network,
+          onTap: () {
+            showChoiceDialog(context: context);
+          },
+        ),
+        const SizedBox(height: 8),
+        const AppText(
+          text: "Want to select a different one? Click on the image!",
+          fontSize: FontSizes.tiny,
         ),
       ],
     );
