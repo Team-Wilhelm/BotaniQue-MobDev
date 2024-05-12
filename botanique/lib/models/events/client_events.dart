@@ -93,7 +93,6 @@ class ClientWantsToUpdatePlant extends ClientEvent
   factory ClientWantsToUpdatePlant({
     required String jwt,
     required String eventType,
-    required Uuid plantId,
     required UpdatePlantDto updatePlantDto,
   }) = _ClientWantsToUpdatePlant;
 

@@ -25,7 +25,6 @@ class Plant with _$Plant {
 @freezed
 class CreatePlantDto with _$CreatePlantDto {
   factory CreatePlantDto({
-    required String userEmail,
     required Uuid? collectionId,
     required String? deviceId,
     required String nickname,
@@ -41,7 +40,7 @@ class CreatePlantDto with _$CreatePlantDto {
 class UpdatePlantDto with _$UpdatePlantDto {
   factory UpdatePlantDto({
     required Uuid plantId,
-    required Uuid? cloolectionId,
+    required Uuid? collectionId,
     required String? nickname,
     required String? base64Image, // leave empty to keep existing image
     required UpdateRequirementsDto updateRequirementsDto,

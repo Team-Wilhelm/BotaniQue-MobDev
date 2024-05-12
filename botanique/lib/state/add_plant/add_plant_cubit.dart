@@ -56,10 +56,31 @@ class AddPlantCubit extends Cubit<AddPlantState> {
   void setPlantToEdit(Plant plant) {
     emit(PlantToEditSelected(plant: plant));
   }
+
+  void addPlant(
+    WebSocketBloc webSocketBloc, {
+    required CreatePlantDto createPlantDto,
+  }) {
+    webSocketBloc.add(ClientWantsToCreatePlant(
+      createPlantDto: createPlantDto,
+      jwt: "jwt",
+      eventType: "ClientWantsToCreatePlant",
+    ));
+  }
+
+  void updatePlant(WebSocketBloc webSocketBloc,
+      {required UpdatePlantDto updatePlantDto}) {
+    webSocketBloc.add(ClientWantsToUpdatePlant(
+        updatePlantDto: updatePlantDto,
+        jwt: "jwt",
+        eventType: "ClientWantsToUpdatePlant"));
+  }
 }
 
 // Possible outcomes
-abstract class AddPlantState {}
+abstract class AddPlantState {
+  final bool isEditing = false;
+}
 
 class InitialNoPictureSelected extends AddPlantState {} // Initial state
 
@@ -91,5 +112,5 @@ class PlantAddInProgress extends AddPlantState {}
 class PlantToEditSelected extends AddPlantState {
   final Plant plant;
 
-  PlantToEditSelected({required this.plant});
+  PlantToEditSelected({required this.plant, isEditing = true});
 }

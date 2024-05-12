@@ -10,8 +10,8 @@ import 'package:botanique/util/xfile_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/events/client_events.dart';
 import '../models/models/plant.dart';
+import '../models/models/uuid.dart';
 import '../state/add_plant/add_plant_cubit.dart';
 import '../state/add_plant/plant_requirements_cubit.dart';
 import '../util/navigation_constants.dart';
@@ -29,6 +29,9 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   late List<AppStep> steps;
   final TextEditingController _plantNameController = TextEditingController();
   final TextEditingController _deviceIdController = TextEditingController();
+
+  bool _isEditing = false;
+  Uuid _plantToEditId = "";
 
   @override
   void initState() {
@@ -50,7 +53,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         title: "Just a few more details!",
         subtitle: "When does your plant feel best?",
         content: AddPlantThirdStepContent(),
-        
       ),
     ];
     super.initState();
@@ -86,7 +88,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         },
         child: BlocConsumer<AddPlantCubit, AddPlantState>(
           listener: (context, state) {
-            // TODO: remove maybe
             if (state is PlantAddInProgress) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -95,18 +96,23 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
               );
             }
           },
-          builder: (context, appState) {
-            if (appState is PlantToEditSelected) {
-              _plantNameController.text = appState.plant.nickname;
-              _deviceIdController.text = appState.plant.deviceID.toString();
+          builder: (context, addPlantState) {
+            if (addPlantState is PlantToEditSelected) {
+              _plantNameController.text = addPlantState.plant.nickname;
+              _deviceIdController.text = addPlantState.plant.deviceID is String
+                  ? addPlantState.plant.deviceID!
+                  : "";
+              _plantToEditId = addPlantState.plant.plantId;
+              _isEditing = true;
             }
 
-            if (appState is PlantAddInProgress) {
+            if (addPlantState is PlantAddInProgress) {
+              // TODO: change to a nice animation
               return const Center(child: CircularProgressIndicator());
             }
 
             return AppStepper(
-              onFinishPressed: () => finishPressed(context: context),
+              onFinishPressed: () => savePressed(context),
               steps: steps,
             );
           },
@@ -119,7 +125,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
     return const SizedBox(height: 8);
   }
 
-  void finishPressed({required BuildContext context}) {
+  void savePressed(BuildContext context) {
     final requirements = context.read<PlantRequirementsCubit>().state;
 
     String? base64Image;
@@ -129,19 +135,28 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           (context.read<AddPlantCubit>().state as PictureReady).image);
     }
 
-    context.read<WebSocketBloc>().add(ClientWantsToCreatePlant(
-          createPlantDto: CreatePlantDto(
-            userEmail: "bob@app.com",
-            collectionId: null,
-            deviceId: "264625477326660",
-            nickname: _plantNameController.text,
-            base64Image: base64Image,
-            createRequirementsDto: requirements.toCreateRequirementsDto(),
-          ),
-          jwt: "jwt",
-          eventType: "ClientWantsToCreatePlant",
-        ));
-
-    context.read<AddPlantCubit>().savePlant();
+    if (_isEditing) {
+      final updatePlantDto = UpdatePlantDto(
+        plantId: _plantToEditId,
+        collectionId: null,
+        nickname: _plantNameController.text,
+        base64Image: base64Image,
+        updateRequirementsDto: requirements.toUpdateRequirementsDto(),
+      );
+      context.read<AddPlantCubit>().updatePlant(context.read<WebSocketBloc>(),
+          updatePlantDto: updatePlantDto);
+    } else {
+      final createPlantDto = CreatePlantDto(
+        collectionId: null,
+        deviceId: _deviceIdController.text.isNotEmpty
+            ? _deviceIdController.text
+            : null,
+        nickname: _plantNameController.text,
+        base64Image: base64Image,
+        createRequirementsDto: requirements.toCreateRequirementsDto(),
+      );
+      context.read<AddPlantCubit>().addPlant(context.read<WebSocketBloc>(),
+          createPlantDto: createPlantDto);
+    }
   }
 }

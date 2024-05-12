@@ -58,7 +58,7 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
           jwt: "jwt",
           eventType: "ClientWantsAllPlants",
           pageNumber: 1,
-          pageSize: 5,
+          pageSize: 100,
         ),
       );
     } else {
