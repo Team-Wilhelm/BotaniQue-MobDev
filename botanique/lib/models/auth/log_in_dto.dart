@@ -1,14 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'log_in_dto.freezed.dart';
-part 'log_in_dto.g.dart';
+part 'log_in_dto.mapper.dart';
 
-@freezed
-class LoginDto with _$LoginDto {
-  const factory LoginDto({
-    required String email,
-    required String password,
-  }) = _LoginDto;
+@MappableClass()
+class LoginDto with LoginDtoMappable {
+  final String email;
+  final String password;
 
-  factory LoginDto.fromJson(Map<String, dynamic> json) => _$LoginDtoFromJson(json);
+  LoginDto({
+    required this.email,
+    required this.password,
+  });
 }

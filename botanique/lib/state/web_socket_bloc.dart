@@ -13,7 +13,7 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
   late StreamSubscription _channelSubscription;
   String? jwt;
 
-  WebSocketBloc({required this.channel}) : super(InitialServerEvent()) {
+  WebSocketBloc({required this.channel}) : super(ServerRespondsNotAuthenticated()) {
     // Client events
     on<ClientEvent>(_onClientEvent);
 
@@ -46,43 +46,17 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
     // Feed deserialized events from server into this bloc
     _channelSubscription = channel.stream
         .map((event) => jsonDecode(event))
-        .map((event) => ServerEvent.fromJson(event))
+        .map((event) => ServerEventMapper.fromJson(event))
         .listen(add, onError: addError);
   }
 
   FutureOr<void> _onClientEvent(ClientEvent event, Emitter<ServerEvent> emit) {
-    if (jwt != null) {
-      if (event is ClientWantsToCreatePlant) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsToRemoveBackgroundFromImage) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsAllPlants) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsToDeletePlant) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsToUpdatePlant) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsPlantById) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsAllCollections) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsToCreateCollection) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsToUpdateCollection) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsToDeleteCollection) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsPlantsForCollection) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsLatestConditionsForPlant) {
-        event = event.copyWith(jwt: jwt!);
-      } else if (event is ClientWantsToUpdateProfile) {
-        event = event.copyWith(jwt: jwt!);
-      }
+    if (jwt != null && event is ClientEventWithJwt) {
+      event = event.copyWith(jwt: jwt!);
     }
 
     print("Sending event: ${event.toJson()}");
-    channel.sink.add(jsonEncode(event.toJson()));
+    channel.sink.add(event.toJson());
   }
 
   void setJwt(String jwt) {

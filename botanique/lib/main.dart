@@ -10,7 +10,6 @@ import 'package:botanique/state/broadcast_ws_channel.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
-import 'package:botanique/util/navigation_constants.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -77,8 +76,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
       if (jwt != null) {
         if (mounted) {
           context.read<WebSocketBloc>().add(
-                ClientWantsToCheckJwtValidity(
-                    jwt: jwt, eventType: "ClientWantsToCheckJwtValidity"),
+                ClientWantsToCheckJwtValidity(jwt: jwt),
               );
         }
       }
@@ -102,52 +100,71 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<WebSocketBloc, ServerEvent>(
-        listener: (context, serverEvent) {
-      _handleGlobalEvents(serverEvent);
-    }, builder: (context, snapshot) {
-      return MaterialApp(
-        title: 'BotaniQue',
-        debugShowCheckedModeBanner: false,
-        theme: appTheme,
-        home: Scaffold(
-          body: BlocConsumer<NavigationCubit, NavigationState>(
-              listener: (context, state) => {
-                    _pageController.animateToPage(
-                      state.index,
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeInOut,
-                    )
-                  },
-              builder: (context, state) {
-                return PageView(
-                  controller: _pageController,
-                  children: _screens,
-                );
-              }),
-          bottomNavigationBar: AppNavbar(
-            isHidden: context.read<NavigationCubit>().isNavBarHidden(),
+    return MaterialApp(
+      title: 'BotaniQue',
+      debugShowCheckedModeBanner: false,
+      theme: appTheme,
+      home: Scaffold(
+        body: BlocConsumer<WebSocketBloc, ServerEvent>(
+          listener: (context, serverEvent) => print(serverEvent
+              .eventType), // _handleGlobalEvents(context, serverEvent),
+          builder: (context, state) =>
+              BlocConsumer<NavigationCubit, NavigationState>(
+            listener: (context, state) => {
+              _pageController.animateToPage(
+                state.index,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+              )
+            },
+            builder: (context, state) {
+               return PageView(
+                controller: _pageController,
+                children: _screens,
+              );
+            },
           ),
         ),
-      );
-    });
-  }
-
-  void _handleGlobalEvents(ServerEvent serverEvent) {
-    if (serverEvent is InitialServerEvent) {
-      context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
-    } else if (serverEvent is ServerAuthenticatesUser) {
-      context.read<NavigationCubit>().changePage(
-          NavigationConstants.addPlant); // TODO: Change to home screen
-    } else if (serverEvent is ServerRespondsNotAuthenticated) {
-      context.read<NavigationCubit>().changePage(NavigationConstants.auth);
-    } else if (serverEvent is ServerSendsAllCollections) {
-      final collectionsCubit = context.read<AllPlantsCubit>();
-      collectionsCubit.setCollections(serverEvent.collections);
-      collectionsCubit.getPlantsForCurrentlySelectedCollection(
-          context.read<WebSocketBloc>());
-    } else if (serverEvent is ServerSendsPlants) {
-      context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
-    }
+        bottomNavigationBar: AppNavbar(
+          isHidden: context.read<NavigationCubit>().isNavBarHidden(),
+        ),
+      ),
+    );
   }
 }
+
+/* void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
+  if (serverEvent is InitialServerEvent) {
+    context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
+  } else if (serverEvent is ServerAuthenticatesUser) {
+    context.read<NavigationCubit>().changePage(
+        NavigationConstants.addPlant); // TODO: Change to home screen
+  } else if (serverEvent is ServerRespondsNotAuthenticated) {
+    context.read<NavigationCubit>().changePage(NavigationConstants.auth);
+  } else if (serverEvent is ServerSendsAllCollections) {
+    final collectionsCubit = context.read<AllPlantsCubit>();
+    collectionsCubit.setCollections(serverEvent.collections);
+    collectionsCubit
+        .getPlantsForCurrentlySelectedCollection(context.read<WebSocketBloc>());
+  } else if (serverEvent is ServerSendsPlants) {
+    context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
+  } else if (serverEvent is ServerRespondsValidationError) {
+    print(
+        'ServerEventWithError: ${(serverEvent as ServerEventWithError).error}');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: AppText(text: serverEvent.error),
+        backgroundColor: AppColors.error,
+      ),
+    );
+  } else if (serverEvent is ServerEventWithError) {
+    print(
+        'ServerEventWithError: ${(serverEvent as ServerEventWithError).error}');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: AppText(text: (serverEvent as ServerEventWithError).error),
+        backgroundColor: AppColors.error,
+      ),
+    );
+  }
+} */

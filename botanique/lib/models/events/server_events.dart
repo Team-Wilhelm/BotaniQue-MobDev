@@ -1,42 +1,50 @@
-import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
-import 'package:botanique/models/models/conditions.dart';
 import 'package:botanique/models/models/plant.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
 import '../models/collections.dart';
+import '../models/conditions.dart';
 import '../models/uuid.dart';
 
-part 'server_events.freezed.dart';
-part 'server_events.g.dart';
+part 'server_events.mapper.dart';
 
-class ServerEventHelper {
-  static bool isErrorMessage(ServerEvent event) {
-    return event is ServerSendsErrorMessage ||
-        event is ServerRespondsNotAuthenticated ||
-        event is ServerRespondsNotAuthorized ||
-        event is ServerRejectsInvalidFile ||
-        event is ServerRespondsValidationError ||
-        event is ServerRespondsRegisterDevice ||
-        event is ServerRespondsNotFound ||
-        event is ServerRejectsWrongCredentials;
-  }
+@MappableClass()
+abstract class ServerEvent extends BaseEvent with ServerEventMappable {
+  ServerEvent({required super.eventType});
+}
+
+@MappableClass(discriminatorValue: 'ServerAuthenticatesUser')
+class ServerAuthenticatesUser extends ServerEvent
+    with ServerAuthenticatesUserMappable {
+  final String jwt;
+
+  ServerAuthenticatesUser({
+    required this.jwt,
+    super.eventType = "ServerAuthenticatesUser",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerRespondsNotAuthenticated')
+class ServerRespondsNotAuthenticated extends ServerEvent
+    with ServerRespondsNotAuthenticatedMappable {
+  ServerRespondsNotAuthenticated({
+    super.eventType = "ServerRespondsNotAuthenticated",
+  });
 }
 
 /*
   Used to initialize blocs with an initial state
  */
-class InitialServerEvent extends ServerEvent {}
+/* class InitialServerEvent extends ServerEvent {} */
 
-class ServerEvent extends BaseEvent {
-  static ServerEvent fromJson(Map<String, Object?> json) {
+/*static ServerEvent fromJson(Map<String, Object?> json) {
     final type = json['eventType'];
     print("ServerEvent.fromJson: $type");
-    return switch (type) {
+     return switch (type) {
       ServerSendsImageWithoutBackground.name =>
         ServerSendsImageWithoutBackground.fromJson(json),
       ServerSendsPlant.name => ServerSendsPlant.fromJson(json),
-      ServerCreatesNewPlant.name => ServerCreatesNewPlant.fromJson(json),
+      ServerSavesPlant.name => ServerSavesPlant.fromJson(json),
       ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
       ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
       ServerConfirmsUpdate.name => ServerConfirmsUpdate.fromJson(json),
@@ -68,263 +76,179 @@ class ServerEvent extends BaseEvent {
       ServerRejectsInvalidFile.name => ServerRejectsInvalidFile.fromJson(json),
       ServerRejectsUpdate.name => ServerRejectsUpdate.fromJson(json),
       _ => throw "Unknown event type: $type in $json"
-    };
+    }; 
   }
+  
 }
+*/
 
-@freezed
+@MappableClass(discriminatorValue: 'ServerSendsImageWithoutBackground')
 class ServerSendsImageWithoutBackground extends ServerEvent
-    with _$ServerSendsImageWithoutBackground {
-  static const String name = "ServerSendsImageWithoutBackground";
+    with ServerSendsImageWithoutBackgroundMappable {
+  final String base64Image;
 
-  const factory ServerSendsImageWithoutBackground({
-    required String base64Image,
-  }) = _ServerSendsImageWithoutBackground;
-
-  factory ServerSendsImageWithoutBackground.fromJson(
-          Map<String, dynamic> json) =>
-      _$ServerSendsImageWithoutBackgroundFromJson(json);
+  ServerSendsImageWithoutBackground({
+    required this.base64Image,
+    super.eventType = "ServerSendsImageWithoutBackground",
+  });
 }
 
-@freezed
-class ServerSendsPlant extends ServerEvent with _$ServerSendsPlant {
-  static const String name = "ServerSendsPlant";
+@MappableClass(discriminatorValue: 'ServerSendsPlant')
+class ServerSendsPlant extends ServerEvent with ServerSendsPlantMappable {
+  final Plant plant;
 
-  const factory ServerSendsPlant({
-    required Plant plant,
-  }) = _ServerSendsPlant;
-
-  factory ServerSendsPlant.fromJson(Map<String, dynamic> json) =>
-      _$ServerSendsPlantFromJson(json);
+  ServerSendsPlant({
+    required this.plant,
+    super.eventType = "ServerSendsPlant",
+  });
 }
 
-@freezed
-class ServerCreatesNewPlant extends ServerEvent with _$ServerCreatesNewPlant {
-  static const String name = "ServerCreatesNewPlant";
+@MappableClass(discriminatorValue: 'ServerSavesPlant')
+class ServerSavesPlant extends ServerEvent with ServerSavesPlantMappable {
+  final Plant plant;
 
-  const factory ServerCreatesNewPlant({
-    required Plant plant,
-  }) = _ServerCreatesNewPlant;
-
-  factory ServerCreatesNewPlant.fromJson(Map<String, dynamic> json) =>
-      _$ServerCreatesNewPlantFromJson(json);
+  ServerSavesPlant({
+    required this.plant,
+    super.eventType = "ServerSavesPlant",
+  });
 }
 
-@freezed
-class ServerConfirmsUpdate extends ServerEvent with _$ServerConfirmsUpdate {
-  static const String name = "ServerConfirmsUpdate";
-
-  const factory ServerConfirmsUpdate({GetUserDto? getUserDto}) =
-      _ServerConfirmsUpdate;
-
-  factory ServerConfirmsUpdate.fromJson(Map<String, dynamic> json) =>
-      _$ServerConfirmsUpdateFromJson(json);
+@MappableClass(discriminatorValue: 'ServerConfirmsUpdate')
+class ServerConfirmsUpdate extends ServerEvent
+    with ServerConfirmsUpdateMappable {
+  ServerConfirmsUpdate({
+    super.eventType = "ServerConfirmsUpdate",
+  });
 }
 
-@freezed
-class ServerAuthenticatesUser extends ServerEvent
-    with _$ServerAuthenticatesUser {
-  static const String name = "ServerAuthenticatesUser";
-
-  const factory ServerAuthenticatesUser({
-    required String jwt,
-  }) = _ServerAuthenticatesUser;
-
-  factory ServerAuthenticatesUser.fromJson(Map<String, dynamic> json) =>
-      _$ServerAuthenticatesUserFromJson(json);
+@MappableClass(discriminatorValue: 'ServerConfirmsDelete')
+class ServerConfirmsDelete extends ServerEvent
+    with ServerConfirmsDeleteMappable {
+  ServerConfirmsDelete({
+    super.eventType = "ServerConfirmsDelete",
+  });
 }
 
-@freezed
-class ServerConfirmsDelete extends ServerEvent with _$ServerConfirmsDelete {
-  static const String name = "ServerConfirmsDelete";
-
-  const factory ServerConfirmsDelete() = _ServerConfirmsDelete;
-
-  factory ServerConfirmsDelete.fromJson(Map<String, dynamic> json) =>
-      _$ServerConfirmsDeleteFromJson(json);
-}
-
-@freezed
+@MappableClass(discriminatorValue: 'ServerSendsLatestConditionsForPlant')
 class ServerSendsLatestConditionsForPlant extends ServerEvent
-    with _$ServerSendsLatestConditionsForPlant {
-  static const String name = "ServerSendsLatestConditionsForPlant";
+    with ServerSendsLatestConditionsForPlantMappable {
+  final ConditionsLog conditionsLog;
 
-  const factory ServerSendsLatestConditionsForPlant({
-    required ConditionsLog conditionsLog,
-  }) = _ServerSendsLatestConditionsForPlant;
-
-  factory ServerSendsLatestConditionsForPlant.fromJson(
-          Map<String, dynamic> json) =>
-      _$ServerSendsLatestConditionsForPlantFromJson(json);
+  ServerSendsLatestConditionsForPlant({
+    required this.conditionsLog,
+    super.eventType = "ServerSendsLatestConditionsForPlant",
+  });
 }
 
 /*
   Collections
  */
-@freezed
+@MappableClass(discriminatorValue: 'ServerSendsAllCollections')
 class ServerSendsAllCollections extends ServerEvent
-    with _$ServerSendsAllCollections {
-  static const String name = "ServerSendsAllCollections";
+    with ServerSendsAllCollectionsMappable {
+  final List<GetCollectionDto> collections;
 
-  const factory ServerSendsAllCollections({
-    required List<GetCollectionDto> collections,
-  }) = _ServerSendsAllCollections;
-
-  factory ServerSendsAllCollections.fromJson(Map<String, dynamic> json) =>
-      _$ServerSendsAllCollectionsFromJson(json);
+  ServerSendsAllCollections({
+    super.eventType = "ServerSendsAllCollections",
+    required this.collections,
+  });
 }
 
-@freezed
-class ServerSendsPlants extends ServerEvent
-    with _$ServerSendsPlants {
-  static const String name = "ServerSendsPlants";
+@MappableClass(discriminatorValue: 'ServerSendsPlants')
+class ServerSendsPlants extends ServerEvent with ServerSendsPlantsMappable {
+  final List<Plant> plants;
+  final Uuid? collectionId;
 
-  const factory ServerSendsPlants({
-    required List<Plant> plants,
-    Uuid? collectionId,
-  }) = _ServerSendsPlants;
-
-  factory ServerSendsPlants.fromJson(Map<String, dynamic> json) =>
-      _$ServerSendsPlantsFromJson(json);
+  ServerSendsPlants({
+    required this.plants,
+    this.collectionId,
+    super.eventType = "ServerSendsPlants",
+  });
 }
 
-@freezed
-class ServerSavesCollection extends ServerEvent with _$ServerSavesCollection {
-  static const String name = "ServerCreatesCollection";
+@MappableClass(discriminatorValue: 'ServerSavesCollection')
+class ServerSavesCollection extends ServerEvent
+    with ServerSavesCollectionMappable {
+  final Collection collection;
 
-  const factory ServerSavesCollection({
-    required Collection collection,
-  }) = _ServerSavesCollection;
-
-  factory ServerSavesCollection.fromJson(Map<String, dynamic> json) =>
-      _$ServerSavesCollectionFromJson(json);
+  ServerSavesCollection({
+    required this.collection,
+    super.eventType = "ServerSavesCollection",
+  });
 }
 
-@freezed
+@MappableClass(discriminatorValue: 'ServerDeletesCollection')
 class ServerDeletesCollection extends ServerEvent
-    with _$ServerDeletesCollection {
-  static const String name = "ServerDeletesCollection";
-
-  const factory ServerDeletesCollection() = _ServerDeletesCollection;
-
-  factory ServerDeletesCollection.fromJson(Map<String, dynamic> json) =>
-      _$ServerDeletesCollectionFromJson(json);
+    with ServerDeletesCollectionMappable {
+  ServerDeletesCollection({
+    super.eventType = "ServerDeletesCollection",
+  });
 }
 
 /*
   Error messages
  */
-@freezed
+
+@MappableClass(discriminatorValue: 'ServerSendsErrorMessage')
 class ServerSendsErrorMessage extends ServerEvent
-    with _$ServerSendsErrorMessage {
-  static const String name = "ServerSendsErrorMessage";
+    with ServerSendsErrorMessageMappable {
+  final String error;
 
-  const factory ServerSendsErrorMessage({
-    required String error,
-  }) = _ServerSendsErrorMessage;
-
-  factory ServerSendsErrorMessage.fromJson(Map<String, dynamic> json) =>
-      _$ServerSendsErrorMessageFromJson(json);
+  ServerSendsErrorMessage({
+    required this.error,
+    super.eventType = "ServerEventWithError",
+  });
 }
 
-@freezed
-class ServerRejectsWrongCredentials extends ServerEvent
-    with _$ServerRejectsWrongCredentials {
-  static const String name = "ServerRejectsWrongCredentials";
-
-  const factory ServerRejectsWrongCredentials({
-    required String error,
-  }) = _ServerRejectsWrongCredentials;
-
-  factory ServerRejectsWrongCredentials.fromJson(Map<String, dynamic> json) =>
-      _$ServerRejectsWrongCredentialsFromJson(json);
+@MappableClass(discriminatorValue: 'ServerRejectsWrongCredentials')
+class ServerRejectsWrongCredentials extends ServerSendsErrorMessage
+    with ServerRejectsWrongCredentialsMappable {
+  ServerRejectsWrongCredentials(
+      {super.eventType = "ServerRejectsWrongCredentials",
+      required super.error});
 }
 
-@freezed
-class ServerRespondsNotAuthenticated extends ServerEvent
-    with _$ServerRespondsNotAuthenticated {
-  static const String name = "ServerRespondsNotAuthenticated";
-
-  const factory ServerRespondsNotAuthenticated({
-    required String error,
-  }) = _ServerRespondsNotAuthenticated;
-
-  factory ServerRespondsNotAuthenticated.fromJson(Map<String, dynamic> json) =>
-      _$ServerRespondsNotAuthenticatedFromJson(json);
+@MappableClass(discriminatorValue: 'ServerRespondsNotAuthorized')
+class ServerRespondsNotAuthorized extends ServerSendsErrorMessage
+    with ServerRespondsNotAuthorizedMappable {
+  ServerRespondsNotAuthorized(
+      {super.eventType = "ServerRespondsNotAuthorized", required super.error});
 }
 
-@freezed
-class ServerRespondsNotAuthorized extends ServerEvent
-    with _$ServerRespondsNotAuthorized {
-  static const String name = "ServerRespondsNotAuthorized";
-
-  const factory ServerRespondsNotAuthorized({
-    required String error,
-  }) = _ServerRespondsNotAuthorized;
-
-  factory ServerRespondsNotAuthorized.fromJson(Map<String, dynamic> json) =>
-      _$ServerRespondsNotAuthorizedFromJson(json);
+@MappableClass(discriminatorValue: 'ServerRespondsNotFound')
+class ServerRespondsNotFound extends ServerSendsErrorMessage
+    with ServerRespondsNotFoundMappable {
+  ServerRespondsNotFound(
+      {super.eventType = "ServerRespondsNotFound", required super.error});
 }
 
-@freezed
-class ServerRespondsNotFound extends ServerEvent with _$ServerRespondsNotFound {
-  static const String name = "ServerRespondsNotFound";
-
-  const factory ServerRespondsNotFound({
-    required String error,
-  }) = _ServerRespondsNotFound;
-
-  factory ServerRespondsNotFound.fromJson(Map<String, dynamic> json) =>
-      _$ServerRespondsNotFoundFromJson(json);
+@MappableClass(discriminatorValue: 'ServerRespondsRegisterDevice')
+class ServerRespondsRegisterDevice extends ServerSendsErrorMessage
+    with ServerRespondsRegisterDeviceMappable {
+  ServerRespondsRegisterDevice(
+      {super.eventType = "ServerRespondsRegisterDevice", required super.error});
 }
 
-@freezed
-class ServerRespondsRegisterDevice extends ServerEvent
-    with _$ServerRespondsRegisterDevice {
-  static const String name = "ServerRespondsRegisterDevice";
-
-  const factory ServerRespondsRegisterDevice({
-    required String error,
-  }) = _ServerRespondsRegisterDevice;
-
-  factory ServerRespondsRegisterDevice.fromJson(Map<String, dynamic> json) =>
-      _$ServerRespondsRegisterDeviceFromJson(json);
+@MappableClass(discriminatorValue: 'ServerRespondsValidationError')
+class ServerRespondsValidationError extends ServerSendsErrorMessage
+    with ServerRespondsValidationErrorMappable {
+  ServerRespondsValidationError(
+      {super.eventType = "ServerRespondsValidationError",
+      required super.error});
 }
 
-@freezed
-class ServerRespondsValidationError extends ServerEvent
-    with _$ServerRespondsValidationError {
-  static const String name = "ServerRespondsValidationError";
-
-  const factory ServerRespondsValidationError({
-    required String error,
-  }) = _ServerRespondsValidationError;
-
-  factory ServerRespondsValidationError.fromJson(Map<String, dynamic> json) =>
-      _$ServerRespondsValidationErrorFromJson(json);
+@MappableClass(discriminatorValue: 'ServerRejectsInvalidFile')
+class ServerRejectsInvalidFile extends ServerSendsErrorMessage
+    with ServerRejectsInvalidFileMappable {
+  ServerRejectsInvalidFile(
+      {super.eventType = "ServerRejectsInvalidFile", required super.error});
 }
 
-@freezed
-class ServerRejectsInvalidFile extends ServerEvent
-    with _$ServerRejectsInvalidFile {
-  static const String name = "ServerRejectsInvalidFile";
-
-  const factory ServerRejectsInvalidFile({
-    required String error,
-  }) = _ServerRejectsInvalidFile;
-
-  factory ServerRejectsInvalidFile.fromJson(Map<String, dynamic> json) =>
-      _$ServerRejectsInvalidFileFromJson(json);
-}
-
-@freezed
-class ServerRejectsUpdate extends ServerEvent with _$ServerRejectsUpdate {
-  static const String name = "ServerRejectsUpdate";
-
-  const factory ServerRejectsUpdate(
-      {required String errorMessage,
-      required GetUserDto getUserDto}) = _ServerRejectsUpdate;
-
-  factory ServerRejectsUpdate.fromJson(Map<String, dynamic> json) =>
-      _$ServerRejectsUpdateFromJson(json);
+@MappableClass(discriminatorValue: 'ServerRejectsUpdate')
+class ServerRejectsUpdate extends ServerSendsErrorMessage
+    with ServerRejectsUpdateMappable {
+  ServerRejectsUpdate({
+    super.eventType = "ServerRejectsUpdate",
+    required super.error,
+  });
 }

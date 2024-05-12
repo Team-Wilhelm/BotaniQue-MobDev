@@ -1,56 +1,56 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
 import 'plant.dart';
 import 'uuid.dart';
 
-part 'collections.freezed.dart';
-part 'collections.g.dart';
+part 'collections.mapper.dart';
 
 const allPlantsCollectionId = "all-plants";
 
-@freezed
-class Collection with _$Collection {
-  const factory Collection({
-    required Uuid collectionId,
-    required String name,
-    required String userEmail,
-    required List<Plant> plants,
-  }) = _Collection;
+@MappableClass()
+class Collection with CollectionMappable {
+  final Uuid collectionId;
+  final String name;
+  final String userEmail;
+  final List<Plant> plants;
 
-  factory Collection.fromJson(Map<String, dynamic> json) =>
-      _$CollectionFromJson(json);
+  Collection({
+    required this.collectionId,
+    required this.name,
+    required this.userEmail,
+    required this.plants,
+  });
 }
 
-@freezed
-class CreateCollectionDto with _$CreateCollectionDto {
-  factory CreateCollectionDto({
-    required String name,
-  }) = _CreateCollectionDto;
+@MappableClass()
+class CreateCollectionDto with CreateCollectionDtoMappable {
+  final String name;
 
-  factory CreateCollectionDto.fromJson(Map<String, dynamic> json) =>
-      _$CreateCollectionDtoFromJson(json);
+  CreateCollectionDto({
+    required this.name,
+  });
 }
 
-@freezed
-class UpdateCollectionDto with _$UpdateCollectionDto {
-  factory UpdateCollectionDto({
-    required Uuid collectionId,
-    required String name,
-  }) = _UpdateCollectionDto;
+@MappableClass()
+class UpdateCollectionDto with UpdateCollectionDtoMappable {
+  final Uuid collectionId;
+  final String name;
 
-  factory UpdateCollectionDto.fromJson(Map<String, dynamic> json) =>
-      _$UpdateCollectionDtoFromJson(json);
+  UpdateCollectionDto({
+    required this.collectionId,
+    required this.name,
+  });
 }
 
-@freezed
-class GetCollectionDto with _$GetCollectionDto {
-  factory GetCollectionDto({
-    required Uuid collectionId,
-    required String name,
-  }) = _GetCollectionDto;
+@MappableClass()
+class GetCollectionDto with GetCollectionDtoMappable {
+  final Uuid collectionId;
+  final String name;
 
-  factory GetCollectionDto.fromJson(Map<String, dynamic> json) =>
-      _$GetCollectionDtoFromJson(json);
+  GetCollectionDto({
+    required this.collectionId,
+    required this.name,
+  });
 
   factory GetCollectionDto.allPlants() => GetCollectionDto(
         collectionId: allPlantsCollectionId,

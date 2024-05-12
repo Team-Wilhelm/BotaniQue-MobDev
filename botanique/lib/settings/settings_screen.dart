@@ -93,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         body: BlocConsumer<WebSocketBloc, ServerEvent>(
       listener: (context, state) {
         if (state is ServerRejectsUpdate) {
-          _showErrorSnackBar(state.errorMessage);
+          _showErrorSnackBar(state.error);
         }
       },
       builder: (context, state) {

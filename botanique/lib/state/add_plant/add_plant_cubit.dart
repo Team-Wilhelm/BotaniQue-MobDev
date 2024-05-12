@@ -71,9 +71,10 @@ class AddPlantCubit extends Cubit<AddPlantState> {
   void updatePlant(WebSocketBloc webSocketBloc,
       {required UpdatePlantDto updatePlantDto}) {
     webSocketBloc.add(ClientWantsToUpdatePlant(
-        updatePlantDto: updatePlantDto,
-        jwt: "jwt",
-        eventType: "ClientWantsToUpdatePlant"));
+      updatePlantDto: updatePlantDto,
+      jwt: "jwt",
+      eventType: "ClientWantsToUpdatePlant",
+    ));
   }
 }
 

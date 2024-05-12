@@ -43,7 +43,7 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
 
   void _requestCollectionsFromServer(WebSocketBloc webSocketBloc) {
     webSocketBloc.add(
-      const ClientWantsAllCollections(
+      ClientWantsAllCollections(
         jwt: "jwt",
         eventType: "ClientWantsAllCollections",
       ),

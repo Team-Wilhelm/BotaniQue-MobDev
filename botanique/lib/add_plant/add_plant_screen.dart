@@ -70,32 +70,16 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
     return ScreenBase(
       child: BlocListener<WebSocketBloc, ServerEvent>(
         listener: (context, state) {
-          if (state is ServerCreatesNewPlant) {
-            // TODO: better user feedback on success and error
+          if (state is ServerSavesPlant) {
+            // TODO: better user feedback on success
             context
                 .read<NavigationCubit>()
                 .changePage(NavigationConstants.home);
             context.read<PlantRequirementsCubit>().reset();
             context.read<AddPlantCubit>().resetAddPlantState();
-          } else if (state is ServerSendsErrorMessage) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error),
-                backgroundColor: Colors.red,
-              ),
-            );
           }
         },
-        child: BlocConsumer<AddPlantCubit, AddPlantState>(
-          listener: (context, state) {
-            if (state is PlantAddInProgress) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Adding plant..."),
-                ),
-              );
-            }
-          },
+        child: BlocBuilder<AddPlantCubit, AddPlantState>(
           builder: (context, addPlantState) {
             if (addPlantState is PlantToEditSelected) {
               _plantNameController.text = addPlantState.plant.nickname;
@@ -119,10 +103,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         ),
       ),
     );
-  }
-
-  Widget getSpacer() {
-    return const SizedBox(height: 8);
   }
 
   void savePressed(BuildContext context) {
