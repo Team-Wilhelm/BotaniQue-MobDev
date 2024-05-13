@@ -31,7 +31,8 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
   final TextEditingController _deviceIdController = TextEditingController();
 
   bool _isEditing = false;
-  Uuid _plantToEditId = "";
+  Uuid? _plantToEditId;
+  Uuid? _collectionId;
 
   @override
   void initState() {
@@ -42,6 +43,9 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         content: AddPlantFirstStepContent(
           plantNameController: _plantNameController,
           deviceIdController: _deviceIdController,
+          onCollectionSelected: (collection) {
+            _collectionId = collection?.collectionId;
+          },
         ),
       ),
       const AppStep(
@@ -71,23 +75,27 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
       child: BlocListener<WebSocketBloc, ServerEvent>(
         listener: (context, state) {
           if (state is ServerSavesPlant) {
-            // TODO: better user feedback on success
-            context
-                .read<NavigationCubit>()
-                .changePage(NavigationConstants.home);
-            context.read<PlantRequirementsCubit>().reset();
-            context.read<AddPlantCubit>().resetAddPlantState();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Plant saved!"),
+              ),
+            );
+            Future.delayed(const Duration(seconds: 1), () {
+              context
+                  .read<NavigationCubit>()
+                  .changePage(NavigationConstants.allPlants);
+              context.read<PlantRequirementsCubit>().reset();
+              context.read<AddPlantCubit>().resetAddPlantState();
+            });
           }
         },
         child: BlocBuilder<AddPlantCubit, AddPlantState>(
           builder: (context, addPlantState) {
             if (addPlantState is PlantToEditSelected) {
               _plantNameController.text = addPlantState.plant.nickname;
-              _deviceIdController.text = addPlantState.plant.deviceID is String
-                  ? addPlantState.plant.deviceID!
-                  : "";
-              _plantToEditId = addPlantState.plant.plantId;
+              _deviceIdController.text = addPlantState.plant.deviceID ?? "";
               _isEditing = true;
+              _plantToEditId = addPlantState.plant.plantId;
             }
 
             if (addPlantState is PlantAddInProgress) {
@@ -117,8 +125,9 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
 
     if (_isEditing) {
       final updatePlantDto = UpdatePlantDto(
-        plantId: _plantToEditId,
-        collectionId: null,
+        plantId: _plantToEditId!,
+        collectionId: _collectionId,
+        deviceId: _getNullIfTextEmpty(_deviceIdController.text),
         nickname: _plantNameController.text,
         base64Image: base64Image,
         updateRequirementsDto: requirements.toUpdateRequirementsDto(),
@@ -127,16 +136,19 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           updatePlantDto: updatePlantDto);
     } else {
       final createPlantDto = CreatePlantDto(
-        collectionId: null,
-        deviceId: _deviceIdController.text.isNotEmpty
-            ? _deviceIdController.text
-            : null,
-        nickname: _plantNameController.text,
+        collectionId: _collectionId,
+        deviceId: _getNullIfTextEmpty(_deviceIdController.text),
+        nickname: _plantNameController
+            .text, // TODO: can't be empty, won't trigger nickname generation
         base64Image: base64Image,
         createRequirementsDto: requirements.toCreateRequirementsDto(),
       );
       context.read<AddPlantCubit>().addPlant(context.read<WebSocketBloc>(),
           createPlantDto: createPlantDto);
     }
+  }
+
+  String? _getNullIfTextEmpty(String value) {
+    return value.isEmpty ? null : value;
   }
 }

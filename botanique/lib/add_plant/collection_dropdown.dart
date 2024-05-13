@@ -1,4 +1,5 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:botanique/state/add_plant/add_plant_cubit.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,20 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../models/models/collections.dart';
 import '../state/all_plants_cubit.dart';
 
-// The collections are not displayed correctly when calling toString on the collection object.
-class CollectionWrapper {
-  final GetCollectionDto collection;
-
-  CollectionWrapper(this.collection);
-
-  @override
-  String toString() {
-    return collection.name;
-  }
-}
-
 class CollectionDropdown extends StatelessWidget {
-  const CollectionDropdown({super.key});
+  const CollectionDropdown({
+    super.key,
+    required this.onCollectionSelected,
+  });
+
+  final Function(GetCollectionDto?) onCollectionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +24,24 @@ class CollectionDropdown extends StatelessWidget {
         .where((collection) => collection.collectionId != allPlantsCollectionId)
         .toList();
     if (collections.isNotEmpty) {
-      return CustomDropdown<CollectionWrapper>.search(
-        decoration: _decoration,
-        hintText: "Select a collection (optional)",
-        items: collections
-            .map((collection) => CollectionWrapper(collection))
-            .toList(),
-        onChanged: (value) {},
-      );
+      return BlocBuilder<AddPlantCubit, AddPlantState>(
+          builder: (context, addPlantState) {
+        final preselectedCollection = addPlantState is PlantToEditSelected
+            ? collections.firstWhere(
+                (collection) =>
+                    collection.collectionId == addPlantState.plant.collectionId,
+              )
+            : null;
+        return CustomDropdown<GetCollectionDto>.search(
+          decoration: _decoration,
+          hintText: "Select a collection (optional)",
+          items: collections,
+          initialItem: preselectedCollection,
+          onChanged: (value) {
+            onCollectionSelected(value);
+          },
+        );
+      });
     } else {
       return IgnorePointer(
         child: CustomDropdown(

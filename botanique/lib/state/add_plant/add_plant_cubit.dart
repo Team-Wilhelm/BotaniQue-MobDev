@@ -113,5 +113,8 @@ class PlantAddInProgress extends AddPlantState {}
 class PlantToEditSelected extends AddPlantState {
   final Plant plant;
 
-  PlantToEditSelected({required this.plant, isEditing = true});
+  PlantToEditSelected({
+    required this.plant,
+    isEditing = true,
+  });
 }

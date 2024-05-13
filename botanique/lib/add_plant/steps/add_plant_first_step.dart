@@ -1,4 +1,5 @@
 import 'package:botanique/add_plant/collection_dropdown.dart';
+import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/buttons/app_icon_button.dart';
 import 'package:botanique/shared/buttons/button_style.dart';
@@ -11,9 +12,11 @@ class AddPlantFirstStepContent extends StatelessWidget {
     super.key,
     required this.plantNameController,
     required this.deviceIdController,
+    required this.onCollectionSelected,
   });
   final TextEditingController plantNameController;
   final TextEditingController deviceIdController;
+  final Function(GetCollectionDto?) onCollectionSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,9 @@ class AddPlantFirstStepContent extends StatelessWidget {
           const SizedBox(height: 24),
           AppText(text: collectionQuestion),
           const SizedBox(height: 8),
-          const CollectionDropdown(),
+          CollectionDropdown(
+            onCollectionSelected: onCollectionSelected,
+          ),
           const SizedBox(height: 24),
           const AppText(text: "Fill in the device ID of your plant sensor"),
           // TODO: add scan QR code
