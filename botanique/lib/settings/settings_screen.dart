@@ -3,7 +3,6 @@ import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
-import 'package:botanique/shared/app_button.dart';
 import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/state/navigation_cubit.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../shared/buttons/app_button.dart';
 import 'panel_content/panel_item.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -59,7 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         body: BlocConsumer<WebSocketBloc, ServerEvent>(
           listener: (context, state) {
             if (state is ServerRejectsUpdate) {
-              AppSnackbar(context).error(state.error);
+              AppSnackbar(context).showError(state.error);
             }
           },
           builder: (context, state) {
@@ -104,7 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onPressed: () {
                         context.read<WebSocketBloc>().add(ClientWantsToLogOut(
                             email:
-                                context.read<UserCubit>().state.userEmail ?? "",
+                                context.read<UserCubit>().state.userEmail ?? "", //TODO handle the case when email is null
                             eventType: "ClientWantsToLogOut"));
                         context
                             .read<NavigationCubit>()
@@ -198,6 +198,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               placeholder: "Enter new password",
               prefixIcon: const Icon(Icons.password),
             ),
+            spacer,
             AppTextField(
               textFieldController: _passwordRepeatController,
               placeholder: "Repeat new password",

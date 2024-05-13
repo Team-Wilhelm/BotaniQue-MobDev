@@ -1,7 +1,6 @@
 import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
-import 'package:botanique/shared/app_button.dart';
 import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
@@ -13,6 +12,8 @@ import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../shared/buttons/app_button.dart';
 
 class ImageUpdateScreen extends StatelessWidget {
   const ImageUpdateScreen({super.key});
@@ -28,10 +29,10 @@ class ImageUpdateScreen extends StatelessWidget {
             child: BlocConsumer<WebSocketBloc, ServerEvent>(
               listener: (BuildContext context, ServerEvent state) {
                 if (state is ServerConfirmsUpdate &&
-                    state.getUserDto?.blobUrl != null) {
+                    state.getUserDto.blobUrl != null) {
                   context
                       .read<UserCubit>()
-                      .updateBase64Image(state.getUserDto!.blobUrl!);
+                      .updateBase64Image(state.getUserDto.blobUrl!);
                 }
                 if (state is ServerRejectsUpdate) {
                   AppSnackbar(context).showError("Update failed");

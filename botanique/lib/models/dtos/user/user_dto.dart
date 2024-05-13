@@ -13,7 +13,7 @@ class UserDto with UserDtoMappable {
     this.username,
     this.password,
     this.base64Image,
-    this.String? userEmail,
+    this.userEmail,
   });
 }
 

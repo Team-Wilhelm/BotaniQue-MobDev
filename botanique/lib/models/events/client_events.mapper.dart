@@ -89,7 +89,7 @@ class ClientEventMapper extends SubClassMapperBase<ClientEvent> {
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = 'baseDto';
+  final dynamic discriminatorValue = 'BaseDto';
   @override
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
@@ -425,7 +425,7 @@ class ClientEventWithJwtMapper extends SubClassMapperBase<ClientEventWithJwt> {
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = "ClientEventWithJwt";
+  final dynamic discriminatorValue = "BaseDtoWithJwt";
   @override
   late final ClassMapperBase superMapper =
       ClientEventMapper.ensureInitialized();
@@ -2400,7 +2400,7 @@ class ClientWantsToUpdateProfileMapper
       MapperContainer.globals
           .use(_instance = ClientWantsToUpdateProfileMapper._());
       ClientEventWithJwtMapper.ensureInitialized().addSubMapper(_instance!);
-      UpdateUserDtoMapper.ensureInitialized();
+      UserDtoMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -2411,10 +2411,9 @@ class ClientWantsToUpdateProfileMapper
   static String _$jwt(ClientWantsToUpdateProfile v) => v.jwt;
   static const Field<ClientWantsToUpdateProfile, String> _f$jwt =
       Field('jwt', _$jwt);
-  static UpdateUserDto _$updateUserDto(ClientWantsToUpdateProfile v) =>
-      v.updateUserDto;
-  static const Field<ClientWantsToUpdateProfile, UpdateUserDto>
-      _f$updateUserDto = Field('updateUserDto', _$updateUserDto);
+  static UserDto _$userDto(ClientWantsToUpdateProfile v) => v.userDto;
+  static const Field<ClientWantsToUpdateProfile, UserDto> _f$userDto =
+      Field('userDto', _$userDto);
   static String _$eventType(ClientWantsToUpdateProfile v) => v.eventType;
   static const Field<ClientWantsToUpdateProfile, String> _f$eventType = Field(
       'eventType', _$eventType,
@@ -2423,7 +2422,7 @@ class ClientWantsToUpdateProfileMapper
   @override
   final MappableFields<ClientWantsToUpdateProfile> fields = const {
     #jwt: _f$jwt,
-    #updateUserDto: _f$updateUserDto,
+    #userDto: _f$userDto,
     #eventType: _f$eventType,
   };
 
@@ -2438,7 +2437,7 @@ class ClientWantsToUpdateProfileMapper
   static ClientWantsToUpdateProfile _instantiate(DecodingData data) {
     return ClientWantsToUpdateProfile(
         jwt: data.dec(_f$jwt),
-        updateUserDto: data.dec(_f$updateUserDto),
+        userDto: data.dec(_f$userDto),
         eventType: data.dec(_f$eventType));
   }
 
@@ -2501,9 +2500,9 @@ abstract class ClientWantsToUpdateProfileCopyWith<
     $R,
     $In extends ClientWantsToUpdateProfile,
     $Out> implements ClientEventWithJwtCopyWith<$R, $In, $Out> {
-  UpdateUserDtoCopyWith<$R, UpdateUserDto, UpdateUserDto> get updateUserDto;
+  UserDtoCopyWith<$R, UserDto, UserDto> get userDto;
   @override
-  $R call({String? jwt, UpdateUserDto? updateUserDto, String? eventType});
+  $R call({String? jwt, UserDto? userDto, String? eventType});
   ClientWantsToUpdateProfileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -2519,20 +2518,20 @@ class _ClientWantsToUpdateProfileCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ClientWantsToUpdateProfile> $mapper =
       ClientWantsToUpdateProfileMapper.ensureInitialized();
   @override
-  UpdateUserDtoCopyWith<$R, UpdateUserDto, UpdateUserDto> get updateUserDto =>
-      $value.updateUserDto.copyWith.$chain((v) => call(updateUserDto: v));
+  UserDtoCopyWith<$R, UserDto, UserDto> get userDto =>
+      $value.userDto.copyWith.$chain((v) => call(userDto: v));
   @override
-  $R call({String? jwt, UpdateUserDto? updateUserDto, String? eventType}) =>
+  $R call({String? jwt, UserDto? userDto, String? eventType}) =>
       $apply(FieldCopyWithData({
         if (jwt != null) #jwt: jwt,
-        if (updateUserDto != null) #updateUserDto: updateUserDto,
+        if (userDto != null) #userDto: userDto,
         if (eventType != null) #eventType: eventType
       }));
   @override
   ClientWantsToUpdateProfile $make(CopyWithData data) =>
       ClientWantsToUpdateProfile(
           jwt: data.get(#jwt, or: $value.jwt),
-          updateUserDto: data.get(#updateUserDto, or: $value.updateUserDto),
+          userDto: data.get(#userDto, or: $value.userDto),
           eventType: data.get(#eventType, or: $value.eventType));
 
   @override
