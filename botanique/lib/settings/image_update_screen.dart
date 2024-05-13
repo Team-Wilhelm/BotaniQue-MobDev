@@ -30,7 +30,7 @@ class ImageUpdateScreen extends StatelessWidget {
                 if (state is ServerConfirmsUpdate &&
                     state.getUserDto?.blobUrl != null) {
                   context
-                      .read<UpdateUserCubit>()
+                      .read<UserCubit>()
                       .updateBase64Image(state.getUserDto!.blobUrl!);
                 }
                 if (state is ServerRejectsUpdate) {
@@ -47,8 +47,7 @@ class ImageUpdateScreen extends StatelessWidget {
                     ClipOval(
                       // TODO add onTap to open image picker
                       child: Image.network(
-                          context.read<UpdateUserCubit>().state.base64Image ??
-                              "",
+                          context.read<UserCubit>().state.base64Image ?? "",
                           width: imageSize,
                           height: imageSize,
                           errorBuilder: (context, error, stackTrace) {
@@ -65,8 +64,8 @@ class ImageUpdateScreen extends StatelessWidget {
                             ClientWantsToUpdateProfile(
                                 jwt: "",
                                 eventType: "ClientWantsToUpdateProfile",
-                                updateUserDto: UpdateUserDto(base64Image: "")));
-                        context.read<UpdateUserCubit>().deleteBase64Image();
+                                userDto: UserDto(base64Image: "")));
+                        context.read<UserCubit>().deleteBase64Image();
                       },
                       text: "Delete",
                     ),
@@ -82,8 +81,6 @@ class ImageUpdateScreen extends StatelessWidget {
   }
 
   void _resetState(BuildContext context, ServerRejectsUpdate state) {
-    context
-        .read<UpdateUserCubit>()
-        .updateBase64Image(state.getUserDto.blobUrl!);
+    context.read<UserCubit>().updateBase64Image(state.getUserDto.blobUrl!);
   }
 }

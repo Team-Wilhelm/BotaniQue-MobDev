@@ -4,13 +4,11 @@ part 'user_dto.freezed.dart';
 part 'user_dto.g.dart';
 
 @freezed
-class UpdateUserDto with _$UpdateUserDto {
-  factory UpdateUserDto(
-      {String? username,
-      String? password,
-      String? base64Image}) = _UpdateUserDto;
-  factory UpdateUserDto.fromJson(Map<String, dynamic> json) =>
-      _$UpdateUserDtoFromJson(json);
+class UserDto with _$UserDto {
+  factory UserDto({String? username, String? password, String? base64Image, String? userEmail}) =
+      _UserDto;
+  factory UserDto.fromJson(Map<String, dynamic> json) =>
+      _$UserDtoFromJson(json);
 }
 
 @freezed
@@ -21,4 +19,10 @@ class GetUserDto with _$GetUserDto {
       String? blobUrl}) = _GetUserDto;
   factory GetUserDto.fromJson(Map<String, dynamic> json) =>
       _$GetUserDtoFromJson(json);
+}
+
+enum FieldType {
+  username,
+  password,
+  base64Image,
 }

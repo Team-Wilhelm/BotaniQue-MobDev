@@ -1,6 +1,7 @@
 import 'package:botanique/all_plants/all_plants_screen.dart';
 import 'package:botanique/auth/auth_screen.dart';
 import 'package:botanique/home/home_screen.dart';
+import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
@@ -50,7 +51,7 @@ void main() async {
         BlocProvider<WebSocketBloc>(
           create: (context) => WebSocketBloc(channel: channel),
         ),
-        BlocProvider<UpdateUserCubit>(create: (context) => UpdateUserCubit())
+        BlocProvider<UserCubit>(create: (context) => UserCubit())
       ],
       child: const BotaniQueApp(),
     ),
@@ -137,6 +138,12 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
     if (serverEvent is InitialServerEvent) {
       context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
     } else if (serverEvent is ServerAuthenticatesUser) {
+      context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
+      if (serverEvent.getUserDto.blobUrl != null) {
+        context
+            .read<UserCubit>()
+            .updateBase64Image(serverEvent.getUserDto.blobUrl!);
+      }
       context.read<NavigationCubit>().changePage(
           NavigationConstants.allPlants); // TODO: Change to home screen
     } else if (serverEvent is ServerRespondsNotAuthenticated) {

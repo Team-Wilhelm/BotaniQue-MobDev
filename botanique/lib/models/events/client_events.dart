@@ -233,12 +233,12 @@ class ClientWantsToDeleteCollection extends ClientEvent
 }
 
 @freezed
-class ClientWantsToUpdateProfile extends ClientEventWithJwt with _$ClientWantsToUpdateProfile{
-  const factory ClientWantsToUpdateProfile({
-    required String jwt,
-    required UpdateUserDto updateUserDto,
-    required String eventType
-  }) = _ClientWantsToUpdateProfile;
+class ClientWantsToUpdateProfile extends ClientEventWithJwt
+    with _$ClientWantsToUpdateProfile {
+  const factory ClientWantsToUpdateProfile(
+      {required String jwt,
+      required UserDto userDto,
+      required String eventType}) = _ClientWantsToUpdateProfile;
 
   factory ClientWantsToUpdateProfile.fromJson(Map<String, dynamic> json) =>
       _$ClientWantsToUpdateProfileFromJson(json);

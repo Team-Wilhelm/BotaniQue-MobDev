@@ -61,7 +61,7 @@ class ProfileSettingsBanner extends StatelessWidget {
               // Added a Center widget to ensure the image is centered
               child: ClipOval(
                 child: Image.network(
-                  context.read<UpdateUserCubit>().state.base64Image ?? "",
+                  context.read<UserCubit>().state.base64Image ?? "",
                   width: diameter - 6, //to allow the border to be seen
                   height: diameter - 6,
                   fit: BoxFit.cover,

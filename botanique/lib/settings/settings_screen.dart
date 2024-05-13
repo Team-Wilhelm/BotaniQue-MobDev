@@ -1,12 +1,15 @@
+import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/image_update_screen.dart';
-import 'package:botanique/settings/panel_content/text_update_panel.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
 import 'package:botanique/shared/app_button.dart';
 import 'package:botanique/shared/app_snackbar.dart';
+import 'package:botanique/shared/app_text_field.dart';
+import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/util/navigation_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
@@ -25,49 +28,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late List<PanelItem> panelItems;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordRepeatController =
+      TextEditingController();
 
   @override
   void initState() {
-    panelItems = <PanelItem>[
-      PanelItem(
-          id: 1,
-          headerValue: 'Username',
-          panelContent: TextUpdatePanel(
-            placeholder: "Enter new username",
-            controller: _usernameController,
-            onSubmit: () {
-              if (_usernameController.text.isNotEmpty &&
-                  _usernameController.text.length <= 51) {
-                _handleSubmit(_usernameController);
-                _handleTileToggle(1);
-              } else {
-                AppSnackbar(context)
-                    .showError("Must be between 1-50 characters");
-              }
-            },
-            icon: const Icon(Icons.person),
-          ),
-          controller: ExpansionTileController()),
-      PanelItem(
-        id: 2,
-        headerValue: 'Password',
-        panelContent: TextUpdatePanel(
-            placeholder: "Enter new password",
-            controller: _passwordController,
-            icon: const Icon(Icons.visibility),
-            onSubmit: () {
-              if (_passwordController.text.length >= 8 &&
-                  _passwordController.text.length <= 256) {
-                _handleSubmit(_passwordController);
-                _handleTileToggle(2);
-              } else {
-                AppSnackbar(context)
-                    .showError("Must be between 8-256 characters");
-              }
-            }),
-        controller: ExpansionTileController(),
-      ),
-    ];
+    _buildPanelItems();
     super.initState();
   }
 
@@ -75,31 +41,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
+    _passwordRepeatController.dispose();
     super.dispose();
   }
 
-  void _handleTileToggle(int id) {
-    setState(() {
-      if (openPanelId == id) {
-        panelItems[id - 1].controller.collapse();
-        openPanelId = -1;
-      } else {
-        if (openPanelId > 0) {
-          panelItems[openPanelId - 1].controller.collapse();
-        }
-        panelItems[id - 1].controller.expand();
-        openPanelId = id;
-      }
-    });
-  }
-
-  //TODO get data for stats
+  //TODO get data for stats card
   //TODO deal with collections CRUD
 
   //TODO implement image picker
-
-  //TODO handle server logs client out incoming event
-  //TODO make sure that data is put into the cubit upon logging in
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }),
                 SizedBox(height: diameter * 0.55),
                 AppText(
-                    text: context.read<UpdateUserCubit>().state.username ??
+                    text: context.read<UserCubit>().state.username ??
                         "My Profile",
                     textAlign: TextAlign.center,
                     fontSize: FontSizes.h3,
@@ -133,20 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   textAlign: TextAlign.center,
                 ),
                 spacer,
-                Card(
-                  margin: EdgeInsets.symmetric(horizontal: diameter * 0.24),
-                  child: Padding(
-                    padding: EdgeInsets.all(diameter * 0.16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _buildStatsColumn("25", "plants total"),
-                        _buildStatsColumn("25", "happy plants"),
-                        _buildStatsColumn("5", "collections"),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildStatsCard(diameter),
                 spacerDouble,
                 const AppText(
                     text: "Settings",
@@ -159,18 +95,150 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
-                  child: AppButton(onPressed: () {}, text: "Manage Collections"),
+                  child:
+                      AppButton(onPressed: () {}, text: "Manage Collections"),
                 ),
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
-                  child: AppButton(onPressed: () {
-                    context.read<WebSocketBloc>().add(ClientWantsToLogOut(email: "", eventType: "ClientWantsToLogOut"));
-                  }, text: "Log Out"),
+                  child: AppButton(
+                      onPressed: () {
+                        context.read<WebSocketBloc>().add(ClientWantsToLogOut(
+                            email:
+                                context.read<UserCubit>().state.userEmail ?? "",
+                            eventType: "ClientWantsToLogOut"));
+                        context
+                            .read<NavigationCubit>()
+                            .changePage(NavigationConstants.welcome);
+                        context.read<UserCubit>().reset();
+                      },
+                      text: "Log Out"),
                 )
               ],
             );
           },
         ));
+  }
+
+  /* Methods */
+  void _handleTileToggle(int id) {
+    setState(() {
+      if (openPanelId == id) {
+        panelItems[id - 1].controller.collapse();
+        openPanelId = -1;
+      } else {
+        if (openPanelId > 0) {
+          panelItems[openPanelId - 1].controller.collapse();
+        }
+        panelItems[id - 1].controller.expand();
+        openPanelId = id;
+      }
+    });
+  }
+
+  void _handleSubmit(TextEditingController controller, FieldType fieldType) {
+    final cubit = context.read<UserCubit>();
+
+    if (fieldType == FieldType.username) {
+      cubit.updateUsername(controller.text);
+    } else if (fieldType == FieldType.password) {
+      cubit.updatePassword(controller.text);
+    }
+
+    var userDto = cubit.state;
+    context.read<WebSocketBloc>().add(ClientWantsToUpdateProfile(
+        jwt: '', userDto: userDto, eventType: "ClientWantsToUpdateProfile"));
+    controller.clear();
+    _handleTileToggle(openPanelId);
+  }
+
+  void _handleOnEditTapped() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return ImageUpdateScreen();
+    }));
+  }
+
+  /* Widgets */
+  List<PanelItem> _buildPanelItems() {
+    return panelItems = <PanelItem>[
+      PanelItem(
+        id: 1,
+        headerValue: 'Username',
+        controller: ExpansionTileController(),
+        panelContent: Column(
+          children: [
+            AppTextField(
+              textFieldController: _usernameController,
+              placeholder: "Enter new username",
+              prefixIcon: const Icon(Icons.person),
+            ),
+            spacer,
+            AppButton(
+                onPressed: () {
+                  if (_usernameController.text.isNotEmpty &&
+                      _usernameController.text.length <= 51) {
+                    _handleSubmit(_usernameController, FieldType.username);
+                    _handleTileToggle(1);
+                  } else {
+                    AppSnackbar(context)
+                        .showError("Must be between 1-50 characters");
+                  }
+                },
+                text: "Submit")
+          ],
+        ),
+      ),
+      PanelItem(
+        id: 2,
+        headerValue: 'Password',
+        controller: ExpansionTileController(),
+        panelContent: Column(
+          children: [
+            AppTextField(
+              textFieldController: _passwordController,
+              placeholder: "Enter new password",
+              prefixIcon: const Icon(Icons.password),
+            ),
+            AppTextField(
+              textFieldController: _passwordRepeatController,
+              placeholder: "Repeat new password",
+              prefixIcon: const Icon(Icons.password),
+            ),
+            spacer,
+            AppButton(
+                onPressed: () {
+                  if ((_passwordController.text ==
+                          _passwordRepeatController.text) &&
+                      _passwordController.text.length >= 8 &&
+                      _passwordController.text.length <= 256) {
+                    _handleSubmit(_passwordController, FieldType.password);
+                    _handleTileToggle(2);
+                  } else {
+                    AppSnackbar(context)
+                        .showError("Must be between 8-256 characters");
+                  }
+                },
+                text: "Submit")
+          ],
+        ),
+      ),
+    ];
+  }
+
+  Card _buildStatsCard(double diameter) {
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: diameter * 0.24),
+      child: Padding(
+        padding: EdgeInsets.all(diameter * 0.16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildStatsColumn("25", "plants total"),
+            _buildStatsColumn("25", "happy plants"),
+            _buildStatsColumn("5", "collections"),
+          ],
+        ),
+      ),
+    );
   }
 
   Column _buildStatsColumn(String number, String text) {
@@ -217,23 +285,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
-  }
-
-  void _handleSubmit(TextEditingController controller) {
-    final cubit = context.read<UpdateUserCubit>();
-    cubit.updateUsername(controller.text);
-    var updateUserDto = cubit.state;
-    context.read<WebSocketBloc>().add(ClientWantsToUpdateProfile(
-        jwt: '',
-        updateUserDto: updateUserDto,
-        eventType: "ClientWantsToUpdateProfile"));
-    controller.clear();
-  }
-
-  void _handleOnEditTapped() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return ImageUpdateScreen();
-    }));
   }
 
   EdgeInsets _getSymmetricHorizontalPadding() {
