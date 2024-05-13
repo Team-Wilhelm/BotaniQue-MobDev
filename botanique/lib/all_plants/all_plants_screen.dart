@@ -36,7 +36,8 @@ class AllPlantsScreen extends StatelessWidget {
                     hasScrollBody: false,
                     child: Center(
                         child: AppText(
-                            text: "You don't have any plants yet. Add some!")),
+                      text: "You don't have any plants yet. Add some!",
+                    )),
                   )
                 else
                   const AllPlantsGrid(),

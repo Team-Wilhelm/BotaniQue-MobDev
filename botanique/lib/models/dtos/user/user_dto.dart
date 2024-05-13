@@ -1,24 +1,33 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'user_dto.freezed.dart';
-part 'user_dto.g.dart';
+part 'user_dto.mapper.dart';
 
-@freezed
-class UserDto with _$UserDto {
-  factory UserDto({String? username, String? password, String? base64Image, String? userEmail}) =
-      _UserDto;
-  factory UserDto.fromJson(Map<String, dynamic> json) =>
-      _$UserDtoFromJson(json);
+@MappableClass()
+class UserDto with UserDtoMappable {
+  final String? username;
+  final String? password;
+  final String? base64Image;
+  final String? userEmail;
+
+  UserDto({
+    this.username,
+    this.password,
+    this.base64Image,
+    this.String? userEmail,
+  });
 }
 
-@freezed
-class GetUserDto with _$GetUserDto {
-  factory GetUserDto(
-      {required String userEmail,
-      required String username,
-      String? blobUrl}) = _GetUserDto;
-  factory GetUserDto.fromJson(Map<String, dynamic> json) =>
-      _$GetUserDtoFromJson(json);
+@MappableClass()
+class GetUserDto with GetUserDtoMappable {
+  final String userEmail;
+  final String username;
+  final String? blobUrl;
+
+  GetUserDto({
+    required this.userEmail,
+    required this.username,
+    this.blobUrl,
+  });
 }
 
 enum FieldType {

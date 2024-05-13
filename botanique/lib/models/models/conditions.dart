@@ -1,22 +1,27 @@
 import 'package:botanique/models/models/uuid.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'conditions.freezed.dart';
-part 'conditions.g.dart';
+part 'conditions.mapper.dart';
 
-@freezed
-class ConditionsLog with _$ConditionsLog {
-  factory ConditionsLog({
-    required Uuid conditionsId,
-    required Uuid plantId,
-    required DateTime timeStamp,
-    required int mood,
-    required double soilMoisture,
-    required double light,
-    required double temperature,
-    required double humidity,
-  }) = _ConditionsLog;
+@MappableClass()
+class ConditionsLog with ConditionsLogMappable {
+  final Uuid conditionsId;
+  final Uuid plantId;
+  final DateTime timeStamp;
+  final int mood;
+  final double soilMoisture;
+  final double light;
+  final double temperature;
+  final double humidity;
 
-  factory ConditionsLog.fromJson(Map<String, dynamic> json) =>
-      _$ConditionsLogFromJson(json);
+  ConditionsLog({
+    required this.conditionsId,
+    required this.plantId,
+    required this.timeStamp,
+    required this.mood,
+    required this.soilMoisture,
+    required this.light,
+    required this.temperature,
+    required this.humidity,
+  });
 }

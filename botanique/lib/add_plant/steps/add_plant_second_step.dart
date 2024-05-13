@@ -2,47 +2,47 @@ import 'package:botanique/models/events/server_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/events/client_events.dart';
+import '../../models/models/plant.dart';
 import '../../shared/app_image_preview.dart';
 import '../../shared/app_text.dart';
-import '../../state/add_plant/add_plant_bloc.dart';
+import '../../state/add_plant/add_plant_cubit.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../style/app_style.dart';
 import '../../util/asset_constants.dart';
 import '../../util/xfile_converter.dart';
 
 class AddPlantSecondStepContent extends StatelessWidget {
-  const AddPlantSecondStepContent({super.key});
+  const AddPlantSecondStepContent({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<WebSocketBloc, ServerEvent>(
       listener: (context, state) {
         if (state is ServerSendsImageWithoutBackground) {
-          context.read<AddPlantBloc>().add(PictureBackgroundRemovalSuccess(
-              image: XFileConverter.fromBase64(state.base64Image)));
+          context
+              .read<AddPlantCubit>()
+              .setPlantPicture(XFileConverter.fromBase64(state.base64Image));
         }
       },
-      child: BlocBuilder<AddPlantBloc, AddPlantState>(
+      child: BlocBuilder<AddPlantCubit, AddPlantState>(
         builder: (context, snapshot) {
+          if (snapshot is PlantToEditSelected) {
+            return _displayPlantToEditPicture(context, snapshot.plant);
+          }
+
           if (snapshot is InitialNoPictureSelected ||
               snapshot is NoPictureSelected) {
             return _getNoPictureScreen(context, snapshot);
           } else if (snapshot is PictureReady) {
-            return _getPictureReadyScreen(context, snapshot as PictureReady);
+            return _getPictureReadyScreen(context, snapshot);
           } else {
             if (snapshot is PictureSelected) {
-              context
-                  .read<AddPlantBloc>()
-                  .add(PictureBackgroundRemovalRequested());
-              context.read<WebSocketBloc>().add(
-                    ClientWantsToRemoveBackgroundFromImage(
-                      jwt: "jwt",
-                      base64Image: XFileConverter.toBase64(snapshot.image),
-                      eventType: "ClientWantsToRemoveBackgroundFromImage",
-                    ),
-                  );
+              context.read<AddPlantCubit>().removePictureBackground(
+                  context.read<WebSocketBloc>(), snapshot.image);
             }
+
             return const Center(child: CircularProgressIndicator.adaptive());
           }
         },
@@ -60,16 +60,14 @@ class AddPlantSecondStepContent extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close dialog
-                context.read<AddPlantBloc>().add(GetImageFromCameraRequested());
+                context.read<AddPlantCubit>().getImageFromCamera();
               },
               child: const Text("Take a photo"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close dialog
-                context
-                    .read<AddPlantBloc>()
-                    .add(GetImageFromGalleryRequested());
+                context.read<AddPlantCubit>().getImageFromGallery();
               },
               child: const Text("Select from gallery"),
             ),
@@ -87,7 +85,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
           text: _getNoPictureSubtitle(snapshot),
           fontSize: FontSizes.tiny,
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         AppImagePreview(
           imageUrl: NetworkConstants.plantPlaceholder,
           hasCameraOverlay: snapshot is InitialNoPictureSelected,
@@ -98,7 +96,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
         if (snapshot is NoPictureSelected) ...[
           const SizedBox(height: 8),
           const AppText(
-            text: "Wanna try again? Click on the image!",
+            text: "Want to try again? Click on the image!",
             fontSize: FontSizes.tiny,
           ),
         ],
@@ -121,7 +119,29 @@ class AddPlantSecondStepContent extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         const AppText(
-          text: "Wanna try again? Click on the image!",
+          text: "Want to try again? Click on the image!",
+          fontSize: FontSizes.tiny,
+        ),
+      ],
+    );
+  }
+
+  Widget _displayPlantToEditPicture(BuildContext context, Plant plantToEdit) {
+    return Column(
+      children: [
+        const AppText(text: "Here's your plant!"),
+        const SizedBox(height: 8),
+        AppImagePreview(
+          imageUrl: plantToEdit.imageUrl,
+          hasCameraOverlay: false,
+          imageType: ImageType.network,
+          onTap: () {
+            showChoiceDialog(context: context);
+          },
+        ),
+        const SizedBox(height: 8),
+        const AppText(
+          text: "Want to select a different one? Click on the image!",
           fontSize: FontSizes.tiny,
         ),
       ],

@@ -1,53 +1,66 @@
+import 'package:botanique/add_plant/collection_dropdown.dart';
+import 'package:botanique/models/models/collections.dart';
+import 'package:botanique/shared/app_text_field.dart';
+import 'package:botanique/shared/buttons/app_icon_button.dart';
+import 'package:botanique/shared/buttons/button_style.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/app_text.dart';
-import '../../shared/app_text_field.dart';
-import '../../style/app_style.dart';
 
 class AddPlantFirstStepContent extends StatelessWidget {
   const AddPlantFirstStepContent({
     super.key,
     required this.plantNameController,
+    required this.deviceIdController,
+    required this.onCollectionSelected,
   });
   final TextEditingController plantNameController;
+  final TextEditingController deviceIdController;
+  final Function(GetCollectionDto?) onCollectionSelected;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const AppText(
-          text: "What do you call your green friend?",
-        ),
-        const SizedBox(height: 8),
-        AppTextField(
-          textFieldController: plantNameController,
-          placeholder: "Plant Name",
-        ),
-        const SizedBox(height: 24),
-        AppText(text: collectionQuestion),
-        const AppText(
-          text: "This field is optional",
-          fontSize: FontSizes.tiny,
-        ),
-        const SizedBox(height: 12),
-        DropdownButton(
-          items: const [
-            DropdownMenuItem(
-              value: "Collection 1",
-              child: Text("Collection 1"),
-            ),
-            DropdownMenuItem(
-              value: "Collection 2",
-              child: Text("Collection 2"),
-            ),
-          ],
-          onChanged: (value) {},
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const AppText(
+                text: "What do you call your green friend?",
+              ),
+              AppIconButton(
+                buttonType: ButtonType.outline,
+                icon: Icons.help_outline,
+                onPressed: () {},
+                tooltip:
+                    "Don't worry if you don't have a name, if you leave it blank we'll give it a name for you!",
+              ),
+            ],
+          ),
+          AppTextField(
+              textFieldController: plantNameController,
+              placeholder: "Plant Name"),
+          const SizedBox(height: 24),
+          AppText(text: collectionQuestion),
+          const SizedBox(height: 8),
+          CollectionDropdown(
+            onCollectionSelected: onCollectionSelected,
+          ),
+          const SizedBox(height: 24),
+          const AppText(text: "Fill in the device ID of your plant sensor"),
+          // TODO: add scan QR code
+          const SizedBox(height: 8),
+          AppTextField(
+            textFieldController: deviceIdController,
+            placeholder: "Device ID",
+          ),
+        ],
+      ),
     );
   }
 
+  // TODO: fix this
   String get collectionQuestion {
     final plantName = plantNameController.text == ""
         ? "your plant"

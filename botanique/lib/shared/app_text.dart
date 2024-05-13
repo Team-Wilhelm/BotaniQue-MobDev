@@ -29,6 +29,7 @@ class AppText extends StatelessWidget {
         fontSize: MediaQuery.of(context).size.width / fontSize,
         fontWeight: fontWeight,
         decoration: decoration,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

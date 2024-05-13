@@ -9,7 +9,8 @@ class AppTextField extends StatelessWidget {
     this.textInputType = TextInputType.text,
     this.prefixIcon,
     this.suffixIcon,
-    this.fillColor = TextColors.textSecondary,
+    this.fillColor = AppColors.inputFill,
+    this.textColor = TextColors.textDark,
   });
 
   final TextEditingController textFieldController;
@@ -18,6 +19,7 @@ class AppTextField extends StatelessWidget {
   final Icon? prefixIcon;
   final Widget? suffixIcon;
   final Color fillColor;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +33,13 @@ class AppTextField extends StatelessWidget {
           borderSide: BorderSide.none,
         ),
         prefixIcon: prefixIcon,
-        prefixIconColor: fillColor,
+        prefixIconColor: textColor,
         suffixIcon: suffixIcon,
-        suffixIconColor: fillColor,
+        suffixIconColor: textColor,
         hintText: placeholder,
-        hintStyle: TextStyle(color: fillColor),
+        hintStyle: const TextStyle(color: TextColors.textSecondary),
         filled: true,
-        fillColor: fillColor.withOpacity(0.2),
+        fillColor: fillColor,
         contentPadding:
             const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       ),

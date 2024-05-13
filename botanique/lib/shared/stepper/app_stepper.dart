@@ -1,18 +1,21 @@
-import 'package:botanique/shared/app_button.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:botanique/shared/buttons/app_button.dart';
+import 'package:botanique/shared/buttons/app_icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'app_stepper_progress.dart';
 
 class AppStep {
   const AppStep({
     required this.title,
+    this.subtitle,
     required this.content,
+    this.onStepOpened,
   });
 
   final String title;
+  final String? subtitle;
   final Widget content;
+  final VoidCallbackAction? onStepOpened;
 }
 
 class AppStepper extends StatefulWidget {
@@ -35,16 +38,16 @@ class AppStepper extends StatefulWidget {
 
 class _AppStepperState extends State<AppStepper> {
   final PageController _pageController = PageController();
-  int _currentStep = 0;
+  int _currentStepIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         AppStepperProgress(
-          currentStep: _currentStep,
+          currentStepIndex: _currentStepIndex,
           totalSteps: widget.steps.length,
-          stepTitle: widget.steps[_currentStep].title,
+          step: widget.steps[_currentStepIndex],
         ),
         const SizedBox(height: 24),
         Expanded(
@@ -52,27 +55,33 @@ class _AppStepperState extends State<AppStepper> {
               controller: _pageController,
               onPageChanged: (value) {
                 setState(() {
-                  _currentStep = value;
+                  _currentStepIndex = value;
                 });
               },
-              children: widget.steps
-                  .map((step) => SingleChildScrollView(
-                        child: step.content,
-                      ))
-                  .toList()),
+              children: widget.steps.map((step) => step.content).toList()),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.fromLTRB(
+            8,
+            8,
+            8,
+            24,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (_currentStep > 0)
-                AppButton(onPressed: onBackPressed, text: "Back"),
+              if (_currentStepIndex > 0)
+                AppIconButton(
+                  onPressed: onBackPressed,
+                  icon: Icons.arrow_back_ios_new_rounded,
+                ),
               const Spacer(),
-              if (_currentStep < widget.steps.length - 1)
-                AppButton(onPressed: onContinuePressed, text: "Next"),
-              if (_currentStep == widget.steps.length - 1)
-                AppButton(onPressed: onFinishPressed, text: "Finish")
+              if (_currentStepIndex < widget.steps.length - 1)
+                AppIconButton(
+                    onPressed: onContinuePressed,
+                    icon: Icons.arrow_forward_ios_rounded),
+              if (_currentStepIndex == widget.steps.length - 1)
+                AppButton(onPressed: onFinishPressed, text: "Save")
             ],
           ),
         ),
@@ -81,7 +90,7 @@ class _AppStepperState extends State<AppStepper> {
   }
 
   void onContinuePressed() {
-    if (_currentStep == widget.steps.length - 1) {
+    if (_currentStepIndex == widget.steps.length - 1) {
       return;
     }
 
@@ -96,7 +105,7 @@ class _AppStepperState extends State<AppStepper> {
   }
 
   void onBackPressed() {
-    if (_currentStep == 0) {
+    if (_currentStepIndex == 0) {
       return;
     }
 

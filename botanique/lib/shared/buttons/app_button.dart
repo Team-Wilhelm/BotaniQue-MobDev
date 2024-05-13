@@ -2,17 +2,7 @@ import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
-enum ButtonType {
-  primary,
-  secondary,
-  outline,
-  inactive,
-}
-
-enum ButtonShape {
-  square,
-  round,
-}
+import 'button_style.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -38,9 +28,9 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: fullWidth ? double.infinity : null,
-      child: ElevatedButton(
+      child: ElevatedButton( // TODO: remove ElevatedButton maybe
         onPressed: disabled ? null : onPressed,
-        style: styleButton(context, buttonType),
+        style: styleButton(context),
         child: AppText(
           text: text,
           fontSize: fontPercentage,
@@ -50,7 +40,7 @@ class AppButton extends StatelessWidget {
     );
   }
 
-  ButtonStyle styleButton(BuildContext context, ButtonType buttonType) {
+  ButtonStyle styleButton(BuildContext context) {
     Color backgroundColor;
     switch (buttonType) {
       case ButtonType.primary:

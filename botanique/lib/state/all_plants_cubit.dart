@@ -43,7 +43,7 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
 
   void _requestCollectionsFromServer(WebSocketBloc webSocketBloc) {
     webSocketBloc.add(
-      const ClientWantsAllCollections(
+      ClientWantsAllCollections(
         jwt: "jwt",
         eventType: "ClientWantsAllCollections",
       ),
@@ -52,13 +52,13 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
 
   void _requestPlantsFromServer(
       Uuid collectionId, WebSocketBloc webSocketBloc) {
-    if (collectionId == "all-plants") {
+    if (collectionId == allPlantsCollectionId) {
       webSocketBloc.add(
         ClientWantsAllPlants(
           jwt: "jwt",
           eventType: "ClientWantsAllPlants",
           pageNumber: 1,
-          pageSize: 5,
+          pageSize: 100,
         ),
       );
     } else {

@@ -59,8 +59,10 @@ class PlantCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AppText(
-                        text: plant.nickname,
+                      Flexible(
+                        child: AppText(
+                          text: plant.nickname,
+                        ),
                       ),
                       const AppText(text: "🥹")
                     ],
