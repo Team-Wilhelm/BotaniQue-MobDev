@@ -54,8 +54,45 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNeedSomeLoveList(BuildContext context, List<GetCriticalPlantDto> plants) {
+  Widget _buildNeedSomeLoveList(
+      BuildContext context, List<GetCriticalPlantDto> plants) {
     List<Widget> plantWidgets = [];
+    if (plants.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.15,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.cardBackground,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: TextColors.textSecondary.withOpacity(0.2),
+              blurRadius: 5,
+              offset: const Offset(3, 3),
+            ),
+          ],
+        ),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              child: AppText(
+                text:
+                    "We couldn't find any plants that need your immediate attention.",
+                overflow: TextOverflow.visible,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 16),
+            AppText(text: "Check back later!"),
+          ],
+        ),
+      );
+    }
+
     for (var i = 0; i < plants.length; i++) {
       plantWidgets.add(NeedSomeLoveRow(plant: plants.elementAt(i)));
       if (i != plants.length - 1) {
