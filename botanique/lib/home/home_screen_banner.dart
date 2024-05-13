@@ -13,6 +13,17 @@ class HomeScreenBanner extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.topRight,
+          colors: [
+            AppColors.primary[0]!,
+            AppColors.primary[0]!.withOpacity(0.8),
+            AppColors.primary[0]!.withOpacity(0.7),
+            AppColors.primary[0]!.withOpacity(0.8),
+            AppColors.primary[0]!,
+          ],
+        ),
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
@@ -31,6 +42,7 @@ class HomeScreenBanner extends StatelessWidget {
           const AppText(
             text: "Did you know?",
             fontWeight: FontWeight.bold,
+            colour: TextColors.textLight,
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -38,6 +50,7 @@ class HomeScreenBanner extends StatelessWidget {
                 text: getRandomFact(),
                 fontSize: FontSizes.h6,
                 overflow: TextOverflow.visible,
+                colour: TextColors.textLight,
               ),
             ),
           ),

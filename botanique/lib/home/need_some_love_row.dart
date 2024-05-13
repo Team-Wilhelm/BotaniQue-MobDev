@@ -2,44 +2,58 @@ import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
-class NeedSomeLoveRow extends StatelessWidget {
-  const NeedSomeLoveRow({super.key});
+import '../models/models/plant.dart';
 
-  final String plantName = "Felix";
-  final String plantNeed = "Pour some water";
-  final String plantMood = "🥹";
+class NeedSomeLoveRow extends StatelessWidget {
+  const NeedSomeLoveRow({super.key, required this.plant});
+
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-              color: Theme.of(context).colorScheme.primary, width: 2),
-        ),
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: TextColors.textSecondary.withOpacity(0.2),
+            blurRadius: 5,
+            offset: const Offset(3, 3),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.network(
-            "https://img.freepik.com/free-vector/plant-emoji_78370-262.jpg?size=338&ext=jpg&ga=GA1.1.553209589.1713225600&semt=ais",
-            fit: BoxFit.cover,
-            height: getImageSize(context),
-            width: getImageSize(context),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              AppText(
-                text: plantName,
-                fontSize: FontSizes.h5,
+              Image.network(
+                plant.imageUrl,
+                fit: BoxFit.cover,
+                height: getImageSize(context),
+                width: getImageSize(context),
               ),
-              AppText(text: plantNeed),
+              const SizedBox(width: 24),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    text: plant.nickname,
+                    fontSize: FontSizes.h5,
+                    colour: TextColors.textDark,
+                  ),
+                  const AppText(
+                    text: "Im dying",
+                    colour: TextColors.textDark,
+                  ),
+                ],
+              ),
             ],
           ),
-          AppText(
-            text: plantMood,
+          const AppText(
+            text: "😢",
             fontSize: FontSizes.h2,
           ),
         ],
