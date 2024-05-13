@@ -1,246 +1,232 @@
+import 'package:dart_mappable/dart_mappable.dart';
 
-import 'package:botanique/models/dtos/user/user_dto.dart';
-import 'package:botanique/models/auth/log_in_dto.dart';
-import 'package:botanique/models/models/collections.dart';
-import 'package:botanique/models/models/uuid.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-
+import '../auth/log_in_dto.dart';
+import '../dtos/user/user_dto.dart';
+import '../models/collections.dart';
 import '../models/plant.dart';
+import '../models/uuid.dart';
 
-part 'client_events.freezed.dart';
-part 'client_events.g.dart';
+part 'client_events.mapper.dart';
 
-abstract class BaseEvent {
-  // String get eventType => runtimeType.toString();
+@MappableClass(discriminatorKey: 'eventType')
+abstract class BaseEvent with BaseEventMappable {
+  final String eventType;
+
+  BaseEvent({required this.eventType});
 }
 
-abstract class ClientEvent extends BaseEvent {
-  Map<String, dynamic> toJson();
+@MappableClass(discriminatorValue: 'BaseDto')
+abstract class ClientEvent extends BaseEvent with ClientEventMappable {
+  ClientEvent({required super.eventType});
 }
 
-abstract class ClientEventWithJwt extends ClientEvent {
-  final String jwt;
+@MappableClass(discriminatorValue: 'ClientWantsToLogIn')
+class ClientWantsToLogIn extends ClientEvent with ClientWantsToLogInMappable {
+  final LoginDto loginDto;
 
-  ClientEventWithJwt({required this.jwt});
+  ClientWantsToLogIn({
+    required this.loginDto,
+    required super.eventType,
+  });
 }
 
-@freezed
-class ClientWantsToLogIn extends ClientEvent with _$ClientWantsToLogIn {
-  factory ClientWantsToLogIn({
-    required LoginDto loginDto,
-    required String eventType,
-  }) = _ClientWantsToLogIn;
+@MappableClass(discriminatorValue: 'ClientWantsToLogOut')
+class ClientWantsToLogOut extends ClientEvent with ClientWantsToLogOutMappable {
+  final String email;
 
-  factory ClientWantsToLogIn.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToLogInFromJson(json);
+  ClientWantsToLogOut({
+    required this.email,
+    required super.eventType,
+  });
 }
 
-@freezed
-class ClientWantsToLogOut extends ClientEvent with _$ClientWantsToLogOut {
-  factory ClientWantsToLogOut({
-    required String email,
-    required String eventType,
-  }) = _ClientWantsToLogOutDto;
+/* @MappableClass()
+class ClientWantsToSignUp extends ClientEvent with ClientWantsToSignUpMappable {
+  final RegisterUserDto registerUserDto;
 
-  factory ClientWantsToLogOut.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToLogOutFromJson(json);
-}
-
-/* @freezed TODO
-class ClientWantsToSignUp extends ClientEvent with _$ClientWantsToSignUp {
-  factory ClientWantsToSignUp({
-    required RegisterUserDto registerUserDto,
-    required String eventType,
-  }) = _ClientWantsToSignUp;
-
-  factory ClientWantsToSignUp.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToSignUpFromJson(json);
+  ClientWantsToSignUp({
+    required this.registerUserDto,
+    required super.eventType,
+  });
 } */
 
 /*
   * Events with JWT
  */
+@MappableClass(discriminatorValue: "BaseDtoWithJwt")
+abstract class ClientEventWithJwt extends ClientEvent
+    with ClientEventWithJwtMappable {
+  final String jwt;
 
-@freezed
-class ClientWantsAllPlants extends ClientEvent with _$ClientWantsAllPlants {
-  factory ClientWantsAllPlants({
-    required String jwt,
-    required String eventType,
-    required int pageNumber,
-    required int pageSize,
-  }) = _ClientWantsAllPlantsDto;
-
-  factory ClientWantsAllPlants.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsAllPlantsFromJson(json);
+  ClientEventWithJwt({
+    required this.jwt,
+    required super.eventType,
+  });
 }
 
-@freezed
-class ClientWantsToDeletePlant extends ClientEvent
-    with _$ClientWantsToDeletePlant {
-  factory ClientWantsToDeletePlant({
-    required String jwt,
-    required String eventType,
-    required Uuid plantId,
-  }) = _ClientWantsToDeletePlantDto;
-
-  factory ClientWantsToDeletePlant.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToDeletePlantFromJson(json);
+@MappableClass(discriminatorValue: "ClientWantsToCheckJwtValidity")
+class ClientWantsToCheckJwtValidity extends ClientEventWithJwt
+    with ClientWantsToCheckJwtValidityMappable {
+  ClientWantsToCheckJwtValidity({
+    required super.jwt,
+    super.eventType = "ClientWantsToCheckJwtValidity",
+  });
 }
 
-@freezed
-class ClientWantsToUpdatePlant extends ClientEvent
-    with _$ClientWantsToUpdatePlant {
-  factory ClientWantsToUpdatePlant({
-    required String jwt,
-    required String eventType,
-    required Uuid plantId,
-    required UpdatePlantDto updatePlantDto,
-  }) = _ClientWantsToUpdatePlant;
+@MappableClass(discriminatorValue: "ClientWantsAllPlants")
+class ClientWantsAllPlants extends ClientEventWithJwt
+    with ClientWantsAllPlantsMappable {
+  final int pageNumber;
+  final int pageSize;
 
-  factory ClientWantsToUpdatePlant.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToUpdatePlantFromJson(json);
+  ClientWantsAllPlants({
+    required super.jwt,
+    required this.pageNumber,
+    required this.pageSize,
+    super.eventType = "ClientWantsAllPlantsMappable",
+  });
 }
 
-@freezed
-class ClientWantsPlantById extends ClientEvent with _$ClientWantsPlantById {
-  factory ClientWantsPlantById({
-    required String jwt,
-    required String eventType,
-    required Uuid plantId,
-  }) = _ClientWantsPlantById;
+@MappableClass(discriminatorValue: "ClientWantsToDeletePlant")
+class ClientWantsToDeletePlant extends ClientEventWithJwt
+    with ClientWantsToDeletePlantMappable {
+  final Uuid plantId;
 
-  factory ClientWantsPlantById.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsPlantByIdFromJson(json);
+  ClientWantsToDeletePlant({
+    required super.jwt,
+    super.eventType = "ClientWantsToDeletePlant",
+    required this.plantId,
+  });
 }
 
-@freezed
-class ClientWantsToCheckJwtValidity extends ClientEvent
-    with _$ClientWantsToCheckJwtValidity {
-  factory ClientWantsToCheckJwtValidity({
-    required String jwt,
-    required String eventType,
-  }) = _ClientWantsToCheckJwtValidity;
+@MappableClass(discriminatorValue: "ClientWantsToUpdatePlant")
+class ClientWantsToUpdatePlant extends ClientEventWithJwt
+    with ClientWantsToUpdatePlantMappable {
+  final UpdatePlantDto updatePlantDto;
 
-  factory ClientWantsToCheckJwtValidity.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToCheckJwtValidityFromJson(json);
+  ClientWantsToUpdatePlant({
+    required super.jwt,
+    super.eventType = "ClientWantsToUpdatePlant",
+    required this.updatePlantDto,
+  });
 }
 
-@freezed
-class ClientWantsToRemoveBackgroundFromImage extends ClientEvent
-    with _$ClientWantsToRemoveBackgroundFromImage {
-  const factory ClientWantsToRemoveBackgroundFromImage({
-    required String base64Image,
-    required String jwt,
-    required String eventType,
-  }) = _ClientWantsToRemoveBackgroundFromImage;
+@MappableClass(discriminatorValue: "ClientWantsPlantById")
+class ClientWantsPlantById extends ClientEventWithJwt
+    with ClientWantsPlantByIdMappable {
+  final Uuid plantId;
 
-  factory ClientWantsToRemoveBackgroundFromImage.fromJson(
-          Map<String, dynamic> json) =>
-      _$ClientWantsToRemoveBackgroundFromImageFromJson(json);
+  ClientWantsPlantById({
+    required super.jwt,
+    super.eventType = "ClientWantsPlantById",
+    required this.plantId,
+  });
 }
 
-@freezed
-class ClientWantsToCreatePlant extends ClientEvent
-    with _$ClientWantsToCreatePlant {
-  const factory ClientWantsToCreatePlant({
-    required CreatePlantDto createPlantDto,
-    required String jwt,
-    required String eventType,
-  }) = _ClientWantsToCreatePlant;
+@MappableClass(discriminatorValue: "ClientWantsToRemoveBackgroundFromImage")
+class ClientWantsToRemoveBackgroundFromImage extends ClientEventWithJwt
+    with ClientWantsToRemoveBackgroundFromImageMappable {
+  final String base64Image;
 
-  factory ClientWantsToCreatePlant.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToCreatePlantFromJson(json);
+  ClientWantsToRemoveBackgroundFromImage({
+    required super.jwt,
+    super.eventType = "ClientWantsToRemoveBackgroundFromImage",
+    required this.base64Image,
+  });
 }
 
-@freezed
-class ClientWantsLatestConditionsForPlant extends ClientEvent
-    with _$ClientWantsLatestConditionsForPlant {
-  const factory ClientWantsLatestConditionsForPlant({
-    required String jwt,
-    required String eventType,
-    required Uuid plantId,
-  }) = _ClientWantsLatestConditionsForPlant;
+@MappableClass(discriminatorValue: "ClientWantsToCreatePlant")
+class ClientWantsToCreatePlant extends ClientEventWithJwt
+    with ClientWantsToCreatePlantMappable {
+  final CreatePlantDto createPlantDto;
 
-  factory ClientWantsLatestConditionsForPlant.fromJson(
-          Map<String, dynamic> json) =>
-      _$ClientWantsLatestConditionsForPlantFromJson(json);
+  ClientWantsToCreatePlant({
+    required super.jwt,
+    super.eventType = "ClientWantsToCreatePlant",
+    required this.createPlantDto,
+  });
+}
+
+@MappableClass(discriminatorValue: "ClientWantsLatestConditionsForPlant")
+class ClientWantsLatestConditionsForPlant extends ClientEventWithJwt
+    with ClientWantsLatestConditionsForPlantMappable {
+  final Uuid plantId;
+
+  ClientWantsLatestConditionsForPlant({
+    required super.jwt,
+    required this.plantId,
+    super.eventType = "ClientWantsLatestConditionsForPlant",
+  });
 }
 
 /*
   * Collections
  */
-@freezed
-class ClientWantsAllCollections extends ClientEvent
-    with _$ClientWantsAllCollections {
-  const factory ClientWantsAllCollections({
-    required String jwt,
-    required String eventType,
-  }) = _ClientWantsAllCollections;
-
-  factory ClientWantsAllCollections.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsAllCollectionsFromJson(json);
+@MappableClass(discriminatorValue: "ClientWantsAllCollections")
+class ClientWantsAllCollections extends ClientEventWithJwt
+    with ClientWantsAllCollectionsMappable {
+  ClientWantsAllCollections({
+    required super.jwt,
+    super.eventType = "ClientWantsAllCollections",
+  });
 }
 
-@freezed
-class ClientWantsPlantsForCollection extends ClientEvent
-    with _$ClientWantsPlantsForCollection {
-  const factory ClientWantsPlantsForCollection({
-    required String jwt,
-    required String eventType,
-    required Uuid collectionId,
-  }) = _ClientWantsPlantsForCollection;
+@MappableClass(discriminatorValue: "ClientWantsPlantsForCollection")
+class ClientWantsPlantsForCollection extends ClientEventWithJwt
+    with ClientWantsPlantsForCollectionMappable {
+  final Uuid collectionId;
 
-  factory ClientWantsPlantsForCollection.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsPlantsForCollectionFromJson(json);
+  ClientWantsPlantsForCollection({
+    required super.jwt,
+    required this.collectionId,
+    super.eventType = "ClientWantsPlantsForCollection",
+  });
 }
 
-@freezed
-class ClientWantsToCreateCollection extends ClientEvent
-    with _$ClientWantsToCreateCollection {
-  const factory ClientWantsToCreateCollection({
-    required String jwt,
-    required String eventType,
-    required CreateCollectionDto createCollectionDto,
-  }) = _ClientWantsToCreateCollection;
+@MappableClass(discriminatorValue: "ClientWantsToCreateCollection")
+class ClientWantsToCreateCollection extends ClientEventWithJwt
+    with ClientWantsToCreateCollectionMappable {
+  final CreateCollectionDto createCollectionDto;
 
-  factory ClientWantsToCreateCollection.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToCreateCollectionFromJson(json);
+  ClientWantsToCreateCollection({
+    required super.jwt,
+    required this.createCollectionDto,
+    super.eventType = "ClientWantsToCreateCollection",
+  });
 }
 
-@freezed
-class ClientWantsToUpdateCollection extends ClientEvent
-    with _$ClientWantsToUpdateCollection {
-  const factory ClientWantsToUpdateCollection({
-    required String jwt,
-    required String eventType,
-    required UpdateCollectionDto updateCollectionDto,
-  }) = _ClientWantsToUpdateCollection;
+@MappableClass(discriminatorValue: "ClientWantsToUpdateCollection")
+class ClientWantsToUpdateCollection extends ClientEventWithJwt
+    with ClientWantsToUpdateCollectionMappable {
+  final UpdateCollectionDto updateCollectionDto;
 
-  factory ClientWantsToUpdateCollection.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToUpdateCollectionFromJson(json);
+  ClientWantsToUpdateCollection({
+    required super.jwt,
+    required this.updateCollectionDto,
+    super.eventType = "ClientWantsToUpdateCollection",
+  });
 }
 
-@freezed
-class ClientWantsToDeleteCollection extends ClientEvent
-    with _$ClientWantsToDeleteCollection {
-  const factory ClientWantsToDeleteCollection({
-    required String jwt,
-    required String eventType,
-    required Uuid collectionId,
-  }) = _ClientWantsToDeleteCollection;
+@MappableClass(discriminatorValue: "ClientWantsToDeleteCollection")
+class ClientWantsToDeleteCollection extends ClientEventWithJwt
+    with ClientWantsToDeleteCollectionMappable {
+  final Uuid collectionId;
 
-  factory ClientWantsToDeleteCollection.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToDeleteCollectionFromJson(json);
+  ClientWantsToDeleteCollection({
+    required super.jwt,
+    required this.collectionId,
+    super.eventType = "ClientWantsToDeleteCollection",
+  });
 }
 
-@freezed
-class ClientWantsToUpdateProfile extends ClientEventWithJwt with _$ClientWantsToUpdateProfile{
-  const factory ClientWantsToUpdateProfile({
-    required String jwt,
-    required UpdateUserDto updateUserDto,
-    required String eventType
-  }) = _ClientWantsToUpdateProfile;
+@MappableClass(discriminatorValue: "ClientWantsToUpdateProfile")
+class ClientWantsToUpdateProfile extends ClientEventWithJwt
+    with ClientWantsToUpdateProfileMappable {
+  final UpdateUserDto updateUserDto;
 
-  factory ClientWantsToUpdateProfile.fromJson(Map<String, dynamic> json) =>
-      _$ClientWantsToUpdateProfileFromJson(json);
+  ClientWantsToUpdateProfile({
+    required super.jwt,
+    required this.updateUserDto,
+    super.eventType = "ClientWantsToUpdateProfile",
+  });
 }

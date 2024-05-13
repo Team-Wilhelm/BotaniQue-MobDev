@@ -1,68 +1,101 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-import 'requirements.dart';
 import 'uuid.dart';
 
-part 'plant.freezed.dart';
-part 'plant.g.dart';
+part 'plant.mapper.dart';
 
-@freezed
-class Plant with _$Plant {
-  // final List<ConditionLogs> conditionLogs; TODO: add
+@MappableClass()
+class Plant with PlantMappable {
+  final Uuid plantId;
+  final String? deviceID;
+  final String userEmail;
+  final Uuid? collectionId;
+  final String nickname;
+  final String imageUrl;
+  final Requirements requirements;
 
-  const factory Plant({
-    required Uuid plantId,
-    required String? deviceID,
-    required String userEmail,
-    required Uuid? collectionId,
-    required String nickname,
-    required String imageUrl,
-    required Requirements requirements,
-  }) = _Plant;
-
-  factory Plant.fromJson(Map<String, dynamic> json) => _$PlantFromJson(json);
+  const Plant({
+    required this.plantId,
+    this.deviceID,
+    required this.userEmail,
+    this.collectionId,
+    required this.nickname,
+    required this.imageUrl,
+    required this.requirements,
+  });
 }
 
-@freezed
-class CreatePlantDto with _$CreatePlantDto {
-  factory CreatePlantDto({
-    required String userEmail,
-    required Uuid? collectionId,
-    required String? deviceId,
-    required String nickname,
-    required String? base64Image,
-    required CreateRequirementsDto createRequirementsDto,
-  }) = _CreatePlantDto;
+@MappableClass()
+class CreatePlantDto with CreatePlantDtoMappable {
+  final Uuid? collectionId;
+  final String? deviceId;
+  final String nickname;
+  final String? base64Image;
+  final CreateRequirementsDto createRequirementsDto;
 
-  factory CreatePlantDto.fromJson(Map<String, dynamic> json) =>
-      _$CreatePlantDtoFromJson(json);
+  CreatePlantDto({
+    required this.collectionId,
+    required this.deviceId,
+    required this.nickname,
+    required this.base64Image,
+    required this.createRequirementsDto,
+  });
 }
 
-@freezed
-class UpdatePlantDto with _$UpdatePlantDto {
-  factory UpdatePlantDto({
-    required Uuid plantId,
-    required Uuid? cloolectionId,
-    required String? nickname,
-    required String? base64Image, // leave empty to keep existing image
-    required UpdateRequirementsDto updateRequirementsDto,
-  }) = _UpdatePlantDto;
+@MappableClass()
+class UpdatePlantDto with UpdatePlantDtoMappable {
+  final Uuid plantId;
+  final Uuid? collectionId;
+  final String? deviceId;
+  final String nickname;
+  final String? base64Image;
+  final UpdateRequirementsDto updateRequirementsDto;
 
-  factory UpdatePlantDto.fromJson(Map<String, dynamic> json) =>
-      _$UpdatePlantDtoFromJson(json);
+  UpdatePlantDto({
+    required this.plantId,
+    this.collectionId,
+    this.deviceId,
+    required this.nickname,
+    required this.base64Image,
+    required this.updateRequirementsDto,
+  });
 }
 
-@freezed
-class CreateRequirementsDto with _$CreateRequirementsDto {
-  factory CreateRequirementsDto({
-    required int soilMoistureLevel,
-    required int lightLevel,
-    required int temperatureLevel,
-    required int humidityLevel,
-  }) = _CreateRequirementsDto;
+/*
+  * Requirements
+*/
+@MappableClass()
+class Requirements with RequirementsMappable {
+  final Uuid requirementsId;
+  final Uuid plantId;
+  final int lightLevel;
+  final int temperatureLevel;
+  final int humidityLevel;
+  final int soilMoistureLevel;
 
-  factory CreateRequirementsDto.fromJson(Map<String, dynamic> json) =>
-      _$CreateRequirementsDtoFromJson(json);
+  Requirements({
+    required this.requirementsId,
+    required this.plantId,
+    required this.lightLevel,
+    required this.temperatureLevel,
+    required this.humidityLevel,
+    required this.soilMoistureLevel,
+  });
+}
+
+@MappableClass()
+class CreateRequirementsDto with CreateRequirementsDtoMappable {
+  final int soilMoistureLevel;
+  final int lightLevel;
+  final int temperatureLevel;
+  final int humidityLevel;
+
+  CreateRequirementsDto({
+    required this.soilMoistureLevel,
+    required this.lightLevel,
+    required this.temperatureLevel,
+    required this.humidityLevel,
+  });
 
   factory CreateRequirementsDto.empty() => CreateRequirementsDto(
         soilMoistureLevel: 0,
@@ -72,22 +105,27 @@ class CreateRequirementsDto with _$CreateRequirementsDto {
       );
 }
 
-@freezed
-class UpdateRequirementsDto with _$UpdateRequirementsDto {
-  factory UpdateRequirementsDto({
-    required int? soilMoistureLevel,
-    required int? lightLevel,
-    required int? temperatureLevel,
-    required int? humidityLevel,
-  }) = _UpdateRequirementsDto;
+@MappableClass()
+class UpdateRequirementsDto with UpdateRequirementsDtoMappable {
+  final Uuid requirementsId;
+  final int soilMoistureLevel;
+  final int lightLevel;
+  final int temperatureLevel;
+  final int humidityLevel;
 
-  factory UpdateRequirementsDto.fromJson(Map<String, dynamic> json) =>
-      _$UpdateRequirementsDtoFromJson(json);
+  UpdateRequirementsDto({
+    required this.requirementsId,
+    required this.soilMoistureLevel,
+    required this.lightLevel,
+    required this.temperatureLevel,
+    required this.humidityLevel,
+  });
 
   factory UpdateRequirementsDto.empty() => UpdateRequirementsDto(
-        soilMoistureLevel: null,
-        lightLevel: null,
-        temperatureLevel: null,
-        humidityLevel: null,
+        soilMoistureLevel: 0,
+        lightLevel: 0,
+        temperatureLevel: 0,
+        humidityLevel: 0,
+        requirementsId: "empty",
       );
 }

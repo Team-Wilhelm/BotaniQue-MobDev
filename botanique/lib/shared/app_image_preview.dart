@@ -33,8 +33,8 @@ class AppImagePreview extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
-            image: _getImage(),
-            fit: BoxFit.contain,
+            image: _getImage,
+            fit: _getFit,
             colorFilter: _getFilter,
           ),
         ),
@@ -62,7 +62,7 @@ class AppImagePreview extends StatelessWidget {
     );
   }
 
-  ImageProvider _getImage() {
+  ImageProvider get _getImage {
     switch (imageType) {
       case ImageType.network:
         return NetworkImage(imageUrl);
@@ -71,5 +71,20 @@ class AppImagePreview extends StatelessWidget {
       case ImageType.file:
         return Image.file(File(imageUrl)).image;
     }
+  }
+
+  // TOOD: Not sure if this is worth it
+  BoxFit get _getFit {
+    final ImageStream stream = _getImage.resolve(const ImageConfiguration());
+    var fit = BoxFit.cover;
+    stream.addListener(
+      ImageStreamListener(
+        (ImageInfo info, bool _) {
+          final double aspectRatio = info.image.width / info.image.height;
+          fit = aspectRatio > 1 ? BoxFit.cover : BoxFit.contain;
+        },
+      ),
+    );
+    return fit;
   }
 }

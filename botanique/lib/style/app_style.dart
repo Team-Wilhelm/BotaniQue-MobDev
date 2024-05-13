@@ -35,7 +35,8 @@ class AppColors {
   static const Color welcomeScreenBackground = Color(0xEBFFFFF3);
   static const Color cardBackground = Color(0xFFece8e5);
   // beige const Color(0xFFfadbb8);
-static const Color error = Color(0xFF822143);
+  static const Color error = Color(0xFF822143);
+  static const Color inputFill = Color(0xFFe9f1ed);
 }
 
 const defaultPadding = EdgeInsets.all(16);

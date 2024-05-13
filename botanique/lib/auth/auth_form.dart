@@ -5,7 +5,7 @@ import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../shared/app_button.dart';
+import '../shared/buttons/app_button.dart';
 import '../shared/app_text_field.dart';
 import '../state/navigation_cubit.dart';
 import '../style/app_style.dart';
