@@ -1,13 +1,14 @@
+import 'package:botanique/home/home_screen_greeting.dart';
 import 'package:botanique/home/need_some_love_row.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
+import 'home_screen_banner.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  final String name = "Name";
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +17,18 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
-              text: "Hi, $name",
-              fontSize: FontSizes.h3,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            const Column(
+            const HomeScreenGreeting(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(
+                const HomeScreenBanner(),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                const AppText(
                   text: "These plants need some love",
                   fontSize: FontSizes.h5,
                 ),
-                SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
                 NeedSomeLoveRow(),
                 NeedSomeLoveRow(),
                 NeedSomeLoveRow(),

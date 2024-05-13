@@ -10,6 +10,7 @@ class AppText extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.decoration = TextDecoration.none,
     this.textAlign = TextAlign.left,
+    this.overflow = TextOverflow.ellipsis,
   });
 
   final String text;
@@ -18,6 +19,7 @@ class AppText extends StatelessWidget {
   final FontWeight fontWeight;
   final TextDecoration decoration;
   final TextAlign textAlign;
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class AppText extends StatelessWidget {
         fontSize: MediaQuery.of(context).size.width / fontSize,
         fontWeight: fontWeight,
         decoration: decoration,
-        overflow: TextOverflow.ellipsis,
+        overflow: overflow,
       ),
     );
   }
