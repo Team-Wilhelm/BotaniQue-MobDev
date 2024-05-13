@@ -154,10 +154,18 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
   } else if (serverEvent is ServerSendsPlants) {
     context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
   } else if (serverEvent is ServerSendsErrorMessage) {
+    if (serverEvent is ServerRespondsNotFound &&
+        serverEvent.error.contains("No conditions log")) {
+      // This is handled in the actual screen
+      return;
+    }
     print('Error: ${serverEvent.error}');
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: AppText(text: serverEvent.error),
+        content: AppText(
+          text: serverEvent.error,
+          colour: TextColors.textLight,
+        ),
         backgroundColor: AppColors.error,
       ),
     );
