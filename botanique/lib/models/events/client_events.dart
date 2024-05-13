@@ -15,7 +15,7 @@ abstract class BaseEvent with BaseEventMappable {
   BaseEvent({required this.eventType});
 }
 
-@MappableClass(discriminatorValue: 'baseDto')
+@MappableClass(discriminatorValue: 'BaseDto')
 abstract class ClientEvent extends BaseEvent with ClientEventMappable {
   ClientEvent({required super.eventType});
 }

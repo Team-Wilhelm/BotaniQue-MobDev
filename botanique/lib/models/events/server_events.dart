@@ -8,7 +8,7 @@ import '../models/uuid.dart';
 
 part 'server_events.mapper.dart';
 
-@MappableClass()
+@MappableClass(discriminatorValue: "BaseDto")
 abstract class ServerEvent extends BaseEvent with ServerEventMappable {
   ServerEvent({required super.eventType});
 }
@@ -31,56 +31,6 @@ class ServerRespondsNotAuthenticated extends ServerEvent
     super.eventType = "ServerRespondsNotAuthenticated",
   });
 }
-
-/*
-  Used to initialize blocs with an initial state
- */
-/* class InitialServerEvent extends ServerEvent {} */
-
-/*static ServerEvent fromJson(Map<String, Object?> json) {
-    final type = json['eventType'];
-    print("ServerEvent.fromJson: $type");
-     return switch (type) {
-      ServerSendsImageWithoutBackground.name =>
-        ServerSendsImageWithoutBackground.fromJson(json),
-      ServerSendsPlant.name => ServerSendsPlant.fromJson(json),
-      ServerSavesPlant.name => ServerSavesPlant.fromJson(json),
-      ServerConfirmsDelete.name => ServerConfirmsDelete.fromJson(json),
-      ServerAuthenticatesUser.name => ServerAuthenticatesUser.fromJson(json),
-      ServerConfirmsUpdate.name => ServerConfirmsUpdate.fromJson(json),
-
-      // Collections
-      ServerSendsAllCollections.name =>
-        ServerSendsAllCollections.fromJson(json),
-      ServerSendsPlants.name => ServerSendsPlants.fromJson(json),
-      ServerSavesCollection.name => ServerSavesCollection.fromJson(json),
-      ServerDeletesCollection.name => ServerDeletesCollection.fromJson(json),
-
-      // Conditions
-      ServerSendsLatestConditionsForPlant.name =>
-        ServerSendsLatestConditionsForPlant.fromJson(json),
-
-      // Errors
-      ServerSendsErrorMessage.name => ServerSendsErrorMessage.fromJson(json),
-      ServerRejectsWrongCredentials.name =>
-        ServerRejectsWrongCredentials.fromJson(json),
-      ServerRespondsNotAuthenticated.name =>
-        ServerRespondsNotAuthenticated.fromJson(json),
-      ServerRespondsNotAuthorized.name =>
-        ServerRespondsNotAuthorized.fromJson(json),
-      ServerRespondsNotFound.name => ServerRespondsNotFound.fromJson(json),
-      ServerRespondsRegisterDevice.name =>
-        ServerRespondsRegisterDevice.fromJson(json),
-      ServerRespondsValidationError.name =>
-        ServerRespondsValidationError.fromJson(json),
-      ServerRejectsInvalidFile.name => ServerRejectsInvalidFile.fromJson(json),
-      ServerRejectsUpdate.name => ServerRejectsUpdate.fromJson(json),
-      _ => throw "Unknown event type: $type in $json"
-    }; 
-  }
-  
-}
-*/
 
 @MappableClass(discriminatorValue: 'ServerSendsImageWithoutBackground')
 class ServerSendsImageWithoutBackground extends ServerEvent

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/repositories/secure_storage_repository.dart';
@@ -20,7 +19,7 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
     // Server events, by defualt, the event is just emitted, but if a different handler is registered, it will be executed instead
     on<ServerEvent>(
       (event, emit) {
-        print("WebSocketBloc: ServerEvent: $event");
+        print("Received event: ${event.toJson()}");
         emit(event);
       },
     );
@@ -45,7 +44,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
     // Feed deserialized events from server into this bloc
     _channelSubscription = channel.stream
-        .map((event) => jsonDecode(event))
         .map((event) => ServerEventMapper.fromJson(event))
         .listen(add, onError: addError);
   }

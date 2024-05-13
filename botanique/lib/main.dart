@@ -18,8 +18,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_plant/add_plant_screen.dart';
 import 'models/events/client_events.dart';
 import 'repositories/secure_storage_repository.dart';
+import 'shared/app_text.dart';
 import 'state/add_plant/add_plant_cubit.dart';
 import 'style/app_style.dart';
+import 'util/navigation_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,8 +108,8 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
       theme: appTheme,
       home: Scaffold(
         body: BlocConsumer<WebSocketBloc, ServerEvent>(
-          listener: (context, serverEvent) => print(serverEvent
-              .eventType), // _handleGlobalEvents(context, serverEvent),
+          listener: (context, serverEvent) =>
+              _handleGlobalEvents(context, serverEvent),
           builder: (context, state) =>
               BlocConsumer<NavigationCubit, NavigationState>(
             listener: (context, state) => {
@@ -118,27 +120,30 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
               )
             },
             builder: (context, state) {
-               return PageView(
+              return PageView(
                 controller: _pageController,
                 children: _screens,
               );
             },
           ),
         ),
-        bottomNavigationBar: AppNavbar(
-          isHidden: context.read<NavigationCubit>().isNavBarHidden(),
-        ),
+        bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
+            builder: (context, navigationState) {
+          return AppNavbar(
+            isHidden: navigationState.isNavBarHidden,
+          );
+        }),
       ),
     );
   }
 }
 
-/* void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
-  if (serverEvent is InitialServerEvent) {
+void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
+  /*if (serverEvent is InitialServerEvent) {
     context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
-  } else if (serverEvent is ServerAuthenticatesUser) {
-    context.read<NavigationCubit>().changePage(
-        NavigationConstants.addPlant); // TODO: Change to home screen
+  } */
+  if (serverEvent is ServerAuthenticatesUser) {
+    context.read<NavigationCubit>().changePage(NavigationConstants.home);
   } else if (serverEvent is ServerRespondsNotAuthenticated) {
     context.read<NavigationCubit>().changePage(NavigationConstants.auth);
   } else if (serverEvent is ServerSendsAllCollections) {
@@ -148,23 +153,13 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
         .getPlantsForCurrentlySelectedCollection(context.read<WebSocketBloc>());
   } else if (serverEvent is ServerSendsPlants) {
     context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
-  } else if (serverEvent is ServerRespondsValidationError) {
-    print(
-        'ServerEventWithError: ${(serverEvent as ServerEventWithError).error}');
+  } else if (serverEvent is ServerSendsErrorMessage) {
+    print('Error: ${serverEvent.error}');
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: AppText(text: serverEvent.error),
         backgroundColor: AppColors.error,
       ),
     );
-  } else if (serverEvent is ServerEventWithError) {
-    print(
-        'ServerEventWithError: ${(serverEvent as ServerEventWithError).error}');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: AppText(text: (serverEvent as ServerEventWithError).error),
-        backgroundColor: AppColors.error,
-      ),
-    );
   }
-} */
+}
