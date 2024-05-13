@@ -26,6 +26,7 @@ class ServerEventMapper extends SubClassMapperBase<ServerEvent> {
       ServerSendsPlantsMapper.ensureInitialized();
       ServerSavesCollectionMapper.ensureInitialized();
       ServerDeletesCollectionMapper.ensureInitialized();
+      ServerSendsCriticalPlantsMapper.ensureInitialized();
       ServerSendsErrorMessageMapper.ensureInitialized();
     }
     return _instance!;
@@ -46,7 +47,7 @@ class ServerEventMapper extends SubClassMapperBase<ServerEvent> {
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = 'ServerEvent';
+  final dynamic discriminatorValue = "BaseDto";
   @override
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
@@ -1689,6 +1690,156 @@ class _ServerDeletesCollectionCopyWithImpl<$R, $Out>
   ServerDeletesCollectionCopyWith<$R2, ServerDeletesCollection, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _ServerDeletesCollectionCopyWithImpl($value, $cast, t);
+}
+
+class ServerSendsCriticalPlantsMapper
+    extends SubClassMapperBase<ServerSendsCriticalPlants> {
+  ServerSendsCriticalPlantsMapper._();
+
+  static ServerSendsCriticalPlantsMapper? _instance;
+  static ServerSendsCriticalPlantsMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ServerSendsCriticalPlantsMapper._());
+      ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
+      GetCriticalPlantDtoMapper.ensureInitialized();
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ServerSendsCriticalPlants';
+
+  static List<GetCriticalPlantDto> _$plants(ServerSendsCriticalPlants v) =>
+      v.plants;
+  static const Field<ServerSendsCriticalPlants, List<GetCriticalPlantDto>>
+      _f$plants = Field('plants', _$plants);
+  static String _$eventType(ServerSendsCriticalPlants v) => v.eventType;
+  static const Field<ServerSendsCriticalPlants, String> _f$eventType = Field(
+      'eventType', _$eventType,
+      opt: true, def: "ServerSendsCriticalPlants");
+
+  @override
+  final MappableFields<ServerSendsCriticalPlants> fields = const {
+    #plants: _f$plants,
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = 'ServerSendsCriticalPlants';
+  @override
+  late final ClassMapperBase superMapper =
+      ServerEventMapper.ensureInitialized();
+
+  static ServerSendsCriticalPlants _instantiate(DecodingData data) {
+    return ServerSendsCriticalPlants(
+        plants: data.dec(_f$plants), eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ServerSendsCriticalPlants fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ServerSendsCriticalPlants>(map);
+  }
+
+  static ServerSendsCriticalPlants fromJson(String json) {
+    return ensureInitialized().decodeJson<ServerSendsCriticalPlants>(json);
+  }
+}
+
+mixin ServerSendsCriticalPlantsMappable {
+  String toJson() {
+    return ServerSendsCriticalPlantsMapper.ensureInitialized()
+        .encodeJson<ServerSendsCriticalPlants>(
+            this as ServerSendsCriticalPlants);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ServerSendsCriticalPlantsMapper.ensureInitialized()
+        .encodeMap<ServerSendsCriticalPlants>(
+            this as ServerSendsCriticalPlants);
+  }
+
+  ServerSendsCriticalPlantsCopyWith<ServerSendsCriticalPlants,
+          ServerSendsCriticalPlants, ServerSendsCriticalPlants>
+      get copyWith => _ServerSendsCriticalPlantsCopyWithImpl(
+          this as ServerSendsCriticalPlants, $identity, $identity);
+  @override
+  String toString() {
+    return ServerSendsCriticalPlantsMapper.ensureInitialized()
+        .stringifyValue(this as ServerSendsCriticalPlants);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ServerSendsCriticalPlantsMapper.ensureInitialized()
+        .equalsValue(this as ServerSendsCriticalPlants, other);
+  }
+
+  @override
+  int get hashCode {
+    return ServerSendsCriticalPlantsMapper.ensureInitialized()
+        .hashValue(this as ServerSendsCriticalPlants);
+  }
+}
+
+extension ServerSendsCriticalPlantsValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ServerSendsCriticalPlants, $Out> {
+  ServerSendsCriticalPlantsCopyWith<$R, ServerSendsCriticalPlants, $Out>
+      get $asServerSendsCriticalPlants => $base
+          .as((v, t, t2) => _ServerSendsCriticalPlantsCopyWithImpl(v, t, t2));
+}
+
+abstract class ServerSendsCriticalPlantsCopyWith<
+    $R,
+    $In extends ServerSendsCriticalPlants,
+    $Out> implements ServerEventCopyWith<$R, $In, $Out> {
+  ListCopyWith<
+      $R,
+      GetCriticalPlantDto,
+      GetCriticalPlantDtoCopyWith<$R, GetCriticalPlantDto,
+          GetCriticalPlantDto>> get plants;
+  @override
+  $R call({List<GetCriticalPlantDto>? plants, String? eventType});
+  ServerSendsCriticalPlantsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ServerSendsCriticalPlantsCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ServerSendsCriticalPlants, $Out>
+    implements
+        ServerSendsCriticalPlantsCopyWith<$R, ServerSendsCriticalPlants, $Out> {
+  _ServerSendsCriticalPlantsCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ServerSendsCriticalPlants> $mapper =
+      ServerSendsCriticalPlantsMapper.ensureInitialized();
+  @override
+  ListCopyWith<
+      $R,
+      GetCriticalPlantDto,
+      GetCriticalPlantDtoCopyWith<$R, GetCriticalPlantDto,
+          GetCriticalPlantDto>> get plants => ListCopyWith(
+      $value.plants, (v, t) => v.copyWith.$chain(t), (v) => call(plants: v));
+  @override
+  $R call({List<GetCriticalPlantDto>? plants, String? eventType}) =>
+      $apply(FieldCopyWithData({
+        if (plants != null) #plants: plants,
+        if (eventType != null) #eventType: eventType
+      }));
+  @override
+  ServerSendsCriticalPlants $make(CopyWithData data) =>
+      ServerSendsCriticalPlants(
+          plants: data.get(#plants, or: $value.plants),
+          eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ServerSendsCriticalPlantsCopyWith<$R2, ServerSendsCriticalPlants, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _ServerSendsCriticalPlantsCopyWithImpl($value, $cast, t);
 }
 
 class ServerSendsErrorMessageMapper

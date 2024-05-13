@@ -230,3 +230,12 @@ class ClientWantsToUpdateProfile extends ClientEventWithJwt
     super.eventType = "ClientWantsToUpdateProfile",
   });
 }
+
+@MappableClass(discriminatorValue: "ClientWantsToGetCriticalPlants")
+class ClientWantsToGetCriticalPlants extends ClientEventWithJwt
+    with ClientWantsToGetCriticalPlantsMappable {
+  ClientWantsToGetCriticalPlants({
+    required super.jwt,
+    super.eventType = "ClientWantsToGetCriticalPlants",
+  });
+}

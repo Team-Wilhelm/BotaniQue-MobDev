@@ -89,7 +89,7 @@ class ClientEventMapper extends SubClassMapperBase<ClientEvent> {
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = 'baseDto';
+  final dynamic discriminatorValue = 'BaseDto';
   @override
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
@@ -403,6 +403,7 @@ class ClientEventWithJwtMapper extends SubClassMapperBase<ClientEventWithJwt> {
       ClientWantsToUpdateCollectionMapper.ensureInitialized();
       ClientWantsToDeleteCollectionMapper.ensureInitialized();
       ClientWantsToUpdateProfileMapper.ensureInitialized();
+      ClientWantsToGetCriticalPlantsMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -425,7 +426,7 @@ class ClientEventWithJwtMapper extends SubClassMapperBase<ClientEventWithJwt> {
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = "ClientEventWithJwt";
+  final dynamic discriminatorValue = "BaseDtoWithJwt";
   @override
   late final ClassMapperBase superMapper =
       ClientEventMapper.ensureInitialized();
@@ -2539,4 +2540,143 @@ class _ClientWantsToUpdateProfileCopyWithImpl<$R, $Out>
   ClientWantsToUpdateProfileCopyWith<$R2, ClientWantsToUpdateProfile, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _ClientWantsToUpdateProfileCopyWithImpl($value, $cast, t);
+}
+
+class ClientWantsToGetCriticalPlantsMapper
+    extends SubClassMapperBase<ClientWantsToGetCriticalPlants> {
+  ClientWantsToGetCriticalPlantsMapper._();
+
+  static ClientWantsToGetCriticalPlantsMapper? _instance;
+  static ClientWantsToGetCriticalPlantsMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ClientWantsToGetCriticalPlantsMapper._());
+      ClientEventWithJwtMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ClientWantsToGetCriticalPlants';
+
+  static String _$jwt(ClientWantsToGetCriticalPlants v) => v.jwt;
+  static const Field<ClientWantsToGetCriticalPlants, String> _f$jwt =
+      Field('jwt', _$jwt);
+  static String _$eventType(ClientWantsToGetCriticalPlants v) => v.eventType;
+  static const Field<ClientWantsToGetCriticalPlants, String> _f$eventType =
+      Field('eventType', _$eventType,
+          opt: true, def: "ClientWantsToGetCriticalPlants");
+
+  @override
+  final MappableFields<ClientWantsToGetCriticalPlants> fields = const {
+    #jwt: _f$jwt,
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "ClientWantsToGetCriticalPlants";
+  @override
+  late final ClassMapperBase superMapper =
+      ClientEventWithJwtMapper.ensureInitialized();
+
+  static ClientWantsToGetCriticalPlants _instantiate(DecodingData data) {
+    return ClientWantsToGetCriticalPlants(
+        jwt: data.dec(_f$jwt), eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ClientWantsToGetCriticalPlants fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ClientWantsToGetCriticalPlants>(map);
+  }
+
+  static ClientWantsToGetCriticalPlants fromJson(String json) {
+    return ensureInitialized().decodeJson<ClientWantsToGetCriticalPlants>(json);
+  }
+}
+
+mixin ClientWantsToGetCriticalPlantsMappable {
+  String toJson() {
+    return ClientWantsToGetCriticalPlantsMapper.ensureInitialized()
+        .encodeJson<ClientWantsToGetCriticalPlants>(
+            this as ClientWantsToGetCriticalPlants);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ClientWantsToGetCriticalPlantsMapper.ensureInitialized()
+        .encodeMap<ClientWantsToGetCriticalPlants>(
+            this as ClientWantsToGetCriticalPlants);
+  }
+
+  ClientWantsToGetCriticalPlantsCopyWith<ClientWantsToGetCriticalPlants,
+          ClientWantsToGetCriticalPlants, ClientWantsToGetCriticalPlants>
+      get copyWith => _ClientWantsToGetCriticalPlantsCopyWithImpl(
+          this as ClientWantsToGetCriticalPlants, $identity, $identity);
+  @override
+  String toString() {
+    return ClientWantsToGetCriticalPlantsMapper.ensureInitialized()
+        .stringifyValue(this as ClientWantsToGetCriticalPlants);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ClientWantsToGetCriticalPlantsMapper.ensureInitialized()
+        .equalsValue(this as ClientWantsToGetCriticalPlants, other);
+  }
+
+  @override
+  int get hashCode {
+    return ClientWantsToGetCriticalPlantsMapper.ensureInitialized()
+        .hashValue(this as ClientWantsToGetCriticalPlants);
+  }
+}
+
+extension ClientWantsToGetCriticalPlantsValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ClientWantsToGetCriticalPlants, $Out> {
+  ClientWantsToGetCriticalPlantsCopyWith<$R, ClientWantsToGetCriticalPlants,
+          $Out>
+      get $asClientWantsToGetCriticalPlants => $base.as(
+          (v, t, t2) => _ClientWantsToGetCriticalPlantsCopyWithImpl(v, t, t2));
+}
+
+abstract class ClientWantsToGetCriticalPlantsCopyWith<
+    $R,
+    $In extends ClientWantsToGetCriticalPlants,
+    $Out> implements ClientEventWithJwtCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? jwt, String? eventType});
+  ClientWantsToGetCriticalPlantsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ClientWantsToGetCriticalPlantsCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ClientWantsToGetCriticalPlants, $Out>
+    implements
+        ClientWantsToGetCriticalPlantsCopyWith<$R,
+            ClientWantsToGetCriticalPlants, $Out> {
+  _ClientWantsToGetCriticalPlantsCopyWithImpl(
+      super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ClientWantsToGetCriticalPlants> $mapper =
+      ClientWantsToGetCriticalPlantsMapper.ensureInitialized();
+  @override
+  $R call({String? jwt, String? eventType}) => $apply(FieldCopyWithData({
+        if (jwt != null) #jwt: jwt,
+        if (eventType != null) #eventType: eventType
+      }));
+  @override
+  ClientWantsToGetCriticalPlants $make(CopyWithData data) =>
+      ClientWantsToGetCriticalPlants(
+          jwt: data.get(#jwt, or: $value.jwt),
+          eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ClientWantsToGetCriticalPlantsCopyWith<$R2, ClientWantsToGetCriticalPlants,
+      $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ClientWantsToGetCriticalPlantsCopyWithImpl($value, $cast, t);
 }

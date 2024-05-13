@@ -1,13 +1,16 @@
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:botanique/util/mood_converter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../models/models/plant.dart';
 
 class NeedSomeLoveRow extends StatelessWidget {
   const NeedSomeLoveRow({super.key, required this.plant});
 
-  final Plant plant;
+  final GetCriticalPlantDto plant;
 
   @override
   Widget build(BuildContext context) {
@@ -42,18 +45,16 @@ class NeedSomeLoveRow extends StatelessWidget {
                   AppText(
                     text: plant.nickname,
                     fontSize: FontSizes.h5,
-                    colour: TextColors.textDark,
                   ),
-                  const AppText(
-                    text: "Im dying",
-                    colour: TextColors.textDark,
+                  AppText(
+                    text: plant.suggestedAction,
                   ),
                 ],
               ),
             ],
           ),
-          const AppText(
-            text: "😢",
+          AppText(
+            text: MoodConverter.moodToEmoji(plant.mood),
             fontSize: FontSizes.h2,
           ),
         ],

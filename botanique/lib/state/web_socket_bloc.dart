@@ -57,10 +57,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
     channel.sink.add(event.toJson());
   }
 
-  void setJwt(String jwt) {
-    this.jwt = jwt;
-  }
-
   @override
   Future<void> close() async {
     _channelSubscription.cancel();

@@ -2,6 +2,7 @@ import 'package:botanique/models/models/plant.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/util/asset_constants.dart';
+import 'package:botanique/util/mood_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,7 +65,7 @@ class PlantCard extends StatelessWidget {
                           text: plant.nickname,
                         ),
                       ),
-                      const AppText(text: "🥹")
+                      _getMoodEmoji(),
                     ],
                   ),
                 ),
@@ -123,5 +124,11 @@ class PlantCard extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget _getMoodEmoji() {
+    final mood =
+        plant.conditionsLogs.isEmpty ? -1 : plant.conditionsLogs.first.mood;
+    return AppText(text: MoodConverter.moodToEmoji(mood));
   }
 }

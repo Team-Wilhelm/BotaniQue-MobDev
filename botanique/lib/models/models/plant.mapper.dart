@@ -14,6 +14,7 @@ class PlantMapper extends ClassMapperBase<Plant> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = PlantMapper._());
       RequirementsMapper.ensureInitialized();
+      ConditionsLogMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -39,6 +40,9 @@ class PlantMapper extends ClassMapperBase<Plant> {
   static Requirements _$requirements(Plant v) => v.requirements;
   static const Field<Plant, Requirements> _f$requirements =
       Field('requirements', _$requirements);
+  static List<ConditionsLog> _$conditionsLogs(Plant v) => v.conditionsLogs;
+  static const Field<Plant, List<ConditionsLog>> _f$conditionsLogs =
+      Field('conditionsLogs', _$conditionsLogs);
 
   @override
   final MappableFields<Plant> fields = const {
@@ -49,6 +53,7 @@ class PlantMapper extends ClassMapperBase<Plant> {
     #nickname: _f$nickname,
     #imageUrl: _f$imageUrl,
     #requirements: _f$requirements,
+    #conditionsLogs: _f$conditionsLogs,
   };
 
   static Plant _instantiate(DecodingData data) {
@@ -59,7 +64,8 @@ class PlantMapper extends ClassMapperBase<Plant> {
         collectionId: data.dec(_f$collectionId),
         nickname: data.dec(_f$nickname),
         imageUrl: data.dec(_f$imageUrl),
-        requirements: data.dec(_f$requirements));
+        requirements: data.dec(_f$requirements),
+        conditionsLogs: data.dec(_f$conditionsLogs));
   }
 
   @override
@@ -109,6 +115,9 @@ extension PlantValueCopy<$R, $Out> on ObjectCopyWith<$R, Plant, $Out> {
 abstract class PlantCopyWith<$R, $In extends Plant, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   RequirementsCopyWith<$R, Requirements, Requirements> get requirements;
+  ListCopyWith<$R, ConditionsLog,
+          ConditionsLogCopyWith<$R, ConditionsLog, ConditionsLog>>
+      get conditionsLogs;
   $R call(
       {String? plantId,
       String? deviceID,
@@ -116,7 +125,8 @@ abstract class PlantCopyWith<$R, $In extends Plant, $Out>
       String? collectionId,
       String? nickname,
       String? imageUrl,
-      Requirements? requirements});
+      Requirements? requirements,
+      List<ConditionsLog>? conditionsLogs});
   PlantCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -130,6 +140,11 @@ class _PlantCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Plant, $Out>
   RequirementsCopyWith<$R, Requirements, Requirements> get requirements =>
       $value.requirements.copyWith.$chain((v) => call(requirements: v));
   @override
+  ListCopyWith<$R, ConditionsLog,
+          ConditionsLogCopyWith<$R, ConditionsLog, ConditionsLog>>
+      get conditionsLogs => ListCopyWith($value.conditionsLogs,
+          (v, t) => v.copyWith.$chain(t), (v) => call(conditionsLogs: v));
+  @override
   $R call(
           {String? plantId,
           Object? deviceID = $none,
@@ -137,7 +152,8 @@ class _PlantCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Plant, $Out>
           Object? collectionId = $none,
           String? nickname,
           String? imageUrl,
-          Requirements? requirements}) =>
+          Requirements? requirements,
+          List<ConditionsLog>? conditionsLogs}) =>
       $apply(FieldCopyWithData({
         if (plantId != null) #plantId: plantId,
         if (deviceID != $none) #deviceID: deviceID,
@@ -145,7 +161,8 @@ class _PlantCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Plant, $Out>
         if (collectionId != $none) #collectionId: collectionId,
         if (nickname != null) #nickname: nickname,
         if (imageUrl != null) #imageUrl: imageUrl,
-        if (requirements != null) #requirements: requirements
+        if (requirements != null) #requirements: requirements,
+        if (conditionsLogs != null) #conditionsLogs: conditionsLogs
       }));
   @override
   Plant $make(CopyWithData data) => Plant(
@@ -155,7 +172,8 @@ class _PlantCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Plant, $Out>
       collectionId: data.get(#collectionId, or: $value.collectionId),
       nickname: data.get(#nickname, or: $value.nickname),
       imageUrl: data.get(#imageUrl, or: $value.imageUrl),
-      requirements: data.get(#requirements, or: $value.requirements));
+      requirements: data.get(#requirements, or: $value.requirements),
+      conditionsLogs: data.get(#conditionsLogs, or: $value.conditionsLogs));
 
   @override
   PlantCopyWith<$R2, Plant, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
@@ -944,4 +962,152 @@ class _UpdateRequirementsDtoCopyWithImpl<$R, $Out>
   UpdateRequirementsDtoCopyWith<$R2, UpdateRequirementsDto, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _UpdateRequirementsDtoCopyWithImpl($value, $cast, t);
+}
+
+class GetCriticalPlantDtoMapper extends ClassMapperBase<GetCriticalPlantDto> {
+  GetCriticalPlantDtoMapper._();
+
+  static GetCriticalPlantDtoMapper? _instance;
+  static GetCriticalPlantDtoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = GetCriticalPlantDtoMapper._());
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'GetCriticalPlantDto';
+
+  static String _$plantId(GetCriticalPlantDto v) => v.plantId;
+  static const Field<GetCriticalPlantDto, String> _f$plantId =
+      Field('plantId', _$plantId);
+  static String _$imageUrl(GetCriticalPlantDto v) => v.imageUrl;
+  static const Field<GetCriticalPlantDto, String> _f$imageUrl =
+      Field('imageUrl', _$imageUrl);
+  static String _$nickname(GetCriticalPlantDto v) => v.nickname;
+  static const Field<GetCriticalPlantDto, String> _f$nickname =
+      Field('nickname', _$nickname);
+  static int _$mood(GetCriticalPlantDto v) => v.mood;
+  static const Field<GetCriticalPlantDto, int> _f$mood = Field('mood', _$mood);
+  static String _$suggestedAction(GetCriticalPlantDto v) => v.suggestedAction;
+  static const Field<GetCriticalPlantDto, String> _f$suggestedAction =
+      Field('suggestedAction', _$suggestedAction);
+
+  @override
+  final MappableFields<GetCriticalPlantDto> fields = const {
+    #plantId: _f$plantId,
+    #imageUrl: _f$imageUrl,
+    #nickname: _f$nickname,
+    #mood: _f$mood,
+    #suggestedAction: _f$suggestedAction,
+  };
+
+  static GetCriticalPlantDto _instantiate(DecodingData data) {
+    return GetCriticalPlantDto(
+        plantId: data.dec(_f$plantId),
+        imageUrl: data.dec(_f$imageUrl),
+        nickname: data.dec(_f$nickname),
+        mood: data.dec(_f$mood),
+        suggestedAction: data.dec(_f$suggestedAction));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static GetCriticalPlantDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<GetCriticalPlantDto>(map);
+  }
+
+  static GetCriticalPlantDto fromJson(String json) {
+    return ensureInitialized().decodeJson<GetCriticalPlantDto>(json);
+  }
+}
+
+mixin GetCriticalPlantDtoMappable {
+  String toJson() {
+    return GetCriticalPlantDtoMapper.ensureInitialized()
+        .encodeJson<GetCriticalPlantDto>(this as GetCriticalPlantDto);
+  }
+
+  Map<String, dynamic> toMap() {
+    return GetCriticalPlantDtoMapper.ensureInitialized()
+        .encodeMap<GetCriticalPlantDto>(this as GetCriticalPlantDto);
+  }
+
+  GetCriticalPlantDtoCopyWith<GetCriticalPlantDto, GetCriticalPlantDto,
+          GetCriticalPlantDto>
+      get copyWith => _GetCriticalPlantDtoCopyWithImpl(
+          this as GetCriticalPlantDto, $identity, $identity);
+  @override
+  String toString() {
+    return GetCriticalPlantDtoMapper.ensureInitialized()
+        .stringifyValue(this as GetCriticalPlantDto);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return GetCriticalPlantDtoMapper.ensureInitialized()
+        .equalsValue(this as GetCriticalPlantDto, other);
+  }
+
+  @override
+  int get hashCode {
+    return GetCriticalPlantDtoMapper.ensureInitialized()
+        .hashValue(this as GetCriticalPlantDto);
+  }
+}
+
+extension GetCriticalPlantDtoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, GetCriticalPlantDto, $Out> {
+  GetCriticalPlantDtoCopyWith<$R, GetCriticalPlantDto, $Out>
+      get $asGetCriticalPlantDto =>
+          $base.as((v, t, t2) => _GetCriticalPlantDtoCopyWithImpl(v, t, t2));
+}
+
+abstract class GetCriticalPlantDtoCopyWith<$R, $In extends GetCriticalPlantDto,
+    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R call(
+      {String? plantId,
+      String? imageUrl,
+      String? nickname,
+      int? mood,
+      String? suggestedAction});
+  GetCriticalPlantDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _GetCriticalPlantDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, GetCriticalPlantDto, $Out>
+    implements GetCriticalPlantDtoCopyWith<$R, GetCriticalPlantDto, $Out> {
+  _GetCriticalPlantDtoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<GetCriticalPlantDto> $mapper =
+      GetCriticalPlantDtoMapper.ensureInitialized();
+  @override
+  $R call(
+          {String? plantId,
+          String? imageUrl,
+          String? nickname,
+          int? mood,
+          String? suggestedAction}) =>
+      $apply(FieldCopyWithData({
+        if (plantId != null) #plantId: plantId,
+        if (imageUrl != null) #imageUrl: imageUrl,
+        if (nickname != null) #nickname: nickname,
+        if (mood != null) #mood: mood,
+        if (suggestedAction != null) #suggestedAction: suggestedAction
+      }));
+  @override
+  GetCriticalPlantDto $make(CopyWithData data) => GetCriticalPlantDto(
+      plantId: data.get(#plantId, or: $value.plantId),
+      imageUrl: data.get(#imageUrl, or: $value.imageUrl),
+      nickname: data.get(#nickname, or: $value.nickname),
+      mood: data.get(#mood, or: $value.mood),
+      suggestedAction: data.get(#suggestedAction, or: $value.suggestedAction));
+
+  @override
+  GetCriticalPlantDtoCopyWith<$R2, GetCriticalPlantDto, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _GetCriticalPlantDtoCopyWithImpl($value, $cast, t);
 }

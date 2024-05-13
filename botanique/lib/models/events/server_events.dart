@@ -135,6 +135,17 @@ class ServerDeletesCollection extends ServerEvent
   });
 }
 
+@MappableClass(discriminatorValue: 'ServerSendsCriticalPlants')
+class ServerSendsCriticalPlants extends ServerEvent
+    with ServerSendsCriticalPlantsMappable {
+  final List<GetCriticalPlantDto> plants;
+
+  ServerSendsCriticalPlants({
+    required this.plants,
+    super.eventType = "ServerSendsCriticalPlants",
+  });
+}
+
 /*
   Error messages
  */
@@ -202,3 +213,4 @@ class ServerRejectsUpdate extends ServerSendsErrorMessage
     required super.error,
   });
 }
+

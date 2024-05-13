@@ -1,3 +1,4 @@
+import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/shared/navigation/app_navigation_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,9 @@ class AppNavbar extends StatelessWidget {
             label: "Home",
             icon: Icons.home,
             onTap: () {
-              // TODO: load data for page
+              context
+                  .read<WebSocketBloc>()
+                  .add(ClientWantsToGetCriticalPlants(jwt: "jwt"));
             },
           ),
           AppNavigationItem(
@@ -50,13 +53,10 @@ class AppNavbar extends StatelessWidget {
                   .refreshData(context.read<WebSocketBloc>());
             },
           ),
-          AppNavigationItem(
+          const AppNavigationItem(
             routeLabel: NavigationConstants.addPlant,
             label: "Add",
             icon: Icons.add_circle_outline,
-            onTap: () {
-              // TODO: load data for page
-            },
           ),
           AppNavigationItem(
             routeLabel: NavigationConstants.settings,

@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
+import 'conditions.dart';
 import 'uuid.dart';
 
 part 'plant.mapper.dart';
@@ -13,6 +14,7 @@ class Plant with PlantMappable {
   final String nickname;
   final String imageUrl;
   final Requirements requirements;
+  final List<ConditionsLog> conditionsLogs; 
 
   const Plant({
     required this.plantId,
@@ -22,6 +24,7 @@ class Plant with PlantMappable {
     required this.nickname,
     required this.imageUrl,
     required this.requirements,
+    required this.conditionsLogs,
   });
 }
 
@@ -58,6 +61,23 @@ class UpdatePlantDto with UpdatePlantDtoMappable {
     required this.nickname,
     required this.base64Image,
     required this.updateRequirementsDto,
+  });
+}
+
+@MappableClass()
+class GetCriticalPlantDto with GetCriticalPlantDtoMappable {
+  final Uuid plantId;
+  final String imageUrl;
+  final String nickname;
+  final int mood;
+  final String suggestedAction;
+
+  GetCriticalPlantDto({
+    required this.plantId,
+    required this.imageUrl,
+    required this.nickname,
+    required this.mood,
+    required this.suggestedAction,
   });
 }
 
