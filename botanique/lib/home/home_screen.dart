@@ -2,13 +2,12 @@ import 'package:botanique/home/home_screen_greeting.dart';
 import 'package:botanique/home/need_some_love_row.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
+import 'package:botanique/state/home_cubit.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/events/server_events.dart';
 import '../models/models/plant.dart';
-import '../state/web_socket_bloc.dart';
 import 'home_screen_banner.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -33,16 +32,9 @@ class HomeScreen extends StatelessWidget {
                   fontSize: FontSizes.h4,
                 ),
                 const SizedBox(height: 16),
-                BlocBuilder<WebSocketBloc, ServerEvent>(
-                  builder: (context, serverEvent) {
-                    if (serverEvent is ServerSendsCriticalPlants) {
-                      return _buildNeedSomeLoveList(
-                          context, serverEvent.plants);
-                    } else if (serverEvent is ServerSendsErrorMessage) {
-                      return AppText(text: serverEvent.error);
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+                BlocBuilder<HomeCubit, List<GetCriticalPlantDto>>(
+                  builder: (context, plantList) {
+                    return _buildNeedSomeLoveList(context, plantList);
                   },
                 ),
               ],

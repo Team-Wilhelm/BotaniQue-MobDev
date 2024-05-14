@@ -2,7 +2,7 @@ class MoodConverter {
   static String moodToEmoji(int mood) {
     switch (mood) {
       case -1:
-        return '❔';
+        return '❓';
       case 0:
         return '😞';
       case 1:

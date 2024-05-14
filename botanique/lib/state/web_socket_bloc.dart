@@ -2,17 +2,18 @@ import 'dart:async';
 
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/repositories/secure_storage_repository.dart';
-import 'package:botanique/state/broadcast_ws_channel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../models/events/server_events.dart';
 
 class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
-  final BroadcastWsChannel channel;
+  final WebSocketChannel channel;
   late StreamSubscription _channelSubscription;
   String? jwt;
 
-  WebSocketBloc({required this.channel}) : super(ServerRespondsNotAuthenticated()) {
+  WebSocketBloc({required this.channel})
+      : super(ServerRespondsNotAuthenticated()) {
     // Client events
     on<ClientEvent>(_onClientEvent);
 
@@ -29,6 +30,7 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
         final secureStorageRepository = SecureStorageRepository();
         secureStorageRepository.saveData(LocalStorageKeys.jwt, event.jwt);
         jwt = event.jwt;
+        _requestInitialData();
         emit(event);
       },
     );
@@ -46,6 +48,15 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
     _channelSubscription = channel.stream
         .map((event) => ServerEventMapper.fromJson(event))
         .listen(add, onError: addError);
+
+    // Ask for initial data
+    SecureStorageRepository().getData(LocalStorageKeys.jwt).then((jwt) {
+      if (jwt != null) {
+        add(
+          ClientWantsToCheckJwtValidity(jwt: jwt),
+        );
+      }
+    });
   }
 
   FutureOr<void> _onClientEvent(ClientEvent event, Emitter<ServerEvent> emit) {
@@ -55,6 +66,13 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
     print("Sending event: ${event.toJson()}");
     channel.sink.add(event.toJson());
+  }
+
+  void _requestInitialData() {
+    add(ClientWantsToGetCriticalPlants(jwt: jwt!));
+    add(ClientWantsAllCollections(
+        jwt:
+            jwt!)); // result from this is handled in main, because it requires interaction with the AllPlantsCubit, where the plants are requested subsequently,
   }
 
   @override
