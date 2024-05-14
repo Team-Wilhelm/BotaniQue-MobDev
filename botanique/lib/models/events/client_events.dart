@@ -159,6 +159,18 @@ class ClientWantsLatestConditionsForPlant extends ClientEventWithJwt
   });
 }
 
+@MappableClass(discriminatorValue: "ClientWantsHistoricConditionLogsForPlant")
+class ClientWantsHistoricConditionLogsForPlant extends ClientEventWithJwt
+    with ClientWantsHistoricConditionLogsForPlantMappable {
+  final Uuid plantId;
+
+  ClientWantsHistoricConditionLogsForPlant({
+    required super.jwt,
+    required this.plantId,
+    super.eventType = "ClientWantsHistoricConditionLogsForPlant",
+  });
+}
+
 /*
   * Collections
  */

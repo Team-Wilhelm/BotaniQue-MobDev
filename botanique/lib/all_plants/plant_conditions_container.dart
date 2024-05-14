@@ -11,7 +11,7 @@ class PlantConditionsContainer extends StatelessWidget {
     required this.conditionsLog,
   });
 
-  final ConditionsLog conditionsLog;
+  final ConditionsLog? conditionsLog;
   final List<PlantDetailStat> stats = [
     PlantDetailStat.soilMoisture,
     PlantDetailStat.temperature,
@@ -21,20 +21,34 @@ class PlantConditionsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        for (int i = 0; i < 2; i++)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _getStatGridTile(stats[i]),
-              const SizedBox(height: 16),
-              _getStatGridTile(stats[i + 2]),
-            ],
-          )
-      ],
+    if (conditionsLog == null) {
+      return const AppText(
+        text: "This plant does not have any data yet. \nCheck back later.",
+        textAlign: TextAlign.center,
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          for (int i = 0; i < 2; i++)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _getStatGridTile(stats[i]),
+                const SizedBox(height: 16),
+                _getStatGridTile(stats[i + 2]),
+              ],
+            )
+        ],
+      ),
     );
   }
 
@@ -84,13 +98,17 @@ class PlantConditionsContainer extends StatelessWidget {
   String _getStatValue(PlantDetailStat stat) {
     switch (stat) {
       case PlantDetailStat.soilMoisture:
-        return conditionsLog.soilMoisture.toString();
+        return _formatStatValue(conditionsLog!.soilMoisture);
       case PlantDetailStat.temperature:
-        return conditionsLog.temperature.toString();
+        return _formatStatValue(conditionsLog!.temperature);
       case PlantDetailStat.light:
-        return conditionsLog.light.toString();
+        return _formatStatValue(conditionsLog!.light);
       case PlantDetailStat.humidity:
-        return conditionsLog.humidity.toString();
+        return _formatStatValue(conditionsLog!.humidity);
     }
+  }
+
+  String _formatStatValue(double statValue) {
+    return "${statValue.toStringAsFixed(2)}%"; // TODO: format based on stat when we change temperature to celsius
   }
 }

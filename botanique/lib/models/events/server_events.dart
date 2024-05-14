@@ -43,6 +43,9 @@ class ServerSendsImageWithoutBackground extends ServerEvent
   });
 }
 
+/*
+  Plants
+ */
 @MappableClass(discriminatorValue: 'ServerSendsPlant')
 class ServerSendsPlant extends ServerEvent with ServerSendsPlantMappable {
   final Plant plant;
@@ -87,6 +90,17 @@ class ServerSendsLatestConditionsForPlant extends ServerEvent
   ServerSendsLatestConditionsForPlant({
     required this.conditionsLog,
     super.eventType = "ServerSendsLatestConditionsForPlant",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerSendsHistoricConditionLogsForPlant')
+class ServerSendsHistoricConditionLogsForPlant extends ServerEvent
+    with ServerSendsHistoricConditionLogsForPlantMappable {
+  final List<ConditionsLog> conditionsLogs;
+
+  ServerSendsHistoricConditionLogsForPlant({
+    required this.conditionsLogs,
+    super.eventType = "ServerSendsHistoricConditionLogsForPlant",
   });
 }
 
