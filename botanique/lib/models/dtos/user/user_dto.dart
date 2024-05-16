@@ -3,15 +3,17 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'user_dto.mapper.dart';
 
 @MappableClass()
-class UpdateUserDto with UpdateUserDtoMappable {
+class UserDto with UserDtoMappable {
   final String? username;
   final String? password;
   final String? base64Image;
+  final String? userEmail;
 
-  UpdateUserDto({
+  UserDto({
     this.username,
     this.password,
     this.base64Image,
+    this.userEmail,
   });
 }
 
@@ -26,4 +28,10 @@ class GetUserDto with GetUserDtoMappable {
     required this.username,
     this.blobUrl,
   });
+}
+
+enum FieldType {
+  username,
+  password,
+  base64Image,
 }

@@ -21,7 +21,9 @@ class ServerEventMapper extends SubClassMapperBase<ServerEvent> {
       ServerSavesPlantMapper.ensureInitialized();
       ServerConfirmsUpdateMapper.ensureInitialized();
       ServerConfirmsDeleteMapper.ensureInitialized();
+      ServerSendsUserInfoMapper.ensureInitialized();
       ServerSendsLatestConditionsForPlantMapper.ensureInitialized();
+      ServerLogsUserOutMapper.ensureInitialized();
       ServerSendsAllCollectionsMapper.ensureInitialized();
       ServerSendsPlantsMapper.ensureInitialized();
       ServerSavesCollectionMapper.ensureInitialized();
@@ -46,7 +48,7 @@ class ServerEventMapper extends SubClassMapperBase<ServerEvent> {
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = 'ServerEvent';
+  final dynamic discriminatorValue = "BaseDto";
   @override
   late final ClassMapperBase superMapper = BaseEventMapper.ensureInitialized();
 
@@ -756,6 +758,7 @@ class ServerConfirmsUpdateMapper
     if (_instance == null) {
       MapperContainer.globals.use(_instance = ServerConfirmsUpdateMapper._());
       ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
+      GetUserDtoMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -766,10 +769,14 @@ class ServerConfirmsUpdateMapper
   static String _$eventType(ServerConfirmsUpdate v) => v.eventType;
   static const Field<ServerConfirmsUpdate, String> _f$eventType =
       Field('eventType', _$eventType, opt: true, def: "ServerConfirmsUpdate");
+  static GetUserDto _$getUserDto(ServerConfirmsUpdate v) => v.getUserDto;
+  static const Field<ServerConfirmsUpdate, GetUserDto> _f$getUserDto =
+      Field('getUserDto', _$getUserDto);
 
   @override
   final MappableFields<ServerConfirmsUpdate> fields = const {
     #eventType: _f$eventType,
+    #getUserDto: _f$getUserDto,
   };
 
   @override
@@ -781,7 +788,8 @@ class ServerConfirmsUpdateMapper
       ServerEventMapper.ensureInitialized();
 
   static ServerConfirmsUpdate _instantiate(DecodingData data) {
-    return ServerConfirmsUpdate(eventType: data.dec(_f$eventType));
+    return ServerConfirmsUpdate(
+        eventType: data.dec(_f$eventType), getUserDto: data.dec(_f$getUserDto));
   }
 
   @override
@@ -841,8 +849,9 @@ abstract class ServerConfirmsUpdateCopyWith<
     $R,
     $In extends ServerConfirmsUpdate,
     $Out> implements ServerEventCopyWith<$R, $In, $Out> {
+  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto;
   @override
-  $R call({String? eventType});
+  $R call({String? eventType, GetUserDto? getUserDto});
   ServerConfirmsUpdateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -856,11 +865,18 @@ class _ServerConfirmsUpdateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ServerConfirmsUpdate> $mapper =
       ServerConfirmsUpdateMapper.ensureInitialized();
   @override
-  $R call({String? eventType}) =>
-      $apply(FieldCopyWithData({if (eventType != null) #eventType: eventType}));
+  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto =>
+      $value.getUserDto.copyWith.$chain((v) => call(getUserDto: v));
+  @override
+  $R call({String? eventType, GetUserDto? getUserDto}) =>
+      $apply(FieldCopyWithData({
+        if (eventType != null) #eventType: eventType,
+        if (getUserDto != null) #getUserDto: getUserDto
+      }));
   @override
   ServerConfirmsUpdate $make(CopyWithData data) => ServerConfirmsUpdate(
-      eventType: data.get(#eventType, or: $value.eventType));
+      eventType: data.get(#eventType, or: $value.eventType),
+      getUserDto: data.get(#getUserDto, or: $value.getUserDto));
 
   @override
   ServerConfirmsUpdateCopyWith<$R2, ServerConfirmsUpdate, $Out2>
@@ -987,6 +1003,139 @@ class _ServerConfirmsDeleteCopyWithImpl<$R, $Out>
   ServerConfirmsDeleteCopyWith<$R2, ServerConfirmsDelete, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
           _ServerConfirmsDeleteCopyWithImpl($value, $cast, t);
+}
+
+class ServerSendsUserInfoMapper
+    extends SubClassMapperBase<ServerSendsUserInfo> {
+  ServerSendsUserInfoMapper._();
+
+  static ServerSendsUserInfoMapper? _instance;
+  static ServerSendsUserInfoMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ServerSendsUserInfoMapper._());
+      ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
+      GetUserDtoMapper.ensureInitialized();
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ServerSendsUserInfo';
+
+  static GetUserDto _$getUserDto(ServerSendsUserInfo v) => v.getUserDto;
+  static const Field<ServerSendsUserInfo, GetUserDto> _f$getUserDto =
+      Field('getUserDto', _$getUserDto);
+  static String _$eventType(ServerSendsUserInfo v) => v.eventType;
+  static const Field<ServerSendsUserInfo, String> _f$eventType =
+      Field('eventType', _$eventType, opt: true, def: "ServerSendsUserInfo");
+
+  @override
+  final MappableFields<ServerSendsUserInfo> fields = const {
+    #getUserDto: _f$getUserDto,
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = 'ServerSendsUserInfo';
+  @override
+  late final ClassMapperBase superMapper =
+      ServerEventMapper.ensureInitialized();
+
+  static ServerSendsUserInfo _instantiate(DecodingData data) {
+    return ServerSendsUserInfo(
+        getUserDto: data.dec(_f$getUserDto), eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ServerSendsUserInfo fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ServerSendsUserInfo>(map);
+  }
+
+  static ServerSendsUserInfo fromJson(String json) {
+    return ensureInitialized().decodeJson<ServerSendsUserInfo>(json);
+  }
+}
+
+mixin ServerSendsUserInfoMappable {
+  String toJson() {
+    return ServerSendsUserInfoMapper.ensureInitialized()
+        .encodeJson<ServerSendsUserInfo>(this as ServerSendsUserInfo);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ServerSendsUserInfoMapper.ensureInitialized()
+        .encodeMap<ServerSendsUserInfo>(this as ServerSendsUserInfo);
+  }
+
+  ServerSendsUserInfoCopyWith<ServerSendsUserInfo, ServerSendsUserInfo,
+          ServerSendsUserInfo>
+      get copyWith => _ServerSendsUserInfoCopyWithImpl(
+          this as ServerSendsUserInfo, $identity, $identity);
+  @override
+  String toString() {
+    return ServerSendsUserInfoMapper.ensureInitialized()
+        .stringifyValue(this as ServerSendsUserInfo);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ServerSendsUserInfoMapper.ensureInitialized()
+        .equalsValue(this as ServerSendsUserInfo, other);
+  }
+
+  @override
+  int get hashCode {
+    return ServerSendsUserInfoMapper.ensureInitialized()
+        .hashValue(this as ServerSendsUserInfo);
+  }
+}
+
+extension ServerSendsUserInfoValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ServerSendsUserInfo, $Out> {
+  ServerSendsUserInfoCopyWith<$R, ServerSendsUserInfo, $Out>
+      get $asServerSendsUserInfo =>
+          $base.as((v, t, t2) => _ServerSendsUserInfoCopyWithImpl(v, t, t2));
+}
+
+abstract class ServerSendsUserInfoCopyWith<$R, $In extends ServerSendsUserInfo,
+    $Out> implements ServerEventCopyWith<$R, $In, $Out> {
+  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto;
+  @override
+  $R call({GetUserDto? getUserDto, String? eventType});
+  ServerSendsUserInfoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ServerSendsUserInfoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ServerSendsUserInfo, $Out>
+    implements ServerSendsUserInfoCopyWith<$R, ServerSendsUserInfo, $Out> {
+  _ServerSendsUserInfoCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ServerSendsUserInfo> $mapper =
+      ServerSendsUserInfoMapper.ensureInitialized();
+  @override
+  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto =>
+      $value.getUserDto.copyWith.$chain((v) => call(getUserDto: v));
+  @override
+  $R call({GetUserDto? getUserDto, String? eventType}) =>
+      $apply(FieldCopyWithData({
+        if (getUserDto != null) #getUserDto: getUserDto,
+        if (eventType != null) #eventType: eventType
+      }));
+  @override
+  ServerSendsUserInfo $make(CopyWithData data) => ServerSendsUserInfo(
+      getUserDto: data.get(#getUserDto, or: $value.getUserDto),
+      eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ServerSendsUserInfoCopyWith<$R2, ServerSendsUserInfo, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _ServerSendsUserInfoCopyWithImpl($value, $cast, t);
 }
 
 class ServerSendsLatestConditionsForPlantMapper
@@ -1139,6 +1288,124 @@ class _ServerSendsLatestConditionsForPlantCopyWithImpl<$R, $Out>
       ServerSendsLatestConditionsForPlant, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
       _ServerSendsLatestConditionsForPlantCopyWithImpl($value, $cast, t);
+}
+
+class ServerLogsUserOutMapper extends SubClassMapperBase<ServerLogsUserOut> {
+  ServerLogsUserOutMapper._();
+
+  static ServerLogsUserOutMapper? _instance;
+  static ServerLogsUserOutMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ServerLogsUserOutMapper._());
+      ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ServerLogsUserOut';
+
+  static String _$eventType(ServerLogsUserOut v) => v.eventType;
+  static const Field<ServerLogsUserOut, String> _f$eventType =
+      Field('eventType', _$eventType, opt: true, def: "ServerLogsUserOut");
+
+  @override
+  final MappableFields<ServerLogsUserOut> fields = const {
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = 'ServerLogsUserOut';
+  @override
+  late final ClassMapperBase superMapper =
+      ServerEventMapper.ensureInitialized();
+
+  static ServerLogsUserOut _instantiate(DecodingData data) {
+    return ServerLogsUserOut(eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ServerLogsUserOut fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ServerLogsUserOut>(map);
+  }
+
+  static ServerLogsUserOut fromJson(String json) {
+    return ensureInitialized().decodeJson<ServerLogsUserOut>(json);
+  }
+}
+
+mixin ServerLogsUserOutMappable {
+  String toJson() {
+    return ServerLogsUserOutMapper.ensureInitialized()
+        .encodeJson<ServerLogsUserOut>(this as ServerLogsUserOut);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ServerLogsUserOutMapper.ensureInitialized()
+        .encodeMap<ServerLogsUserOut>(this as ServerLogsUserOut);
+  }
+
+  ServerLogsUserOutCopyWith<ServerLogsUserOut, ServerLogsUserOut,
+          ServerLogsUserOut>
+      get copyWith => _ServerLogsUserOutCopyWithImpl(
+          this as ServerLogsUserOut, $identity, $identity);
+  @override
+  String toString() {
+    return ServerLogsUserOutMapper.ensureInitialized()
+        .stringifyValue(this as ServerLogsUserOut);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ServerLogsUserOutMapper.ensureInitialized()
+        .equalsValue(this as ServerLogsUserOut, other);
+  }
+
+  @override
+  int get hashCode {
+    return ServerLogsUserOutMapper.ensureInitialized()
+        .hashValue(this as ServerLogsUserOut);
+  }
+}
+
+extension ServerLogsUserOutValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ServerLogsUserOut, $Out> {
+  ServerLogsUserOutCopyWith<$R, ServerLogsUserOut, $Out>
+      get $asServerLogsUserOut =>
+          $base.as((v, t, t2) => _ServerLogsUserOutCopyWithImpl(v, t, t2));
+}
+
+abstract class ServerLogsUserOutCopyWith<$R, $In extends ServerLogsUserOut,
+    $Out> implements ServerEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? eventType});
+  ServerLogsUserOutCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ServerLogsUserOutCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ServerLogsUserOut, $Out>
+    implements ServerLogsUserOutCopyWith<$R, ServerLogsUserOut, $Out> {
+  _ServerLogsUserOutCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ServerLogsUserOut> $mapper =
+      ServerLogsUserOutMapper.ensureInitialized();
+  @override
+  $R call({String? eventType}) =>
+      $apply(FieldCopyWithData({if (eventType != null) #eventType: eventType}));
+  @override
+  ServerLogsUserOut $make(CopyWithData data) =>
+      ServerLogsUserOut(eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ServerLogsUserOutCopyWith<$R2, ServerLogsUserOut, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ServerLogsUserOutCopyWithImpl($value, $cast, t);
 }
 
 class ServerSendsAllCollectionsMapper
@@ -2657,6 +2924,7 @@ class ServerRejectsUpdateMapper
       MapperContainer.globals.use(_instance = ServerRejectsUpdateMapper._());
       ServerSendsErrorMessageMapper.ensureInitialized()
           .addSubMapper(_instance!);
+      GetUserDtoMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -2670,11 +2938,15 @@ class ServerRejectsUpdateMapper
   static String _$error(ServerRejectsUpdate v) => v.error;
   static const Field<ServerRejectsUpdate, String> _f$error =
       Field('error', _$error);
+  static GetUserDto _$getUserDto(ServerRejectsUpdate v) => v.getUserDto;
+  static const Field<ServerRejectsUpdate, GetUserDto> _f$getUserDto =
+      Field('getUserDto', _$getUserDto);
 
   @override
   final MappableFields<ServerRejectsUpdate> fields = const {
     #eventType: _f$eventType,
     #error: _f$error,
+    #getUserDto: _f$getUserDto,
   };
 
   @override
@@ -2687,7 +2959,9 @@ class ServerRejectsUpdateMapper
 
   static ServerRejectsUpdate _instantiate(DecodingData data) {
     return ServerRejectsUpdate(
-        eventType: data.dec(_f$eventType), error: data.dec(_f$error));
+        eventType: data.dec(_f$eventType),
+        error: data.dec(_f$error),
+        getUserDto: data.dec(_f$getUserDto));
   }
 
   @override
@@ -2745,8 +3019,9 @@ extension ServerRejectsUpdateValueCopy<$R, $Out>
 
 abstract class ServerRejectsUpdateCopyWith<$R, $In extends ServerRejectsUpdate,
     $Out> implements ServerSendsErrorMessageCopyWith<$R, $In, $Out> {
+  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto;
   @override
-  $R call({String? eventType, String? error});
+  $R call({String? eventType, String? error, GetUserDto? getUserDto});
   ServerRejectsUpdateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -2760,14 +3035,20 @@ class _ServerRejectsUpdateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ServerRejectsUpdate> $mapper =
       ServerRejectsUpdateMapper.ensureInitialized();
   @override
-  $R call({String? eventType, String? error}) => $apply(FieldCopyWithData({
+  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto =>
+      $value.getUserDto.copyWith.$chain((v) => call(getUserDto: v));
+  @override
+  $R call({String? eventType, String? error, GetUserDto? getUserDto}) =>
+      $apply(FieldCopyWithData({
         if (eventType != null) #eventType: eventType,
-        if (error != null) #error: error
+        if (error != null) #error: error,
+        if (getUserDto != null) #getUserDto: getUserDto
       }));
   @override
   ServerRejectsUpdate $make(CopyWithData data) => ServerRejectsUpdate(
       eventType: data.get(#eventType, or: $value.eventType),
-      error: data.get(#error, or: $value.error));
+      error: data.get(#error, or: $value.error),
+      getUserDto: data.get(#getUserDto, or: $value.getUserDto));
 
   @override
   ServerRejectsUpdateCopyWith<$R2, ServerRejectsUpdate, $Out2>

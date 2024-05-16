@@ -4,6 +4,7 @@ class AssetConstants {
 
   static const String logo = '${_assetPath}logo.png';
   static const String leaves = '${_assetPath}leaves.jpg';
+  static const String leavesSmall = '${_assetPath}leaves_small.jpg';
   static const String profile = '${_assetPath}profile_default.jpg';
 
   static const String humidity = '${_minimalisticAssetPath}humidity.png';

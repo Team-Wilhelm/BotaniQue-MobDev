@@ -6,129 +6,136 @@
 
 part of 'user_dto.dart';
 
-class UpdateUserDtoMapper extends ClassMapperBase<UpdateUserDto> {
-  UpdateUserDtoMapper._();
+class UserDtoMapper extends ClassMapperBase<UserDto> {
+  UserDtoMapper._();
 
-  static UpdateUserDtoMapper? _instance;
-  static UpdateUserDtoMapper ensureInitialized() {
+  static UserDtoMapper? _instance;
+  static UserDtoMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals.use(_instance = UpdateUserDtoMapper._());
+      MapperContainer.globals.use(_instance = UserDtoMapper._());
     }
     return _instance!;
   }
 
   @override
-  final String id = 'UpdateUserDto';
+  final String id = 'UserDto';
 
-  static String? _$username(UpdateUserDto v) => v.username;
-  static const Field<UpdateUserDto, String> _f$username =
+  static String? _$username(UserDto v) => v.username;
+  static const Field<UserDto, String> _f$username =
       Field('username', _$username, opt: true);
-  static String? _$password(UpdateUserDto v) => v.password;
-  static const Field<UpdateUserDto, String> _f$password =
+  static String? _$password(UserDto v) => v.password;
+  static const Field<UserDto, String> _f$password =
       Field('password', _$password, opt: true);
-  static String? _$base64Image(UpdateUserDto v) => v.base64Image;
-  static const Field<UpdateUserDto, String> _f$base64Image =
+  static String? _$base64Image(UserDto v) => v.base64Image;
+  static const Field<UserDto, String> _f$base64Image =
       Field('base64Image', _$base64Image, opt: true);
+  static String? _$userEmail(UserDto v) => v.userEmail;
+  static const Field<UserDto, String> _f$userEmail =
+      Field('userEmail', _$userEmail, opt: true);
 
   @override
-  final MappableFields<UpdateUserDto> fields = const {
+  final MappableFields<UserDto> fields = const {
     #username: _f$username,
     #password: _f$password,
     #base64Image: _f$base64Image,
+    #userEmail: _f$userEmail,
   };
 
-  static UpdateUserDto _instantiate(DecodingData data) {
-    return UpdateUserDto(
+  static UserDto _instantiate(DecodingData data) {
+    return UserDto(
         username: data.dec(_f$username),
         password: data.dec(_f$password),
-        base64Image: data.dec(_f$base64Image));
+        base64Image: data.dec(_f$base64Image),
+        userEmail: data.dec(_f$userEmail));
   }
 
   @override
   final Function instantiate = _instantiate;
 
-  static UpdateUserDto fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<UpdateUserDto>(map);
+  static UserDto fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<UserDto>(map);
   }
 
-  static UpdateUserDto fromJson(String json) {
-    return ensureInitialized().decodeJson<UpdateUserDto>(json);
+  static UserDto fromJson(String json) {
+    return ensureInitialized().decodeJson<UserDto>(json);
   }
 }
 
-mixin UpdateUserDtoMappable {
+mixin UserDtoMappable {
   String toJson() {
-    return UpdateUserDtoMapper.ensureInitialized()
-        .encodeJson<UpdateUserDto>(this as UpdateUserDto);
+    return UserDtoMapper.ensureInitialized()
+        .encodeJson<UserDto>(this as UserDto);
   }
 
   Map<String, dynamic> toMap() {
-    return UpdateUserDtoMapper.ensureInitialized()
-        .encodeMap<UpdateUserDto>(this as UpdateUserDto);
+    return UserDtoMapper.ensureInitialized()
+        .encodeMap<UserDto>(this as UserDto);
   }
 
-  UpdateUserDtoCopyWith<UpdateUserDto, UpdateUserDto, UpdateUserDto>
-      get copyWith => _UpdateUserDtoCopyWithImpl(
-          this as UpdateUserDto, $identity, $identity);
+  UserDtoCopyWith<UserDto, UserDto, UserDto> get copyWith =>
+      _UserDtoCopyWithImpl(this as UserDto, $identity, $identity);
   @override
   String toString() {
-    return UpdateUserDtoMapper.ensureInitialized()
-        .stringifyValue(this as UpdateUserDto);
+    return UserDtoMapper.ensureInitialized().stringifyValue(this as UserDto);
   }
 
   @override
   bool operator ==(Object other) {
-    return UpdateUserDtoMapper.ensureInitialized()
-        .equalsValue(this as UpdateUserDto, other);
+    return UserDtoMapper.ensureInitialized()
+        .equalsValue(this as UserDto, other);
   }
 
   @override
   int get hashCode {
-    return UpdateUserDtoMapper.ensureInitialized()
-        .hashValue(this as UpdateUserDto);
+    return UserDtoMapper.ensureInitialized().hashValue(this as UserDto);
   }
 }
 
-extension UpdateUserDtoValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, UpdateUserDto, $Out> {
-  UpdateUserDtoCopyWith<$R, UpdateUserDto, $Out> get $asUpdateUserDto =>
-      $base.as((v, t, t2) => _UpdateUserDtoCopyWithImpl(v, t, t2));
+extension UserDtoValueCopy<$R, $Out> on ObjectCopyWith<$R, UserDto, $Out> {
+  UserDtoCopyWith<$R, UserDto, $Out> get $asUserDto =>
+      $base.as((v, t, t2) => _UserDtoCopyWithImpl(v, t, t2));
 }
 
-abstract class UpdateUserDtoCopyWith<$R, $In extends UpdateUserDto, $Out>
+abstract class UserDtoCopyWith<$R, $In extends UserDto, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? username, String? password, String? base64Image});
-  UpdateUserDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+  $R call(
+      {String? username,
+      String? password,
+      String? base64Image,
+      String? userEmail});
+  UserDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _UpdateUserDtoCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, UpdateUserDto, $Out>
-    implements UpdateUserDtoCopyWith<$R, UpdateUserDto, $Out> {
-  _UpdateUserDtoCopyWithImpl(super.value, super.then, super.then2);
+class _UserDtoCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, UserDto, $Out>
+    implements UserDtoCopyWith<$R, UserDto, $Out> {
+  _UserDtoCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<UpdateUserDto> $mapper =
-      UpdateUserDtoMapper.ensureInitialized();
+  late final ClassMapperBase<UserDto> $mapper =
+      UserDtoMapper.ensureInitialized();
   @override
   $R call(
           {Object? username = $none,
           Object? password = $none,
-          Object? base64Image = $none}) =>
+          Object? base64Image = $none,
+          Object? userEmail = $none}) =>
       $apply(FieldCopyWithData({
         if (username != $none) #username: username,
         if (password != $none) #password: password,
-        if (base64Image != $none) #base64Image: base64Image
+        if (base64Image != $none) #base64Image: base64Image,
+        if (userEmail != $none) #userEmail: userEmail
       }));
   @override
-  UpdateUserDto $make(CopyWithData data) => UpdateUserDto(
+  UserDto $make(CopyWithData data) => UserDto(
       username: data.get(#username, or: $value.username),
       password: data.get(#password, or: $value.password),
-      base64Image: data.get(#base64Image, or: $value.base64Image));
+      base64Image: data.get(#base64Image, or: $value.base64Image),
+      userEmail: data.get(#userEmail, or: $value.userEmail));
 
   @override
-  UpdateUserDtoCopyWith<$R2, UpdateUserDto, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _UpdateUserDtoCopyWithImpl($value, $cast, t);
+  UserDtoCopyWith<$R2, UserDto, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _UserDtoCopyWithImpl($value, $cast, t);
 }
 
 class GetUserDtoMapper extends ClassMapperBase<GetUserDto> {
