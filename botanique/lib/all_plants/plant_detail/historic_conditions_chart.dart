@@ -48,6 +48,7 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
               });
             },
           ),
+          const SizedBox(height: 12),
           SfCartesianChart(
             key: ValueKey(_selectedStat),
             primaryXAxis: DateTimeAxis(
@@ -104,8 +105,14 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
       for (var item in PlantDetailStat.values)
         item: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: PlantCardStat(
-            statImage: item.icon,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            child: PlantCardStat(
+              statImage: item.icon,
+              color: _selectedStat == item
+                  ? TextColors.textLight
+                  : TextColors.textDark,
+            ),
           ),
         )
     };
