@@ -2,7 +2,7 @@ import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
-import 'button_style.dart';
+import '../../models/enums/app_enums.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({

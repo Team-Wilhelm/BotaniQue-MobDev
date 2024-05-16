@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../models/enums/app_enums.dart';
+
 class SecureStorageRepository {
   final storage = const FlutterSecureStorage();
 
@@ -20,4 +22,4 @@ class SecureStorageRepository {
   }
 }
 
-enum LocalStorageKeys { jwt, sasToken }
+

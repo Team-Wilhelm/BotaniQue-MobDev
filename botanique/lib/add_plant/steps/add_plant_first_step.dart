@@ -2,9 +2,9 @@ import 'package:botanique/add_plant/collection_dropdown.dart';
 import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/buttons/app_icon_button.dart';
-import 'package:botanique/shared/buttons/button_style.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/enums/app_enums.dart';
 import '../../shared/app_text.dart';
 
 class AddPlantFirstStepContent extends StatelessWidget {

@@ -20,9 +20,17 @@ class PlantCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<WebSocketBloc>().add(ClientWantsLatestConditionsForPlant(
-            plantId: plant.plantId,
-            jwt: "jwt",
-            eventType: "ClientWantsLatestConditionsForPlant"));
+              plantId: plant.plantId,
+              jwt: "jwt",
+            ));
+        context
+            .read<WebSocketBloc>()
+            .add(ClientWantsHistoricConditionLogsForPlant(
+              plantId: plant.plantId,
+              jwt: "jwt",
+              startDate: DateTime.now().subtract(const Duration(days: 7)),
+              endDate: DateTime.now(),
+            ));
         Navigator.push(context, _getPageRouteBuilder());
       },
       child: Hero(

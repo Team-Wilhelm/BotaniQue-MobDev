@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/events/server_events.dart';
 import '../../models/models/plant.dart';
-import 'historic_conditions_graph.dart';
+import 'historic_conditions_chart.dart';
 
 class PlantDetailScreen extends StatefulWidget {
   const PlantDetailScreen({
@@ -59,7 +59,7 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
                     conditionsLog: latestConditions,
                   ),
                   const SizedBox(height: 16),
-                  HistoricConditionsGraph(
+                  HistoricConditionsChart(
                     conditionsLogs: historicConditions,
                   ),
                 ],
@@ -73,5 +73,3 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
 
   Plant get plant => widget.plant;
 }
-
-enum PlantDetailStat { soilMoisture, temperature, light, humidity }

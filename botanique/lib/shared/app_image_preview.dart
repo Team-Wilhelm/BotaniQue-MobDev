@@ -2,13 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../models/enums/app_enums.dart';
 import '../util/asset_constants.dart';
-
-enum ImageType {
-  network,
-  asset,
-  file,
-}
 
 class AppImagePreview extends StatelessWidget {
   const AppImagePreview({

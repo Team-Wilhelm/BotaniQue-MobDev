@@ -1,9 +1,9 @@
 import 'package:botanique/models/models/conditions.dart';
 import 'package:flutter/material.dart';
 
+import '../models/enums/app_enums.dart';
 import '../shared/app_text.dart';
 import '../util/asset_constants.dart';
-import 'plant_detail/plant_detail_screen.dart';
 
 class PlantConditionsContainer extends StatelessWidget {
   PlantConditionsContainer({
@@ -55,13 +55,15 @@ class PlantConditionsContainer extends StatelessWidget {
   List<String> _getTitleAndIcon(PlantDetailStat stat) {
     switch (stat) {
       case PlantDetailStat.soilMoisture:
-        return ["Soil Moisture", AssetConstants.soilMoisture];
+        return [stat.value, AssetConstants.soilMoisture];
       case PlantDetailStat.temperature:
-        return ["Temperature", AssetConstants.temperature];
+        return [stat.value, AssetConstants.temperature];
       case PlantDetailStat.light:
-        return ["Light Exposure", AssetConstants.light];
+        return [stat.value, AssetConstants.light];
       case PlantDetailStat.humidity:
-        return ["Humidity", AssetConstants.humidity];
+        return [stat.value, AssetConstants.humidity];
+      default:
+        return ["", ""];
     }
   }
 
@@ -105,6 +107,8 @@ class PlantConditionsContainer extends StatelessWidget {
         return _formatStatValue(conditionsLog!.light);
       case PlantDetailStat.humidity:
         return _formatStatValue(conditionsLog!.humidity);
+      case PlantDetailStat.mood:
+        return conditionsLog!.mood.toString();
     }
   }
 

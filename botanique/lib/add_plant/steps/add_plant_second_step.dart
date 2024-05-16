@@ -2,6 +2,7 @@ import 'package:botanique/models/events/server_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/enums/app_enums.dart';
 import '../../models/models/plant.dart';
 import '../../shared/app_image_preview.dart';
 import '../../shared/app_text.dart';

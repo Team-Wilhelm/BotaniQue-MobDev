@@ -163,10 +163,14 @@ class ClientWantsLatestConditionsForPlant extends ClientEventWithJwt
 class ClientWantsHistoricConditionLogsForPlant extends ClientEventWithJwt
     with ClientWantsHistoricConditionLogsForPlantMappable {
   final Uuid plantId;
+  final DateTime startDate;
+  final DateTime endDate;
 
   ClientWantsHistoricConditionLogsForPlant({
     required super.jwt,
     required this.plantId,
+    required this.startDate,
+    required this.endDate,
     super.eventType = "ClientWantsHistoricConditionLogsForPlant",
   });
 }
