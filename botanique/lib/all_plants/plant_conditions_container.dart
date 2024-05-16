@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../models/enums/app_enums.dart';
 import '../shared/app_text.dart';
-import '../util/asset_constants.dart';
+import 'plant_card_stat.dart';
 
 class PlantConditionsContainer extends StatelessWidget {
   PlantConditionsContainer({
@@ -52,64 +52,29 @@ class PlantConditionsContainer extends StatelessWidget {
     );
   }
 
-  List<String> _getTitleAndIcon(PlantDetailStat stat) {
-    switch (stat) {
-      case PlantDetailStat.soilMoisture:
-        return [stat.value, AssetConstants.soilMoisture];
-      case PlantDetailStat.temperature:
-        return [stat.value, AssetConstants.temperature];
-      case PlantDetailStat.light:
-        return [stat.value, AssetConstants.light];
-      case PlantDetailStat.humidity:
-        return [stat.value, AssetConstants.humidity];
-      default:
-        return ["", ""];
-    }
-  }
-
   Widget _getStatGridTile(PlantDetailStat stat) {
-    final titleAndIcon = _getTitleAndIcon(stat);
     return Container(
       padding: const EdgeInsets.all(4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            titleAndIcon[1],
-            width: 25,
-            height: 25,
-          ),
+          PlantCardStat(statImage: stat.icon),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(
-                text: titleAndIcon[0],
+                text: stat.value,
                 fontWeight: FontWeight.bold,
               ),
               AppText(
-                text: _getStatValue(stat),
+                text: _formatStatValue(conditionsLog!.getStatValue(stat)),
               ),
             ],
           ),
         ],
       ),
     );
-  }
-
-  String _getStatValue(PlantDetailStat stat) {
-    switch (stat) {
-      case PlantDetailStat.soilMoisture:
-        return _formatStatValue(conditionsLog!.soilMoisture);
-      case PlantDetailStat.temperature:
-        return _formatStatValue(conditionsLog!.temperature);
-      case PlantDetailStat.light:
-        return _formatStatValue(conditionsLog!.light);
-      case PlantDetailStat.humidity:
-        return _formatStatValue(conditionsLog!.humidity);
-      case PlantDetailStat.mood:
-        return conditionsLog!.mood.toString();
-    }
   }
 
   String _formatStatValue(double statValue) {

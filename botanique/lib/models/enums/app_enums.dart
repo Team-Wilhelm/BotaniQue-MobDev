@@ -1,3 +1,5 @@
+import '../../util/asset_constants.dart';
+
 enum PlantDetailStat {
   soilMoisture,
   temperature,
@@ -6,7 +8,7 @@ enum PlantDetailStat {
   mood,
 }
 
-extension PlantDetailStatString on PlantDetailStat {
+extension PlantDetailStatExtension on PlantDetailStat {
   String get value {
     switch (this) {
       case PlantDetailStat.soilMoisture:
@@ -18,7 +20,22 @@ extension PlantDetailStatString on PlantDetailStat {
       case PlantDetailStat.humidity:
         return "Humidity";
       case PlantDetailStat.mood:
-        return "Mood";  
+        return "Mood";
+    }
+  }
+
+  String get icon {
+    switch (this) {
+      case PlantDetailStat.soilMoisture:
+        return AssetConstants.soilMoistureSvg;
+      case PlantDetailStat.temperature:
+        return AssetConstants.temperatureSvg;
+      case PlantDetailStat.light:
+        return AssetConstants.lightSvg;
+      case PlantDetailStat.humidity:
+        return AssetConstants.humiditySvg;
+      case PlantDetailStat.mood:
+        return AssetConstants.moodSvg;
     }
   }
 }

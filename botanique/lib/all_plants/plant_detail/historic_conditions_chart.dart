@@ -1,11 +1,12 @@
 import 'package:botanique/models/enums/app_enums.dart';
-import 'package:botanique/shared/buttons/app_button.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../models/models/conditions.dart';
+import '../plant_card_stat.dart';
 
 class HistoricConditionsChart extends StatefulWidget {
   const HistoricConditionsChart({
@@ -37,19 +38,15 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
       ),
       child: Column(
         children: [
-          Wrap(
-            spacing: 10,
-            children: [
-              for (final PlantDetailStat stat in PlantDetailStat.values)
-                AppButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedStat = stat;
-                    });
-                  },
-                  text: stat.value,
-                ),
-            ],
+          CupertinoSlidingSegmentedControl(
+            thumbColor: AppColors.primary[20]!,
+            children: _plantStatsAsWidgetMap(),
+            groupValue: _selectedStat,
+            onValueChanged: (value) {
+              setState(() {
+                _selectedStat = value!;
+              });
+            },
           ),
           SfCartesianChart(
             key: ValueKey(_selectedStat),
@@ -63,7 +60,6 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
               minimum: 0,
               maximum: maximum,
               interval: interval,
-              rangePadding: ChartRangePadding.additional,
             ),
             series: <CartesianSeries>[
               SplineSeries<ConditionsLog, DateTime>(
@@ -101,5 +97,17 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
     } else {
       return 20;
     }
+  }
+
+  Map<PlantDetailStat, Widget> _plantStatsAsWidgetMap() {
+    return {
+      for (var item in PlantDetailStat.values)
+        item: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: PlantCardStat(
+            statImage: item.icon,
+          ),
+        )
+    };
   }
 }

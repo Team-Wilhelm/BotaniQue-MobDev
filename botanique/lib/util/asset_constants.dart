@@ -1,6 +1,7 @@
 class AssetConstants {
   static const String _assetPath = 'assets/images/';
   static const String _minimalisticAssetPath = '${_assetPath}minimalistic/';
+  static const String _svgPath = 'assets/svg/';
 
   static const String logo = '${_assetPath}logo.png';
   static const String leaves = '${_assetPath}leaves.jpg';
@@ -11,6 +12,12 @@ class AssetConstants {
   static const String soilMoisture = '${_minimalisticAssetPath}moisture.png';
   static const String temperature = '${_minimalisticAssetPath}temperature.png';
   static const String camera = '${_minimalisticAssetPath}camera.png';
+
+  static const String humiditySvg = '${_svgPath}humidity.svg';
+  static const String lightSvg = '${_svgPath}sun.svg';
+  static const String soilMoistureSvg = '${_svgPath}moisture.svg';
+  static const String temperatureSvg = '${_svgPath}temperature.svg';
+  static const String moodSvg = '${_svgPath}mood.svg';
 }
 
 // TODO: change to default image from Blob storage

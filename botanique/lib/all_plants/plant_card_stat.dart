@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class PlantCardStat extends StatelessWidget {
   const PlantCardStat({
     super.key,
     required this.statImage,
-    this.statValue = "10%",
   });
 
-  final String statValue;
   final String statImage;
   final double _imageSize = 20;
 
@@ -15,17 +14,11 @@ class PlantCardStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
-      ),
-      child: Column(
-        children: [
-          Image.asset(
-            statImage,
-            width: _imageSize,
-            height: _imageSize,
-          ),
-        ],
+      child: SvgPicture.asset(
+        statImage,
+        width: _imageSize,
+        height: _imageSize,
+        fit: BoxFit.contain,
       ),
     );
   }
