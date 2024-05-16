@@ -23,6 +23,7 @@ class PlantCard extends StatelessWidget {
               plantId: plant.plantId,
               jwt: "jwt",
             ));
+        // TODO: ask for data from last 7 days for now
         context
             .read<WebSocketBloc>()
             .add(ClientWantsHistoricConditionLogsForPlant(
