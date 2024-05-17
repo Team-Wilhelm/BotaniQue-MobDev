@@ -23,4 +23,21 @@ class AppSnackbar {
       ),
     );
   }
+
+  void showSuccess(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: AppText(
+            text: message,
+            fontSize: FontSizes.regular,
+            colour: TextColors.textLight,
+          ),
+        ),
+        backgroundColor: AppColors.primary[60],
+        behavior: SnackBarBehavior.floating, // Optional: to float the snackbar
+        duration: Duration(seconds: 4), // Optional: adjust the display duration
+      ),
+    );
+  }
 }

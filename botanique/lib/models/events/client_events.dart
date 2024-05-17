@@ -219,14 +219,47 @@ class ClientWantsToDeleteCollection extends ClientEventWithJwt
   });
 }
 
-@MappableClass(discriminatorValue: "ClientWantsToUpdateProfile")
-class ClientWantsToUpdateProfile extends ClientEventWithJwt
-    with ClientWantsToUpdateProfileMappable {
-  final UserDto userDto;
+@MappableClass(discriminatorValue: "ClientWantsToUpdateProfileImage")
+class ClientWantsToUpdateProfileImage extends ClientEventWithJwt
+    with ClientWantsToUpdateProfileImageMappable {
+  final String base64Image;
 
-  ClientWantsToUpdateProfile({
+  ClientWantsToUpdateProfileImage({
     required super.jwt,
-    required this.userDto,
-    super.eventType = "ClientWantsToUpdateProfile",
+    required this.base64Image,
+    super.eventType = "ClientWantsToUpdateProfileImage",
+  });
+}
+
+@MappableClass(discriminatorValue: "ClientWantsToUpdateUsername")
+class ClientWantsToUpdateUsername extends ClientEventWithJwt
+    with ClientWantsToUpdateUsernameMappable {
+  final String username;
+
+  ClientWantsToUpdateUsername({
+    required super.jwt,
+    required this.username,
+    super.eventType = "ClientWantsToUpdateUsername",
+  });
+}
+
+@MappableClass(discriminatorValue: "ClientWantsToUpdatePassword")
+class ClientWantsToUpdatePassword extends ClientEventWithJwt
+    with ClientWantsToUpdatePasswordMappable {
+  final String password;
+
+  ClientWantsToUpdatePassword({
+    required super.jwt,
+    required this.password,
+    super.eventType = "ClientWantsToUpdatePassword",
+  });
+}
+
+@MappableClass(discriminatorValue: "ClientWantsToDeleteProfileImage")
+class ClientWantsToDeleteProfileImage extends ClientEventWithJwt
+    with ClientWantsToDeleteProfileImageMappable {
+  ClientWantsToDeleteProfileImage({
+    required super.jwt,
+    super.eventType = "ClientWantsToDeleteProfileImage",
   });
 }
