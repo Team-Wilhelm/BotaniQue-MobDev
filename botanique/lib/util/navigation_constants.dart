@@ -1,3 +1,4 @@
+import 'package:botanique/shared/success_screen.dart';
 import 'package:flutter/widgets.dart';
 
 import '../add_plant/add_plant_screen.dart';
@@ -14,7 +15,8 @@ class NavigationConstants {
   static const String settings = 'settings';
   static const String welcome = 'welcome';
   static const String auth = 'logIn';
-  static const String signUp = 'signUp';
+  static const String plantDetail = 'plantDetail';
+  static const String success = 'success';
 
   static final Map<String, int> _pageNameIndexMap = {
     NavigationConstants.home: 0,
@@ -23,7 +25,6 @@ class NavigationConstants {
     NavigationConstants.settings: 3,
     NavigationConstants.welcome: 4,
     NavigationConstants.auth: 5,
-    NavigationConstants.signUp: 6,
   };
 
   static int pageNameToIndex(String pageName) {
@@ -48,6 +49,8 @@ class NavigationConstants {
         return const WelcomeScreen();
       case NavigationConstants.auth:
         return const AuthScreen();
+      case NavigationConstants.success:
+        return const SuccessScreen();  
 
       default:
         throw Exception('Page $pageName not found');

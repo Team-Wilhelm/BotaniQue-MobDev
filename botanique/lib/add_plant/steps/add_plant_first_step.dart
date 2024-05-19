@@ -42,13 +42,20 @@ class AddPlantFirstStepContent extends StatelessWidget {
               textFieldController: plantNameController,
               placeholder: "Plant Name"),
           const SizedBox(height: 24),
-          AppText(text: collectionQuestion),
+          AppText(
+            text: collectionQuestion,
+            overflow: TextOverflow.visible,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 8),
           CollectionDropdown(
             onCollectionSelected: onCollectionSelected,
           ),
           const SizedBox(height: 24),
-          const AppText(text: "Fill in the device ID of your plant sensor"),
+          const AppText(
+            text: "Fill in the device ID of your plant sensor",
+            textAlign: TextAlign.center,
+          ),
           // TODO: add scan QR code
           const SizedBox(height: 8),
           AppTextField(

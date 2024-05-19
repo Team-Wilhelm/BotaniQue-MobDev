@@ -3,7 +3,6 @@ import 'package:botanique/auth/auth_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/settings_screen.dart';
-import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/home_cubit.dart';
@@ -18,6 +17,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
 import 'shared/app_text.dart';
+import 'shared/navigation/app_navbar.dart';
 import 'state/add_plant/add_plant_cubit.dart';
 import 'style/app_style.dart';
 import 'util/navigation_constants.dart';

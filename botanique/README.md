@@ -22,3 +22,8 @@ dart run build_runner build
 ```bash
 dart run vector_graphics_compiler -i assets/foo.svg -o assets/foo.svg.vec
 ```
+
+## To generate app icon 
+```bash
+flutter pub run flutter_launcher_icons
+```

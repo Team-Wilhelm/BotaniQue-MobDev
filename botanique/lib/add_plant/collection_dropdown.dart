@@ -26,12 +26,17 @@ class CollectionDropdown extends StatelessWidget {
     if (collections.isNotEmpty) {
       return BlocBuilder<AddPlantCubit, AddPlantState>(
           builder: (context, addPlantState) {
-        final preselectedCollection = addPlantState is PlantToEditSelected
-            ? collections.firstWhere(
-                (collection) =>
-                    collection.collectionId == addPlantState.plant.collectionId,
-              )
-            : null;
+        GetCollectionDto? preselectedCollection;
+        if (addPlantState is PlantToEditSelected) {
+          try {
+            preselectedCollection = collections.firstWhere(
+              (collection) =>
+                  collection.collectionId == addPlantState.plant.collectionId,
+            );
+          } catch (e) {
+            preselectedCollection = null;
+          }
+        }
         return CustomDropdown<GetCollectionDto>.search(
           decoration: _decoration,
           hintText: "Select a collection (optional)",

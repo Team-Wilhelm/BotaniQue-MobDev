@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ScreenBase extends StatelessWidget {
   const ScreenBase({
     super.key,

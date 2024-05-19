@@ -11,6 +11,7 @@ class AppText extends StatelessWidget {
     this.decoration = TextDecoration.none,
     this.textAlign = TextAlign.left,
     this.overflow = TextOverflow.ellipsis,
+    this.softWrap = true,
   });
 
   final String text;
@@ -20,12 +21,14 @@ class AppText extends StatelessWidget {
   final TextDecoration decoration;
   final TextAlign textAlign;
   final TextOverflow overflow;
+  final bool softWrap;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: textAlign,
+      softWrap: softWrap,
       style: TextStyle(
         color: colour,
         fontSize: MediaQuery.of(context).size.width / fontSize,
