@@ -43,6 +43,9 @@ class NavigationState {
   }
 
   static NavigationState initial() {
-    return NavigationState(4, false, true);
+    return NavigationState(
+        NavigationConstants.pageNameToIndex(NavigationConstants.welcome),
+        false,
+        true);
   }
 }

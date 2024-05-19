@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:botanique/models/events/client_events.dart';
-import 'package:botanique/repositories/secure_storage_repository.dart';
+import 'package:botanique/repositories/storage_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -28,8 +28,8 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
     on<ServerAuthenticatesUser>(
       (event, emit) {
-        final secureStorageRepository = SecureStorageRepository();
-        secureStorageRepository.saveData(LocalStorageKeys.jwt, event.jwt);
+        final storageRepository = StorageRepository.storageRepository;
+        storageRepository.saveData(LocalStorageKeys.jwt, event.jwt);
         jwt = event.jwt;
         _requestInitialData();
         emit(event);
@@ -38,8 +38,8 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
     on<ServerRespondsNotAuthenticated>(
       (event, emit) {
-        final secureStorageRepository = SecureStorageRepository();
-        secureStorageRepository.deleteData(LocalStorageKeys.jwt);
+        final storageRepository = StorageRepository.storageRepository;
+        storageRepository.deleteData(LocalStorageKeys.jwt);
         jwt = null;
         emit(event);
       },
@@ -50,8 +50,8 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
         .map((event) => ServerEventMapper.fromJson(event))
         .listen(add, onError: addError);
 
-    // Ask for initial data
-    SecureStorageRepository().getData(LocalStorageKeys.jwt).then((jwt) {
+    // Verify token on startup
+    StorageRepository.storageRepository.getData(LocalStorageKeys.jwt).then((jwt) {
       if (jwt != null) {
         add(
           ClientWantsToCheckJwtValidity(jwt: jwt),

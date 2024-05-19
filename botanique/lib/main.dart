@@ -13,6 +13,7 @@ import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
@@ -24,12 +25,17 @@ import 'util/navigation_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await initLocalStorage();
+  }
+
   // Configure logging for bloc
   //Bloc.observer = LoggerBlocObserver();
 
   // Connect to WebSocket
-  final wsUri =
-      kIsWeb ? Uri.parse('ws://0.0.0.0:8181') : Uri.parse('ws://10.0.2.2:8181');
+  final wsUri = kIsWeb
+      ? Uri.parse('ws://localhost:8181')
+      : Uri.parse('ws://10.0.2.2:8181');
   final channel = WebSocketChannel.connect(wsUri);
 
   runApp(
@@ -68,7 +74,10 @@ class BotaniQueApp extends StatefulWidget {
 }
 
 class _BotaniQueAppState extends State<BotaniQueApp> {
-  final PageController _pageController = PageController();
+  final PageController _pageController = PageController(
+    initialPage:
+        NavigationConstants.pageNameToIndex(NavigationConstants.welcome),
+  );
 
   @override
   void dispose() {
@@ -87,6 +96,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
 
   @override
   Widget build(BuildContext context) {
+    print(context.read<NavigationCubit>().state.index);
     return MaterialApp(
       title: 'BotaniQue',
       debugShowCheckedModeBanner: false,
