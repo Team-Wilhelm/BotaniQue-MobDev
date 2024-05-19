@@ -25,7 +25,6 @@ class PlantDetailScreen extends StatefulWidget {
 
 class _PlantDetailScreenState extends State<PlantDetailScreen> {
   ConditionsLog? latestConditions;
-  List<ConditionsLog>? historicConditions;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +36,6 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
             listener: (context, serverEvent) {
               if (serverEvent is ServerSendsLatestConditionsForPlant) {
                 latestConditions = serverEvent.conditionsLog;
-              } else if (serverEvent
-                  is ServerSendsHistoricConditionLogsForPlant) {
-                historicConditions = serverEvent.conditionsLogs;
               }
             },
             builder: (context, serverEvent) {
@@ -60,7 +56,7 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
                   ),
                   const SizedBox(height: 16),
                   HistoricConditionsChart(
-                    conditionsLogs: historicConditions,
+                    plantId: plant.plantId,
                   ),
                 ],
               );

@@ -1,11 +1,11 @@
 import '../../util/asset_constants.dart';
 
 enum PlantDetailStat {
+  mood,
   soilMoisture,
   temperature,
   light,
   humidity,
-  mood,
 }
 
 extension PlantDetailStatExtension on PlantDetailStat {

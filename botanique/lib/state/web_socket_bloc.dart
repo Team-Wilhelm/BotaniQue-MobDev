@@ -65,7 +65,7 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       event = event.copyWith(jwt: jwt!);
     }
 
-    print("Sending event: ${event.toJson()}");
+    print("Sending event: ${event.eventType}");
     channel.sink.add(event.toJson());
   }
 

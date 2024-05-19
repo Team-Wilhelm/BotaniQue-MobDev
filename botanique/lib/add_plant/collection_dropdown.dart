@@ -63,5 +63,6 @@ class CollectionDropdown extends StatelessWidget {
       closedFillColor: AppColors.inputFill,
       searchFieldDecoration: SearchFieldDecoration(
         fillColor: AppColors.inputFill,
-      ));
+      ),
+      );
 }
