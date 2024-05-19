@@ -255,3 +255,13 @@ class ClientWantsToGetCriticalPlants extends ClientEventWithJwt
     super.eventType = "ClientWantsToGetCriticalPlants",
   });
 }
+
+@MappableClass(discriminatorValue: "ClientWantsPlaceholderUrl")
+class ClientWantsPlaceholderUrl extends ClientEventWithJwt
+    with ClientWantsPlaceholderUrlMappable {
+
+  ClientWantsPlaceholderUrl({
+    required super.jwt,
+    super.eventType = "ClientWantsPlaceholderUrl",
+  });
+}

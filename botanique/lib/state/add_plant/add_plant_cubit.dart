@@ -1,5 +1,6 @@
 import 'package:botanique/models/models/plant.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -35,7 +36,6 @@ class AddPlantCubit extends Cubit<AddPlantState> {
       ClientWantsToRemoveBackgroundFromImage(
         jwt: "jwt",
         base64Image: XFileConverter.toBase64(image),
-        eventType: "ClientWantsToRemoveBackgroundFromImage",
       ),
     );
     emit(PictureBackgroundRemovalInProgress());
@@ -64,7 +64,6 @@ class AddPlantCubit extends Cubit<AddPlantState> {
     webSocketBloc.add(ClientWantsToCreatePlant(
       createPlantDto: createPlantDto,
       jwt: "jwt",
-      eventType: "ClientWantsToCreatePlant",
     ));
   }
 
@@ -73,14 +72,19 @@ class AddPlantCubit extends Cubit<AddPlantState> {
     webSocketBloc.add(ClientWantsToUpdatePlant(
       updatePlantDto: updatePlantDto,
       jwt: "jwt",
-      eventType: "ClientWantsToUpdatePlant",
     ));
+  }
+
+  void setPlaceholderSasUrl(String sasUrl) {
+    state.placeHolderUrl = sasUrl;
+    emit(state);
   }
 }
 
 // Possible outcomes
 abstract class AddPlantState {
   final bool isEditing = false;
+  String placeHolderUrl = NetworkConstants.plantPlaceholder;
 }
 
 class InitialNoPictureSelected extends AddPlantState {} // Initial state

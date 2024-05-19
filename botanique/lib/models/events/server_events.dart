@@ -104,6 +104,17 @@ class ServerSendsHistoricConditionLogsForPlant extends ServerEvent
   });
 }
 
+@MappableClass(discriminatorValue: 'ServerSendsPlaceholderUrl')
+class ServerSendsPlaceholderUrl extends ServerEvent
+    with ServerSendsPlaceholderUrlMappable {
+  final String placeholderUrl;
+
+  ServerSendsPlaceholderUrl({
+    required this.placeholderUrl,
+    super.eventType = "ServerSendsPlaceholderUrl",
+  });
+}
+
 /*
   Collections
  */

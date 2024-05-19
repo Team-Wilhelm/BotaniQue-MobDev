@@ -9,7 +9,6 @@ import '../../shared/app_text.dart';
 import '../../state/add_plant/add_plant_cubit.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../style/app_style.dart';
-import '../../util/asset_constants.dart';
 import '../../util/xfile_converter.dart';
 
 class AddPlantSecondStepContent extends StatelessWidget {
@@ -88,7 +87,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         AppImagePreview(
-          imageUrl: NetworkConstants.plantPlaceholder,
+          imageUrl: snapshot.placeHolderUrl,
           hasCameraOverlay: snapshot is InitialNoPictureSelected,
           onTap: () {
             showChoiceDialog(context: context);

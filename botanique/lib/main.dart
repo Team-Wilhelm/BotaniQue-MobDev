@@ -140,6 +140,10 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
   } else if (serverEvent is ServerSendsCriticalPlants) {
     context.read<HomeCubit>().setCriticalPlants(serverEvent.plants);
+  } else if (serverEvent is ServerSendsPlaceholderUrl) {
+    context
+        .read<AddPlantCubit>()
+        .setPlaceholderSasUrl(serverEvent.placeholderUrl);
   } else if (serverEvent is ServerSendsErrorMessage) {
     if (serverEvent is ServerRespondsNotFound &&
         serverEvent.error.contains("No conditions log")) {
