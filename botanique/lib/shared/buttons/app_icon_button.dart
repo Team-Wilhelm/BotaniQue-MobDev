@@ -50,6 +50,9 @@ class AppIconButton extends StatelessWidget {
       case ButtonType.inactive:
         backgroundColor = TextColors.textLight;
         break;
+      case ButtonType.warning:
+        backgroundColor = AppColors.error;
+        break;
     }
 
     if (disabled) {
@@ -62,7 +65,7 @@ class AppIconButton extends StatelessWidget {
   }
 
   Color get iconColor {
-    if (buttonType == ButtonType.primary) {
+    if (buttonType == ButtonType.primary || buttonType == ButtonType.warning) {
       return TextColors.textLight;
     } else {
       return TextColors.textDark;

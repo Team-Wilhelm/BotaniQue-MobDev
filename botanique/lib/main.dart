@@ -3,6 +3,8 @@ import 'package:botanique/auth/auth_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/settings_screen.dart';
+import 'package:botanique/shared/app_snackbar.dart';
+import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/home_cubit.dart';
@@ -17,6 +19,8 @@ import 'package:localstorage/localstorage.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
+import 'models/events/client_events.dart';
+import 'repositories/secure_storage_repository.dart';
 import 'shared/app_text.dart';
 import 'shared/navigation/app_navbar.dart';
 import 'state/add_plant/add_plant_cubit.dart';
@@ -160,21 +164,29 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
       return;
     }
     print('Error: ${serverEvent.error}');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: AppText(
-          text: serverEvent.error,
-          colour: TextColors.textLight,
-        ),
-        backgroundColor: AppColors.error,
-      ),
-    );
+    AppSnackbar(context).showError(serverEvent.error);
   } else if (serverEvent is ServerSendsUserInfo) {
     context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
     if (serverEvent.getUserDto.blobUrl != null) {
       context
           .read<UserCubit>()
-          .updateBase64Image(serverEvent.getUserDto.blobUrl!);
+          .updateBlobUrl(serverEvent.getUserDto.blobUrl!);
     }
+    context.read<NavigationCubit>().changePage(NavigationConstants.home);
+  }
+  // Profile updates
+  else if (serverEvent is ServerConfirmsUpdateUsername) {
+    context.read<UserCubit>().updateUsername(serverEvent.username);
+    AppSnackbar(context).showSuccess("Username updated!");
+  } else if (serverEvent is ServerConfirmsUpdatePassword) {
+    AppSnackbar(context).showSuccess("Password updated!");
+  } else if (serverEvent is ServerConfirmsProfileImageUpdate) {
+    context.read<UserCubit>().updateBlobUrl(serverEvent.blobUrl);
+    AppSnackbar(context).showSuccess("Profile image updated updated!");
+  } else if (serverEvent is ServerConfirmsDeleteProfileImage) {
+    context.read<UserCubit>().deleteBlobUrl();
+    AppSnackbar(context).showSuccess("Profile image set to default!");
+  } else if (serverEvent is ServerRejectsUpdate) {
+    AppSnackbar(context).showError(serverEvent.error);
   }
 }

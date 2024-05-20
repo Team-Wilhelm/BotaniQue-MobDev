@@ -6,6 +6,7 @@ import '../../models/enums/app_enums.dart';
 import '../../models/models/plant.dart';
 import '../../shared/app_image_preview.dart';
 import '../../shared/app_text.dart';
+import '../../shared/image_choice_dialog.dart';
 import '../../state/add_plant/add_plant_cubit.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../style/app_style.dart';
@@ -50,33 +51,6 @@ class AddPlantSecondStepContent extends StatelessWidget {
     );
   }
 
-  Future<void> showChoiceDialog({required BuildContext context}) async {
-    return showAdaptiveDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog.adaptive(
-          title: const Text("How would you like to add a photo of your plant?"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close dialog
-                context.read<AddPlantCubit>().getImageFromCamera();
-              },
-              child: const Text("Take a photo"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close dialog
-                context.read<AddPlantCubit>().getImageFromGallery();
-              },
-              child: const Text("Select from gallery"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   Widget _getNoPictureScreen(BuildContext context, AddPlantState snapshot) {
     return Column(
       children: [
@@ -90,7 +64,10 @@ class AddPlantSecondStepContent extends StatelessWidget {
           imageUrl: snapshot.placeHolderUrl,
           hasCameraOverlay: snapshot is InitialNoPictureSelected,
           onTap: () {
-            showChoiceDialog(context: context);
+            ImageChoiceDialog(
+              title: "How would you like to add a photo of your plant?",
+              cubit: context.read<AddPlantCubit>(),
+            ).show(context: context);
           },
         ),
         if (snapshot is NoPictureSelected) ...[
@@ -114,7 +91,10 @@ class AddPlantSecondStepContent extends StatelessWidget {
           hasCameraOverlay: false,
           imageType: ImageType.file,
           onTap: () {
-            showChoiceDialog(context: context);
+            ImageChoiceDialog(
+              title: "How would you like to add a photo of your plant?",
+              cubit: context.read<AddPlantCubit>(),
+            ).show(context: context);
           },
         ),
         const SizedBox(height: 8),
@@ -136,7 +116,10 @@ class AddPlantSecondStepContent extends StatelessWidget {
           hasCameraOverlay: false,
           imageType: ImageType.network,
           onTap: () {
-            showChoiceDialog(context: context);
+            ImageChoiceDialog(
+              title: "How would you like to add a photo of your plant?",
+              cubit: context.read<AddPlantCubit>(),
+            ).show(context: context);
           },
         ),
         const SizedBox(height: 8),

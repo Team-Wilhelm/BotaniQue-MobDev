@@ -1,4 +1,5 @@
 import 'package:botanique/models/models/plant.dart';
+import 'package:botanique/state/image_action_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,11 +9,12 @@ import '../../models/events/client_events.dart';
 import '../../repositories/camera_repository.dart';
 import '../../util/xfile_converter.dart';
 
-class AddPlantCubit extends Cubit<AddPlantState> {
+class AddPlantCubit extends Cubit<AddPlantState> implements ImageActionCubit {
   final PictureRepository pictureRepository = PictureRepository();
 
   AddPlantCubit() : super(InitialNoPictureSelected());
 
+  @override
   Future<void> getImageFromCamera() async {
     final image = await pictureRepository.getImageFromCamera(CameraDevice.rear);
     if (image != null) {
@@ -22,6 +24,7 @@ class AddPlantCubit extends Cubit<AddPlantState> {
     }
   }
 
+  @override
   Future<void> getImageFromGallery() async {
     final image = await pictureRepository.pickImageFromGallery();
     if (image != null) {

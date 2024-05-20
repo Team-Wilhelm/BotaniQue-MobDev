@@ -55,6 +55,9 @@ class AppButton extends StatelessWidget {
       case ButtonType.inactive:
         backgroundColor = TextColors.textLight;
         break;
+      case ButtonType.warning:
+        backgroundColor = AppColors.error;
+        break;
     }
 
     if (disabled) {
@@ -87,6 +90,9 @@ class AppButton extends StatelessWidget {
         break;
       case ButtonType.inactive:
         textColor = TextColors.textSecondary;
+        break;
+      case ButtonType.warning:
+        textColor = TextColors.textLight;
         break;
     }
 
