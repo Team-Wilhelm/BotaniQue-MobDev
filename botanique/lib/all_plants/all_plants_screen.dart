@@ -17,9 +17,14 @@ class AllPlantsScreen extends StatelessWidget {
       child: BlocBuilder<AllPlantsCubit, AllPlantsState>(
         builder: (context, state) {
           return RefreshIndicator.adaptive(
-            onRefresh: () => context
-                .read<AllPlantsCubit>()
-                .refreshData(context.read<WebSocketBloc>()),
+            onRefresh: () => Future(
+              () {
+                context
+                    .read<AllPlantsCubit>()
+                    .getPlantsForCurrentlySelectedCollection(
+                        context.read<WebSocketBloc>());
+              },
+            ),
             child: CustomScrollView(
               slivers: [
                 const SliverToBoxAdapter(child: CollectionSelection()),

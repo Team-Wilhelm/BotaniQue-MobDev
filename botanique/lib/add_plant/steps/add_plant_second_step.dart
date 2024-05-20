@@ -2,6 +2,7 @@ import 'package:botanique/models/events/server_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/enums/app_enums.dart';
 import '../../models/models/plant.dart';
 import '../../shared/app_image_preview.dart';
 import '../../shared/app_text.dart';
@@ -9,7 +10,6 @@ import '../../shared/image_choice_dialog.dart';
 import '../../state/add_plant/add_plant_cubit.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../style/app_style.dart';
-import '../../util/asset_constants.dart';
 import '../../util/xfile_converter.dart';
 
 class AddPlantSecondStepContent extends StatelessWidget {
@@ -61,7 +61,7 @@ class AddPlantSecondStepContent extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         AppImagePreview(
-          imageUrl: NetworkConstants.plantPlaceholder,
+          imageUrl: snapshot.placeHolderUrl,
           hasCameraOverlay: snapshot is InitialNoPictureSelected,
           onTap: () {
             ImageChoiceDialog(

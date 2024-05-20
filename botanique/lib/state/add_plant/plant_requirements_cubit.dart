@@ -1,3 +1,4 @@
+import 'package:botanique/models/enums/app_enums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/models/plant.dart';
@@ -6,19 +7,19 @@ import '../../models/models/uuid.dart';
 class PlantRequirementsCubit extends Cubit<RequirementsState> {
   PlantRequirementsCubit() : super(RequirementsState.empty());
 
-  void updateSoilMoistureLevel(int soilMoistureLevel) {
+  void updateSoilMoistureLevel(RequirementLevel soilMoistureLevel) {
     emit(state.copyWith(soilMoistureLevel: soilMoistureLevel));
   }
 
-  void updateLightLevel(int lightLevel) {
+  void updateLightLevel(RequirementLevel lightLevel) {
     emit(state.copyWith(lightLevel: lightLevel));
   }
 
-  void updateTemperatureLevel(int temperatureLevel) {
+  void updateTemperatureLevel(double temperatureLevel) {
     emit(state.copyWith(temperatureLevel: temperatureLevel));
   }
 
-  void updateHumidityLevel(int humidityLevel) {
+  void updateHumidityLevel(RequirementLevel humidityLevel) {
     emit(state.copyWith(humidityLevel: humidityLevel));
   }
 
@@ -39,10 +40,10 @@ class PlantRequirementsCubit extends Cubit<RequirementsState> {
 
 class RequirementsState {
   final Uuid? requirementsId;
-  final int soilMoistureLevel;
-  final int lightLevel;
-  final int temperatureLevel;
-  final int humidityLevel;
+  final RequirementLevel soilMoistureLevel;
+  final RequirementLevel lightLevel;
+  final double temperatureLevel;
+  final RequirementLevel humidityLevel;
 
   RequirementsState({
     required this.soilMoistureLevel,
@@ -74,10 +75,10 @@ class RequirementsState {
   }
 
   RequirementsState copyWith({
-    int? soilMoistureLevel,
-    int? lightLevel,
-    int? temperatureLevel,
-    int? humidityLevel,
+    RequirementLevel? soilMoistureLevel,
+    RequirementLevel? lightLevel,
+    double? temperatureLevel,
+    RequirementLevel? humidityLevel,
     Uuid? requirementsId,
   }) {
     return RequirementsState(
@@ -91,10 +92,10 @@ class RequirementsState {
 
   static RequirementsState empty() {
     return RequirementsState(
-      soilMoistureLevel: 0,
-      lightLevel: 0,
+      soilMoistureLevel: RequirementLevel.low,
+      lightLevel: RequirementLevel.low,
       temperatureLevel: 0,
-      humidityLevel: 0,
+      humidityLevel: RequirementLevel.low,
       requirementsId: null,
     );
   }

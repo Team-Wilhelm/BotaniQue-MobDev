@@ -34,11 +34,10 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
     emit(state.copyWith(currentPlantList: plants));
   }
 
-  Future<void> refreshData(WebSocketBloc webSocketBloc) {
+  void refreshData(WebSocketBloc webSocketBloc) {
     _requestCollectionsFromServer(webSocketBloc);
     _requestPlantsFromServer(
         state.selectedCollection.collectionId, webSocketBloc);
-    return Future.value();
   }
 
   void _requestCollectionsFromServer(WebSocketBloc webSocketBloc) {

@@ -2,13 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../models/enums/app_enums.dart';
 import '../util/asset_constants.dart';
-
-enum ImageType {
-  network,
-  asset,
-  file,
-}
 
 class AppImagePreview extends StatelessWidget {
   const AppImagePreview({
@@ -30,35 +25,34 @@ class AppImagePreview extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.3,
+        width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             image: _getImage,
             fit: _getFit,
-            colorFilter: _getFilter,
           ),
         ),
-        child: hasCameraOverlay
-            ? Center(
+        child: Stack(
+          children: [
+            if (hasCameraOverlay)
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            if (hasCameraOverlay)
+              Center(
                 child: Image.asset(
                   AssetConstants.camera,
                   width: 50,
                   height: 50,
                 ),
-              )
-            : null,
+              ),
+          ],
+        ),
       ),
-    );
-  }
-
-  ColorFilter? get _getFilter {
-    if (!hasCameraOverlay) {
-      return null;
-    }
-
-    return ColorFilter.mode(
-      Colors.black.withOpacity(0.5),
-      BlendMode.darken,
     );
   }
 

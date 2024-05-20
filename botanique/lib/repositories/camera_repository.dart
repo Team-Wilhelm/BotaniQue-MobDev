@@ -8,9 +8,12 @@ class PictureRepository {
     return image;
   }
 
-  Future<XFile?> getImageFromCamera() async {
+  Future<XFile?> getImageFromCamera(CameraDevice? preferredCamera) async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+    final XFile? image = await _picker.pickImage(
+      source: ImageSource.camera,
+      preferredCameraDevice: preferredCamera ?? CameraDevice.rear,
+    );
     return image;
   }
 }

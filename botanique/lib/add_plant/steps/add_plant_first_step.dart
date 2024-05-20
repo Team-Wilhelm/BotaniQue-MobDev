@@ -2,9 +2,9 @@ import 'package:botanique/add_plant/collection_dropdown.dart';
 import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/buttons/app_icon_button.dart';
-import 'package:botanique/shared/buttons/button_style.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/enums/app_enums.dart';
 import '../../shared/app_text.dart';
 
 class AddPlantFirstStepContent extends StatelessWidget {
@@ -42,13 +42,20 @@ class AddPlantFirstStepContent extends StatelessWidget {
               textFieldController: plantNameController,
               placeholder: "Plant Name"),
           const SizedBox(height: 24),
-          AppText(text: collectionQuestion),
+          AppText(
+            text: collectionQuestion,
+            overflow: TextOverflow.visible,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 8),
           CollectionDropdown(
             onCollectionSelected: onCollectionSelected,
           ),
           const SizedBox(height: 24),
-          const AppText(text: "Fill in the device ID of your plant sensor"),
+          const AppText(
+            text: "Fill in the device ID of your plant sensor",
+            textAlign: TextAlign.center,
+          ),
           // TODO: add scan QR code
           const SizedBox(height: 8),
           AppTextField(
@@ -60,7 +67,6 @@ class AddPlantFirstStepContent extends StatelessWidget {
     );
   }
 
-  // TODO: fix this
   String get collectionQuestion {
     final plantName = plantNameController.text == ""
         ? "your plant"
