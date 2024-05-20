@@ -64,21 +64,41 @@ class ServerSavesPlant extends ServerEvent with ServerSavesPlantMappable {
   });
 }
 
-@MappableClass(discriminatorValue: 'ServerConfirmsUpdate')
-class ServerConfirmsUpdate extends ServerEvent
-    with ServerConfirmsUpdateMappable {
-  final GetUserDto getUserDto;
-  ServerConfirmsUpdate({
-    super.eventType = "ServerConfirmsUpdate",
-    required this.getUserDto,
+@MappableClass(discriminatorValue: 'ServerConfirmsUpdateUsername')
+class ServerConfirmsUpdateUsername extends ServerEvent
+    with ServerConfirmsUpdateUsernameMappable {
+  final String username;
+
+  ServerConfirmsUpdateUsername({
+    required this.username,
+    super.eventType = "ServerConfirmsUpdateUsername",
   });
 }
 
-@MappableClass(discriminatorValue: 'ServerConfirmsDelete')
-class ServerConfirmsDelete extends ServerEvent
-    with ServerConfirmsDeleteMappable {
-  ServerConfirmsDelete({
-    super.eventType = "ServerConfirmsDelete",
+@MappableClass(discriminatorValue: 'ServerConfirmsUpdatePassword')
+class ServerConfirmsUpdatePassword extends ServerEvent
+    with ServerConfirmsUpdatePasswordMappable {
+  ServerConfirmsUpdatePassword({
+    super.eventType = "ServerConfirmsUpdatePassword",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerConfirmsProfileImageUpdate')
+class ServerConfirmsProfileImageUpdate extends ServerEvent
+    with ServerConfirmsProfileImageUpdateMappable {
+    final String blobUrl;
+
+  ServerConfirmsProfileImageUpdate({
+    required this.blobUrl,
+    super.eventType = "ServerConfirmsProfileImageUpdate",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerConfirmsDeleteProfileImage')
+class ServerConfirmsDeleteProfileImage extends ServerEvent
+    with ServerConfirmsDeleteProfileImageMappable {
+  ServerConfirmsDeleteProfileImage({
+    super.eventType = "ServerConfirmsDeleteProfileImage",
   });
 }
 

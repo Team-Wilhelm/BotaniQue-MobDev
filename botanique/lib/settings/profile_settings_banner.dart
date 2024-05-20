@@ -1,6 +1,5 @@
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../state/user_cubit.dart';
 import '../util/asset_constants.dart';
@@ -54,26 +53,19 @@ class ProfileSettingsBanner extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(
                 color: Colors.white,
-                width: 3, // Ensuring the border is visible
+                width: 3,
               ),
             ),
             child: Center(
-              // Added a Center widget to ensure the image is centered
-              child: ClipOval(
-                child: Image.network(
-                  context.read<UserCubit>().state.base64Image ?? "",
-                  width: diameter - 6, //to allow the border to be seen
-                  height: diameter - 6,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      AssetConstants.profile,
-                      width: diameter - 6,
-                      height: diameter - 6,
-                      fit: BoxFit.cover,
-                    );
-                  },
-                ),
+              child: BlocBuilder<UserCubit, UserCubitState>(
+                builder: (context, state) {
+                  return GestureDetector(
+                    onTap: onEditTapped,
+                    child: ClipOval(
+                      child: _buildImage(context, diameter),
+                    ),
+                  );
+                }
               ),
             ),
           ),
@@ -97,5 +89,21 @@ class ProfileSettingsBanner extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  _buildImage(BuildContext context, double diameter) {
+    try {
+      return Image.network(context.read<UserCubit>().state.userDto.blobUrl!,
+          width: diameter - 6, //to allow the border to be seen
+          height: diameter - 6,
+          fit: BoxFit.cover);
+    } catch (e) {
+      return Image.asset(
+        AssetConstants.profile,
+        width: diameter - 6,
+        height: diameter - 6,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }

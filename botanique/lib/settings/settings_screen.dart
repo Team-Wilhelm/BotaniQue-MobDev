@@ -1,4 +1,3 @@
-import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/collections/edit_collections_screen.dart';
@@ -15,6 +14,7 @@ import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../shared/buttons/app_button.dart';
+import '../shared/buttons/button_style.dart';
 import 'panel_content/panel_item.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -46,37 +46,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.dispose();
   }
 
-  //TODO get data for stats card
-  //TODO deal with collections CRUD
-
-  //TODO implement image picker
-
   @override
   Widget build(BuildContext context) {
     final double diameter = MediaQuery.of(context).size.width * 0.25;
 
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: BlocConsumer<WebSocketBloc, ServerEvent>(
-          listener: (context, state) {
-            if (state is ServerRejectsUpdate) {
-              AppSnackbar(context).showError(state.error);
-            }
-          },
-          builder: (context, state) {
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: BlocListener<WebSocketBloc, ServerEvent>(
+        listener: (context, state) {
+          if (state is ServerRejectsUpdate) {
+            AppSnackbar(context).showError(state.error);
+          }
+        },
+        child: BlocBuilder<UserCubit, UserCubitState>(
+          builder: (context, userState) {
             return ListView(
               children: [
                 ProfileSettingsBanner(
                     diameter: diameter,
                     onEditTapped: () {
-                      _handleOnEditTapped();
+                      _handleOnImageEditTapped();
                     }),
                 SizedBox(height: diameter * 0.55),
                 AppText(
-                    text: context.read<UserCubit>().state.username ??
-                        "My Profile",
+                    text: userState.userDto.username ?? "My Profile",
                     textAlign: TextAlign.center,
-                    fontSize: FontSizes.h3,
+                    fontSize: FontSizes.h1,
                     fontWeight: FontWeight.bold),
                 const AppText(
                   text: "Superior plant lover!",
@@ -85,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 _buildStatsCard(diameter),
                 spacerDouble,
-                const AppText(
+                AppText(
                     text: "Settings",
                     textAlign: TextAlign.center,
                     fontSize: FontSizes.h2,
@@ -99,25 +94,48 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child:
                       AppButton(onPressed: () {_handleOnManageCollectionsTapped();}, text: "Manage Collections"),
                 ),
+                spacer,
+                Padding(
+                    padding: _getSymmetricHorizontalPadding(),
+                    child: Column(
+                      children: [
+                        AppText(
+                          text: "About BotaniQue",
+                          fontSize: FontSizes.h4,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        Text(
+                          "Created by Wilhelmina, an all-women development team dedicated to bringing you the best plant care experience. We believe in empowering plant lovers and promoting sustainable living through innovative technology.",
+                          style: TextStyle(
+                              color: TextColors.textDark,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal),
+                        )
+                      ],
+                    )),
+                spacer,
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
                   child: AppButton(
-                      onPressed: () {
-                        context.read<WebSocketBloc>().add(ClientWantsToLogOut(
-                            email:
-                                context.read<UserCubit>().state.userEmail ?? "", //TODO handle the case when email is null
-                            eventType: "ClientWantsToLogOut"));
-                        context
-                            .read<NavigationCubit>()
-                            .changePage(NavigationConstants.welcome);
-                        context.read<UserCubit>().reset();
-                      },
-                      text: "Log Out"),
+                    onPressed: () {
+                      context.read<WebSocketBloc>().add(ClientWantsToLogOut(
+                          email: userState.userDto.userEmail ??
+                              "", //TODO what if null?
+                          eventType: "ClientWantsToLogOut"));
+                      context
+                          .read<NavigationCubit>()
+                          .changePage(NavigationConstants.welcome);
+                    },
+                    text: "Log Out",
+                    buttonType: ButtonType.warning,
+                  ),
                 )
               ],
             );
           },
-        ));
+        ),
+      ),
+    );
   }
 
   /* Methods */
@@ -136,23 +154,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  void _handleSubmit(TextEditingController controller, FieldType fieldType) {
-    final cubit = context.read<UserCubit>();
-
-    if (fieldType == FieldType.username) {
-      cubit.updateUsername(controller.text);
-    } else if (fieldType == FieldType.password) {
-      cubit.updatePassword(controller.text);
-    }
-
-    var userDto = cubit.state;
-    context.read<WebSocketBloc>().add(ClientWantsToUpdateProfile(
-        jwt: '', userDto: userDto, eventType: "ClientWantsToUpdateProfile"));
+  void _handleUpdateUsername(TextEditingController controller) {
+    context
+        .read<WebSocketBloc>()
+        .add(ClientWantsToUpdateUsername(jwt: "", username: controller.text));
     controller.clear();
-    _handleTileToggle(openPanelId);
   }
 
-  void _handleOnEditTapped() {
+  void _handleUpdatePassword(TextEditingController controller) {
+    context
+        .read<WebSocketBloc>()
+        .add(ClientWantsToUpdatePassword(jwt: "", password: controller.text));
+    controller.clear();
+  }
+
+  void _handleOnImageEditTapped() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return ImageUpdateScreen();
     }));
@@ -183,7 +199,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onPressed: () {
                   if (_usernameController.text.isNotEmpty &&
                       _usernameController.text.length <= 51) {
-                    _handleSubmit(_usernameController, FieldType.username);
+                    _handleUpdateUsername(_usernameController);
                     _handleTileToggle(1);
                   } else {
                     AppSnackbar(context)
@@ -218,7 +234,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           _passwordRepeatController.text) &&
                       _passwordController.text.length >= 8 &&
                       _passwordController.text.length <= 256) {
-                    _handleSubmit(_passwordController, FieldType.password);
+                    _handleUpdatePassword(_passwordController);
                     _handleTileToggle(2);
                   } else {
                     AppSnackbar(context)
@@ -283,9 +299,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             iconColor: AppColors.accent,
             title: AppText(
                 text: item.headerValue,
-                fontSize: FontSizes.h4,
+                fontSize: FontSizes.h5,
                 fontWeight: FontWeight.bold),
-            onExpansionChanged: (bool expanded) => _handleTileToggle(item.id),
+            onExpansionChanged: (bool expanded) {
+              _handleTileToggle(item.id);
+            },
             children: [
               item.panelContent,
             ],
