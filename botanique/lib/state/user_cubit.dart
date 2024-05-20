@@ -1,9 +1,8 @@
-import 'package:botanique/state/image_action_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../models/dtos/user/user_dto.dart';
 import '../repositories/camera_repository.dart';
+import 'image_action_cubit.dart';
 
 class UserCubit extends Cubit<UserCubitState> implements ImageActionCubit {
   final PictureRepository pictureRepository = PictureRepository();
@@ -44,7 +43,7 @@ class UserCubit extends Cubit<UserCubitState> implements ImageActionCubit {
     final image = await pictureRepository.getImageFromCamera();
     if (image != null) {
       emit(state.copyWith(xFileImage: image));
-    } else {}
+    }
   }
 
   @override
@@ -52,7 +51,7 @@ class UserCubit extends Cubit<UserCubitState> implements ImageActionCubit {
     final image = await pictureRepository.pickImageFromGallery();
     if (image != null) {
       emit(state.copyWith(xFileImage: image));
-    } else {}
+    }
   }
 }
 
@@ -64,8 +63,9 @@ class UserCubitState {
 
   UserCubitState copyWith({UserDto? userDto, XFile? xFileImage}) {
     return UserCubitState(
-        userDto: userDto ?? this.userDto,
-        xFileImage: xFileImage ?? this.xFileImage);
+      userDto: userDto ?? this.userDto,
+      xFileImage: xFileImage,
+    );
   }
 
   static UserCubitState empty() {

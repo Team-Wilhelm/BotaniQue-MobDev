@@ -45,9 +45,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.dispose();
   }
 
-  //TODO get data for stats card
-  //TODO deal with collections CRUD
-
   @override
   Widget build(BuildContext context) {
     final double diameter = MediaQuery.of(context).size.width * 0.25;
@@ -73,7 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 AppText(
                     text: userState.userDto.username ?? "My Profile",
                     textAlign: TextAlign.center,
-                    fontSize: FontSizes.h3,
+                    fontSize: FontSizes.h1,
                     fontWeight: FontWeight.bold),
                 const AppText(
                   text: "Superior plant lover!",
@@ -82,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 _buildStatsCard(diameter),
                 spacerDouble,
-                const AppText(
+                AppText(
                     text: "Settings",
                     textAlign: TextAlign.center,
                     fontSize: FontSizes.h2,
@@ -99,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 Padding(
                     padding: _getSymmetricHorizontalPadding(),
-                    child: const Column(
+                    child: Column(
                       children: [
                         AppText(
                           text: "About BotaniQue",
@@ -157,12 +154,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _handleUpdateUsername(TextEditingController controller) {
-    context.read<WebSocketBloc>().add(ClientWantsToUpdateUsername(jwt: "", username: controller.text));
+    context
+        .read<WebSocketBloc>()
+        .add(ClientWantsToUpdateUsername(jwt: "", username: controller.text));
     controller.clear();
   }
 
   void _handleUpdatePassword(TextEditingController controller) {
-    context.read<WebSocketBloc>().add(ClientWantsToUpdatePassword(jwt: "", password: controller.text));
+    context
+        .read<WebSocketBloc>()
+        .add(ClientWantsToUpdatePassword(jwt: "", password: controller.text));
     controller.clear();
   }
 
@@ -291,7 +292,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             iconColor: AppColors.accent,
             title: AppText(
                 text: item.headerValue,
-                fontSize: FontSizes.h4,
+                fontSize: FontSizes.h5,
                 fontWeight: FontWeight.bold),
             onExpansionChanged: (bool expanded) {
               _handleTileToggle(item.id);

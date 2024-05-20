@@ -1,7 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
 import '../auth/log_in_dto.dart';
-import '../dtos/user/user_dto.dart';
 import '../models/collections.dart';
 import '../models/plant.dart';
 import '../models/uuid.dart';

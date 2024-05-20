@@ -1,6 +1,5 @@
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../state/user_cubit.dart';
 import '../util/asset_constants.dart';
@@ -60,8 +59,11 @@ class ProfileSettingsBanner extends StatelessWidget {
             child: Center(
               child: BlocBuilder<UserCubit, UserCubitState>(
                 builder: (context, state) {
-                  return ClipOval(
-                    child: _buildImage(context, diameter),
+                  return GestureDetector(
+                    onTap: onEditTapped,
+                    child: ClipOval(
+                      child: _buildImage(context, diameter),
+                    ),
                   );
                 }
               ),

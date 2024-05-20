@@ -170,6 +170,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
           .read<UserCubit>()
           .updateBlobUrl(serverEvent.getUserDto.blobUrl!);
     }
+    context.read<NavigationCubit>().changePage(NavigationConstants.home);
   } 
   // Profile updates
   else if (serverEvent is ServerConfirmsUpdateUsername) {
