@@ -3,6 +3,7 @@ enum ButtonType {
   secondary,
   outline,
   inactive,
+  warning,
 }
 
 enum ButtonShape {

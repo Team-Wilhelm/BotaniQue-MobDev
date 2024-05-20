@@ -8,12 +8,14 @@ class UserDto with UserDtoMappable {
   final String? password;
   final String? base64Image;
   final String? userEmail;
+  final String? blobUrl;
 
   UserDto({
     this.username,
     this.password,
     this.base64Image,
     this.userEmail,
+    this.blobUrl,
   });
 }
 
@@ -28,10 +30,4 @@ class GetUserDto with GetUserDtoMappable {
     required this.username,
     this.blobUrl,
   });
-}
-
-enum FieldType {
-  username,
-  password,
-  base64Image,
 }

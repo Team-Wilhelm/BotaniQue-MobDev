@@ -32,6 +32,9 @@ class UserDtoMapper extends ClassMapperBase<UserDto> {
   static String? _$userEmail(UserDto v) => v.userEmail;
   static const Field<UserDto, String> _f$userEmail =
       Field('userEmail', _$userEmail, opt: true);
+  static String? _$blobUrl(UserDto v) => v.blobUrl;
+  static const Field<UserDto, String> _f$blobUrl =
+      Field('blobUrl', _$blobUrl, opt: true);
 
   @override
   final MappableFields<UserDto> fields = const {
@@ -39,6 +42,7 @@ class UserDtoMapper extends ClassMapperBase<UserDto> {
     #password: _f$password,
     #base64Image: _f$base64Image,
     #userEmail: _f$userEmail,
+    #blobUrl: _f$blobUrl,
   };
 
   static UserDto _instantiate(DecodingData data) {
@@ -46,7 +50,8 @@ class UserDtoMapper extends ClassMapperBase<UserDto> {
         username: data.dec(_f$username),
         password: data.dec(_f$password),
         base64Image: data.dec(_f$base64Image),
-        userEmail: data.dec(_f$userEmail));
+        userEmail: data.dec(_f$userEmail),
+        blobUrl: data.dec(_f$blobUrl));
   }
 
   @override
@@ -102,7 +107,8 @@ abstract class UserDtoCopyWith<$R, $In extends UserDto, $Out>
       {String? username,
       String? password,
       String? base64Image,
-      String? userEmail});
+      String? userEmail,
+      String? blobUrl});
   UserDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -119,19 +125,22 @@ class _UserDtoCopyWithImpl<$R, $Out>
           {Object? username = $none,
           Object? password = $none,
           Object? base64Image = $none,
-          Object? userEmail = $none}) =>
+          Object? userEmail = $none,
+          Object? blobUrl = $none}) =>
       $apply(FieldCopyWithData({
         if (username != $none) #username: username,
         if (password != $none) #password: password,
         if (base64Image != $none) #base64Image: base64Image,
-        if (userEmail != $none) #userEmail: userEmail
+        if (userEmail != $none) #userEmail: userEmail,
+        if (blobUrl != $none) #blobUrl: blobUrl
       }));
   @override
   UserDto $make(CopyWithData data) => UserDto(
       username: data.get(#username, or: $value.username),
       password: data.get(#password, or: $value.password),
       base64Image: data.get(#base64Image, or: $value.base64Image),
-      userEmail: data.get(#userEmail, or: $value.userEmail));
+      userEmail: data.get(#userEmail, or: $value.userEmail),
+      blobUrl: data.get(#blobUrl, or: $value.blobUrl));
 
   @override
   UserDtoCopyWith<$R2, UserDto, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

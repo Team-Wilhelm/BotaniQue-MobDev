@@ -19,8 +19,10 @@ class ServerEventMapper extends SubClassMapperBase<ServerEvent> {
       ServerSendsImageWithoutBackgroundMapper.ensureInitialized();
       ServerSendsPlantMapper.ensureInitialized();
       ServerSavesPlantMapper.ensureInitialized();
-      ServerConfirmsUpdateMapper.ensureInitialized();
-      ServerConfirmsDeleteMapper.ensureInitialized();
+      ServerConfirmsUpdateUsernameMapper.ensureInitialized();
+      ServerConfirmsUpdatePasswordMapper.ensureInitialized();
+      ServerConfirmsProfileImageUpdateMapper.ensureInitialized();
+      ServerConfirmsDeleteProfileImageMapper.ensureInitialized();
       ServerSendsUserInfoMapper.ensureInitialized();
       ServerSendsLatestConditionsForPlantMapper.ensureInitialized();
       ServerLogsUserOutMapper.ensureInitialized();
@@ -749,260 +751,542 @@ class _ServerSavesPlantCopyWithImpl<$R, $Out>
       _ServerSavesPlantCopyWithImpl($value, $cast, t);
 }
 
-class ServerConfirmsUpdateMapper
-    extends SubClassMapperBase<ServerConfirmsUpdate> {
-  ServerConfirmsUpdateMapper._();
+class ServerConfirmsUpdateUsernameMapper
+    extends SubClassMapperBase<ServerConfirmsUpdateUsername> {
+  ServerConfirmsUpdateUsernameMapper._();
 
-  static ServerConfirmsUpdateMapper? _instance;
-  static ServerConfirmsUpdateMapper ensureInitialized() {
+  static ServerConfirmsUpdateUsernameMapper? _instance;
+  static ServerConfirmsUpdateUsernameMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals.use(_instance = ServerConfirmsUpdateMapper._());
+      MapperContainer.globals
+          .use(_instance = ServerConfirmsUpdateUsernameMapper._());
       ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
-      GetUserDtoMapper.ensureInitialized();
     }
     return _instance!;
   }
 
   @override
-  final String id = 'ServerConfirmsUpdate';
+  final String id = 'ServerConfirmsUpdateUsername';
 
-  static String _$eventType(ServerConfirmsUpdate v) => v.eventType;
-  static const Field<ServerConfirmsUpdate, String> _f$eventType =
-      Field('eventType', _$eventType, opt: true, def: "ServerConfirmsUpdate");
-  static GetUserDto _$getUserDto(ServerConfirmsUpdate v) => v.getUserDto;
-  static const Field<ServerConfirmsUpdate, GetUserDto> _f$getUserDto =
-      Field('getUserDto', _$getUserDto);
+  static String _$username(ServerConfirmsUpdateUsername v) => v.username;
+  static const Field<ServerConfirmsUpdateUsername, String> _f$username =
+      Field('username', _$username);
+  static String _$eventType(ServerConfirmsUpdateUsername v) => v.eventType;
+  static const Field<ServerConfirmsUpdateUsername, String> _f$eventType = Field(
+      'eventType', _$eventType,
+      opt: true, def: "ServerConfirmsUpdateUsername");
 
   @override
-  final MappableFields<ServerConfirmsUpdate> fields = const {
+  final MappableFields<ServerConfirmsUpdateUsername> fields = const {
+    #username: _f$username,
     #eventType: _f$eventType,
-    #getUserDto: _f$getUserDto,
   };
 
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = 'ServerConfirmsUpdate';
+  final dynamic discriminatorValue = 'ServerConfirmsUpdateUsername';
   @override
   late final ClassMapperBase superMapper =
       ServerEventMapper.ensureInitialized();
 
-  static ServerConfirmsUpdate _instantiate(DecodingData data) {
-    return ServerConfirmsUpdate(
-        eventType: data.dec(_f$eventType), getUserDto: data.dec(_f$getUserDto));
+  static ServerConfirmsUpdateUsername _instantiate(DecodingData data) {
+    return ServerConfirmsUpdateUsername(
+        username: data.dec(_f$username), eventType: data.dec(_f$eventType));
   }
 
   @override
   final Function instantiate = _instantiate;
 
-  static ServerConfirmsUpdate fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<ServerConfirmsUpdate>(map);
+  static ServerConfirmsUpdateUsername fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ServerConfirmsUpdateUsername>(map);
   }
 
-  static ServerConfirmsUpdate fromJson(String json) {
-    return ensureInitialized().decodeJson<ServerConfirmsUpdate>(json);
+  static ServerConfirmsUpdateUsername fromJson(String json) {
+    return ensureInitialized().decodeJson<ServerConfirmsUpdateUsername>(json);
   }
 }
 
-mixin ServerConfirmsUpdateMappable {
+mixin ServerConfirmsUpdateUsernameMappable {
   String toJson() {
-    return ServerConfirmsUpdateMapper.ensureInitialized()
-        .encodeJson<ServerConfirmsUpdate>(this as ServerConfirmsUpdate);
+    return ServerConfirmsUpdateUsernameMapper.ensureInitialized()
+        .encodeJson<ServerConfirmsUpdateUsername>(
+            this as ServerConfirmsUpdateUsername);
   }
 
   Map<String, dynamic> toMap() {
-    return ServerConfirmsUpdateMapper.ensureInitialized()
-        .encodeMap<ServerConfirmsUpdate>(this as ServerConfirmsUpdate);
+    return ServerConfirmsUpdateUsernameMapper.ensureInitialized()
+        .encodeMap<ServerConfirmsUpdateUsername>(
+            this as ServerConfirmsUpdateUsername);
   }
 
-  ServerConfirmsUpdateCopyWith<ServerConfirmsUpdate, ServerConfirmsUpdate,
-          ServerConfirmsUpdate>
-      get copyWith => _ServerConfirmsUpdateCopyWithImpl(
-          this as ServerConfirmsUpdate, $identity, $identity);
+  ServerConfirmsUpdateUsernameCopyWith<ServerConfirmsUpdateUsername,
+          ServerConfirmsUpdateUsername, ServerConfirmsUpdateUsername>
+      get copyWith => _ServerConfirmsUpdateUsernameCopyWithImpl(
+          this as ServerConfirmsUpdateUsername, $identity, $identity);
   @override
   String toString() {
-    return ServerConfirmsUpdateMapper.ensureInitialized()
-        .stringifyValue(this as ServerConfirmsUpdate);
+    return ServerConfirmsUpdateUsernameMapper.ensureInitialized()
+        .stringifyValue(this as ServerConfirmsUpdateUsername);
   }
 
   @override
   bool operator ==(Object other) {
-    return ServerConfirmsUpdateMapper.ensureInitialized()
-        .equalsValue(this as ServerConfirmsUpdate, other);
+    return ServerConfirmsUpdateUsernameMapper.ensureInitialized()
+        .equalsValue(this as ServerConfirmsUpdateUsername, other);
   }
 
   @override
   int get hashCode {
-    return ServerConfirmsUpdateMapper.ensureInitialized()
-        .hashValue(this as ServerConfirmsUpdate);
+    return ServerConfirmsUpdateUsernameMapper.ensureInitialized()
+        .hashValue(this as ServerConfirmsUpdateUsername);
   }
 }
 
-extension ServerConfirmsUpdateValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, ServerConfirmsUpdate, $Out> {
-  ServerConfirmsUpdateCopyWith<$R, ServerConfirmsUpdate, $Out>
-      get $asServerConfirmsUpdate =>
-          $base.as((v, t, t2) => _ServerConfirmsUpdateCopyWithImpl(v, t, t2));
+extension ServerConfirmsUpdateUsernameValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ServerConfirmsUpdateUsername, $Out> {
+  ServerConfirmsUpdateUsernameCopyWith<$R, ServerConfirmsUpdateUsername, $Out>
+      get $asServerConfirmsUpdateUsername => $base.as(
+          (v, t, t2) => _ServerConfirmsUpdateUsernameCopyWithImpl(v, t, t2));
 }
 
-abstract class ServerConfirmsUpdateCopyWith<
+abstract class ServerConfirmsUpdateUsernameCopyWith<
     $R,
-    $In extends ServerConfirmsUpdate,
+    $In extends ServerConfirmsUpdateUsername,
     $Out> implements ServerEventCopyWith<$R, $In, $Out> {
-  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto;
   @override
-  $R call({String? eventType, GetUserDto? getUserDto});
-  ServerConfirmsUpdateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+  $R call({String? username, String? eventType});
+  ServerConfirmsUpdateUsernameCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
 
-class _ServerConfirmsUpdateCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, ServerConfirmsUpdate, $Out>
-    implements ServerConfirmsUpdateCopyWith<$R, ServerConfirmsUpdate, $Out> {
-  _ServerConfirmsUpdateCopyWithImpl(super.value, super.then, super.then2);
+class _ServerConfirmsUpdateUsernameCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ServerConfirmsUpdateUsername, $Out>
+    implements
+        ServerConfirmsUpdateUsernameCopyWith<$R, ServerConfirmsUpdateUsername,
+            $Out> {
+  _ServerConfirmsUpdateUsernameCopyWithImpl(
+      super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ServerConfirmsUpdate> $mapper =
-      ServerConfirmsUpdateMapper.ensureInitialized();
+  late final ClassMapperBase<ServerConfirmsUpdateUsername> $mapper =
+      ServerConfirmsUpdateUsernameMapper.ensureInitialized();
   @override
-  GetUserDtoCopyWith<$R, GetUserDto, GetUserDto> get getUserDto =>
-      $value.getUserDto.copyWith.$chain((v) => call(getUserDto: v));
-  @override
-  $R call({String? eventType, GetUserDto? getUserDto}) =>
-      $apply(FieldCopyWithData({
-        if (eventType != null) #eventType: eventType,
-        if (getUserDto != null) #getUserDto: getUserDto
+  $R call({String? username, String? eventType}) => $apply(FieldCopyWithData({
+        if (username != null) #username: username,
+        if (eventType != null) #eventType: eventType
       }));
   @override
-  ServerConfirmsUpdate $make(CopyWithData data) => ServerConfirmsUpdate(
-      eventType: data.get(#eventType, or: $value.eventType),
-      getUserDto: data.get(#getUserDto, or: $value.getUserDto));
+  ServerConfirmsUpdateUsername $make(CopyWithData data) =>
+      ServerConfirmsUpdateUsername(
+          username: data.get(#username, or: $value.username),
+          eventType: data.get(#eventType, or: $value.eventType));
 
   @override
-  ServerConfirmsUpdateCopyWith<$R2, ServerConfirmsUpdate, $Out2>
+  ServerConfirmsUpdateUsernameCopyWith<$R2, ServerConfirmsUpdateUsername, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ServerConfirmsUpdateCopyWithImpl($value, $cast, t);
+          _ServerConfirmsUpdateUsernameCopyWithImpl($value, $cast, t);
 }
 
-class ServerConfirmsDeleteMapper
-    extends SubClassMapperBase<ServerConfirmsDelete> {
-  ServerConfirmsDeleteMapper._();
+class ServerConfirmsUpdatePasswordMapper
+    extends SubClassMapperBase<ServerConfirmsUpdatePassword> {
+  ServerConfirmsUpdatePasswordMapper._();
 
-  static ServerConfirmsDeleteMapper? _instance;
-  static ServerConfirmsDeleteMapper ensureInitialized() {
+  static ServerConfirmsUpdatePasswordMapper? _instance;
+  static ServerConfirmsUpdatePasswordMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals.use(_instance = ServerConfirmsDeleteMapper._());
+      MapperContainer.globals
+          .use(_instance = ServerConfirmsUpdatePasswordMapper._());
       ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
     }
     return _instance!;
   }
 
   @override
-  final String id = 'ServerConfirmsDelete';
+  final String id = 'ServerConfirmsUpdatePassword';
 
-  static String _$eventType(ServerConfirmsDelete v) => v.eventType;
-  static const Field<ServerConfirmsDelete, String> _f$eventType =
-      Field('eventType', _$eventType, opt: true, def: "ServerConfirmsDelete");
+  static String _$eventType(ServerConfirmsUpdatePassword v) => v.eventType;
+  static const Field<ServerConfirmsUpdatePassword, String> _f$eventType = Field(
+      'eventType', _$eventType,
+      opt: true, def: "ServerConfirmsUpdatePassword");
 
   @override
-  final MappableFields<ServerConfirmsDelete> fields = const {
+  final MappableFields<ServerConfirmsUpdatePassword> fields = const {
     #eventType: _f$eventType,
   };
 
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = 'ServerConfirmsDelete';
+  final dynamic discriminatorValue = 'ServerConfirmsUpdatePassword';
   @override
   late final ClassMapperBase superMapper =
       ServerEventMapper.ensureInitialized();
 
-  static ServerConfirmsDelete _instantiate(DecodingData data) {
-    return ServerConfirmsDelete(eventType: data.dec(_f$eventType));
+  static ServerConfirmsUpdatePassword _instantiate(DecodingData data) {
+    return ServerConfirmsUpdatePassword(eventType: data.dec(_f$eventType));
   }
 
   @override
   final Function instantiate = _instantiate;
 
-  static ServerConfirmsDelete fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<ServerConfirmsDelete>(map);
+  static ServerConfirmsUpdatePassword fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ServerConfirmsUpdatePassword>(map);
   }
 
-  static ServerConfirmsDelete fromJson(String json) {
-    return ensureInitialized().decodeJson<ServerConfirmsDelete>(json);
+  static ServerConfirmsUpdatePassword fromJson(String json) {
+    return ensureInitialized().decodeJson<ServerConfirmsUpdatePassword>(json);
   }
 }
 
-mixin ServerConfirmsDeleteMappable {
+mixin ServerConfirmsUpdatePasswordMappable {
   String toJson() {
-    return ServerConfirmsDeleteMapper.ensureInitialized()
-        .encodeJson<ServerConfirmsDelete>(this as ServerConfirmsDelete);
+    return ServerConfirmsUpdatePasswordMapper.ensureInitialized()
+        .encodeJson<ServerConfirmsUpdatePassword>(
+            this as ServerConfirmsUpdatePassword);
   }
 
   Map<String, dynamic> toMap() {
-    return ServerConfirmsDeleteMapper.ensureInitialized()
-        .encodeMap<ServerConfirmsDelete>(this as ServerConfirmsDelete);
+    return ServerConfirmsUpdatePasswordMapper.ensureInitialized()
+        .encodeMap<ServerConfirmsUpdatePassword>(
+            this as ServerConfirmsUpdatePassword);
   }
 
-  ServerConfirmsDeleteCopyWith<ServerConfirmsDelete, ServerConfirmsDelete,
-          ServerConfirmsDelete>
-      get copyWith => _ServerConfirmsDeleteCopyWithImpl(
-          this as ServerConfirmsDelete, $identity, $identity);
+  ServerConfirmsUpdatePasswordCopyWith<ServerConfirmsUpdatePassword,
+          ServerConfirmsUpdatePassword, ServerConfirmsUpdatePassword>
+      get copyWith => _ServerConfirmsUpdatePasswordCopyWithImpl(
+          this as ServerConfirmsUpdatePassword, $identity, $identity);
   @override
   String toString() {
-    return ServerConfirmsDeleteMapper.ensureInitialized()
-        .stringifyValue(this as ServerConfirmsDelete);
+    return ServerConfirmsUpdatePasswordMapper.ensureInitialized()
+        .stringifyValue(this as ServerConfirmsUpdatePassword);
   }
 
   @override
   bool operator ==(Object other) {
-    return ServerConfirmsDeleteMapper.ensureInitialized()
-        .equalsValue(this as ServerConfirmsDelete, other);
+    return ServerConfirmsUpdatePasswordMapper.ensureInitialized()
+        .equalsValue(this as ServerConfirmsUpdatePassword, other);
   }
 
   @override
   int get hashCode {
-    return ServerConfirmsDeleteMapper.ensureInitialized()
-        .hashValue(this as ServerConfirmsDelete);
+    return ServerConfirmsUpdatePasswordMapper.ensureInitialized()
+        .hashValue(this as ServerConfirmsUpdatePassword);
   }
 }
 
-extension ServerConfirmsDeleteValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, ServerConfirmsDelete, $Out> {
-  ServerConfirmsDeleteCopyWith<$R, ServerConfirmsDelete, $Out>
-      get $asServerConfirmsDelete =>
-          $base.as((v, t, t2) => _ServerConfirmsDeleteCopyWithImpl(v, t, t2));
+extension ServerConfirmsUpdatePasswordValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ServerConfirmsUpdatePassword, $Out> {
+  ServerConfirmsUpdatePasswordCopyWith<$R, ServerConfirmsUpdatePassword, $Out>
+      get $asServerConfirmsUpdatePassword => $base.as(
+          (v, t, t2) => _ServerConfirmsUpdatePasswordCopyWithImpl(v, t, t2));
 }
 
-abstract class ServerConfirmsDeleteCopyWith<
+abstract class ServerConfirmsUpdatePasswordCopyWith<
     $R,
-    $In extends ServerConfirmsDelete,
+    $In extends ServerConfirmsUpdatePassword,
     $Out> implements ServerEventCopyWith<$R, $In, $Out> {
   @override
   $R call({String? eventType});
-  ServerConfirmsDeleteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+  ServerConfirmsUpdatePasswordCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
 
-class _ServerConfirmsDeleteCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, ServerConfirmsDelete, $Out>
-    implements ServerConfirmsDeleteCopyWith<$R, ServerConfirmsDelete, $Out> {
-  _ServerConfirmsDeleteCopyWithImpl(super.value, super.then, super.then2);
+class _ServerConfirmsUpdatePasswordCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ServerConfirmsUpdatePassword, $Out>
+    implements
+        ServerConfirmsUpdatePasswordCopyWith<$R, ServerConfirmsUpdatePassword,
+            $Out> {
+  _ServerConfirmsUpdatePasswordCopyWithImpl(
+      super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ServerConfirmsDelete> $mapper =
-      ServerConfirmsDeleteMapper.ensureInitialized();
+  late final ClassMapperBase<ServerConfirmsUpdatePassword> $mapper =
+      ServerConfirmsUpdatePasswordMapper.ensureInitialized();
   @override
   $R call({String? eventType}) =>
       $apply(FieldCopyWithData({if (eventType != null) #eventType: eventType}));
   @override
-  ServerConfirmsDelete $make(CopyWithData data) => ServerConfirmsDelete(
-      eventType: data.get(#eventType, or: $value.eventType));
+  ServerConfirmsUpdatePassword $make(CopyWithData data) =>
+      ServerConfirmsUpdatePassword(
+          eventType: data.get(#eventType, or: $value.eventType));
 
   @override
-  ServerConfirmsDeleteCopyWith<$R2, ServerConfirmsDelete, $Out2>
+  ServerConfirmsUpdatePasswordCopyWith<$R2, ServerConfirmsUpdatePassword, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ServerConfirmsDeleteCopyWithImpl($value, $cast, t);
+          _ServerConfirmsUpdatePasswordCopyWithImpl($value, $cast, t);
+}
+
+class ServerConfirmsProfileImageUpdateMapper
+    extends SubClassMapperBase<ServerConfirmsProfileImageUpdate> {
+  ServerConfirmsProfileImageUpdateMapper._();
+
+  static ServerConfirmsProfileImageUpdateMapper? _instance;
+  static ServerConfirmsProfileImageUpdateMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ServerConfirmsProfileImageUpdateMapper._());
+      ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ServerConfirmsProfileImageUpdate';
+
+  static String _$blobUrl(ServerConfirmsProfileImageUpdate v) => v.blobUrl;
+  static const Field<ServerConfirmsProfileImageUpdate, String> _f$blobUrl =
+      Field('blobUrl', _$blobUrl);
+  static String _$eventType(ServerConfirmsProfileImageUpdate v) => v.eventType;
+  static const Field<ServerConfirmsProfileImageUpdate, String> _f$eventType =
+      Field('eventType', _$eventType,
+          opt: true, def: "ServerConfirmsProfileImageUpdate");
+
+  @override
+  final MappableFields<ServerConfirmsProfileImageUpdate> fields = const {
+    #blobUrl: _f$blobUrl,
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = 'ServerConfirmsProfileImageUpdate';
+  @override
+  late final ClassMapperBase superMapper =
+      ServerEventMapper.ensureInitialized();
+
+  static ServerConfirmsProfileImageUpdate _instantiate(DecodingData data) {
+    return ServerConfirmsProfileImageUpdate(
+        blobUrl: data.dec(_f$blobUrl), eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ServerConfirmsProfileImageUpdate fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ServerConfirmsProfileImageUpdate>(map);
+  }
+
+  static ServerConfirmsProfileImageUpdate fromJson(String json) {
+    return ensureInitialized()
+        .decodeJson<ServerConfirmsProfileImageUpdate>(json);
+  }
+}
+
+mixin ServerConfirmsProfileImageUpdateMappable {
+  String toJson() {
+    return ServerConfirmsProfileImageUpdateMapper.ensureInitialized()
+        .encodeJson<ServerConfirmsProfileImageUpdate>(
+            this as ServerConfirmsProfileImageUpdate);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ServerConfirmsProfileImageUpdateMapper.ensureInitialized()
+        .encodeMap<ServerConfirmsProfileImageUpdate>(
+            this as ServerConfirmsProfileImageUpdate);
+  }
+
+  ServerConfirmsProfileImageUpdateCopyWith<ServerConfirmsProfileImageUpdate,
+          ServerConfirmsProfileImageUpdate, ServerConfirmsProfileImageUpdate>
+      get copyWith => _ServerConfirmsProfileImageUpdateCopyWithImpl(
+          this as ServerConfirmsProfileImageUpdate, $identity, $identity);
+  @override
+  String toString() {
+    return ServerConfirmsProfileImageUpdateMapper.ensureInitialized()
+        .stringifyValue(this as ServerConfirmsProfileImageUpdate);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ServerConfirmsProfileImageUpdateMapper.ensureInitialized()
+        .equalsValue(this as ServerConfirmsProfileImageUpdate, other);
+  }
+
+  @override
+  int get hashCode {
+    return ServerConfirmsProfileImageUpdateMapper.ensureInitialized()
+        .hashValue(this as ServerConfirmsProfileImageUpdate);
+  }
+}
+
+extension ServerConfirmsProfileImageUpdateValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ServerConfirmsProfileImageUpdate, $Out> {
+  ServerConfirmsProfileImageUpdateCopyWith<$R, ServerConfirmsProfileImageUpdate,
+          $Out>
+      get $asServerConfirmsProfileImageUpdate => $base.as((v, t, t2) =>
+          _ServerConfirmsProfileImageUpdateCopyWithImpl(v, t, t2));
+}
+
+abstract class ServerConfirmsProfileImageUpdateCopyWith<
+    $R,
+    $In extends ServerConfirmsProfileImageUpdate,
+    $Out> implements ServerEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? blobUrl, String? eventType});
+  ServerConfirmsProfileImageUpdateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ServerConfirmsProfileImageUpdateCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ServerConfirmsProfileImageUpdate, $Out>
+    implements
+        ServerConfirmsProfileImageUpdateCopyWith<$R,
+            ServerConfirmsProfileImageUpdate, $Out> {
+  _ServerConfirmsProfileImageUpdateCopyWithImpl(
+      super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ServerConfirmsProfileImageUpdate> $mapper =
+      ServerConfirmsProfileImageUpdateMapper.ensureInitialized();
+  @override
+  $R call({String? blobUrl, String? eventType}) => $apply(FieldCopyWithData({
+        if (blobUrl != null) #blobUrl: blobUrl,
+        if (eventType != null) #eventType: eventType
+      }));
+  @override
+  ServerConfirmsProfileImageUpdate $make(CopyWithData data) =>
+      ServerConfirmsProfileImageUpdate(
+          blobUrl: data.get(#blobUrl, or: $value.blobUrl),
+          eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ServerConfirmsProfileImageUpdateCopyWith<$R2,
+      ServerConfirmsProfileImageUpdate, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ServerConfirmsProfileImageUpdateCopyWithImpl($value, $cast, t);
+}
+
+class ServerConfirmsDeleteProfileImageMapper
+    extends SubClassMapperBase<ServerConfirmsDeleteProfileImage> {
+  ServerConfirmsDeleteProfileImageMapper._();
+
+  static ServerConfirmsDeleteProfileImageMapper? _instance;
+  static ServerConfirmsDeleteProfileImageMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ServerConfirmsDeleteProfileImageMapper._());
+      ServerEventMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ServerConfirmsDeleteProfileImage';
+
+  static String _$eventType(ServerConfirmsDeleteProfileImage v) => v.eventType;
+  static const Field<ServerConfirmsDeleteProfileImage, String> _f$eventType =
+      Field('eventType', _$eventType,
+          opt: true, def: "ServerConfirmsDeleteProfileImage");
+
+  @override
+  final MappableFields<ServerConfirmsDeleteProfileImage> fields = const {
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = 'ServerConfirmsDeleteProfileImage';
+  @override
+  late final ClassMapperBase superMapper =
+      ServerEventMapper.ensureInitialized();
+
+  static ServerConfirmsDeleteProfileImage _instantiate(DecodingData data) {
+    return ServerConfirmsDeleteProfileImage(eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ServerConfirmsDeleteProfileImage fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ServerConfirmsDeleteProfileImage>(map);
+  }
+
+  static ServerConfirmsDeleteProfileImage fromJson(String json) {
+    return ensureInitialized()
+        .decodeJson<ServerConfirmsDeleteProfileImage>(json);
+  }
+}
+
+mixin ServerConfirmsDeleteProfileImageMappable {
+  String toJson() {
+    return ServerConfirmsDeleteProfileImageMapper.ensureInitialized()
+        .encodeJson<ServerConfirmsDeleteProfileImage>(
+            this as ServerConfirmsDeleteProfileImage);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ServerConfirmsDeleteProfileImageMapper.ensureInitialized()
+        .encodeMap<ServerConfirmsDeleteProfileImage>(
+            this as ServerConfirmsDeleteProfileImage);
+  }
+
+  ServerConfirmsDeleteProfileImageCopyWith<ServerConfirmsDeleteProfileImage,
+          ServerConfirmsDeleteProfileImage, ServerConfirmsDeleteProfileImage>
+      get copyWith => _ServerConfirmsDeleteProfileImageCopyWithImpl(
+          this as ServerConfirmsDeleteProfileImage, $identity, $identity);
+  @override
+  String toString() {
+    return ServerConfirmsDeleteProfileImageMapper.ensureInitialized()
+        .stringifyValue(this as ServerConfirmsDeleteProfileImage);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ServerConfirmsDeleteProfileImageMapper.ensureInitialized()
+        .equalsValue(this as ServerConfirmsDeleteProfileImage, other);
+  }
+
+  @override
+  int get hashCode {
+    return ServerConfirmsDeleteProfileImageMapper.ensureInitialized()
+        .hashValue(this as ServerConfirmsDeleteProfileImage);
+  }
+}
+
+extension ServerConfirmsDeleteProfileImageValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ServerConfirmsDeleteProfileImage, $Out> {
+  ServerConfirmsDeleteProfileImageCopyWith<$R, ServerConfirmsDeleteProfileImage,
+          $Out>
+      get $asServerConfirmsDeleteProfileImage => $base.as((v, t, t2) =>
+          _ServerConfirmsDeleteProfileImageCopyWithImpl(v, t, t2));
+}
+
+abstract class ServerConfirmsDeleteProfileImageCopyWith<
+    $R,
+    $In extends ServerConfirmsDeleteProfileImage,
+    $Out> implements ServerEventCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? eventType});
+  ServerConfirmsDeleteProfileImageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ServerConfirmsDeleteProfileImageCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ServerConfirmsDeleteProfileImage, $Out>
+    implements
+        ServerConfirmsDeleteProfileImageCopyWith<$R,
+            ServerConfirmsDeleteProfileImage, $Out> {
+  _ServerConfirmsDeleteProfileImageCopyWithImpl(
+      super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ServerConfirmsDeleteProfileImage> $mapper =
+      ServerConfirmsDeleteProfileImageMapper.ensureInitialized();
+  @override
+  $R call({String? eventType}) =>
+      $apply(FieldCopyWithData({if (eventType != null) #eventType: eventType}));
+  @override
+  ServerConfirmsDeleteProfileImage $make(CopyWithData data) =>
+      ServerConfirmsDeleteProfileImage(
+          eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ServerConfirmsDeleteProfileImageCopyWith<$R2,
+      ServerConfirmsDeleteProfileImage, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ServerConfirmsDeleteProfileImageCopyWithImpl($value, $cast, t);
 }
 
 class ServerSendsUserInfoMapper

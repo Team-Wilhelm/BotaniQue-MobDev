@@ -402,7 +402,10 @@ class ClientEventWithJwtMapper extends SubClassMapperBase<ClientEventWithJwt> {
       ClientWantsToCreateCollectionMapper.ensureInitialized();
       ClientWantsToUpdateCollectionMapper.ensureInitialized();
       ClientWantsToDeleteCollectionMapper.ensureInitialized();
-      ClientWantsToUpdateProfileMapper.ensureInitialized();
+      ClientWantsToUpdateProfileImageMapper.ensureInitialized();
+      ClientWantsToUpdateUsernameMapper.ensureInitialized();
+      ClientWantsToUpdatePasswordMapper.ensureInitialized();
+      ClientWantsToDeleteProfileImageMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -2390,152 +2393,584 @@ class _ClientWantsToDeleteCollectionCopyWithImpl<$R, $Out>
       _ClientWantsToDeleteCollectionCopyWithImpl($value, $cast, t);
 }
 
-class ClientWantsToUpdateProfileMapper
-    extends SubClassMapperBase<ClientWantsToUpdateProfile> {
-  ClientWantsToUpdateProfileMapper._();
+class ClientWantsToUpdateProfileImageMapper
+    extends SubClassMapperBase<ClientWantsToUpdateProfileImage> {
+  ClientWantsToUpdateProfileImageMapper._();
 
-  static ClientWantsToUpdateProfileMapper? _instance;
-  static ClientWantsToUpdateProfileMapper ensureInitialized() {
+  static ClientWantsToUpdateProfileImageMapper? _instance;
+  static ClientWantsToUpdateProfileImageMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals
-          .use(_instance = ClientWantsToUpdateProfileMapper._());
+          .use(_instance = ClientWantsToUpdateProfileImageMapper._());
       ClientEventWithJwtMapper.ensureInitialized().addSubMapper(_instance!);
-      UserDtoMapper.ensureInitialized();
     }
     return _instance!;
   }
 
   @override
-  final String id = 'ClientWantsToUpdateProfile';
+  final String id = 'ClientWantsToUpdateProfileImage';
 
-  static String _$jwt(ClientWantsToUpdateProfile v) => v.jwt;
-  static const Field<ClientWantsToUpdateProfile, String> _f$jwt =
+  static String _$jwt(ClientWantsToUpdateProfileImage v) => v.jwt;
+  static const Field<ClientWantsToUpdateProfileImage, String> _f$jwt =
       Field('jwt', _$jwt);
-  static UserDto _$userDto(ClientWantsToUpdateProfile v) => v.userDto;
-  static const Field<ClientWantsToUpdateProfile, UserDto> _f$userDto =
-      Field('userDto', _$userDto);
-  static String _$eventType(ClientWantsToUpdateProfile v) => v.eventType;
-  static const Field<ClientWantsToUpdateProfile, String> _f$eventType = Field(
-      'eventType', _$eventType,
-      opt: true, def: "ClientWantsToUpdateProfile");
+  static String _$base64Image(ClientWantsToUpdateProfileImage v) =>
+      v.base64Image;
+  static const Field<ClientWantsToUpdateProfileImage, String> _f$base64Image =
+      Field('base64Image', _$base64Image);
+  static String _$eventType(ClientWantsToUpdateProfileImage v) => v.eventType;
+  static const Field<ClientWantsToUpdateProfileImage, String> _f$eventType =
+      Field('eventType', _$eventType,
+          opt: true, def: "ClientWantsToUpdateProfileImage");
 
   @override
-  final MappableFields<ClientWantsToUpdateProfile> fields = const {
+  final MappableFields<ClientWantsToUpdateProfileImage> fields = const {
     #jwt: _f$jwt,
-    #userDto: _f$userDto,
+    #base64Image: _f$base64Image,
     #eventType: _f$eventType,
   };
 
   @override
   final String discriminatorKey = 'eventType';
   @override
-  final dynamic discriminatorValue = "ClientWantsToUpdateProfile";
+  final dynamic discriminatorValue = "ClientWantsToUpdateProfileImage";
   @override
   late final ClassMapperBase superMapper =
       ClientEventWithJwtMapper.ensureInitialized();
 
-  static ClientWantsToUpdateProfile _instantiate(DecodingData data) {
-    return ClientWantsToUpdateProfile(
+  static ClientWantsToUpdateProfileImage _instantiate(DecodingData data) {
+    return ClientWantsToUpdateProfileImage(
         jwt: data.dec(_f$jwt),
-        userDto: data.dec(_f$userDto),
+        base64Image: data.dec(_f$base64Image),
         eventType: data.dec(_f$eventType));
   }
 
   @override
   final Function instantiate = _instantiate;
 
-  static ClientWantsToUpdateProfile fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<ClientWantsToUpdateProfile>(map);
+  static ClientWantsToUpdateProfileImage fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ClientWantsToUpdateProfileImage>(map);
   }
 
-  static ClientWantsToUpdateProfile fromJson(String json) {
-    return ensureInitialized().decodeJson<ClientWantsToUpdateProfile>(json);
+  static ClientWantsToUpdateProfileImage fromJson(String json) {
+    return ensureInitialized()
+        .decodeJson<ClientWantsToUpdateProfileImage>(json);
   }
 }
 
-mixin ClientWantsToUpdateProfileMappable {
+mixin ClientWantsToUpdateProfileImageMappable {
   String toJson() {
-    return ClientWantsToUpdateProfileMapper.ensureInitialized()
-        .encodeJson<ClientWantsToUpdateProfile>(
-            this as ClientWantsToUpdateProfile);
+    return ClientWantsToUpdateProfileImageMapper.ensureInitialized()
+        .encodeJson<ClientWantsToUpdateProfileImage>(
+            this as ClientWantsToUpdateProfileImage);
   }
 
   Map<String, dynamic> toMap() {
-    return ClientWantsToUpdateProfileMapper.ensureInitialized()
-        .encodeMap<ClientWantsToUpdateProfile>(
-            this as ClientWantsToUpdateProfile);
+    return ClientWantsToUpdateProfileImageMapper.ensureInitialized()
+        .encodeMap<ClientWantsToUpdateProfileImage>(
+            this as ClientWantsToUpdateProfileImage);
   }
 
-  ClientWantsToUpdateProfileCopyWith<ClientWantsToUpdateProfile,
-          ClientWantsToUpdateProfile, ClientWantsToUpdateProfile>
-      get copyWith => _ClientWantsToUpdateProfileCopyWithImpl(
-          this as ClientWantsToUpdateProfile, $identity, $identity);
+  ClientWantsToUpdateProfileImageCopyWith<ClientWantsToUpdateProfileImage,
+          ClientWantsToUpdateProfileImage, ClientWantsToUpdateProfileImage>
+      get copyWith => _ClientWantsToUpdateProfileImageCopyWithImpl(
+          this as ClientWantsToUpdateProfileImage, $identity, $identity);
   @override
   String toString() {
-    return ClientWantsToUpdateProfileMapper.ensureInitialized()
-        .stringifyValue(this as ClientWantsToUpdateProfile);
+    return ClientWantsToUpdateProfileImageMapper.ensureInitialized()
+        .stringifyValue(this as ClientWantsToUpdateProfileImage);
   }
 
   @override
   bool operator ==(Object other) {
-    return ClientWantsToUpdateProfileMapper.ensureInitialized()
-        .equalsValue(this as ClientWantsToUpdateProfile, other);
+    return ClientWantsToUpdateProfileImageMapper.ensureInitialized()
+        .equalsValue(this as ClientWantsToUpdateProfileImage, other);
   }
 
   @override
   int get hashCode {
-    return ClientWantsToUpdateProfileMapper.ensureInitialized()
-        .hashValue(this as ClientWantsToUpdateProfile);
+    return ClientWantsToUpdateProfileImageMapper.ensureInitialized()
+        .hashValue(this as ClientWantsToUpdateProfileImage);
   }
 }
 
-extension ClientWantsToUpdateProfileValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, ClientWantsToUpdateProfile, $Out> {
-  ClientWantsToUpdateProfileCopyWith<$R, ClientWantsToUpdateProfile, $Out>
-      get $asClientWantsToUpdateProfile => $base
-          .as((v, t, t2) => _ClientWantsToUpdateProfileCopyWithImpl(v, t, t2));
+extension ClientWantsToUpdateProfileImageValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ClientWantsToUpdateProfileImage, $Out> {
+  ClientWantsToUpdateProfileImageCopyWith<$R, ClientWantsToUpdateProfileImage,
+          $Out>
+      get $asClientWantsToUpdateProfileImage => $base.as(
+          (v, t, t2) => _ClientWantsToUpdateProfileImageCopyWithImpl(v, t, t2));
 }
 
-abstract class ClientWantsToUpdateProfileCopyWith<
+abstract class ClientWantsToUpdateProfileImageCopyWith<
     $R,
-    $In extends ClientWantsToUpdateProfile,
+    $In extends ClientWantsToUpdateProfileImage,
     $Out> implements ClientEventWithJwtCopyWith<$R, $In, $Out> {
-  UserDtoCopyWith<$R, UserDto, UserDto> get userDto;
   @override
-  $R call({String? jwt, UserDto? userDto, String? eventType});
-  ClientWantsToUpdateProfileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+  $R call({String? jwt, String? base64Image, String? eventType});
+  ClientWantsToUpdateProfileImageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
 
-class _ClientWantsToUpdateProfileCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, ClientWantsToUpdateProfile, $Out>
+class _ClientWantsToUpdateProfileImageCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ClientWantsToUpdateProfileImage, $Out>
     implements
-        ClientWantsToUpdateProfileCopyWith<$R, ClientWantsToUpdateProfile,
-            $Out> {
-  _ClientWantsToUpdateProfileCopyWithImpl(super.value, super.then, super.then2);
+        ClientWantsToUpdateProfileImageCopyWith<$R,
+            ClientWantsToUpdateProfileImage, $Out> {
+  _ClientWantsToUpdateProfileImageCopyWithImpl(
+      super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ClientWantsToUpdateProfile> $mapper =
-      ClientWantsToUpdateProfileMapper.ensureInitialized();
+  late final ClassMapperBase<ClientWantsToUpdateProfileImage> $mapper =
+      ClientWantsToUpdateProfileImageMapper.ensureInitialized();
   @override
-  UserDtoCopyWith<$R, UserDto, UserDto> get userDto =>
-      $value.userDto.copyWith.$chain((v) => call(userDto: v));
-  @override
-  $R call({String? jwt, UserDto? userDto, String? eventType}) =>
+  $R call({String? jwt, String? base64Image, String? eventType}) =>
       $apply(FieldCopyWithData({
         if (jwt != null) #jwt: jwt,
-        if (userDto != null) #userDto: userDto,
+        if (base64Image != null) #base64Image: base64Image,
         if (eventType != null) #eventType: eventType
       }));
   @override
-  ClientWantsToUpdateProfile $make(CopyWithData data) =>
-      ClientWantsToUpdateProfile(
+  ClientWantsToUpdateProfileImage $make(CopyWithData data) =>
+      ClientWantsToUpdateProfileImage(
           jwt: data.get(#jwt, or: $value.jwt),
-          userDto: data.get(#userDto, or: $value.userDto),
+          base64Image: data.get(#base64Image, or: $value.base64Image),
           eventType: data.get(#eventType, or: $value.eventType));
 
   @override
-  ClientWantsToUpdateProfileCopyWith<$R2, ClientWantsToUpdateProfile, $Out2>
+  ClientWantsToUpdateProfileImageCopyWith<$R2, ClientWantsToUpdateProfileImage,
+      $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ClientWantsToUpdateProfileImageCopyWithImpl($value, $cast, t);
+}
+
+class ClientWantsToUpdateUsernameMapper
+    extends SubClassMapperBase<ClientWantsToUpdateUsername> {
+  ClientWantsToUpdateUsernameMapper._();
+
+  static ClientWantsToUpdateUsernameMapper? _instance;
+  static ClientWantsToUpdateUsernameMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ClientWantsToUpdateUsernameMapper._());
+      ClientEventWithJwtMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ClientWantsToUpdateUsername';
+
+  static String _$jwt(ClientWantsToUpdateUsername v) => v.jwt;
+  static const Field<ClientWantsToUpdateUsername, String> _f$jwt =
+      Field('jwt', _$jwt);
+  static String _$username(ClientWantsToUpdateUsername v) => v.username;
+  static const Field<ClientWantsToUpdateUsername, String> _f$username =
+      Field('username', _$username);
+  static String _$eventType(ClientWantsToUpdateUsername v) => v.eventType;
+  static const Field<ClientWantsToUpdateUsername, String> _f$eventType = Field(
+      'eventType', _$eventType,
+      opt: true, def: "ClientWantsToUpdateUsername");
+
+  @override
+  final MappableFields<ClientWantsToUpdateUsername> fields = const {
+    #jwt: _f$jwt,
+    #username: _f$username,
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "ClientWantsToUpdateUsername";
+  @override
+  late final ClassMapperBase superMapper =
+      ClientEventWithJwtMapper.ensureInitialized();
+
+  static ClientWantsToUpdateUsername _instantiate(DecodingData data) {
+    return ClientWantsToUpdateUsername(
+        jwt: data.dec(_f$jwt),
+        username: data.dec(_f$username),
+        eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ClientWantsToUpdateUsername fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ClientWantsToUpdateUsername>(map);
+  }
+
+  static ClientWantsToUpdateUsername fromJson(String json) {
+    return ensureInitialized().decodeJson<ClientWantsToUpdateUsername>(json);
+  }
+}
+
+mixin ClientWantsToUpdateUsernameMappable {
+  String toJson() {
+    return ClientWantsToUpdateUsernameMapper.ensureInitialized()
+        .encodeJson<ClientWantsToUpdateUsername>(
+            this as ClientWantsToUpdateUsername);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ClientWantsToUpdateUsernameMapper.ensureInitialized()
+        .encodeMap<ClientWantsToUpdateUsername>(
+            this as ClientWantsToUpdateUsername);
+  }
+
+  ClientWantsToUpdateUsernameCopyWith<ClientWantsToUpdateUsername,
+          ClientWantsToUpdateUsername, ClientWantsToUpdateUsername>
+      get copyWith => _ClientWantsToUpdateUsernameCopyWithImpl(
+          this as ClientWantsToUpdateUsername, $identity, $identity);
+  @override
+  String toString() {
+    return ClientWantsToUpdateUsernameMapper.ensureInitialized()
+        .stringifyValue(this as ClientWantsToUpdateUsername);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ClientWantsToUpdateUsernameMapper.ensureInitialized()
+        .equalsValue(this as ClientWantsToUpdateUsername, other);
+  }
+
+  @override
+  int get hashCode {
+    return ClientWantsToUpdateUsernameMapper.ensureInitialized()
+        .hashValue(this as ClientWantsToUpdateUsername);
+  }
+}
+
+extension ClientWantsToUpdateUsernameValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ClientWantsToUpdateUsername, $Out> {
+  ClientWantsToUpdateUsernameCopyWith<$R, ClientWantsToUpdateUsername, $Out>
+      get $asClientWantsToUpdateUsername => $base
+          .as((v, t, t2) => _ClientWantsToUpdateUsernameCopyWithImpl(v, t, t2));
+}
+
+abstract class ClientWantsToUpdateUsernameCopyWith<
+    $R,
+    $In extends ClientWantsToUpdateUsername,
+    $Out> implements ClientEventWithJwtCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? jwt, String? username, String? eventType});
+  ClientWantsToUpdateUsernameCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ClientWantsToUpdateUsernameCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ClientWantsToUpdateUsername, $Out>
+    implements
+        ClientWantsToUpdateUsernameCopyWith<$R, ClientWantsToUpdateUsername,
+            $Out> {
+  _ClientWantsToUpdateUsernameCopyWithImpl(
+      super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ClientWantsToUpdateUsername> $mapper =
+      ClientWantsToUpdateUsernameMapper.ensureInitialized();
+  @override
+  $R call({String? jwt, String? username, String? eventType}) =>
+      $apply(FieldCopyWithData({
+        if (jwt != null) #jwt: jwt,
+        if (username != null) #username: username,
+        if (eventType != null) #eventType: eventType
+      }));
+  @override
+  ClientWantsToUpdateUsername $make(CopyWithData data) =>
+      ClientWantsToUpdateUsername(
+          jwt: data.get(#jwt, or: $value.jwt),
+          username: data.get(#username, or: $value.username),
+          eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ClientWantsToUpdateUsernameCopyWith<$R2, ClientWantsToUpdateUsername, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ClientWantsToUpdateProfileCopyWithImpl($value, $cast, t);
+          _ClientWantsToUpdateUsernameCopyWithImpl($value, $cast, t);
+}
+
+class ClientWantsToUpdatePasswordMapper
+    extends SubClassMapperBase<ClientWantsToUpdatePassword> {
+  ClientWantsToUpdatePasswordMapper._();
+
+  static ClientWantsToUpdatePasswordMapper? _instance;
+  static ClientWantsToUpdatePasswordMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ClientWantsToUpdatePasswordMapper._());
+      ClientEventWithJwtMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ClientWantsToUpdatePassword';
+
+  static String _$jwt(ClientWantsToUpdatePassword v) => v.jwt;
+  static const Field<ClientWantsToUpdatePassword, String> _f$jwt =
+      Field('jwt', _$jwt);
+  static String _$password(ClientWantsToUpdatePassword v) => v.password;
+  static const Field<ClientWantsToUpdatePassword, String> _f$password =
+      Field('password', _$password);
+  static String _$eventType(ClientWantsToUpdatePassword v) => v.eventType;
+  static const Field<ClientWantsToUpdatePassword, String> _f$eventType = Field(
+      'eventType', _$eventType,
+      opt: true, def: "ClientWantsToUpdatePassword");
+
+  @override
+  final MappableFields<ClientWantsToUpdatePassword> fields = const {
+    #jwt: _f$jwt,
+    #password: _f$password,
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "ClientWantsToUpdatePassword";
+  @override
+  late final ClassMapperBase superMapper =
+      ClientEventWithJwtMapper.ensureInitialized();
+
+  static ClientWantsToUpdatePassword _instantiate(DecodingData data) {
+    return ClientWantsToUpdatePassword(
+        jwt: data.dec(_f$jwt),
+        password: data.dec(_f$password),
+        eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ClientWantsToUpdatePassword fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ClientWantsToUpdatePassword>(map);
+  }
+
+  static ClientWantsToUpdatePassword fromJson(String json) {
+    return ensureInitialized().decodeJson<ClientWantsToUpdatePassword>(json);
+  }
+}
+
+mixin ClientWantsToUpdatePasswordMappable {
+  String toJson() {
+    return ClientWantsToUpdatePasswordMapper.ensureInitialized()
+        .encodeJson<ClientWantsToUpdatePassword>(
+            this as ClientWantsToUpdatePassword);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ClientWantsToUpdatePasswordMapper.ensureInitialized()
+        .encodeMap<ClientWantsToUpdatePassword>(
+            this as ClientWantsToUpdatePassword);
+  }
+
+  ClientWantsToUpdatePasswordCopyWith<ClientWantsToUpdatePassword,
+          ClientWantsToUpdatePassword, ClientWantsToUpdatePassword>
+      get copyWith => _ClientWantsToUpdatePasswordCopyWithImpl(
+          this as ClientWantsToUpdatePassword, $identity, $identity);
+  @override
+  String toString() {
+    return ClientWantsToUpdatePasswordMapper.ensureInitialized()
+        .stringifyValue(this as ClientWantsToUpdatePassword);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ClientWantsToUpdatePasswordMapper.ensureInitialized()
+        .equalsValue(this as ClientWantsToUpdatePassword, other);
+  }
+
+  @override
+  int get hashCode {
+    return ClientWantsToUpdatePasswordMapper.ensureInitialized()
+        .hashValue(this as ClientWantsToUpdatePassword);
+  }
+}
+
+extension ClientWantsToUpdatePasswordValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ClientWantsToUpdatePassword, $Out> {
+  ClientWantsToUpdatePasswordCopyWith<$R, ClientWantsToUpdatePassword, $Out>
+      get $asClientWantsToUpdatePassword => $base
+          .as((v, t, t2) => _ClientWantsToUpdatePasswordCopyWithImpl(v, t, t2));
+}
+
+abstract class ClientWantsToUpdatePasswordCopyWith<
+    $R,
+    $In extends ClientWantsToUpdatePassword,
+    $Out> implements ClientEventWithJwtCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? jwt, String? password, String? eventType});
+  ClientWantsToUpdatePasswordCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ClientWantsToUpdatePasswordCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ClientWantsToUpdatePassword, $Out>
+    implements
+        ClientWantsToUpdatePasswordCopyWith<$R, ClientWantsToUpdatePassword,
+            $Out> {
+  _ClientWantsToUpdatePasswordCopyWithImpl(
+      super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ClientWantsToUpdatePassword> $mapper =
+      ClientWantsToUpdatePasswordMapper.ensureInitialized();
+  @override
+  $R call({String? jwt, String? password, String? eventType}) =>
+      $apply(FieldCopyWithData({
+        if (jwt != null) #jwt: jwt,
+        if (password != null) #password: password,
+        if (eventType != null) #eventType: eventType
+      }));
+  @override
+  ClientWantsToUpdatePassword $make(CopyWithData data) =>
+      ClientWantsToUpdatePassword(
+          jwt: data.get(#jwt, or: $value.jwt),
+          password: data.get(#password, or: $value.password),
+          eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ClientWantsToUpdatePasswordCopyWith<$R2, ClientWantsToUpdatePassword, $Out2>
+      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+          _ClientWantsToUpdatePasswordCopyWithImpl($value, $cast, t);
+}
+
+class ClientWantsToDeleteProfileImageMapper
+    extends SubClassMapperBase<ClientWantsToDeleteProfileImage> {
+  ClientWantsToDeleteProfileImageMapper._();
+
+  static ClientWantsToDeleteProfileImageMapper? _instance;
+  static ClientWantsToDeleteProfileImageMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals
+          .use(_instance = ClientWantsToDeleteProfileImageMapper._());
+      ClientEventWithJwtMapper.ensureInitialized().addSubMapper(_instance!);
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'ClientWantsToDeleteProfileImage';
+
+  static String _$jwt(ClientWantsToDeleteProfileImage v) => v.jwt;
+  static const Field<ClientWantsToDeleteProfileImage, String> _f$jwt =
+      Field('jwt', _$jwt);
+  static String _$eventType(ClientWantsToDeleteProfileImage v) => v.eventType;
+  static const Field<ClientWantsToDeleteProfileImage, String> _f$eventType =
+      Field('eventType', _$eventType,
+          opt: true, def: "ClientWantsToDeleteProfileImage");
+
+  @override
+  final MappableFields<ClientWantsToDeleteProfileImage> fields = const {
+    #jwt: _f$jwt,
+    #eventType: _f$eventType,
+  };
+
+  @override
+  final String discriminatorKey = 'eventType';
+  @override
+  final dynamic discriminatorValue = "ClientWantsToDeleteProfileImage";
+  @override
+  late final ClassMapperBase superMapper =
+      ClientEventWithJwtMapper.ensureInitialized();
+
+  static ClientWantsToDeleteProfileImage _instantiate(DecodingData data) {
+    return ClientWantsToDeleteProfileImage(
+        jwt: data.dec(_f$jwt), eventType: data.dec(_f$eventType));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static ClientWantsToDeleteProfileImage fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ClientWantsToDeleteProfileImage>(map);
+  }
+
+  static ClientWantsToDeleteProfileImage fromJson(String json) {
+    return ensureInitialized()
+        .decodeJson<ClientWantsToDeleteProfileImage>(json);
+  }
+}
+
+mixin ClientWantsToDeleteProfileImageMappable {
+  String toJson() {
+    return ClientWantsToDeleteProfileImageMapper.ensureInitialized()
+        .encodeJson<ClientWantsToDeleteProfileImage>(
+            this as ClientWantsToDeleteProfileImage);
+  }
+
+  Map<String, dynamic> toMap() {
+    return ClientWantsToDeleteProfileImageMapper.ensureInitialized()
+        .encodeMap<ClientWantsToDeleteProfileImage>(
+            this as ClientWantsToDeleteProfileImage);
+  }
+
+  ClientWantsToDeleteProfileImageCopyWith<ClientWantsToDeleteProfileImage,
+          ClientWantsToDeleteProfileImage, ClientWantsToDeleteProfileImage>
+      get copyWith => _ClientWantsToDeleteProfileImageCopyWithImpl(
+          this as ClientWantsToDeleteProfileImage, $identity, $identity);
+  @override
+  String toString() {
+    return ClientWantsToDeleteProfileImageMapper.ensureInitialized()
+        .stringifyValue(this as ClientWantsToDeleteProfileImage);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return ClientWantsToDeleteProfileImageMapper.ensureInitialized()
+        .equalsValue(this as ClientWantsToDeleteProfileImage, other);
+  }
+
+  @override
+  int get hashCode {
+    return ClientWantsToDeleteProfileImageMapper.ensureInitialized()
+        .hashValue(this as ClientWantsToDeleteProfileImage);
+  }
+}
+
+extension ClientWantsToDeleteProfileImageValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ClientWantsToDeleteProfileImage, $Out> {
+  ClientWantsToDeleteProfileImageCopyWith<$R, ClientWantsToDeleteProfileImage,
+          $Out>
+      get $asClientWantsToDeleteProfileImage => $base.as(
+          (v, t, t2) => _ClientWantsToDeleteProfileImageCopyWithImpl(v, t, t2));
+}
+
+abstract class ClientWantsToDeleteProfileImageCopyWith<
+    $R,
+    $In extends ClientWantsToDeleteProfileImage,
+    $Out> implements ClientEventWithJwtCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? jwt, String? eventType});
+  ClientWantsToDeleteProfileImageCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
+}
+
+class _ClientWantsToDeleteProfileImageCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ClientWantsToDeleteProfileImage, $Out>
+    implements
+        ClientWantsToDeleteProfileImageCopyWith<$R,
+            ClientWantsToDeleteProfileImage, $Out> {
+  _ClientWantsToDeleteProfileImageCopyWithImpl(
+      super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<ClientWantsToDeleteProfileImage> $mapper =
+      ClientWantsToDeleteProfileImageMapper.ensureInitialized();
+  @override
+  $R call({String? jwt, String? eventType}) => $apply(FieldCopyWithData({
+        if (jwt != null) #jwt: jwt,
+        if (eventType != null) #eventType: eventType
+      }));
+  @override
+  ClientWantsToDeleteProfileImage $make(CopyWithData data) =>
+      ClientWantsToDeleteProfileImage(
+          jwt: data.get(#jwt, or: $value.jwt),
+          eventType: data.get(#eventType, or: $value.eventType));
+
+  @override
+  ClientWantsToDeleteProfileImageCopyWith<$R2, ClientWantsToDeleteProfileImage,
+      $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ClientWantsToDeleteProfileImageCopyWithImpl($value, $cast, t);
 }

@@ -1,13 +1,15 @@
 import 'package:botanique/home/need_some_love_row.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/screen_base.dart';
+import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  final String name = "Name";
+  final String name = "Plant Lover";
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +18,14 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
-              text: "Hi, $name",
-              fontSize: FontSizes.h3,
-              fontWeight: FontWeight.bold,
+            BlocBuilder<UserCubit, UserCubitState>(
+              builder: (context, state) {
+                return AppText(
+                  text: "Hi, ${state.userDto.username ?? name}!",
+                  fontSize: FontSizes.h3,
+                  fontWeight: FontWeight.bold,
+                );
+              }
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
