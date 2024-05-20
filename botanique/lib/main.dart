@@ -57,7 +57,7 @@ void main() async {
         BlocProvider<WebSocketBloc>(
           create: (context) => WebSocketBloc(channel: channel),
         ),
-        BlocProvider<UpdateUserCubit>(create: (context) => UpdateUserCubit())
+        BlocProvider<UserCubit>(create: (context) => UserCubit())
       ],
       child: const BotaniQueApp(),
     ),
@@ -169,5 +169,14 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
         backgroundColor: AppColors.error,
       ),
     );
+  } else if (serverEvent is ServerLogsUserOut) {
+    SecureStorageRepository().deleteData(LocalStorageKeys.jwt);
+  } else if (serverEvent is ServerSendsUserInfo) {
+    context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
+    if (serverEvent.getUserDto.blobUrl != null) {
+      context
+          .read<UserCubit>()
+          .updateBase64Image(serverEvent.getUserDto.blobUrl!);
+    }
   }
 }

@@ -2,8 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/dtos/user/user_dto.dart';
 
-class UpdateUserCubit extends Cubit<UpdateUserDto> {//TODO change email
-  UpdateUserCubit() : super(UpdateUserDto(username: null, password: null, base64Image: null));
+class UserCubit extends Cubit<UserDto> {
+  UserCubit()
+      : super(UserDto(username: null, password: null, base64Image: null, userEmail: null));
+
+  void setUserEmail(String userEmail) {
+    emit(state.copyWith(userEmail: userEmail));
+  }
 
   void updateUsername(String username) {
     emit(state.copyWith(username: username));
@@ -19,5 +24,9 @@ class UpdateUserCubit extends Cubit<UpdateUserDto> {//TODO change email
 
   void deleteBase64Image() {
     emit(state.copyWith(base64Image: null));
+  }
+
+  void reset() {
+    emit(UserDto(username: null, password: null, base64Image: null, userEmail: null));
   }
 }

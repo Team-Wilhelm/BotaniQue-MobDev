@@ -2,6 +2,7 @@ import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/models/plant.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
+import '../dtos/user/user_dto.dart';
 import '../models/collections.dart';
 import '../models/conditions.dart';
 import '../models/uuid.dart';
@@ -69,8 +70,10 @@ class ServerSavesPlant extends ServerEvent with ServerSavesPlantMappable {
 @MappableClass(discriminatorValue: 'ServerConfirmsUpdate')
 class ServerConfirmsUpdate extends ServerEvent
     with ServerConfirmsUpdateMappable {
+  final GetUserDto getUserDto;
   ServerConfirmsUpdate({
     super.eventType = "ServerConfirmsUpdate",
+    required this.getUserDto,
   });
 }
 
@@ -82,6 +85,16 @@ class ServerConfirmsDelete extends ServerEvent
   });
 }
 
+@MappableClass(discriminatorValue: 'ServerSendsUserInfo')
+class ServerSendsUserInfo extends ServerEvent with ServerSendsUserInfoMappable {
+  final GetUserDto getUserDto;
+
+  ServerSendsUserInfo({
+    required this.getUserDto,
+    super.eventType = "ServerSendsUserInfo",
+  });
+}
+
 @MappableClass(discriminatorValue: 'ServerSendsLatestConditionsForPlant')
 class ServerSendsLatestConditionsForPlant extends ServerEvent
     with ServerSendsLatestConditionsForPlantMappable {
@@ -90,6 +103,13 @@ class ServerSendsLatestConditionsForPlant extends ServerEvent
   ServerSendsLatestConditionsForPlant({
     required this.conditionsLog,
     super.eventType = "ServerSendsLatestConditionsForPlant",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerLogsUserOut')
+class ServerLogsUserOut extends ServerEvent with ServerLogsUserOutMappable {
+  ServerLogsUserOut({
+    super.eventType = "ServerLogsUserOut",
   });
 }
 
@@ -233,9 +253,11 @@ class ServerRejectsInvalidFile extends ServerSendsErrorMessage
 @MappableClass(discriminatorValue: 'ServerRejectsUpdate')
 class ServerRejectsUpdate extends ServerSendsErrorMessage
     with ServerRejectsUpdateMappable {
+  final GetUserDto getUserDto;
   ServerRejectsUpdate({
     super.eventType = "ServerRejectsUpdate",
     required super.error,
+    required this.getUserDto
   });
 }
 

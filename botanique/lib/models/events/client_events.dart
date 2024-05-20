@@ -236,11 +236,11 @@ class ClientWantsToDeleteCollection extends ClientEventWithJwt
 @MappableClass(discriminatorValue: "ClientWantsToUpdateProfile")
 class ClientWantsToUpdateProfile extends ClientEventWithJwt
     with ClientWantsToUpdateProfileMappable {
-  final UpdateUserDto updateUserDto;
+  final UserDto userDto;
 
   ClientWantsToUpdateProfile({
     required super.jwt,
-    required this.updateUserDto,
+    required this.userDto,
     super.eventType = "ClientWantsToUpdateProfile",
   });
 }

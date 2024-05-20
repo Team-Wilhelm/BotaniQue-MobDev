@@ -1,4 +1,6 @@
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../state/user_cubit.dart';
 import '../util/asset_constants.dart';
@@ -7,9 +9,11 @@ class ProfileSettingsBanner extends StatelessWidget {
   const ProfileSettingsBanner({
     super.key,
     required this.diameter,
+    required this.onEditTapped,
   });
 
   final double diameter;
+  final VoidCallback onEditTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +21,26 @@ class ProfileSettingsBanner extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          height: diameter * 1.2,
+          height: diameter * 1.4,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(AssetConstants.leaves),
+              image: AssetImage(AssetConstants.leavesSmall),
               fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          top: diameter * 1.2,
+          child: Container(
+            height: diameter * 0.4,
+            width: MediaQuery.of(context).size.width,
+            clipBehavior: Clip.hardEdge,
+            decoration: const BoxDecoration(
+              color: AppColors.background,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
           ),
         ),
@@ -38,10 +57,11 @@ class ProfileSettingsBanner extends StatelessWidget {
                 width: 3, // Ensuring the border is visible
               ),
             ),
-            child: Center( // Added a Center widget to ensure the image is centered
+            child: Center(
+              // Added a Center widget to ensure the image is centered
               child: ClipOval(
                 child: Image.network(
-                  context.read<UpdateUserCubit>().state.base64Image ?? "",
+                  context.read<UserCubit>().state.base64Image ?? "",
                   width: diameter - 6, //to allow the border to be seen
                   height: diameter - 6,
                   fit: BoxFit.cover,
@@ -55,6 +75,23 @@ class ProfileSettingsBanner extends StatelessWidget {
                   },
                 ),
               ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 0,
+          right: 0 + (diameter * 0.1),
+          child: Container(
+            width: diameter * 0.3,
+            height: diameter * 0.3,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.accent,
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.camera_alt),
+              color: AppColors.background,
+              onPressed: onEditTapped,
             ),
           ),
         ),
