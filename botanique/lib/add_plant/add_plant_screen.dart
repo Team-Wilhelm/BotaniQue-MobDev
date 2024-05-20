@@ -98,7 +98,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
             }
 
             if (addPlantState is PlantAddInProgress) {
-              // TODO: change to a nice animation
               return const Center(child: CircularProgressIndicator());
             }
 

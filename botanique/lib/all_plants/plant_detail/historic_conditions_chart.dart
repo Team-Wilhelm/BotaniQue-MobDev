@@ -56,7 +56,7 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
     if (_selectedStat == PlantDetailStat.mood) {
       return 4;
     } else if (_selectedStat == PlantDetailStat.temperature) {
-      return 40;
+      return 45;
     } else {
       return 100;
     }
@@ -69,6 +69,14 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
       return 5;
     } else {
       return 20;
+    }
+  }
+
+  double get minimum {
+    if (_selectedStat == PlantDetailStat.temperature) {
+      return -20;
+    } else {
+      return 0;
     }
   }
 
@@ -150,7 +158,7 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
             ),
             primaryYAxis: NumericAxis(
               plotOffset: 20,
-              minimum: 0,
+              minimum: minimum,
               maximum: maximum,
               interval: interval,
             ),

@@ -1,13 +1,14 @@
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../shared/app_text.dart';
 
 class Question {
   final String question;
-  final void Function(int, PlantRequirementsCubit) onAnswered;
+  final void Function(num, PlantRequirementsCubit) onAnswered;
 
   Question({
     required this.question,
@@ -30,22 +31,17 @@ class AddPlantThirdStepContent extends StatelessWidget {
     Question(
       question: "How humid should the environment be?",
       onAnswered: (value, requirementsCubit) =>
-          requirementsCubit.updateHumidityLevel(value),
+          requirementsCubit.updateHumidityLevel(value as int),
     ),
     Question(
       question: "What about the preferred soil moisture?",
       onAnswered: (value, requirementsCubit) =>
-          requirementsCubit.updateSoilMoistureLevel(value),
+          requirementsCubit.updateSoilMoistureLevel(value as int),
     ),
     Question(
       question: "How much light does it need?",
       onAnswered: (value, requirementsCubit) =>
-          requirementsCubit.updateLightLevel(value),
-    ),
-    Question(
-      question: "What's the ideal temperature?",
-      onAnswered: (value, requirementsCubit) =>
-          requirementsCubit.updateTemperatureLevel(value),
+          requirementsCubit.updateLightLevel(value as int),
     ),
   ];
 
@@ -55,35 +51,56 @@ class AddPlantThirdStepContent extends StatelessWidget {
       listener: (context, requirementsState) {},
       builder: (context, requirementsState) {
         return Column(
-          children: _questions.map(
-            (question) {
-              final selectedOption = _getCurrentValueForOption(context, question);
-              return Column(
-                children: [
-                  AppText(text: question.question),
-                  const SizedBox(height: 8),
-                  CupertinoSlidingSegmentedControl(
-                    thumbColor: AppColors.primary[20]!,
-                    children: _optionsAsWidgetMap(selectedOption),
-                    groupValue: selectedOption,
-                    onValueChanged: (value) {
-                      question.onAnswered(
-                        value!,
-                        context.read<PlantRequirementsCubit>(),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                ],
-              );
-            },
-          ).toList(),
+          children: [
+            ..._questions.map(
+              (question) {
+                final selectedOption =
+                    _getCurrentValueForOption(context, question);
+                return Column(
+                  children: [
+                    AppText(text: question.question),
+                    const SizedBox(height: 8),
+                    CupertinoSlidingSegmentedControl<num>(
+                      thumbColor: AppColors.primary[20]!,
+                      children: _optionsAsWidgetMap(selectedOption),
+                      groupValue: selectedOption,
+                      onValueChanged: (value) {
+                        question.onAnswered(
+                          value!,
+                          context.read<PlantRequirementsCubit>(),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                );
+              },
+            ),
+            const AppText(text: "What's the ideal temperature?"),
+            Slider(
+              value:
+                  context.read<PlantRequirementsCubit>().state.temperatureLevel,
+              min: -20.0,
+              max: 45.0,
+              divisions: 130,
+              label: context
+                  .read<PlantRequirementsCubit>()
+                  .state
+                  .temperatureLevel
+                  .toString(),
+              onChanged: (double value) {
+                context
+                    .read<PlantRequirementsCubit>()
+                    .updateTemperatureLevel(value);
+              },
+            ),
+          ],
         );
       },
     );
   }
 
-  Map<int, Widget> _optionsAsWidgetMap(int selectedOption) {
+  Map<int, Widget> _optionsAsWidgetMap(num selectedOption) {
     return _optionsMap.map(
       (index, value) => MapEntry(
         index,
@@ -100,7 +117,7 @@ class AddPlantThirdStepContent extends StatelessWidget {
     );
   }
 
-  int _getCurrentValueForOption(BuildContext context, Question question) {
+  num _getCurrentValueForOption(BuildContext context, Question question) {
     final allPLantsCubit = context.read<PlantRequirementsCubit>();
     switch (_questions.indexOf(question)) {
       case 0:

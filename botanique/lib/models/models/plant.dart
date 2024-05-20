@@ -15,6 +15,7 @@ class Plant with PlantMappable {
   final String imageUrl;
   final Requirements requirements;
   final List<ConditionsLog> conditionsLogs; 
+  final DateTime latestChange;
 
   const Plant({
     required this.plantId,
@@ -25,6 +26,7 @@ class Plant with PlantMappable {
     required this.imageUrl,
     required this.requirements,
     required this.conditionsLogs,
+    required this.latestChange,
   });
 }
 
@@ -89,7 +91,7 @@ class Requirements with RequirementsMappable {
   final Uuid requirementsId;
   final Uuid plantId;
   final int lightLevel;
-  final int temperatureLevel;
+  final double temperatureLevel;
   final int humidityLevel;
   final int soilMoistureLevel;
 
@@ -107,7 +109,7 @@ class Requirements with RequirementsMappable {
 class CreateRequirementsDto with CreateRequirementsDtoMappable {
   final int soilMoistureLevel;
   final int lightLevel;
-  final int temperatureLevel;
+  final double temperatureLevel;
   final int humidityLevel;
 
   CreateRequirementsDto({
@@ -130,7 +132,7 @@ class UpdateRequirementsDto with UpdateRequirementsDtoMappable {
   final Uuid requirementsId;
   final int soilMoistureLevel;
   final int lightLevel;
-  final int temperatureLevel;
+  final double temperatureLevel;
   final int humidityLevel;
 
   UpdateRequirementsDto({

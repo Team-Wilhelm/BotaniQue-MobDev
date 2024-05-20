@@ -12,7 +12,7 @@ class AllPlantsGrid extends StatelessWidget {
     return BlocBuilder<AllPlantsCubit, AllPlantsState>(
       builder: (context, collectionsState) {
         return SliverAnimatedGrid(
-          // TODO: figure out how the animations work
+          // TODO: this doesn't show new plants when added unless the screen is switched to another and back
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,

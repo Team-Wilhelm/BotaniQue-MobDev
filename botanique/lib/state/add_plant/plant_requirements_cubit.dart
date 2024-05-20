@@ -14,7 +14,7 @@ class PlantRequirementsCubit extends Cubit<RequirementsState> {
     emit(state.copyWith(lightLevel: lightLevel));
   }
 
-  void updateTemperatureLevel(int temperatureLevel) {
+  void updateTemperatureLevel(double temperatureLevel) {
     emit(state.copyWith(temperatureLevel: temperatureLevel));
   }
 
@@ -41,7 +41,7 @@ class RequirementsState {
   final Uuid? requirementsId;
   final int soilMoistureLevel;
   final int lightLevel;
-  final int temperatureLevel;
+  final double temperatureLevel;
   final int humidityLevel;
 
   RequirementsState({
@@ -76,7 +76,7 @@ class RequirementsState {
   RequirementsState copyWith({
     int? soilMoistureLevel,
     int? lightLevel,
-    int? temperatureLevel,
+    double? temperatureLevel,
     int? humidityLevel,
     Uuid? requirementsId,
   }) {
