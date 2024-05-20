@@ -169,8 +169,6 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
         backgroundColor: AppColors.error,
       ),
     );
-  } else if (serverEvent is ServerLogsUserOut) {
-    SecureStorageRepository().deleteData(LocalStorageKeys.jwt);
   } else if (serverEvent is ServerSendsUserInfo) {
     context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
     if (serverEvent.getUserDto.blobUrl != null) {

@@ -16,7 +16,7 @@ class HomeScreenGreeting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UpdateUserCubit, UpdateUserDto>(
+    return BlocBuilder<UserCubit, UserDto>(
         builder: (context, state) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,7 +47,7 @@ class HomeScreenGreeting extends StatelessWidget {
     });
   }
 
-  Widget _buildUserImage(BuildContext context, UpdateUserDto state) {
+  Widget _buildUserImage(BuildContext context, UserDto state) {
     return Container(
       height: 50,
       width: 50,

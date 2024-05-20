@@ -45,13 +45,24 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       },
     );
 
+    on<ServerLogsUserOut>(
+      (event, emit) {
+        final storageRepository = StorageRepository.storageRepository;
+        storageRepository.deleteData(LocalStorageKeys.jwt);
+        jwt = null;
+        emit(event);
+      },
+    );
+
     // Feed deserialized events from server into this bloc
     _channelSubscription = channel.stream
         .map((event) => ServerEventMapper.fromJson(event))
         .listen(add, onError: addError);
 
     // Verify token on startup
-    StorageRepository.storageRepository.getData(LocalStorageKeys.jwt).then((jwt) {
+    StorageRepository.storageRepository
+        .getData(LocalStorageKeys.jwt)
+        .then((jwt) {
       if (jwt != null) {
         add(
           ClientWantsToCheckJwtValidity(jwt: jwt),
