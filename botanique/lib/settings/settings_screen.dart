@@ -1,6 +1,7 @@
 import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
+import 'package:botanique/settings/collections/edit_collections_screen.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
 import 'package:botanique/shared/app_snackbar.dart';
@@ -96,7 +97,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
                   child:
-                      AppButton(onPressed: () {}, text: "Manage Collections"),
+                      AppButton(onPressed: () {_handleOnManageCollectionsTapped();}, text: "Manage Collections"),
                 ),
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
@@ -154,6 +155,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _handleOnEditTapped() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return ImageUpdateScreen();
+    }));
+  }
+
+  void _handleOnManageCollectionsTapped() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return EditCollectionsScreen();
     }));
   }
 

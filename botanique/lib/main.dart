@@ -2,6 +2,7 @@ import 'package:botanique/all_plants/all_plants_screen.dart';
 import 'package:botanique/auth/auth_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/models/events/server_events.dart';
+import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
@@ -153,6 +154,14 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
         .getPlantsForCurrentlySelectedCollection(context.read<WebSocketBloc>());
   } else if (serverEvent is ServerSendsPlants) {
     context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
+  }
+
+  //Collections
+  else if (serverEvent is ServerSavesCollection) {
+    context.read<AllPlantsCubit>().addOrUpdateCollections(serverEvent.collection);
+  } else if (serverEvent is ServerDeletesCollection) {
+    context.read<AllPlantsCubit>().refreshData(context.read<WebSocketBloc>());
+
   } else if (serverEvent is ServerSendsErrorMessage) {
     if (serverEvent is ServerRespondsNotFound &&
         serverEvent.error.contains("No conditions log")) {
