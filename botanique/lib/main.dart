@@ -19,10 +19,6 @@ import 'package:localstorage/localstorage.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
-import 'models/events/client_events.dart';
-import 'repositories/secure_storage_repository.dart';
-import 'shared/app_text.dart';
-import 'shared/navigation/app_navbar.dart';
 import 'state/add_plant/add_plant_cubit.dart';
 import 'style/app_style.dart';
 import 'util/navigation_constants.dart';

@@ -1,4 +1,3 @@
-import 'package:botanique/models/dtos/user/user_dto.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/util/asset_constants.dart';
 import 'package:botanique/util/navigation_constants.dart';
@@ -16,8 +15,7 @@ class HomeScreenGreeting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserCubit, UserDto>(
-        builder: (context, state) {
+    return BlocBuilder<UserCubit, UserCubitState>(builder: (context, state) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -25,7 +23,7 @@ class HomeScreenGreeting extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(
-                text: "Hi, ${state.username ?? 'green thumb'}!",
+                text: "Hi, ${state.userDto.username ?? 'green thumb'}!",
                 fontSize: FontSizes.h3,
                 fontWeight: FontWeight.bold,
               ),
@@ -47,19 +45,26 @@ class HomeScreenGreeting extends StatelessWidget {
     });
   }
 
-  Widget _buildUserImage(BuildContext context, UserDto state) {
+  Widget _buildUserImage(BuildContext context, UserCubitState state) {
     return Container(
       height: 50,
       width: 50,
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(50),
-        image: const DecorationImage(
-          image: AssetImage(AssetConstants
-              .profile), // TODO: conditional access to the user image when it's available
+        image: DecorationImage(
+          image: getImage(state.userDto.blobUrl),
           fit: BoxFit.cover,
         ),
       ),
     );
+  }
+
+  ImageProvider getImage(String? blobUrl) {
+    if (blobUrl != null) {
+      return NetworkImage(blobUrl);
+    } else {
+      return const AssetImage(AssetConstants.profile);
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/image_update_screen.dart';
@@ -13,7 +14,6 @@ import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../shared/buttons/app_button.dart';
-import '../shared/buttons/button_style.dart';
 import 'panel_content/panel_item.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -79,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 _buildStatsCard(diameter),
                 spacerDouble,
-                AppText(
+                const AppText(
                     text: "Settings",
                     textAlign: TextAlign.center,
                     fontSize: FontSizes.h2,
@@ -96,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 Padding(
                     padding: _getSymmetricHorizontalPadding(),
-                    child: Column(
+                    child: const Column(
                       children: [
                         AppText(
                           text: "About BotaniQue",
