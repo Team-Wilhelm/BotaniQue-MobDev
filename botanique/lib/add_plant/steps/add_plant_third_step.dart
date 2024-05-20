@@ -1,3 +1,4 @@
+import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,18 +31,18 @@ class AddPlantThirdStepContent extends StatelessWidget {
   final List<Question> _questions = [
     Question(
       question: "How humid should the environment be?",
-      onAnswered: (value, requirementsCubit) =>
-          requirementsCubit.updateHumidityLevel(value as int),
+      onAnswered: (value, requirementsCubit) => requirementsCubit
+          .updateHumidityLevel(RequirementLevel.values[value as int]),
     ),
     Question(
       question: "What about the preferred soil moisture?",
-      onAnswered: (value, requirementsCubit) =>
-          requirementsCubit.updateSoilMoistureLevel(value as int),
+      onAnswered: (value, requirementsCubit) => requirementsCubit
+          .updateSoilMoistureLevel(RequirementLevel.values[value as int]),
     ),
     Question(
       question: "How much light does it need?",
-      onAnswered: (value, requirementsCubit) =>
-          requirementsCubit.updateLightLevel(value as int),
+      onAnswered: (value, requirementsCubit) => requirementsCubit
+          .updateLightLevel(RequirementLevel.values[value as int]),
     ),
   ];
 
@@ -121,11 +122,11 @@ class AddPlantThirdStepContent extends StatelessWidget {
     final allPLantsCubit = context.read<PlantRequirementsCubit>();
     switch (_questions.indexOf(question)) {
       case 0:
-        return allPLantsCubit.state.humidityLevel;
+        return allPLantsCubit.state.humidityLevel.index;
       case 1:
-        return allPLantsCubit.state.soilMoistureLevel;
+        return allPLantsCubit.state.soilMoistureLevel.index;
       case 2:
-        return allPLantsCubit.state.lightLevel;
+        return allPLantsCubit.state.lightLevel.index;
       case 3:
         return allPLantsCubit.state.temperatureLevel;
       default:

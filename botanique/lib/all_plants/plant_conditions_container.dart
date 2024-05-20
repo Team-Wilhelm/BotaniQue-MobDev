@@ -1,7 +1,10 @@
 import 'package:botanique/models/models/conditions.dart';
+import 'package:botanique/style/app_style.dart';
+import 'package:botanique/util/helpers.dart';
 import 'package:flutter/material.dart';
 
 import '../models/enums/app_enums.dart';
+import '../models/models/plant.dart';
 import '../shared/app_text.dart';
 import 'plant_card_stat.dart';
 
@@ -9,9 +12,11 @@ class PlantConditionsContainer extends StatelessWidget {
   PlantConditionsContainer({
     super.key,
     required this.conditionsLog,
+    required this.idealRequirements,
   });
 
   final ConditionsLog? conditionsLog;
+  final Requirements idealRequirements;
   final List<PlantDetailStat> stats = [
     PlantDetailStat.soilMoisture,
     PlantDetailStat.temperature,
@@ -34,25 +39,36 @@ class PlantConditionsContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: Theme.of(context).colorScheme.surface,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: Column(
         children: [
-          for (int i = 0; i < 2; i++)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _getStatGridTile(stats[i]),
-                const SizedBox(height: 16),
-                _getStatGridTile(stats[i + 2]),
-              ],
-            )
+          AppText(
+            text:
+                "Conditions from ${DateFormatter.format(conditionsLog!.timeStamp)}",
+            overflow: TextOverflow.visible,
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              for (int i = 0; i < 2; i++)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _getStatGridTile(stats[i]),
+                    const SizedBox(height: 16),
+                    _getStatGridTile(stats[i + 2]),
+                  ],
+                )
+            ],
+          ),
         ],
       ),
     );
   }
 
   Widget _getStatGridTile(PlantDetailStat stat) {
+    final value = conditionsLog!.getStatValue(stat);
     return Container(
       padding: const EdgeInsets.all(4),
       child: Row(
@@ -64,11 +80,16 @@ class PlantConditionsContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(
+                text: _formatIdealRange(stat),
+                fontSize: FontSizes.tiny,
+              ),
+              AppText(
                 text: stat.value,
                 fontWeight: FontWeight.bold,
               ),
               AppText(
-                text: _formatStatValue(conditionsLog!.getStatValue(stat)),
+                text: _formatStatValue(value, stat),
+                colour: _getStatColor(value, stat),
               ),
             ],
           ),
@@ -77,7 +98,29 @@ class PlantConditionsContainer extends StatelessWidget {
     );
   }
 
-  String _formatStatValue(double statValue) {
-    return "${statValue.toStringAsFixed(2)}%"; // TODO: format based on stat when we change temperature to celsius
+  String _formatStatValue(double statValue, PlantDetailStat stat) {
+    return "${statValue.toStringAsFixed(2)}${_getUnit(stat)}";
+  }
+
+  String _formatIdealRange(PlantDetailStat stat) {
+    final range = idealRequirements.getIdealRange(stat);
+    final unit = _getUnit(stat);
+    return "${range.$1}$unit - ${range.$2}$unit";
+  }
+
+  String _getUnit(PlantDetailStat stat) {
+    if (stat == PlantDetailStat.temperature) {
+      return "°C";
+    }
+    return "%";
+  }
+
+  Color _getStatColor(double statValue, PlantDetailStat stat) {
+    final range = idealRequirements.getIdealRange(stat);
+    if (statValue < range.$1 || statValue > range.$2) {
+      return AppColors.error;
+    } else {
+      return TextColors.textDark;
+    }
   }
 }

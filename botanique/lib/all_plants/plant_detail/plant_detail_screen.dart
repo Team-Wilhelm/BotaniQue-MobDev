@@ -53,6 +53,7 @@ class _PlantDetailScreenState extends State<PlantDetailScreen> {
                   const SizedBox(height: 16),
                   PlantConditionsContainer(
                     conditionsLog: latestConditions,
+                    idealRequirements: plant.requirements,
                   ),
                   const SizedBox(height: 16),
                   HistoricConditionsChart(

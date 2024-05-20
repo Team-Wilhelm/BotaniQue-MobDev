@@ -67,7 +67,6 @@ class AddPlantFirstStepContent extends StatelessWidget {
     );
   }
 
-  // TODO: fix this
   String get collectionQuestion {
     final plantName = plantNameController.text == ""
         ? "your plant"

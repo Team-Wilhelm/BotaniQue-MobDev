@@ -1,4 +1,8 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import '../../util/asset_constants.dart';
+
+part 'app_enums.mapper.dart';
 
 enum PlantDetailStat {
   mood,
@@ -36,6 +40,37 @@ extension PlantDetailStatExtension on PlantDetailStat {
         return AssetConstants.humiditySvg;
       case PlantDetailStat.mood:
         return AssetConstants.moodSvg;
+    }
+  }
+}
+
+@MappableEnum(mode: ValuesMode.indexed)
+enum RequirementLevel {
+  low,
+  medium,
+  high,
+}
+
+extension RequirementLevelExtension on RequirementLevel {
+  String get value {
+    switch (this) {
+      case RequirementLevel.low:
+        return "Low";
+      case RequirementLevel.medium:
+        return "Medium";
+      case RequirementLevel.high:
+        return "High";
+    }
+  }
+
+  (int, int) get range {
+    switch (this) {
+      case RequirementLevel.low:
+        return (0, 33);
+      case RequirementLevel.medium:
+        return (34, 66);
+      case RequirementLevel.high:
+        return (67, 100);
     }
   }
 }

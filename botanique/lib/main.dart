@@ -96,7 +96,6 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(context.read<NavigationCubit>().state.index);
     return MaterialApp(
       title: 'BotaniQue',
       debugShowCheckedModeBanner: false,

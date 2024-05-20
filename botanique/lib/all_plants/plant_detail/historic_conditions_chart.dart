@@ -135,21 +135,10 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
         borderRadius: BorderRadius.circular(20),
         color: Theme.of(context).colorScheme.surface,
       ),
-      child: Column(
-        children: [
-          CupertinoSlidingSegmentedControl<PlantDetailStat>(
-            thumbColor: AppColors.primary[20]!,
-            children: _plantStatsAsWidgetMap(),
-            groupValue: _selectedStat,
-            onValueChanged: (value) {
-              setState(() {
-                _selectedStat = value!;
-              });
-            },
-          ),
-          const SizedBox(height: 12),
-          if (conditionsLogs.length < 2)
-            const SizedBox(
+      child: Builder(
+        builder: (context) {
+          if (conditionsLogs.length < 2) {
+            return const SizedBox(
               height: 200,
               child: Center(
                 child: AppText(
@@ -158,43 +147,59 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
                   textAlign: TextAlign.center,
                 ),
               ),
-            ),
-          if (conditionsLogs.length >= 2)
-            SfCartesianChart(
-              key: ValueKey(_selectedStat.value + _selectedRange.toString()),
-              primaryXAxis: getXAxis(),
-              primaryYAxis: NumericAxis(
-                plotOffset: 20,
-                minimum: minimum,
-                maximum: maximum,
-                interval: interval,
+            );
+          }
+
+          return Column(
+            children: [
+              CupertinoSlidingSegmentedControl<PlantDetailStat>(
+                thumbColor: AppColors.primary[20]!,
+                children: _plantStatsAsWidgetMap(),
+                groupValue: _selectedStat,
+                onValueChanged: (value) {
+                  setState(() {
+                    _selectedStat = value!;
+                  });
+                },
               ),
-              series: <CartesianSeries>[
-                SplineSeries<ConditionsLog, DateTime>(
-                  splineType: SplineType.monotonic,
-                  dataSource: conditionsLogs,
-                  xValueMapper: (ConditionsLog conditions, _) =>
-                      conditions.timeStamp,
-                  yValueMapper: (ConditionsLog conditions, _) =>
-                      conditions.getStatValue(_selectedStat),
-                  name: _selectedStat.value,
-                  color: AppColors.secondary,
+              const SizedBox(height: 12),
+              SfCartesianChart(
+                key: ValueKey(_selectedStat.value + _selectedRange.toString()),
+                primaryXAxis: getXAxis(),
+                primaryYAxis: NumericAxis(
+                  plotOffset: 20,
+                  minimum: minimum,
+                  maximum: maximum,
+                  interval: interval,
                 ),
-              ],
-            ),
-          const SizedBox(height: 8),
-          CupertinoSlidingSegmentedControl<int>(
-            thumbColor: AppColors.primary[20]!,
-            children: _rangesAsWidgetMap(),
-            groupValue: _selectedRange,
-            onValueChanged: (value) {
-              setState(() {
-                _selectedRange = value!;
-                _requestHistoricConditionsLogs();
-              });
-            },
-          ),
-        ],
+                series: <CartesianSeries>[
+                  SplineSeries<ConditionsLog, DateTime>(
+                    splineType: SplineType.monotonic,
+                    dataSource: conditionsLogs,
+                    xValueMapper: (ConditionsLog conditions, _) =>
+                        conditions.timeStamp,
+                    yValueMapper: (ConditionsLog conditions, _) =>
+                        conditions.getStatValue(_selectedStat),
+                    name: _selectedStat.value,
+                    color: AppColors.secondary,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              CupertinoSlidingSegmentedControl<int>(
+                thumbColor: AppColors.primary[20]!,
+                children: _rangesAsWidgetMap(),
+                groupValue: _selectedRange,
+                onValueChanged: (value) {
+                  setState(() {
+                    _selectedRange = value!;
+                    _requestHistoricConditionsLogs();
+                  });
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
