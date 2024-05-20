@@ -45,6 +45,7 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
         if (state is ServerSendsHistoricConditionLogsForPlant) {
           setState(() {
             conditionsLogs = state.conditionsLogs;
+            print(conditionsLogs);
           });
         }
       },
@@ -119,8 +120,9 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
           ClientWantsHistoricConditionLogsForPlant(
             plantId: widget.plantId,
             jwt: "jwt",
-            startDate: DateTime.now().subtract(Duration(days: _selectedRange)),
-            endDate: DateTime.now(),
+            startDate:
+                DateTime.now().subtract(Duration(days: _selectedRange)).toUtc(),
+            endDate: DateTime.now().toUtc(),
           ),
         );
   }
@@ -149,32 +151,43 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
             },
           ),
           const SizedBox(height: 12),
-          SfCartesianChart(
-            key: ValueKey(_selectedStat),
-            primaryXAxis: DateTimeAxis(
-              intervalType: DateTimeIntervalType.hours,
-              interval: 5,
-              dateFormat: DateFormat.Hm(),
-            ),
-            primaryYAxis: NumericAxis(
-              plotOffset: 20,
-              minimum: minimum,
-              maximum: maximum,
-              interval: interval,
-            ),
-            series: <CartesianSeries>[
-              SplineSeries<ConditionsLog, DateTime>(
-                splineType: SplineType.monotonic,
-                dataSource: conditionsLogs,
-                xValueMapper: (ConditionsLog conditions, _) =>
-                    conditions.timeStamp,
-                yValueMapper: (ConditionsLog conditions, _) =>
-                    conditions.getStatValue(_selectedStat),
-                name: _selectedStat.value,
-                color: AppColors.secondary,
+          if (conditionsLogs.length < 2)
+            const SizedBox(
+              height: 200,
+              child: Center(
+                child: AppText(
+                  text: "There is not enough data to show a chart yet.",
+                  overflow: TextOverflow.visible,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ],
-          ),
+            ),
+          if (conditionsLogs.length >= 2)
+            SfCartesianChart(
+              key: ValueKey(_selectedStat),
+              primaryXAxis: DateTimeAxis(
+                intervalType: DateTimeIntervalType.auto,
+                dateFormat: DateFormat.Md(),
+              ),
+              primaryYAxis: NumericAxis(
+                plotOffset: 20,
+                minimum: minimum,
+                maximum: maximum,
+                interval: interval,
+              ),
+              series: <CartesianSeries>[
+                SplineSeries<ConditionsLog, DateTime>(
+                  splineType: SplineType.monotonic,
+                  dataSource: conditionsLogs,
+                  xValueMapper: (ConditionsLog conditions, _) =>
+                      conditions.timeStamp,
+                  yValueMapper: (ConditionsLog conditions, _) =>
+                      conditions.getStatValue(_selectedStat),
+                  name: _selectedStat.value,
+                  color: AppColors.secondary,
+                ),
+              ],
+            ),
           const SizedBox(height: 8),
           CupertinoSlidingSegmentedControl<int>(
             thumbColor: AppColors.primary[20]!,
