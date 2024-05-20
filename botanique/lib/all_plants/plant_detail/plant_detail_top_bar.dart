@@ -20,14 +20,6 @@ class PlantDetailTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TopBar(
       title: plant.nickname,
-      onBack: () {
-        // TODO: if the plant was edited, refresh that plant's data in UI
-        /*context
-                    .read<AllPlantsCubit>()
-                    .getPlantsForCurrentlySelectedCollection(
-                        context.read<WebSocketBloc>());
-                        */
-      },
       actions: [
         TopBarAction(
           text: "Edit",

@@ -5,6 +5,7 @@ import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';
 import 'package:botanique/shared/success_screen.dart';
+import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/util/xfile_converter.dart';
@@ -78,11 +79,14 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
           if (state is ServerSavesPlant) {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const SuccessScreen()));
-            Future.delayed(const Duration(seconds: 3), () {
+            context
+                .read<NavigationCubit>()
+                .changePage(NavigationConstants.allPlants);
+            Future.delayed(const Duration(seconds: 2), () {
               Navigator.of(context).pop();
               context
-                  .read<NavigationCubit>()
-                  .changePage(NavigationConstants.allPlants);
+                  .read<AllPlantsCubit>()
+                  .refreshData(context.read<WebSocketBloc>());
               context.read<PlantRequirementsCubit>().reset();
               context.read<AddPlantCubit>().resetAddPlantState();
             });
