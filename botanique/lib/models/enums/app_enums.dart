@@ -59,3 +59,12 @@ enum ButtonShape {
   square,
   round,
 }
+
+class HisotricConditionRange {
+  static const week = 7;
+  static const fourteenDays = 14;
+  static const month = 30;
+  static const year = 365;
+
+  static const List<int> all = [week, fourteenDays, month, year];
+}

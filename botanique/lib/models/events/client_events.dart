@@ -163,14 +163,12 @@ class ClientWantsLatestConditionsForPlant extends ClientEventWithJwt
 class ClientWantsHistoricConditionLogsForPlant extends ClientEventWithJwt
     with ClientWantsHistoricConditionLogsForPlantMappable {
   final Uuid plantId;
-  final DateTime startDate;
-  final DateTime endDate;
+  final int timeSpanInDays;
 
   ClientWantsHistoricConditionLogsForPlant({
     required super.jwt,
     required this.plantId,
-    required this.startDate,
-    required this.endDate,
+    required this.timeSpanInDays,
     super.eventType = "ClientWantsHistoricConditionLogsForPlant",
   });
 }
@@ -259,7 +257,6 @@ class ClientWantsToGetCriticalPlants extends ClientEventWithJwt
 @MappableClass(discriminatorValue: "ClientWantsPlaceholderUrl")
 class ClientWantsPlaceholderUrl extends ClientEventWithJwt
     with ClientWantsPlaceholderUrlMappable {
-
   ClientWantsPlaceholderUrl({
     required super.jwt,
     super.eventType = "ClientWantsPlaceholderUrl",

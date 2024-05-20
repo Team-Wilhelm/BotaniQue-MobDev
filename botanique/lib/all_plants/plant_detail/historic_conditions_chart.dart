@@ -29,7 +29,7 @@ class HistoricConditionsChart extends StatefulWidget {
 
 class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
   PlantDetailStat _selectedStat = PlantDetailStat.mood;
-  int _selectedRange = 7;
+  int _selectedRange = HisotricConditionRange.week;
   List<ConditionsLog> conditionsLogs = [];
 
   @override
@@ -45,7 +45,6 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
         if (state is ServerSendsHistoricConditionLogsForPlant) {
           setState(() {
             conditionsLogs = state.conditionsLogs;
-            print(conditionsLogs);
           });
         }
       },
@@ -101,7 +100,7 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
 
   Map<int, Widget> _rangesAsWidgetMap() {
     return {
-      for (var item in [7, 14, 30, 365])
+      for (var item in HisotricConditionRange.all)
         item: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: AppText(
@@ -120,9 +119,7 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
           ClientWantsHistoricConditionLogsForPlant(
             plantId: widget.plantId,
             jwt: "jwt",
-            startDate:
-                DateTime.now().subtract(Duration(days: _selectedRange)).toUtc(),
-            endDate: DateTime.now().toUtc(),
+            timeSpanInDays: _selectedRange,
           ),
         );
   }
@@ -164,11 +161,8 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
             ),
           if (conditionsLogs.length >= 2)
             SfCartesianChart(
-              key: ValueKey(_selectedStat),
-              primaryXAxis: DateTimeAxis(
-                intervalType: DateTimeIntervalType.auto,
-                dateFormat: DateFormat.Md(),
-              ),
+              key: ValueKey(_selectedStat.value + _selectedRange.toString()),
+              primaryXAxis: getXAxis(),
               primaryYAxis: NumericAxis(
                 plotOffset: 20,
                 minimum: minimum,
@@ -204,4 +198,18 @@ class _HistoricConditionsChartState extends State<HistoricConditionsChart> {
       ),
     );
   }
+
+  ChartAxis getXAxis() {
+    final interval = isYearSelected ? 12 : 7;
+
+    return DateTimeAxis(
+      intervalType: isYearSelected
+          ? DateTimeIntervalType.months
+          : DateTimeIntervalType.days,
+      desiredIntervals: interval,
+      dateFormat: isYearSelected ? DateFormat.yM() : DateFormat("dd/MM"),
+    );
+  }
+
+  get isYearSelected => _selectedRange == HisotricConditionRange.year;
 }
