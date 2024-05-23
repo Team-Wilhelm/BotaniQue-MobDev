@@ -162,7 +162,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     print('Error: ${serverEvent.error}');
     AppSnackbar(context).showError(serverEvent.error);
   } else if (serverEvent is ServerSendsUserInfo) {
-    context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
+    context.read<UserCubit>()..updateUsername(serverEvent.getUserDto.username)..setUserEmail(serverEvent.getUserDto.userEmail);
     if (serverEvent.getUserDto.blobUrl != null) {
       context
           .read<UserCubit>()

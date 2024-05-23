@@ -277,6 +277,13 @@ class ClientWantsToDeleteProfileImage extends ClientEventWithJwt
   });
 }
 
+@MappableClass(discriminatorValue: "ClientWantsUserInfo")
+class ClientWantsUserInfo extends ClientEventWithJwt
+    with ClientWantsUserInfoMappable {
+  ClientWantsUserInfo(
+      {required super.jwt, super.eventType = "ClientWantsUserInfo"});
+}
+
 @MappableClass(discriminatorValue: "ClientWantsToGetCriticalPlants")
 class ClientWantsToGetCriticalPlants extends ClientEventWithJwt
     with ClientWantsToGetCriticalPlantsMappable {
