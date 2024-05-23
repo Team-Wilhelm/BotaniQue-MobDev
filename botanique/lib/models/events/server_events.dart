@@ -281,3 +281,12 @@ class ServerRejectsUpdate extends ServerSendsErrorMessage
   });
 }
 
+@MappableClass(discriminatorValue: 'ServerSendsStats')
+class ServerSendsStats extends ServerEvent with ServerSendsStatsMappable {
+  final Stats stats;
+  ServerSendsStats({
+    super.eventType = "ServerSendsStats",
+    required this.stats
+});
+}
+

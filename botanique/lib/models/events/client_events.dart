@@ -301,3 +301,12 @@ class ClientWantsPlaceholderUrl extends ClientEventWithJwt
     super.eventType = "ClientWantsPlaceholderUrl",
   });
 }
+
+@MappableClass(discriminatorValue: "ClientWantsStats")
+class ClientWantsStats extends ClientEventWithJwt
+    with ClientWantsStatsMappable {
+  ClientWantsStats({
+    required super.jwt,
+    super.eventType = "ClientWantsStats"
+  });
+}

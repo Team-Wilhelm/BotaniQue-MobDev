@@ -31,3 +31,16 @@ class GetUserDto with GetUserDtoMappable {
     this.blobUrl,
   });
 }
+
+@MappableClass()
+class Stats with StatsMappable {
+  final int? totalPlants;
+  final int? happyPlants;
+  final int? collections;
+
+  Stats ({
+    this.totalPlants,
+    this.happyPlants,
+    this.collections
+});
+}
