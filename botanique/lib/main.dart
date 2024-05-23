@@ -11,6 +11,7 @@ import 'package:botanique/state/home_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/util/content_size_helper.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +102,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       home: Scaffold(
+        backgroundColor: AppColors.background,
         body: BlocConsumer<WebSocketBloc, ServerEvent>(
           listener: (context, serverEvent) =>
               _handleGlobalEvents(context, serverEvent),
@@ -114,9 +116,15 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
               )
             },
             builder: (context, state) {
-              return PageView(
-                controller: _pageController,
-                children: _screens,
+              return Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: ContentSizeHelper.getContentWidth(context),
+                  child: PageView(
+                    controller: _pageController,
+                    children: _screens,
+                  ),
+                ),
               );
             },
           ),
@@ -164,9 +172,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
   } else if (serverEvent is ServerSendsUserInfo) {
     context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
     if (serverEvent.getUserDto.blobUrl != null) {
-      context
-          .read<UserCubit>()
-          .updateBlobUrl(serverEvent.getUserDto.blobUrl!);
+      context.read<UserCubit>().updateBlobUrl(serverEvent.getUserDto.blobUrl!);
     }
     context.read<NavigationCubit>().changePage(NavigationConstants.home);
   }

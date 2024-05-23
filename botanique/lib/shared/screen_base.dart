@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../util/content_size_helper.dart';
+
 class ScreenBase extends StatelessWidget {
   const ScreenBase({
     super.key,
@@ -26,8 +28,8 @@ class ScreenBase extends StatelessWidget {
   }
 
   EdgeInsets getEdgeInsets(BuildContext context) {
-    double sidePadding = MediaQuery.of(context).size.width * 0.05;
-    double topPadding = MediaQuery.of(context).size.height * 0.05;
+    double sidePadding = ContentSizeHelper.getContentWidth(context) * 0.05;
+    double topPadding = ContentSizeHelper.getContentHeight(context) * 0.05;
 
     return EdgeInsets.fromLTRB(
       sidePadding,

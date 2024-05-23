@@ -2,6 +2,7 @@ import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:botanique/util/content_size_helper.dart';
 import 'package:botanique/util/helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,7 @@ class NeedSomeLoveRow extends StatelessWidget {
   }
 
   double getImageSize(BuildContext context) {
-    return MediaQuery.of(context).size.width * 0.15;
+    return ContentSizeHelper.getContentWidth(context) * 0.15;
   }
 
   PageRouteBuilder _getPageRouteBuilder(Plant plant) {

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/models/plant.dart';
+import '../util/content_size_helper.dart';
 import 'home_screen_banner.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,12 +22,14 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const HomeScreenGreeting(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            SizedBox(
+                height: ContentSizeHelper.getContentHeight(context) * 0.03),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const HomeScreenBanner(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                SizedBox(
+                    height: ContentSizeHelper.getContentHeight(context) * 0.04),
                 const AppText(
                   text: "These plants need your love",
                   fontSize: FontSizes.h4,
@@ -39,7 +42,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            SizedBox(
+                height: ContentSizeHelper.getContentHeight(context) * 0.02),
           ],
         ),
       ),
@@ -53,7 +57,7 @@ class HomeScreen extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.15,
+        height: ContentSizeHelper.getContentHeight(context) * 0.15,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: AppColors.cardBackground,

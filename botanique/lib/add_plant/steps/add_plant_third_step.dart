@@ -1,6 +1,7 @@
 import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:botanique/util/content_size_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,22 +79,29 @@ class AddPlantThirdStepContent extends StatelessWidget {
               },
             ),
             const AppText(text: "What's the ideal temperature?"),
-            Slider(
-              value:
-                  context.read<PlantRequirementsCubit>().state.temperatureLevel,
-              min: -20.0,
-              max: 45.0,
-              divisions: 130,
-              label: context
-                  .read<PlantRequirementsCubit>()
-                  .state
-                  .temperatureLevel
-                  .toString(),
-              onChanged: (double value) {
-                context
+            SizedBox(
+              width: ContentSizeHelper.isLargeScreen(context)
+                  ? ContentSizeHelper.getContentWidth(context) * 0.5
+                  : null,
+              child: Slider(
+                value: context
                     .read<PlantRequirementsCubit>()
-                    .updateTemperatureLevel(value);
-              },
+                    .state
+                    .temperatureLevel,
+                min: -20.0,
+                max: 45.0,
+                divisions: 130,
+                label: context
+                    .read<PlantRequirementsCubit>()
+                    .state
+                    .temperatureLevel
+                    .toString(),
+                onChanged: (double value) {
+                  context
+                      .read<PlantRequirementsCubit>()
+                      .updateTemperatureLevel(value);
+                },
+              ),
             ),
           ],
         );

@@ -27,3 +27,12 @@ dart run vector_graphics_compiler -i assets/foo.svg -o assets/foo.svg.vec
 ```bash
 flutter pub run flutter_launcher_icons
 ```
+
+### To run the app locally on chrome (to ensure that pictures can be loaded)
+1- Go to flutter\bin\cache and remove a file named: flutter_tools.stamp
+
+2- Go to flutter\packages\flutter_tools\lib\src\web and open the file chrome.dart.
+
+3- Find '--disable-extensions'
+
+4- Add '--disable-web-security'

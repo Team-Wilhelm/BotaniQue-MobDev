@@ -2,6 +2,7 @@ import 'package:botanique/add_plant/collection_dropdown.dart';
 import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/buttons/app_icon_button.dart';
+import 'package:botanique/util/content_size_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -25,7 +26,9 @@ class AddPlantFirstStepContent extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: ContentSizeHelper.isLargeScreen(context)
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.spaceAround,
             children: [
               const AppText(
                 text: "What do you call your green friend?",

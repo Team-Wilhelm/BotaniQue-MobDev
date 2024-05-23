@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/buttons/app_button.dart';
+import '../util/content_size_helper.dart';
 import 'panel_content/panel_item.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double diameter = MediaQuery.of(context).size.width * 0.25;
+    final double diameter = ContentSizeHelper.getContentWidth(context) * 0.25;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -309,7 +310,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   EdgeInsets _getSymmetricHorizontalPadding() {
-    double sidePadding = MediaQuery.of(context).size.width * 0.05;
+    double sidePadding = ContentSizeHelper.getContentWidth(context) * 0.05;
     return EdgeInsets.symmetric(
       horizontal: sidePadding,
     );

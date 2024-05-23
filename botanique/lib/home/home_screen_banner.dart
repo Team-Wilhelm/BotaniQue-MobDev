@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../util/content_size_helper.dart';
+
 class HomeScreenBanner extends StatelessWidget {
   const HomeScreenBanner({super.key});
 
@@ -34,7 +36,7 @@ class HomeScreenBanner extends StatelessWidget {
           ),
         ],
       ),
-      height: MediaQuery.of(context).size.height * 0.15,
+      height: ContentSizeHelper.getContentHeight(context) * 0.15,
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
