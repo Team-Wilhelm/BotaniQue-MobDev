@@ -1,18 +1,20 @@
 import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
+import 'package:botanique/repositories/storage_repository.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
 import 'package:botanique/shared/app_snackbar.dart';
+import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:botanique/util/navigation_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:botanique/shared/app_text.dart';
-import 'package:botanique/style/app_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../shared/buttons/app_button.dart';
 import 'panel_content/panel_item.dart';
 
@@ -118,12 +120,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: AppButton(
                     onPressed: () {
                       context.read<WebSocketBloc>().add(ClientWantsToLogOut(
-                          email: userState.userDto.userEmail ??
-                              "", //TODO what if null?
                           eventType: "ClientWantsToLogOut"));
                       context
                           .read<NavigationCubit>()
                           .changePage(NavigationConstants.welcome);
+                      StorageRepository.storageRepository
+                          .deleteData(LocalStorageKeys.jwt);
                     },
                     text: "Log Out",
                     buttonType: ButtonType.warning,

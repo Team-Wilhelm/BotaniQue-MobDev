@@ -3,10 +3,11 @@ import 'package:botanique/models/auth/log_in_dto.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../shared/buttons/app_button.dart';
 import '../shared/app_text_field.dart';
+import '../shared/buttons/app_button.dart';
 import '../state/navigation_cubit.dart';
 import '../style/app_style.dart';
 
@@ -27,6 +28,7 @@ class _AuthFormState extends State<AuthForm> {
       TextEditingController(text: "bob@app.com"); // TODO: remove
   final _passwordController = TextEditingController(text: "password");
   final _repeatPasswordController = TextEditingController();
+  final _userNameController = TextEditingController();
 
   bool _isButtonDisabled = true;
   bool _isPasswordVisible = false;
@@ -42,6 +44,8 @@ class _AuthFormState extends State<AuthForm> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _repeatPasswordController.dispose();
+    _userNameController.dispose();
     super.dispose();
   }
 
@@ -70,18 +74,14 @@ class _AuthFormState extends State<AuthForm> {
           placeholder: "Password",
           prefixIcon: const Icon(Icons.lock),
           suffixIcon: IconButton(
-            icon: _isPasswordVisible
-                ? const Icon(Icons.visibility)
-                : const Icon(Icons.visibility_off),
+            icon: _passwordVisibilityIcon,
             onPressed: () {
               setState(() {
                 _isPasswordVisible = !_isPasswordVisible;
               });
             },
           ),
-          textInputType: _isPasswordVisible
-              ? TextInputType.visiblePassword
-              : TextInputType.text,
+          textInputType: _passwordInputType,
         ),
         if (widget.isSignUp) ...[
           spacer,
@@ -90,18 +90,23 @@ class _AuthFormState extends State<AuthForm> {
             placeholder: "Repeat Password",
             prefixIcon: const Icon(Icons.lock),
             suffixIcon: IconButton(
-              icon: _isPasswordVisible
-                  ? const Icon(Icons.visibility)
-                  : const Icon(Icons.visibility_off),
+              icon: _passwordVisibilityIcon,
               onPressed: () {
                 setState(() {
                   _isPasswordVisible = !_isPasswordVisible;
                 });
               },
             ),
-            textInputType: _isPasswordVisible
-                ? TextInputType.visiblePassword
-                : TextInputType.text,
+            textInputType: _passwordInputType,
+          ),
+          spacer,
+          AppTextField(
+            prefixIcon: const Icon(Icons.person),
+            textFieldController: _userNameController,
+            placeholder: "Username (Bob...)",
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(50),
+            ],
           ),
         ],
         const Spacer(),
@@ -133,6 +138,27 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   void onSignUpPressed() {
-    // register dto, wait for Maria's changes
+    final RegisterUserDto registerUserDto = RegisterUserDto(
+      email: _emailController.text,
+      password: _passwordController.text,
+      username: _userNameController.text,
+    );
+    context.read<WebSocketBloc>().add(
+          ClientWantsToSignUp(
+            registerUserDto: registerUserDto,
+          ),
+        );
+  }
+
+  Icon get _passwordVisibilityIcon {
+    return _isPasswordVisible
+        ? const Icon(Icons.visibility)
+        : const Icon(Icons.visibility_off);
+  }
+
+  TextInputType get _passwordInputType {
+    return _isPasswordVisible
+        ? TextInputType.visiblePassword
+        : TextInputType.text;
   }
 }

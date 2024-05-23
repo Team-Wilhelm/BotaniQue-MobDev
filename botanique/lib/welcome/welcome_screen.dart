@@ -53,7 +53,15 @@ class WelcomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 )),
             spacer,
-            const AppText(text: 'Create an account', fontSize: FontSizes.h5),
+            GestureDetector(
+              onTap: () => context.read<NavigationCubit>()
+                ..toggleSignUpScreen()
+                ..changePage(NavigationConstants.auth),
+              child: const AppText(
+                text: 'Create an account',
+                fontSize: FontSizes.h5,
+              ),
+            ),
             spacer,
             const AppText(
               text: 'Forgot password?',

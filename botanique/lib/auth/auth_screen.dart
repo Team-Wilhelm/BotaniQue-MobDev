@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:botanique/models/events/server_events.dart';
+import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/style/app_style.dart';
@@ -24,14 +25,14 @@ class AuthScreen extends StatelessWidget {
         if (state is ServerAuthenticatesUser) {
           context.read<NavigationCubit>().changePage(NavigationConstants.home);
         } else if (state is ServerRejectsWrongCredentials) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: AppText(
-            text: state.error,
-          )));
+          AppSnackbar(context).showError(state.error);
+        } else if (state is ServerSignsUserUp) {
+          AppSnackbar(context).showSuccess("Account created successfully");
+          context.read<NavigationCubit>().toggleSignUpScreen();
         }
       },
       child: FutureBuilder<ui.Image>(
-        future: loadImage(AssetConstants.leaves),
+        future: loadImage(AssetConstants.leavesSmall),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(

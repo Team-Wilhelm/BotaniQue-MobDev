@@ -45,10 +45,13 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       },
     );
 
-    on<ServerLogsUserOut>(
+    on<ServerLogsOutUser>(
       (event, emit) {
         final storageRepository = StorageRepository.storageRepository;
         storageRepository.deleteData(LocalStorageKeys.jwt);
+        print("Logged out");
+        print(
+            "storageRepository.getData(LocalStorageKeys.jwt): ${storageRepository.getData(LocalStorageKeys.jwt)}");
         jwt = null;
         emit(event);
       },
