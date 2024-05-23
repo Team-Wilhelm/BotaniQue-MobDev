@@ -1,7 +1,7 @@
 import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/models/events/client_events.dart';
 import 'package:botanique/models/events/server_events.dart';
-import 'package:botanique/repositories/storage_repository.dart';
+import 'package:botanique/settings/collections/edit_collections_screen.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
 import 'package:botanique/shared/app_snackbar.dart';
@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/buttons/app_button.dart';
+import '../shared/buttons/app_icon_button.dart';
 import '../util/content_size_helper.dart';
 import 'panel_content/panel_item.dart';
 
@@ -93,45 +94,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
-                  child:
-                      AppButton(onPressed: () {}, text: "Manage Collections"),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      AppButton(
+                        onPressed: () {
+                          _handleOnManageCollectionsTapped();
+                        },
+                        text: "Manage Collections",
+                      ),
+                      AppIconButton(
+                        onPressed: () {
+                          context.read<WebSocketBloc>().add(
+                                ClientWantsToLogOut(
+                                  eventType: "ClientWantsToLogOut",
+                                ),
+                              );
+                          context
+                              .read<NavigationCubit>()
+                              .changePage(NavigationConstants.welcome);
+                        },
+                        icon: Icons.logout,
+                        buttonType: ButtonType.warning,
+                      ),
+                    ],
+                  ),
                 ),
                 spacer,
                 Padding(
                     padding: _getSymmetricHorizontalPadding(),
-                    child: const Column(
-                      children: [
-                        AppText(
-                          text: "About BotaniQue",
-                          fontSize: FontSizes.h4,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        Text(
-                          "Created by Wilhelmina, an all-women development team dedicated to bringing you the best plant care experience. We believe in empowering plant lovers and promoting sustainable living through innovative technology.",
-                          style: TextStyle(
-                              color: TextColors.textDark,
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal),
-                        )
-                      ],
-                    )),
-                spacer,
+                    child: Divider()),
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
-                  child: AppButton(
-                    onPressed: () {
-                      context.read<WebSocketBloc>().add(ClientWantsToLogOut(
-                          eventType: "ClientWantsToLogOut"));
-                      context
-                          .read<NavigationCubit>()
-                          .changePage(NavigationConstants.welcome);
-                      StorageRepository.storageRepository
-                          .deleteData(LocalStorageKeys.jwt);
-                    },
-                    text: "Log Out",
-                    buttonType: ButtonType.warning,
+                  child: const Column(
+                    children: [
+                      AppText(
+                        text: "About BotaniQue",
+                        fontSize: FontSizes.h6,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      AppText(
+                        text:
+                            "Created by Wilhelmina, an all-women development team. We believe in empowering plant lovers and promoting sustainable living through innovative technology.",
+                        overflow: TextOverflow.visible,
+                        fontSize: FontSizes.small,
+                        textAlign: TextAlign.center,
+                      )
+                    ],
                   ),
-                )
+                ),
+                spacerDouble,
               ],
             );
           },
@@ -176,6 +188,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }));
   }
 
+  void _handleOnManageCollectionsTapped() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return EditCollectionsScreen();
+    }));
+  }
+
   /* Widgets */
   List<PanelItem> _buildPanelItems() {
     return panelItems = <PanelItem>[
@@ -199,7 +217,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _handleTileToggle(1);
                   } else {
                     AppSnackbar(context)
-                        .showError("Must be between 1-50 characters");
+                        .showError("Can't be empty or exceed 50 characters");
                   }
                 },
                 text: "Submit")
@@ -226,15 +244,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
             spacer,
             AppButton(
                 onPressed: () {
-                  if ((_passwordController.text ==
-                          _passwordRepeatController.text) &&
-                      _passwordController.text.length >= 8 &&
-                      _passwordController.text.length <= 256) {
-                    _handleUpdatePassword(_passwordController);
-                    _handleTileToggle(2);
-                  } else {
+                  if (_passwordController.text.isEmpty ||
+                      _passwordRepeatController.text.isEmpty) {
+                    AppSnackbar(context)
+                        .showError("Please fill in both fields");
+                    return;
+                  } else if (_passwordController.text !=
+                      _passwordRepeatController.text) {
+                    AppSnackbar(context).showError("Passwords do not match");
+                    return;
+                  } else if (_passwordController.text.length < 8 ||
+                      _passwordController.text.length > 256) {
                     AppSnackbar(context)
                         .showError("Must be between 8-256 characters");
+                    return;
+                  } else {
+                    _handleUpdatePassword(_passwordController);
+                    _handleTileToggle(2);
                   }
                 },
                 text: "Submit")
@@ -311,6 +337,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   EdgeInsets _getSymmetricHorizontalPadding() {
     double sidePadding = ContentSizeHelper.getContentWidth(context) * 0.05;
+    return EdgeInsets.symmetric(
+      horizontal: sidePadding,
+    );
+  }
+
+  EdgeInsets _getLargerSymmetricHorizontalPadding() {
+    double sidePadding = MediaQuery.of(context).size.width * 0.08;
     return EdgeInsets.symmetric(
       horizontal: sidePadding,
     );

@@ -70,6 +70,37 @@ class AllPlantsCubit extends Cubit<AllPlantsState> {
       );
     }
   }
+
+  void addOrUpdateCollections(Collection collection) {
+    final getCollectionDto = GetCollectionDto(
+        collectionId: collection.collectionId, name: collection.name);
+    var updatedCollections = List<GetCollectionDto>.from(state.collections);
+
+    if (collection.collectionId == allPlantsCollectionId) {
+      return;
+    }
+
+    final existingIndex =
+    updatedCollections.indexWhere((c) => c.collectionId == collection.collectionId); //Will return -1 if there is nothing matching
+
+    if (existingIndex != -1) {
+      // Update existing collection
+      updatedCollections[existingIndex] = getCollectionDto;
+    } else {
+      // Add new collection
+      updatedCollections.add(getCollectionDto);
+    }
+
+    // Ensure allPlants is always the first item
+    final allPlantsCollection = updatedCollections.firstWhere(
+            (c) => c.collectionId == allPlantsCollectionId,
+        orElse: () => GetCollectionDto.allPlants());
+    updatedCollections.removeWhere((c) => c.collectionId == allPlantsCollectionId);
+    updatedCollections.insert(0, allPlantsCollection);
+
+    emit(state.copyWith(collections: updatedCollections));
+  }
+
 }
 
 class AllPlantsState {

@@ -89,6 +89,8 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
         jwt:
             jwt!)); // result from this is handled in main, because it requires interaction with the AllPlantsCubit, where the plants are requested subsequently,
     add(ClientWantsPlaceholderUrl(jwt: jwt!));
+    // TODO add
+    //add(ClientWa)
   }
 
   @override
