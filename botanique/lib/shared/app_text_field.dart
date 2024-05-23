@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
     this.fillColor = AppColors.inputFill,
     this.textColor = TextColors.textDark,
     this.inputFormatters = const [],
+    this.validator,
   });
 
   final TextEditingController textFieldController;
@@ -23,11 +24,13 @@ class AppTextField extends StatelessWidget {
   final Color fillColor;
   final Color textColor;
   final List<TextInputFormatter> inputFormatters;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       inputFormatters: inputFormatters,
+      validator: validator,
       obscureText: textInputType == TextInputType.visiblePassword,
       controller: textFieldController,
       keyboardType: textInputType,

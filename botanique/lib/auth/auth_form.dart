@@ -56,77 +56,103 @@ class _AuthFormState extends State<AuthForm> {
     });
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final navigationCubit = context.read<NavigationCubit>();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        AppTextField(
-          textFieldController: _emailController,
-          placeholder: "Email",
-          prefixIcon: const Icon(Icons.email),
-          textInputType: TextInputType.emailAddress,
-        ),
-        spacer,
-        AppTextField(
-          textFieldController: _passwordController,
-          placeholder: "Password",
-          prefixIcon: const Icon(Icons.lock),
-          suffixIcon: IconButton(
-            icon: _passwordVisibilityIcon,
-            onPressed: () {
-              setState(() {
-                _isPasswordVisible = !_isPasswordVisible;
-              });
+    return Form(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AppTextField(
+            textFieldController: _emailController,
+            placeholder: "Email",
+            prefixIcon: const Icon(Icons.email),
+            textInputType: TextInputType.emailAddress,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter an email';
+              } else if (!value.contains('@')) {
+                return 'Please enter a valid email';
+              }
+              return null;
             },
           ),
-          textInputType: _passwordInputType,
-        ),
-        if (widget.isSignUp) ...[
           spacer,
           AppTextField(
-            textFieldController: _repeatPasswordController,
-            placeholder: "Repeat Password",
+            textFieldController: _passwordController,
+            placeholder: "Password",
             prefixIcon: const Icon(Icons.lock),
-            suffixIcon: IconButton(
-              icon: _passwordVisibilityIcon,
-              onPressed: () {
-                setState(() {
-                  _isPasswordVisible = !_isPasswordVisible;
-                });
-              },
-            ),
+            suffixIcon: _passwordSuffixIcon,
             textInputType: _passwordInputType,
-          ),
-          spacer,
-          AppTextField(
-            prefixIcon: const Icon(Icons.person),
-            textFieldController: _userNameController,
-            placeholder: "Username (Bob...)",
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a password';
+              } else if (value.length < 8) {
+                return 'Password must be at least 8 characters';
+              } else if (value.length > 256) {
+                return 'Password must be less than 256 characters';
+              }
+              return null;
+            },
             inputFormatters: [
-              LengthLimitingTextInputFormatter(50),
+              LengthLimitingTextInputFormatter(256),
             ],
           ),
+          if (widget.isSignUp) ...[
+            spacer,
+            AppTextField(
+              textFieldController: _repeatPasswordController,
+              placeholder: "Repeat Password",
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: _passwordSuffixIcon,
+              textInputType: _passwordInputType,
+              validator: (value) {
+                if (widget.isSignUp &&
+                    _passwordController.text !=
+                        _repeatPasswordController.text) {
+                  return "Passwords do not match";
+                }
+                return null;
+              },
+            ),
+            spacer,
+            AppTextField(
+              prefixIcon: const Icon(Icons.person),
+              textFieldController: _userNameController,
+              placeholder: "Username (Bob...)",
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(50),
+              ],
+            ),
+          ],
+          const Spacer(),
+          spacer,
+          AppButton(
+            onPressed: widget.isSignUp ? onSignUpPressed : onLoginPressed,
+            text: widget.isSignUp ? "Sign Up" : "Log In",
+            fullWidth: true,
+            disabled: _isButtonDisabled,
+          ),
+          AuthBottomText(
+            isSignUp: widget.isSignUp,
+            onTap: () {
+              navigationCubit.toggleSignUpScreen();
+            },
+          ),
         ],
-        const Spacer(),
-        AppButton(
-          onPressed: widget.isSignUp ? onSignUpPressed : onLoginPressed,
-          text: widget.isSignUp ? "Sign Up" : "Log In",
-          fullWidth: true,
-          disabled: _isButtonDisabled,
-        ),
-        AuthBottomText(
-          isSignUp: widget.isSignUp,
-          onTap: () {
-            navigationCubit.toggleSignUpScreen();
-          },
-        ),
-      ],
+      ),
     );
   }
 
   void onLoginPressed() {
+    if (_formKey.currentState!.validate() == false) {
+      return;
+    }
+
     final LoginDto loginDto = LoginDto(
       email: _emailController.text,
       password: _passwordController.text,
@@ -138,6 +164,10 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   void onSignUpPressed() {
+    if (_formKey.currentState!.validate() == false) {
+      return;
+    }
+
     final RegisterUserDto registerUserDto = RegisterUserDto(
       email: _emailController.text,
       password: _passwordController.text,
@@ -161,4 +191,15 @@ class _AuthFormState extends State<AuthForm> {
         ? TextInputType.visiblePassword
         : TextInputType.text;
   }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+
+  IconButton get _passwordSuffixIcon => IconButton(
+        icon: _passwordVisibilityIcon,
+        onPressed: _togglePasswordVisibility,
+      );
 }

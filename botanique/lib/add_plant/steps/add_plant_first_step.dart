@@ -3,6 +3,7 @@ import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/shared/buttons/app_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../models/enums/app_enums.dart';
 import '../../shared/app_text.dart';
@@ -39,8 +40,12 @@ class AddPlantFirstStepContent extends StatelessWidget {
             ],
           ),
           AppTextField(
-              textFieldController: plantNameController,
-              placeholder: "Plant Name"),
+            textFieldController: plantNameController,
+            placeholder: "Plant Name",
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(50),
+            ],
+          ),
           const SizedBox(height: 24),
           AppText(
             text: collectionQuestion,
