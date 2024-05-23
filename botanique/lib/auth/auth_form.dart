@@ -61,90 +61,97 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     final navigationCubit = context.read<NavigationCubit>();
-    return Form(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AppTextField(
-            textFieldController: _emailController,
-            placeholder: "Email",
-            prefixIcon: const Icon(Icons.email),
-            textInputType: TextInputType.emailAddress,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter an email';
-              } else if (!value.contains('@')) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
-          ),
-          spacer,
-          AppTextField(
-            textFieldController: _passwordController,
-            placeholder: "Password",
-            prefixIcon: const Icon(Icons.lock),
-            suffixIcon: _passwordSuffixIcon,
-            textInputType: _passwordInputType,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a password';
-              } else if (value.length < 8) {
-                return 'Password must be at least 8 characters';
-              } else if (value.length > 256) {
-                return 'Password must be less than 256 characters';
-              }
-              return null;
-            },
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(256),
-            ],
-          ),
-          if (widget.isSignUp) ...[
-            spacer,
-            AppTextField(
-              textFieldController: _repeatPasswordController,
-              placeholder: "Repeat Password",
-              prefixIcon: const Icon(Icons.lock),
-              suffixIcon: _passwordSuffixIcon,
-              textInputType: _passwordInputType,
-              validator: (value) {
-                if (widget.isSignUp &&
-                    _passwordController.text !=
-                        _repeatPasswordController.text) {
-                  return "Passwords do not match";
-                }
-                return null;
-              },
-            ),
-            spacer,
-            AppTextField(
-              prefixIcon: const Icon(Icons.person),
-              textFieldController: _userNameController,
-              placeholder: "Username (Bob...)",
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(50),
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppTextField(
+                  textFieldController: _emailController,
+                  placeholder: "Email",
+                  prefixIcon: const Icon(Icons.email),
+                  textInputType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter an email';
+                    } else if (!value.contains('@')) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
+                  },
+                ),
+                spacer,
+                AppTextField(
+                  textFieldController: _passwordController,
+                  placeholder: "Password",
+                  prefixIcon: const Icon(Icons.lock),
+                  suffixIcon: _passwordSuffixIcon,
+                  textInputType: _passwordInputType,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a password';
+                    } else if (value.length < 8) {
+                      return 'Password must be at least 8 characters';
+                    } else if (value.length > 256) {
+                      return 'Password must be less than 256 characters';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(256),
+                  ],
+                ),
+                if (widget.isSignUp) ...[
+                  spacer,
+                  AppTextField(
+                    textFieldController: _repeatPasswordController,
+                    placeholder: "Repeat Password",
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: _passwordSuffixIcon,
+                    textInputType: _passwordInputType,
+                    validator: (value) {
+                      if (widget.isSignUp &&
+                          _passwordController.text !=
+                              _repeatPasswordController.text) {
+                        return "Passwords do not match";
+                      }
+                      return null;
+                    },
+                  ),
+                  spacer,
+                  AppTextField(
+                    prefixIcon: const Icon(Icons.person),
+                    textFieldController: _userNameController,
+                    placeholder: "Username (Bob...)",
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(50),
+                    ],
+                  ),
+                ],
+                const Spacer(),
+                spacer,
+                AppButton(
+                  onPressed: widget.isSignUp ? onSignUpPressed : onLoginPressed,
+                  text: widget.isSignUp ? "Sign Up" : "Log In",
+                  fullWidth: true,
+                  disabled: _isButtonDisabled,
+                ),
+                AuthBottomText(
+                  isSignUp: widget.isSignUp,
+                  onTap: () {
+                    navigationCubit.toggleSignUpScreen();
+                  },
+                ),
               ],
             ),
-          ],
-          const Spacer(),
-          spacer,
-          AppButton(
-            onPressed: widget.isSignUp ? onSignUpPressed : onLoginPressed,
-            text: widget.isSignUp ? "Sign Up" : "Log In",
-            fullWidth: true,
-            disabled: _isButtonDisabled,
           ),
-          AuthBottomText(
-            isSignUp: widget.isSignUp,
-            onTap: () {
-              navigationCubit.toggleSignUpScreen();
-            },
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
