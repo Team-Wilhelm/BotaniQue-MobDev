@@ -1,9 +1,9 @@
 import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/models/events/client_events.dart';
-import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/collections/edit_collections_screen.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
+import 'package:botanique/shared/app_card.dart';
 import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/app_text_field.dart';
@@ -55,99 +55,103 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: BlocListener<WebSocketBloc, ServerEvent>(
-        listener: (context, state) {
-          if (state is ServerRejectsUpdate) {
-            AppSnackbar(context).showError(state.error);
-          }
-        },
-        child: BlocBuilder<UserCubit, UserCubitState>(
-          builder: (context, userState) {
-            return ListView(
-              children: [
-                ProfileSettingsBanner(
-                    diameter: diameter,
-                    onEditTapped: () {
-                      _handleOnImageEditTapped();
-                    }),
-                SizedBox(height: diameter * 0.55),
-                AppText(
-                    text: userState.userDto.username ?? "My Profile",
-                    textAlign: TextAlign.center,
-                    fontSize: FontSizes.h1,
-                    fontWeight: FontWeight.bold),
-                const AppText(
-                  text: "Superior plant lover!",
-                  textAlign: TextAlign.center,
-                ),
-                spacer,
-                _buildStatsCard(diameter),
-                spacerDouble,
-                const AppText(
-                    text: "Settings",
-                    textAlign: TextAlign.center,
-                    fontSize: FontSizes.h2,
-                    fontWeight: FontWeight.bold),
-                spacer,
-                ...panelItems
-                    .map((item) => _buildExpansionTile(item, diameter)),
-                spacer,
-                Padding(
-                  padding: _getSymmetricHorizontalPadding(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      AppButton(
+      body: BlocBuilder<UserCubit, UserCubitState>(
+        builder: (context, userState) {
+          return ListView(
+            children: [
+              ProfileSettingsBanner(
+                  diameter: diameter,
+                  onEditTapped: () {
+                    _handleOnImageEditTapped();
+                  }),
+              SizedBox(height: diameter * 0.55),
+              AppText(
+                text: userState.userDto.username ?? "My Profile",
+                textAlign: TextAlign.center,
+                fontSize: FontSizes.h3,
+                fontWeight: FontWeight.bold,
+              ),
+              const AppText(
+                text: "Superior plant lover!",
+                textAlign: TextAlign.center,
+              ),
+              spacer,
+              _buildStatsCard(diameter),
+              spacerDouble,
+              const AppText(
+                text: "Settings",
+                textAlign: TextAlign.center,
+                fontSize: FontSizes.h4,
+                fontWeight: FontWeight.bold,
+              ),
+              spacer,
+              ...panelItems.map((item) => _buildExpansionTile(item, diameter)),
+              spacer,
+              Padding(
+                padding: _getLargerSymmetricHorizontalPadding(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: AppButton(
                         onPressed: () {
                           _handleOnManageCollectionsTapped();
                         },
                         text: "Manage Collections",
                       ),
-                      AppIconButton(
-                        onPressed: () {
-                          context.read<WebSocketBloc>().add(
-                                ClientWantsToLogOut(
-                                  eventType: "ClientWantsToLogOut",
-                                ),
-                              );
-                          context
-                              .read<NavigationCubit>()
-                              .changePage(NavigationConstants.welcome);
-                        },
-                        icon: Icons.logout,
-                        buttonType: ButtonType.warning,
-                      ),
-                    ],
-                  ),
+                    ),
+                    spacer,
+                    AppIconButton(
+                      onPressed: () {
+                        context.read<WebSocketBloc>().add(
+                              ClientWantsToLogOut(
+                                eventType: "ClientWantsToLogOut",
+                              ),
+                            );
+                        context
+                            .read<NavigationCubit>()
+                            .changePage(NavigationConstants.welcome);
+                      },
+                      icon: Icons.logout,
+                      buttonType: ButtonType.warning,
+                      buttonShape: ButtonShape.square,
+                    ),
+                  ],
                 ),
-                spacer,
-                Padding(
-                    padding: _getSymmetricHorizontalPadding(),
-                    child: Divider()),
-                Padding(
-                  padding: _getSymmetricHorizontalPadding(),
-                  child: const Column(
-                    children: [
-                      AppText(
+              ),
+              spacer,
+              Padding(
+                padding: _getLargerSymmetricHorizontalPadding(),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(child: Divider(color: TextColors.textSecondary)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: AppText(
                         text: "About BotaniQue",
                         fontSize: FontSizes.h6,
                         fontWeight: FontWeight.bold,
                       ),
-                      AppText(
-                        text:
-                            "Created by Wilhelmina, an all-women development team. We believe in empowering plant lovers and promoting sustainable living through innovative technology.",
-                        overflow: TextOverflow.visible,
-                        fontSize: FontSizes.small,
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
+                    ),
+                    Expanded(child: Divider(color: TextColors.textSecondary)),
+                  ],
                 ),
-                spacerDouble,
-              ],
-            );
-          },
-        ),
+              ),
+              Padding(
+                padding: _getSymmetricHorizontalPadding(),
+                child: const AppText(
+                  text:
+                      "Created by Wilhelmina, an all-women development team. We believe in empowering plant lovers and promoting sustainable living through innovative technology.",
+                  overflow: TextOverflow.visible,
+                  fontSize: FontSizes.small,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              spacerDouble,
+            ],
+          );
+        },
       ),
     );
   }
@@ -184,7 +188,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _handleOnImageEditTapped() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return ImageUpdateScreen();
+      return const ImageUpdateScreen();
     }));
   }
 
@@ -270,18 +274,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ];
   }
 
-  Card _buildStatsCard(double diameter) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: diameter * 0.24),
-      child: Padding(
-        padding: EdgeInsets.all(diameter * 0.16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildStatsColumn("25", "plants total"),
-            _buildStatsColumn("25", "happy plants"),
-            _buildStatsColumn("5", "collections"),
-          ],
+  Widget _buildStatsCard(double diameter) {
+    return Padding(
+      padding: _getSymmetricHorizontalPadding(),
+      child: AppCard(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: diameter * 0.08),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildStatsColumn("25", "plants total"),
+              _buildStatsColumn("25", "happy plants"),
+              _buildStatsColumn("5", "collections"),
+            ],
+          ),
         ),
       ),
     );
@@ -307,22 +313,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildExpansionTile(PanelItem item, double diameter) {
     return Padding(
-      padding: _getSymmetricHorizontalPadding(),
-      child: Card(
+      padding:
+          _getSymmetricHorizontalPadding().copyWith(bottom: diameter * 0.08),
+      child: AppCard(
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: ExpansionTile(
             controller: item.controller,
-            tilePadding: EdgeInsets.symmetric(
-                horizontal: diameter * 0.24, vertical: diameter * 0.08),
             childrenPadding: EdgeInsets.symmetric(
                 horizontal: diameter * 0.16, vertical: diameter * 0.08),
             initiallyExpanded: false,
             iconColor: AppColors.accent,
             title: AppText(
-                text: item.headerValue,
-                fontSize: FontSizes.h5,
-                fontWeight: FontWeight.bold),
+              text: item.headerValue,
+              fontSize: FontSizes.h6,
+              fontWeight: FontWeight.bold,
+            ),
             onExpansionChanged: (bool expanded) {
               _handleTileToggle(item.id);
             },

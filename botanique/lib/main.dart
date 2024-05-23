@@ -131,20 +131,18 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
           ),
         ),
         bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
-            builder: (context, navigationState) {
-          return AppNavbar(
-            isHidden: navigationState.isNavBarHidden,
-          );
-        }),
+          builder: (context, navigationState) {
+            return AppNavbar(
+              isHidden: navigationState.isNavBarHidden,
+            );
+          },
+        ),
       ),
     );
   }
 }
 
 void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
-  /*if (serverEvent is InitialServerEvent) {
-    context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
-  } */
   if (serverEvent is ServerAuthenticatesUser) {
     context.read<NavigationCubit>().changePage(NavigationConstants.home);
   } else if (serverEvent is ServerRespondsNotAuthenticated) {
@@ -165,12 +163,15 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
   }
   //Collections
   else if (serverEvent is ServerSavesCollection) {
-    context.read<AllPlantsCubit>().addOrUpdateCollections(serverEvent.collection);
+    context
+        .read<AllPlantsCubit>()
+        .addOrUpdateCollections(serverEvent.collection);
   } else if (serverEvent is ServerDeletesCollection) {
-    context.read<AllPlantsCubit>()..selectCollection(GetCollectionDto.allPlants(), context.read<WebSocketBloc>())..refreshData(context.read<WebSocketBloc>());
-  }
-
-  else if (serverEvent is ServerSendsErrorMessage) {
+    context.read<AllPlantsCubit>()
+      ..selectCollection(
+          GetCollectionDto.allPlants(), context.read<WebSocketBloc>())
+      ..refreshData(context.read<WebSocketBloc>());
+  } else if (serverEvent is ServerSendsErrorMessage) {
     if (serverEvent is ServerRespondsNotFound &&
         serverEvent.error.contains("No conditions log")) {
       // This is handled in the actual screen

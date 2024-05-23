@@ -1,4 +1,5 @@
 import 'package:botanique/all_plants/plant_detail/plant_detail_screen.dart';
+import 'package:botanique/shared/app_card.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/style/app_style.dart';
@@ -32,19 +33,7 @@ class NeedSomeLoveRow extends StatelessWidget {
             ));
         Navigator.of(context).push(_getPageRouteBuilder(plant));
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: AppColors.cardBackground,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: TextColors.textSecondary.withOpacity(0.2),
-              blurRadius: 5,
-              offset: const Offset(3, 3),
-            ),
-          ],
-        ),
+      child: AppCard(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
