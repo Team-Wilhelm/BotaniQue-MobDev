@@ -1,5 +1,6 @@
 import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/models/events/client_events.dart';
+import 'package:botanique/settings/app_expansion_tile.dart';
 import 'package:botanique/settings/collections/edit_collections_screen.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
@@ -85,7 +86,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 fontWeight: FontWeight.bold,
               ),
               spacer,
-              ...panelItems.map((item) => _buildExpansionTile(item, diameter)),
+              ...panelItems.map(
+                (item) => AppExpansionTile(
+                  item: item,
+                  diameter: diameter,
+                  tileToggleCallback: _handleTileToggle,
+                ),
+              ),
               spacer,
               Padding(
                 padding: _getLargerSymmetricHorizontalPadding(),
@@ -93,6 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
+                      flex: 4,
                       child: AppButton(
                         onPressed: () {
                           _handleOnManageCollectionsTapped();
@@ -101,20 +109,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     spacer,
-                    AppIconButton(
-                      onPressed: () {
-                        context.read<WebSocketBloc>().add(
-                              ClientWantsToLogOut(
-                                eventType: "ClientWantsToLogOut",
-                              ),
-                            );
-                        context
-                            .read<NavigationCubit>()
-                            .changePage(NavigationConstants.welcome);
-                      },
-                      icon: Icons.logout,
-                      buttonType: ButtonType.warning,
-                      buttonShape: ButtonShape.square,
+                    Expanded(
+                      flex: 1,
+                      child: AppIconButton(
+                        onPressed: () {
+                          context.read<WebSocketBloc>().add(
+                                ClientWantsToLogOut(
+                                  eventType: "ClientWantsToLogOut",
+                                ),
+                              );
+                          context
+                              .read<NavigationCubit>()
+                              .changePage(NavigationConstants.welcome);
+                        },
+                        icon: Icons.logout,
+                        buttonType: ButtonType.warning,
+                        buttonShape: ButtonShape.square,
+                      ),
                     ),
                   ],
                 ),
@@ -139,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               Padding(
-                padding: _getSymmetricHorizontalPadding(),
+                padding: ContentSizeHelper.getSettingsContentPadding(context),
                 child: const AppText(
                   text:
                       "Created by Wilhelmina, an all-women development team. We believe in empowering plant lovers and promoting sustainable living through innovative technology.",
@@ -200,6 +211,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   /* Widgets */
   List<PanelItem> _buildPanelItems() {
+    // TODO: validation
     return panelItems = <PanelItem>[
       PanelItem(
         id: 1,
@@ -276,7 +288,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildStatsCard(double diameter) {
     return Padding(
-      padding: _getSymmetricHorizontalPadding(),
+      padding: ContentSizeHelper.getSettingsContentPadding(context),
       child: AppCard(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: diameter * 0.08),
@@ -308,43 +320,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         const SizedBox(height: 4),
         AppText(text: text)
       ],
-    );
-  }
-
-  Widget _buildExpansionTile(PanelItem item, double diameter) {
-    return Padding(
-      padding:
-          _getSymmetricHorizontalPadding().copyWith(bottom: diameter * 0.08),
-      child: AppCard(
-        child: Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            controller: item.controller,
-            childrenPadding: EdgeInsets.symmetric(
-                horizontal: diameter * 0.16, vertical: diameter * 0.08),
-            initiallyExpanded: false,
-            iconColor: AppColors.accent,
-            title: AppText(
-              text: item.headerValue,
-              fontSize: FontSizes.h6,
-              fontWeight: FontWeight.bold,
-            ),
-            onExpansionChanged: (bool expanded) {
-              _handleTileToggle(item.id);
-            },
-            children: [
-              item.panelContent,
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  EdgeInsets _getSymmetricHorizontalPadding() {
-    double sidePadding = ContentSizeHelper.getContentWidth(context) * 0.05;
-    return EdgeInsets.symmetric(
-      horizontal: sidePadding,
     );
   }
 

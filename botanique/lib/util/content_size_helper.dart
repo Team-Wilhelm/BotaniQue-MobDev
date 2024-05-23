@@ -16,4 +16,10 @@ class ContentSizeHelper {
   static bool isLargeScreen(BuildContext context) {
     return MediaQuery.of(context).size.width > _kMaxWidth;
   }
+
+  static EdgeInsets getSettingsContentPadding(BuildContext context) {
+    return EdgeInsets.symmetric(
+      horizontal: getContentWidth(context) * 0.05,
+    );
+  }
 }
