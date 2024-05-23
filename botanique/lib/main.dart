@@ -159,7 +159,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
   else if (serverEvent is ServerSavesCollection) {
     context.read<AllPlantsCubit>().addOrUpdateCollections(serverEvent.collection);
   } else if (serverEvent is ServerDeletesCollection) {
-    context.read<AllPlantsCubit>().refreshData(context.read<WebSocketBloc>());
+    context.read<AllPlantsCubit>()..selectCollection(GetCollectionDto.allPlants(), context.read<WebSocketBloc>())..refreshData(context.read<WebSocketBloc>());
   }
 
   else if (serverEvent is ServerSendsErrorMessage) {
