@@ -28,7 +28,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: fullWidth ? double.infinity : null,
-      child: ElevatedButton( // TODO: remove ElevatedButton maybe
+      child: ElevatedButton(
         onPressed: disabled ? null : onPressed,
         style: styleButton(context),
         child: AppText(

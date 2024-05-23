@@ -42,7 +42,7 @@ class TopBar extends StatelessWidget {
             if (onBack != null) {
               onBack!();
             }
-            Navigator.pop(context); // TODO: Implement back navigation animation
+            Navigator.pop(context);
           },
         ),
         AppText(

@@ -61,7 +61,6 @@ class AddPlantFirstStepContent extends StatelessWidget {
             text: "Fill in the device ID of your plant sensor",
             textAlign: TextAlign.center,
           ),
-          // TODO: add scan QR code
           const SizedBox(height: 8),
           AppTextField(
             textFieldController: deviceIdController,

@@ -20,7 +20,6 @@ class FontSizes {
   static const double tiny = 34;
 }
 
-// TODO: colour scheme
 class AppColors {
   static const Map<int, Color> primary = {
     0: Color(0xFF27754a), // base colour
@@ -69,7 +68,6 @@ final appTheme = ThemeData.light().copyWith(
           TextStyle(color: TextColors.textDark, fontSize: FontSizes.h1),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-        //TODO: eventually remove
         style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.primary[0],
       elevation: 1,

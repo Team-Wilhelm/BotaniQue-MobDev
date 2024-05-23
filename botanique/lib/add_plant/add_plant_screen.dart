@@ -78,18 +78,22 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
         listener: (context, state) {
           if (state is ServerSavesPlant) {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SuccessScreen()));
+              MaterialPageRoute(
+                builder: (context) => SuccessScreen(
+                  onAnimationFinished: () {
+                    Navigator.of(context).pop();
+                    context
+                        .read<AllPlantsCubit>()
+                        .refreshData(context.read<WebSocketBloc>());
+                    context.read<PlantRequirementsCubit>().reset();
+                    context.read<AddPlantCubit>().resetAddPlantState();
+                  },
+                ),
+              ),
+            );
             context
                 .read<NavigationCubit>()
                 .changePage(NavigationConstants.allPlants);
-            Future.delayed(const Duration(seconds: 2), () {
-              Navigator.of(context).pop();
-              context
-                  .read<AllPlantsCubit>()
-                  .refreshData(context.read<WebSocketBloc>());
-              context.read<PlantRequirementsCubit>().reset();
-              context.read<AddPlantCubit>().resetAddPlantState();
-            });
           }
         },
         child: BlocBuilder<AddPlantCubit, AddPlantState>(
