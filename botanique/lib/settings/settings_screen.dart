@@ -91,8 +91,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 spacer,
                 Padding(
                   padding: _getSymmetricHorizontalPadding(),
-                  child:
-                      AppButton(onPressed: () {_handleOnManageCollectionsTapped();}, text: "Manage Collections"),
+                  child: AppButton(
+                      onPressed: () {
+                        _handleOnManageCollectionsTapped();
+                      },
+                      text: "Manage Collections"),
                 ),
                 spacer,
                 Padding(
@@ -203,7 +206,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _handleTileToggle(1);
                   } else {
                     AppSnackbar(context)
-                        .showError("Must be between 1-50 characters");
+                        .showError("Can't be empty or exceed 50 characters");
                   }
                 },
                 text: "Submit")
@@ -230,15 +233,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
             spacer,
             AppButton(
                 onPressed: () {
-                  if ((_passwordController.text ==
-                          _passwordRepeatController.text) &&
-                      _passwordController.text.length >= 8 &&
-                      _passwordController.text.length <= 256) {
-                    _handleUpdatePassword(_passwordController);
-                    _handleTileToggle(2);
-                  } else {
+                  if (_passwordController.text.isEmpty ||
+                      _passwordRepeatController.text.isEmpty) {
+                    AppSnackbar(context)
+                        .showError("Please fill in both fields");
+                    return;
+                  } else if (_passwordController.text !=
+                      _passwordRepeatController.text) {
+                    AppSnackbar(context).showError("Passwords do not match");
+                    return;
+                  } else if (_passwordController.text.length < 8 ||
+                      _passwordController.text.length > 256) {
                     AppSnackbar(context)
                         .showError("Must be between 8-256 characters");
+                    return;
+                  } else {
+                    _handleUpdatePassword(_passwordController);
+                    _handleTileToggle(2);
                   }
                 },
                 text: "Submit")
