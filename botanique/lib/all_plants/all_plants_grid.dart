@@ -11,27 +11,23 @@ class AllPlantsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AllPlantsCubit, AllPlantsState>(
       builder: (context, collectionsState) {
-        return SliverAnimatedGrid(
-          // TODO: figure out how the animations work
+        return SliverGrid.builder(
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             maxCrossAxisExtent: 200,
           ),
-          itemBuilder: (context, index, animation) {
+          itemBuilder: (context, index) {
             if (collectionsState.currentPlantList == null) {
               return const SizedBox();
             }
             if (index < collectionsState.currentPlantList!.length) {
-              return FadeTransition(
-                opacity: animation,
-                child:
-                    PlantCard(plant: collectionsState.currentPlantList![index]),
-              );
+              return PlantCard(
+                  plant: collectionsState.currentPlantList![index]);
             }
             return const SizedBox();
           },
-          initialItemCount: collectionsState.currentPlantList!.length,
+          itemCount: collectionsState.currentPlantList!.length,
         );
       },
     );

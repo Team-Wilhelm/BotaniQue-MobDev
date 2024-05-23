@@ -1,5 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../models/dtos/user/user_dto.dart';
 import '../repositories/camera_repository.dart';
 import 'image_action_cubit.dart';
@@ -40,7 +41,8 @@ class UserCubit extends Cubit<UserCubitState> implements ImageActionCubit {
 
   @override
   Future<void> getImageFromCamera() async {
-    final image = await pictureRepository.getImageFromCamera();
+    final image =
+        await pictureRepository.getImageFromCamera(CameraDevice.front);
     if (image != null) {
       emit(state.copyWith(xFileImage: image));
     }

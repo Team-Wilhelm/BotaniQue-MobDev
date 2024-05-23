@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/app_text.dart';
 import '../state/navigation_cubit.dart';
-import '../util/navigation_constants.dart';
 
 class AuthBottomText extends StatelessWidget {
   const AuthBottomText({
@@ -24,9 +23,7 @@ class AuthBottomText extends StatelessWidget {
         AppText(text: _getFirstSentence()),
         TextButton(
           onPressed: () => {
-            context
-                .read<NavigationCubit>()
-                .changePage(NavigationConstants.signUp)
+            context.read<NavigationCubit>().toggleSignUpScreen(),
           },
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(

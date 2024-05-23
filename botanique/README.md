@@ -16,5 +16,14 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ```bash
-dart pub run build_runner build
+dart run build_runner build
+```
+
+```bash
+dart run vector_graphics_compiler -i assets/foo.svg -o assets/foo.svg.vec
+```
+
+## To generate app icon 
+```bash
+flutter pub run flutter_launcher_icons
 ```

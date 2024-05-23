@@ -44,6 +44,9 @@ class ServerSendsImageWithoutBackground extends ServerEvent
   });
 }
 
+/*
+  Plants
+ */
 @MappableClass(discriminatorValue: 'ServerSendsPlant')
 class ServerSendsPlant extends ServerEvent with ServerSendsPlantMappable {
   final Plant plant;
@@ -130,6 +133,28 @@ class ServerLogsUserOut extends ServerEvent with ServerLogsUserOutMappable {
   });
 }
 
+@MappableClass(discriminatorValue: 'ServerSendsHistoricConditionLogsForPlant')
+class ServerSendsHistoricConditionLogsForPlant extends ServerEvent
+    with ServerSendsHistoricConditionLogsForPlantMappable {
+  final List<ConditionsLog> conditionsLogs;
+
+  ServerSendsHistoricConditionLogsForPlant({
+    required this.conditionsLogs,
+    super.eventType = "ServerSendsHistoricConditionLogsForPlant",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerSendsPlaceholderUrl')
+class ServerSendsPlaceholderUrl extends ServerEvent
+    with ServerSendsPlaceholderUrlMappable {
+  final String placeholderUrl;
+
+  ServerSendsPlaceholderUrl({
+    required this.placeholderUrl,
+    super.eventType = "ServerSendsPlaceholderUrl",
+  });
+}
+
 /*
   Collections
  */
@@ -172,6 +197,17 @@ class ServerDeletesCollection extends ServerEvent
     with ServerDeletesCollectionMappable {
   ServerDeletesCollection({
     super.eventType = "ServerDeletesCollection",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerSendsCriticalPlants')
+class ServerSendsCriticalPlants extends ServerEvent
+    with ServerSendsCriticalPlantsMappable {
+  final List<GetCriticalPlantDto> plants;
+
+  ServerSendsCriticalPlants({
+    required this.plants,
+    super.eventType = "ServerSendsCriticalPlants",
   });
 }
 
@@ -244,3 +280,4 @@ class ServerRejectsUpdate extends ServerSendsErrorMessage
     required this.getUserDto
   });
 }
+

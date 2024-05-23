@@ -158,6 +158,20 @@ class ClientWantsLatestConditionsForPlant extends ClientEventWithJwt
   });
 }
 
+@MappableClass(discriminatorValue: "ClientWantsHistoricConditionLogsForPlant")
+class ClientWantsHistoricConditionLogsForPlant extends ClientEventWithJwt
+    with ClientWantsHistoricConditionLogsForPlantMappable {
+  final Uuid plantId;
+  final int timeSpanInDays;
+
+  ClientWantsHistoricConditionLogsForPlant({
+    required super.jwt,
+    required this.plantId,
+    required this.timeSpanInDays,
+    super.eventType = "ClientWantsHistoricConditionLogsForPlant",
+  });
+}
+
 /*
   * Collections
  */
@@ -260,5 +274,23 @@ class ClientWantsToDeleteProfileImage extends ClientEventWithJwt
   ClientWantsToDeleteProfileImage({
     required super.jwt,
     super.eventType = "ClientWantsToDeleteProfileImage",
+  });
+}
+
+@MappableClass(discriminatorValue: "ClientWantsToGetCriticalPlants")
+class ClientWantsToGetCriticalPlants extends ClientEventWithJwt
+    with ClientWantsToGetCriticalPlantsMappable {
+  ClientWantsToGetCriticalPlants({
+    required super.jwt,
+    super.eventType = "ClientWantsToGetCriticalPlants",
+  });
+}
+
+@MappableClass(discriminatorValue: "ClientWantsPlaceholderUrl")
+class ClientWantsPlaceholderUrl extends ClientEventWithJwt
+    with ClientWantsPlaceholderUrlMappable {
+  ClientWantsPlaceholderUrl({
+    required super.jwt,
+    super.eventType = "ClientWantsPlaceholderUrl",
   });
 }

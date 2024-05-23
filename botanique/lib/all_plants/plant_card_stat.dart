@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../style/app_style.dart';
 
 class PlantCardStat extends StatelessWidget {
   const PlantCardStat({
     super.key,
     required this.statImage,
-    this.statValue = "10%",
+    this.imageSize = 26,
+    this.color = TextColors.textDark,
   });
 
-  final String statValue;
   final String statImage;
-  final double _imageSize = 20;
+  final double imageSize;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
-      ),
-      child: Column(
-        children: [
-          Image.asset(
-            statImage,
-            width: _imageSize,
-            height: _imageSize,
-          ),
-        ],
+    return SvgPicture.asset(
+      statImage,
+      width: imageSize,
+      height: imageSize,
+      fit: BoxFit.contain,
+      colorFilter: ColorFilter.mode(
+        color,
+        BlendMode.srcIn,
       ),
     );
   }

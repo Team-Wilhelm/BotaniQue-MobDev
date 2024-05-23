@@ -8,7 +8,7 @@ import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
 import 'package:botanique/state/add_plant/plant_requirements_cubit.dart';
 import 'package:botanique/state/all_plants_cubit.dart';
-import 'package:botanique/state/broadcast_ws_channel.dart';
+import 'package:botanique/state/home_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
@@ -16,23 +16,28 @@ import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'add_plant/add_plant_screen.dart';
-import 'models/events/client_events.dart';
-import 'repositories/secure_storage_repository.dart';
 import 'state/add_plant/add_plant_cubit.dart';
 import 'style/app_style.dart';
 import 'util/navigation_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await initLocalStorage();
+  }
+
   // Configure logging for bloc
   //Bloc.observer = LoggerBlocObserver();
 
   // Connect to WebSocket
-  final wsUri =
-      kIsWeb ? Uri.parse('ws://0.0.0.0:8181') : Uri.parse('ws://10.0.2.2:8181');
-  final channel = BroadcastWsChannel(wsUri);
+  final wsUri = kIsWeb
+      ? Uri.parse('ws://localhost:8181')
+      : Uri.parse('ws://10.0.2.2:8181');
+  final channel = WebSocketChannel.connect(wsUri);
 
   runApp(
     MultiBlocProvider(
@@ -49,6 +54,7 @@ void main() async {
         BlocProvider<PlantRequirementsCubit>(
           create: (context) => PlantRequirementsCubit(),
         ),
+        BlocProvider<HomeCubit>(create: (context) => HomeCubit()),
         BlocProvider<WebSocketBloc>(
           create: (context) => WebSocketBloc(channel: channel),
         ),
@@ -69,22 +75,10 @@ class BotaniQueApp extends StatefulWidget {
 }
 
 class _BotaniQueAppState extends State<BotaniQueApp> {
-  final PageController _pageController = PageController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    SecureStorageRepository().getData(LocalStorageKeys.jwt).then((jwt) {
-      if (jwt != null) {
-        if (mounted) {
-          context.read<WebSocketBloc>().add(
-                ClientWantsToCheckJwtValidity(jwt: jwt),
-              );
-        }
-      }
-    });
-  }
+  final PageController _pageController = PageController(
+    initialPage:
+        NavigationConstants.pageNameToIndex(NavigationConstants.welcome),
+  );
 
   @override
   void dispose() {
@@ -154,15 +148,21 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
         .getPlantsForCurrentlySelectedCollection(context.read<WebSocketBloc>());
   } else if (serverEvent is ServerSendsPlants) {
     context.read<AllPlantsCubit>().setCurrentPlantList(serverEvent.plants);
+  } else if (serverEvent is ServerSendsCriticalPlants) {
+    context.read<HomeCubit>().setCriticalPlants(serverEvent.plants);
+  } else if (serverEvent is ServerSendsPlaceholderUrl) {
+    context
+        .read<AddPlantCubit>()
+        .setPlaceholderSasUrl(serverEvent.placeholderUrl);
   }
-
   //Collections
   else if (serverEvent is ServerSavesCollection) {
     context.read<AllPlantsCubit>().addOrUpdateCollections(serverEvent.collection);
   } else if (serverEvent is ServerDeletesCollection) {
     context.read<AllPlantsCubit>().refreshData(context.read<WebSocketBloc>());
+  }
 
-  } else if (serverEvent is ServerSendsErrorMessage) {
+  else if (serverEvent is ServerSendsErrorMessage) {
     if (serverEvent is ServerRespondsNotFound &&
         serverEvent.error.contains("No conditions log")) {
       // This is handled in the actual screen
@@ -170,8 +170,6 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     }
     print('Error: ${serverEvent.error}');
     AppSnackbar(context).showError(serverEvent.error);
-  } else if (serverEvent is ServerLogsUserOut) {
-    SecureStorageRepository().deleteAllData();
   } else if (serverEvent is ServerSendsUserInfo) {
     context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
     if (serverEvent.getUserDto.blobUrl != null) {
@@ -180,7 +178,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
           .updateBlobUrl(serverEvent.getUserDto.blobUrl!);
     }
     context.read<NavigationCubit>().changePage(NavigationConstants.home);
-  } 
+  }
   // Profile updates
   else if (serverEvent is ServerConfirmsUpdateUsername) {
     context.read<UserCubit>().updateUsername(serverEvent.username);

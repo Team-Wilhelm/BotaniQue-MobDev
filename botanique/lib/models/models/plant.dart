@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
+import '../enums/app_enums.dart';
+import 'conditions.dart';
 import 'uuid.dart';
 
 part 'plant.mapper.dart';
@@ -13,6 +15,8 @@ class Plant with PlantMappable {
   final String nickname;
   final String imageUrl;
   final Requirements requirements;
+  final List<ConditionsLog> conditionsLogs;
+  final DateTime latestChange;
 
   const Plant({
     required this.plantId,
@@ -22,6 +26,8 @@ class Plant with PlantMappable {
     required this.nickname,
     required this.imageUrl,
     required this.requirements,
+    required this.conditionsLogs,
+    required this.latestChange,
   });
 }
 
@@ -61,6 +67,23 @@ class UpdatePlantDto with UpdatePlantDtoMappable {
   });
 }
 
+@MappableClass()
+class GetCriticalPlantDto with GetCriticalPlantDtoMappable {
+  final Uuid plantId;
+  final String imageUrl;
+  final String nickname;
+  final int mood;
+  final String suggestedAction;
+
+  GetCriticalPlantDto({
+    required this.plantId,
+    required this.imageUrl,
+    required this.nickname,
+    required this.mood,
+    required this.suggestedAction,
+  });
+}
+
 /*
   * Requirements
 */
@@ -68,10 +91,10 @@ class UpdatePlantDto with UpdatePlantDtoMappable {
 class Requirements with RequirementsMappable {
   final Uuid requirementsId;
   final Uuid plantId;
-  final int lightLevel;
-  final int temperatureLevel;
-  final int humidityLevel;
-  final int soilMoistureLevel;
+  final RequirementLevel lightLevel;
+  final double temperatureLevel;
+  final RequirementLevel humidityLevel;
+  final RequirementLevel soilMoistureLevel;
 
   Requirements({
     required this.requirementsId,
@@ -81,14 +104,29 @@ class Requirements with RequirementsMappable {
     required this.humidityLevel,
     required this.soilMoistureLevel,
   });
+
+  (num, num) getIdealRange(PlantDetailStat stat) {
+    switch (stat) {
+      case PlantDetailStat.soilMoisture:
+        return soilMoistureLevel.range;
+      case PlantDetailStat.temperature:
+        return (temperatureLevel - 1, temperatureLevel + 1);
+      case PlantDetailStat.light:
+        return lightLevel.range;
+      case PlantDetailStat.humidity:
+        return humidityLevel.range;
+      default:
+        throw Exception("Invalid stat");
+    }
+  }
 }
 
 @MappableClass()
 class CreateRequirementsDto with CreateRequirementsDtoMappable {
-  final int soilMoistureLevel;
-  final int lightLevel;
-  final int temperatureLevel;
-  final int humidityLevel;
+  final RequirementLevel soilMoistureLevel;
+  final RequirementLevel lightLevel;
+  final double temperatureLevel;
+  final RequirementLevel humidityLevel;
 
   CreateRequirementsDto({
     required this.soilMoistureLevel,
@@ -98,20 +136,20 @@ class CreateRequirementsDto with CreateRequirementsDtoMappable {
   });
 
   factory CreateRequirementsDto.empty() => CreateRequirementsDto(
-        soilMoistureLevel: 0,
-        lightLevel: 0,
+        soilMoistureLevel: RequirementLevel.low,
+        lightLevel: RequirementLevel.low,
         temperatureLevel: 0,
-        humidityLevel: 0,
+        humidityLevel: RequirementLevel.low,
       );
 }
 
 @MappableClass()
 class UpdateRequirementsDto with UpdateRequirementsDtoMappable {
   final Uuid requirementsId;
-  final int soilMoistureLevel;
-  final int lightLevel;
-  final int temperatureLevel;
-  final int humidityLevel;
+  final RequirementLevel soilMoistureLevel;
+  final RequirementLevel lightLevel;
+  final double temperatureLevel;
+  final RequirementLevel humidityLevel;
 
   UpdateRequirementsDto({
     required this.requirementsId,
@@ -122,10 +160,10 @@ class UpdateRequirementsDto with UpdateRequirementsDtoMappable {
   });
 
   factory UpdateRequirementsDto.empty() => UpdateRequirementsDto(
-        soilMoistureLevel: 0,
-        lightLevel: 0,
+        soilMoistureLevel: RequirementLevel.low,
+        lightLevel: RequirementLevel.low,
         temperatureLevel: 0,
-        humidityLevel: 0,
+        humidityLevel: RequirementLevel.low,
         requirementsId: "empty",
       );
 }

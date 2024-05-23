@@ -4,6 +4,8 @@ import 'package:botanique/add_plant/steps/add_plant_third_step.dart';
 import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/shared/screen_base.dart';
 import 'package:botanique/shared/stepper/app_stepper.dart';
+import 'package:botanique/shared/success_screen.dart';
+import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/util/xfile_converter.dart';
@@ -75,15 +77,16 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
       child: BlocListener<WebSocketBloc, ServerEvent>(
         listener: (context, state) {
           if (state is ServerSavesPlant) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Plant saved!"),
-              ),
-            );
-            Future.delayed(const Duration(seconds: 1), () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SuccessScreen()));
+            context
+                .read<NavigationCubit>()
+                .changePage(NavigationConstants.allPlants);
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.of(context).pop();
               context
-                  .read<NavigationCubit>()
-                  .changePage(NavigationConstants.allPlants);
+                  .read<AllPlantsCubit>()
+                  .refreshData(context.read<WebSocketBloc>());
               context.read<PlantRequirementsCubit>().reset();
               context.read<AddPlantCubit>().resetAddPlantState();
             });
@@ -99,7 +102,6 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
             }
 
             if (addPlantState is PlantAddInProgress) {
-              // TODO: change to a nice animation
               return const Center(child: CircularProgressIndicator());
             }
 
