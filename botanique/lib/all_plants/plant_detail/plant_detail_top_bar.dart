@@ -1,3 +1,4 @@
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,7 +39,11 @@ class PlantDetailTopBar extends StatelessWidget {
         TopBarAction(
           text: "Delete",
           icon: Icons.delete,
-          onPressed: () {},
+          onPressed: () {
+            context
+                .read<AddPlantCubit>()
+                .deletePlant(context.read<WebSocketBloc>(), plant);
+          },
         ),
       ],
     );

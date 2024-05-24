@@ -6,12 +6,13 @@ import 'package:botanique/state/all_plants_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../models/models/collections.dart';
 import '../../style/app_style.dart';
 import 'collection_input_card.dart';
 
 class EditCollectionsScreen extends StatefulWidget {
-  EditCollectionsScreen({super.key});
+  const EditCollectionsScreen({super.key});
 
   @override
   State<EditCollectionsScreen> createState() => _EditCollectionsScreenState();
@@ -63,9 +64,13 @@ class _EditCollectionsScreenState extends State<EditCollectionsScreen> {
               spacer,
               BlocBuilder<AllPlantsCubit, AllPlantsState>(
                   builder: (context, state) {
-                final collections = state.collections;
+                final collections = state.collections
+                    .where((element) =>
+                        element.collectionId != allPlantsCollectionId)
+                    .toList();
                 return Expanded(
-                  child: ListView.builder(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => spacer,
                     itemCount: collections.length,
                     itemBuilder: (context, index) {
                       final collection = collections[index];
@@ -76,7 +81,10 @@ class _EditCollectionsScreenState extends State<EditCollectionsScreen> {
                                 controller: _editController!,
                                 placeholder: "Edit collection name...",
                                 onSubmit: () {
-                                  _handleEditCollection(context, collection); // Exit edit mode
+                                  _handleEditCollection(
+                                    context,
+                                    collection,
+                                  ); // Exit edit mode
                                 },
                               )
                             : CollectionCard(
@@ -110,26 +118,24 @@ class _EditCollectionsScreenState extends State<EditCollectionsScreen> {
       context.read<WebSocketBloc>().add(
             ClientWantsToCreateCollection(
               jwt: "",
-              createCollectionDto: CreateCollectionDto(
-                  name: _addController.text),
+              createCollectionDto:
+                  CreateCollectionDto(name: _addController.text),
             ),
           );
     }
     _addController.clear();
   }
 
-  void _handleEditCollection(BuildContext context, GetCollectionDto collection) {
+  void _handleEditCollection(
+      BuildContext context, GetCollectionDto collection) {
     if (_editController!.text != originalName &&
         _editController!.text.isNotEmpty) {
       context.read<WebSocketBloc>().add(
             ClientWantsToUpdateCollection(
               jwt: "",
-              updateCollectionDto:
-                  UpdateCollectionDto(
-                      collectionId:
-                          collection.collectionId,
-                      name:
-                          _editController!.text),
+              updateCollectionDto: UpdateCollectionDto(
+                  collectionId: collection.collectionId,
+                  name: _editController!.text),
             ),
           );
     }
@@ -137,8 +143,14 @@ class _EditCollectionsScreenState extends State<EditCollectionsScreen> {
   }
 
   void _handleDeleteCollection(GetCollectionDto collection) {
+    context.read<AllPlantsCubit>().selectCollection(
+          GetCollectionDto.allPlants(),
+          context.read<WebSocketBloc>(),
+        );
     context.read<WebSocketBloc>().add(ClientWantsToDeleteCollection(
-        jwt: '', collectionId: collection.collectionId));
+          jwt: '',
+          collectionId: collection.collectionId,
+        ));
   }
 
   void _exitEditMode() {

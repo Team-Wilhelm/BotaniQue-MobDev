@@ -44,7 +44,7 @@ class AppTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
         suffixIconColor: textColor,
         hintText: placeholder,
-        hintStyle: const TextStyle(color: TextColors.textSecondary),
+        hintStyle: TextStyle(color: textColor.withOpacity(0.5)),
         filled: true,
         fillColor: fillColor,
         contentPadding:

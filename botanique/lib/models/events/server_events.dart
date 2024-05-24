@@ -163,6 +163,13 @@ class ServerSendsPlaceholderUrl extends ServerEvent
   });
 }
 
+@MappableClass(discriminatorValue: 'ServerConfirmsDelete')
+class ServerConfirmsDelete extends ServerEvent with ServerConfirmsDeleteMappable {
+  ServerConfirmsDelete({
+    super.eventType = "ServerConfirmsDelete",
+  });
+}
+
 /*
   Collections
  */

@@ -1,3 +1,4 @@
+import 'package:botanique/models/events/server_events.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/other_section.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
@@ -6,10 +7,12 @@ import 'package:botanique/settings/settings_section.dart';
 import 'package:botanique/shared/app_card.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/user_cubit.dart';
+import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../shared/app_snackbar.dart';
 import '../util/content_size_helper.dart';
 import 'about_wilhelmina.dart';
 
@@ -22,48 +25,70 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: BlocBuilder<UserCubit, UserCubitState>(
-        builder: (context, userState) {
-          return ListView(
-            children: [
-              ProfileSettingsBanner(
-                  diameter: diameter,
-                  onEditTapped: () {
-                    _handleOnImageEditTapped(context);
-                  }),
-              SizedBox(height: diameter * 0.55),
-              SettingsScreenContentMargin(
-                child: Column(
-                  children: [
-                    AppText(
-                      text: userState.userDto.username ?? "My Profile",
-                      textAlign: TextAlign.center,
-                      fontSize: FontSizes.h3,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    const AppText(
-                      text: "Superior plant lover!",
-                      textAlign: TextAlign.center,
-                    ),
-                    spacer,
-                    _buildStatsCard(diameter),
-                    spacerDouble,
-                    SettingsSection(
-                      diameter: diameter,
-                    ),
-                    spacer,
-                    const OtherSettingsSection(),
-                  ],
-                ),
-              ),
-              spacerDouble,
-              const AboutWilhelmina(),
-              spacerDouble,
-            ],
-          );
+      body: BlocListener<WebSocketBloc, ServerEvent>(
+        listener: (context, serverEvent) {
+          _handleServerResponse(context, serverEvent);
         },
+        child: BlocBuilder<UserCubit, UserCubitState>(
+          builder: (context, userState) {
+            return ListView(
+              children: [
+                ProfileSettingsBanner(
+                    diameter: diameter,
+                    onEditTapped: () {
+                      _handleOnImageEditTapped(context);
+                    }),
+                SizedBox(height: diameter * 0.55),
+                SettingsScreenContentMargin(
+                  child: Column(
+                    children: [
+                      AppText(
+                        text: userState.userDto.username ?? "My Profile",
+                        textAlign: TextAlign.center,
+                        fontSize: FontSizes.h3,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const AppText(
+                        text: "Superior plant lover!",
+                        textAlign: TextAlign.center,
+                      ),
+                      spacer,
+                      _buildStatsCard(diameter),
+                      spacerDouble,
+                      SettingsSection(
+                        diameter: diameter,
+                      ),
+                      spacer,
+                      const OtherSettingsSection(),
+                    ],
+                  ),
+                ),
+                spacerDouble,
+                const AboutWilhelmina(),
+                spacerDouble,
+              ],
+            );
+          },
+        ),
       ),
     );
+  }
+
+  void _handleServerResponse(BuildContext context, ServerEvent serverEvent) {
+    if (serverEvent is ServerConfirmsUpdateUsername) {
+      context.read<UserCubit>().updateUsername(serverEvent.username);
+      AppSnackbar(context).showSuccess("Username updated!");
+    } else if (serverEvent is ServerConfirmsUpdatePassword) {
+      AppSnackbar(context).showSuccess("Password updated!");
+    } else if (serverEvent is ServerConfirmsProfileImageUpdate) {
+      context.read<UserCubit>().updateBlobUrl(serverEvent.blobUrl);
+      AppSnackbar(context).showSuccess("Profile image updated updated!");
+    } else if (serverEvent is ServerConfirmsDeleteProfileImage) {
+      context.read<UserCubit>().deleteBlobUrl();
+      AppSnackbar(context).showSuccess("Profile image set to default!");
+    } else if (serverEvent is ServerRejectsUpdate) {
+      AppSnackbar(context).showError(serverEvent.error);
+    }
   }
 
   /* Methods */
@@ -73,7 +98,7 @@ class SettingsScreen extends StatelessWidget {
     }));
   }
 
-  /* Widgets */
+/* Widgets */
   Widget _buildStatsCard(double diameter) {
     return AppCard(
       applyGradient: true,

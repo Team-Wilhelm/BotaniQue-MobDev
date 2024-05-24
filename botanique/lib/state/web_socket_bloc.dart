@@ -49,9 +49,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       (event, emit) {
         final storageRepository = StorageRepository.storageRepository;
         storageRepository.deleteData(LocalStorageKeys.jwt);
-        print("Logged out");
-        print(
-            "storageRepository.getData(LocalStorageKeys.jwt): ${storageRepository.getData(LocalStorageKeys.jwt)}");
         jwt = null;
         emit(event);
       },
@@ -85,12 +82,9 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
   void _requestInitialData() {
     add(ClientWantsToGetCriticalPlants(jwt: jwt!));
-    add(ClientWantsAllCollections(
-        jwt:
-            jwt!)); // result from this is handled in main, because it requires interaction with the AllPlantsCubit, where the plants are requested subsequently,
-    add(ClientWantsPlaceholderUrl(jwt: jwt!));
-    // TODO add
-    //add(ClientWa)
+    add(
+      ClientWantsAllCollections(jwt: jwt!),
+    ); // result from this is handled in main, because it requires interaction with the AllPlantsCubit, where the plants are requested subsequently,
   }
 
   @override

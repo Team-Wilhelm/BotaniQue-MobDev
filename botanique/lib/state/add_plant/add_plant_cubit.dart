@@ -81,6 +81,13 @@ class AddPlantCubit extends Cubit<AddPlantState> implements ImageActionCubit {
   void setPlaceholderSasUrl(String sasUrl) {
     emit(state.copyWith(placeHolderUrl: sasUrl));
   }
+
+  void deletePlant(WebSocketBloc webSocketBloc, Plant plant) {
+    webSocketBloc.add(ClientWantsToDeletePlant(
+      jwt: "jwt",
+      plantId: plant.plantId,
+    ));
+  }
 }
 
 // Possible outcomes
