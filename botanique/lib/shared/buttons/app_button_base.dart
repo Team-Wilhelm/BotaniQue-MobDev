@@ -19,6 +19,7 @@ mixin AppButtonBase {
         backgroundColor = Theme.of(context).colorScheme.secondary;
         break;
       case ButtonType.outline:
+      case ButtonType.transparent:
         backgroundColor = Colors.transparent;
         break;
       case ButtonType.inactive:
@@ -71,6 +72,9 @@ mixin AppButtonBase {
         break;
       case ButtonType.inactive:
         contentColor = TextColors.textSecondary;
+        break;
+      case ButtonType.transparent:
+        contentColor = TextColors.textDark;
         break;
     }
 

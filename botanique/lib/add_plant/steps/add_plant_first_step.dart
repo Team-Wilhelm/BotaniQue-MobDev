@@ -34,7 +34,7 @@ class AddPlantFirstStepContent extends StatelessWidget {
                 text: "What do you call your green friend?",
               ),
               AppIconButton(
-                buttonType: ButtonType.outline,
+                buttonType: ButtonType.transparent,
                 icon: Icons.help_outline,
                 onPressed: () {},
                 tooltip:

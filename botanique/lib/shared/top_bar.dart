@@ -37,7 +37,7 @@ class TopBar extends StatelessWidget {
       children: [
         AppIconButton(
           icon: Icons.arrow_back_ios_new,
-          buttonType: ButtonType.outline,
+          buttonType: ButtonType.transparent,
           onPressed: () {
             if (onBack != null) {
               onBack!();

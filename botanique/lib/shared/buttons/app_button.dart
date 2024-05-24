@@ -15,6 +15,9 @@ class AppButton extends StatelessWidget with AppButtonBase {
     this.disabled = false,
     this.fontPercentage = FontSizes.regular,
     this.fullWidth = false,
+    this.leadingIcon,
+    this.style,
+    this.contentColor,
   });
 
   final VoidCallback onPressed;
@@ -24,6 +27,13 @@ class AppButton extends StatelessWidget with AppButtonBase {
   final ButtonShape buttonShape;
   final double fontPercentage;
   final bool fullWidth;
+  final IconData? leadingIcon;
+
+  /// Used to override the default button styles, prefer using buttonType and buttonShape to keep the design consistent.
+  final ButtonStyle? style;
+
+  /// Used to override the default button styles, prefer using buttonType and buttonShape to keep the design consistent.
+  final Color? contentColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +41,34 @@ class AppButton extends StatelessWidget with AppButtonBase {
       width: fullWidth ? double.infinity : null,
       child: ElevatedButton(
         onPressed: disabled ? null : onPressed,
-        style: styleButton(
-          context: context,
-          buttonType: buttonType,
-          buttonShape: buttonShape,
-          disabled: disabled,
-        ),
-        child: AppText(
-          text: text,
-          fontSize: fontPercentage,
-          colour: getContentColor(buttonType, disabled),
+        style: style ??
+            styleButton(
+              context: context,
+              buttonType: buttonType,
+              buttonShape: buttonShape,
+              disabled: disabled,
+            ),
+        child: Row(
+          mainAxisAlignment: hasLeadingIcon
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
+          children: [
+            if (hasLeadingIcon)
+              Icon(
+                leadingIcon,
+                color: contentColor ?? getContentColor(buttonType, disabled),
+              ),
+            if (hasLeadingIcon) const SizedBox(width: 16),
+            AppText(
+              text: text,
+              fontSize: fontPercentage,
+              colour: contentColor ?? getContentColor(buttonType, disabled),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  get hasLeadingIcon => leadingIcon != null;
 }

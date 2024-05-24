@@ -11,6 +11,7 @@ class AppCard extends StatelessWidget {
     this.applyGradient = false,
     this.height,
     this.width,
+    this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
   });
 
   final Widget child;
@@ -19,11 +20,12 @@ class AppCard extends StatelessWidget {
   final bool applyGradient;
   final double? height;
   final double? width;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: padding,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(16),

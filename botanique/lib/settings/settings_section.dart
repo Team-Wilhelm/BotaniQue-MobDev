@@ -51,10 +51,10 @@ class _SettingsSectionState extends State<SettingsSection> {
       children: [
         const AppText(
           text: "User Settings",
-          fontSize: FontSizes.h4,
+          fontSize: FontSizes.h5,
           fontWeight: FontWeight.bold,
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8),
         Column(
           children: [
             ...panelItems.map(
@@ -80,6 +80,10 @@ class _SettingsSectionState extends State<SettingsSection> {
     return panelItems = <PanelItem>[
       PanelItem(
         id: 1,
+        leadingIcon: const Icon(
+          Icons.person,
+          color: TextColors.textDark,
+        ),
         headerValue: 'Username',
         controller: ExpansionTileController(),
         panelContent: Column(
@@ -91,23 +95,25 @@ class _SettingsSectionState extends State<SettingsSection> {
             ),
             spacer,
             AppButton(
-                onPressed: () {
-                  if (_usernameController.text.isNotEmpty &&
-                      _usernameController.text.length <= 51) {
-                    _handleUpdateUsername(_usernameController);
-                    _handleTileToggle(1);
-                  } else {
-                    AppSnackbar(context)
-                        .showError("Can't be empty or exceed 50 characters");
-                  }
-                },
-                text: "Submit")
+              onPressed: () {
+                if (_usernameController.text.isNotEmpty &&
+                    _usernameController.text.length <= 51) {
+                  _handleUpdateUsername(_usernameController);
+                  _handleTileToggle(1);
+                } else {
+                  AppSnackbar(context)
+                      .showError("Can't be empty or exceed 50 characters");
+                }
+              },
+              text: "Save",
+            )
           ],
         ),
       ),
       PanelItem(
         id: 2,
         headerValue: 'Password',
+        leadingIcon: const Icon(Icons.lock, color: TextColors.textDark),
         controller: ExpansionTileController(),
         panelContent: Column(
           children: [
@@ -124,27 +130,27 @@ class _SettingsSectionState extends State<SettingsSection> {
             ),
             spacer,
             AppButton(
-                onPressed: () {
-                  if (_passwordController.text.isEmpty ||
-                      _passwordRepeatController.text.isEmpty) {
-                    AppSnackbar(context)
-                        .showError("Please fill in both fields");
-                    return;
-                  } else if (_passwordController.text !=
-                      _passwordRepeatController.text) {
-                    AppSnackbar(context).showError("Passwords do not match");
-                    return;
-                  } else if (_passwordController.text.length < 8 ||
-                      _passwordController.text.length > 256) {
-                    AppSnackbar(context)
-                        .showError("Must be between 8-256 characters");
-                    return;
-                  } else {
-                    _handleUpdatePassword(_passwordController);
-                    _handleTileToggle(2);
-                  }
-                },
-                text: "Submit")
+              onPressed: () {
+                if (_passwordController.text.isEmpty ||
+                    _passwordRepeatController.text.isEmpty) {
+                  AppSnackbar(context).showError("Please fill in both fields");
+                  return;
+                } else if (_passwordController.text !=
+                    _passwordRepeatController.text) {
+                  AppSnackbar(context).showError("Passwords do not match");
+                  return;
+                } else if (_passwordController.text.length < 8 ||
+                    _passwordController.text.length > 256) {
+                  AppSnackbar(context)
+                      .showError("Must be between 8-256 characters");
+                  return;
+                } else {
+                  _handleUpdatePassword(_passwordController);
+                  _handleTileToggle(2);
+                }
+              },
+              text: "Save",
+            )
           ],
         ),
       ),
