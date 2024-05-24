@@ -171,7 +171,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     print('Error: ${serverEvent.error}');
     AppSnackbar(context).showError(serverEvent.error);
   } else if (serverEvent is ServerSendsUserInfo) {
-    context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
+    context.read<UserCubit>()..updateUsername(serverEvent.getUserDto.username)..setUserEmail(serverEvent.getUserDto.userEmail);
     if (serverEvent.getUserDto.blobUrl != null) {
       context
           .read<UserCubit>()
@@ -179,7 +179,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     }
     context.read<NavigationCubit>().changePage(NavigationConstants.home);
   }
-  // Profile updates
+  // Settings screen updates
   else if (serverEvent is ServerConfirmsUpdateUsername) {
     context.read<UserCubit>().updateUsername(serverEvent.username);
     AppSnackbar(context).showSuccess("Username updated!");
@@ -193,5 +193,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     AppSnackbar(context).showSuccess("Profile image set to default!");
   } else if (serverEvent is ServerRejectsUpdate) {
     AppSnackbar(context).showError(serverEvent.error);
+  } else if (serverEvent is ServerSendsStats) {
+    context.read<UserCubit>().setStats(serverEvent.stats);
   }
 }

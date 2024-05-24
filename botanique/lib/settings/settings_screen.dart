@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../models/dtos/user/user_dto.dart';
 import '../shared/buttons/app_button.dart';
 import '../shared/buttons/app_icon_button.dart';
 import 'panel_content/panel_item.dart';
@@ -79,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   textAlign: TextAlign.center,
                 ),
                 spacer,
-                _buildStatsCard(diameter),
+                _buildStatsCard(diameter, userState.stats),
                 spacerDouble,
                 const AppText(
                     text: "Settings",
@@ -265,7 +266,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     ];
   }
 
-  Card _buildStatsCard(double diameter) {
+  Card _buildStatsCard(double diameter, Stats stats) {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: diameter * 0.24),
       child: Padding(
@@ -273,9 +274,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildStatsColumn("25", "plants total"),
-            _buildStatsColumn("25", "happy plants"),
-            _buildStatsColumn("5", "collections"),
+            _buildStatsColumn(stats.totalPlants.toString(), "plants total"),
+            _buildStatsColumn(stats.happyPlants.toString(), "happy plants"),
+            _buildStatsColumn(stats.collections.toString(), "collections"),
           ],
         ),
       ),

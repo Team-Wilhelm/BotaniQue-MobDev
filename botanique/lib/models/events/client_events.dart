@@ -277,6 +277,13 @@ class ClientWantsToDeleteProfileImage extends ClientEventWithJwt
   });
 }
 
+@MappableClass(discriminatorValue: "ClientWantsUserInfo")
+class ClientWantsUserInfo extends ClientEventWithJwt
+    with ClientWantsUserInfoMappable {
+  ClientWantsUserInfo(
+      {required super.jwt, super.eventType = "ClientWantsUserInfo"});
+}
+
 @MappableClass(discriminatorValue: "ClientWantsToGetCriticalPlants")
 class ClientWantsToGetCriticalPlants extends ClientEventWithJwt
     with ClientWantsToGetCriticalPlantsMappable {
@@ -292,5 +299,14 @@ class ClientWantsPlaceholderUrl extends ClientEventWithJwt
   ClientWantsPlaceholderUrl({
     required super.jwt,
     super.eventType = "ClientWantsPlaceholderUrl",
+  });
+}
+
+@MappableClass(discriminatorValue: "ClientWantsStats")
+class ClientWantsStats extends ClientEventWithJwt
+    with ClientWantsStatsMappable {
+  ClientWantsStats({
+    required super.jwt,
+    super.eventType = "ClientWantsStats"
   });
 }
