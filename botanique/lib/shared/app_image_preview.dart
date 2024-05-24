@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/enums/app_enums.dart';
 import '../util/asset_constants.dart';
+import '../util/content_size_helper.dart';
 
 class AppImagePreview extends StatelessWidget {
   const AppImagePreview({
@@ -24,7 +25,7 @@ class AppImagePreview extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: ContentSizeHelper.getContentHeight(context) * 0.3,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

@@ -58,15 +58,17 @@ class AppNavbar extends StatelessWidget {
             routeLabel: NavigationConstants.addPlant,
             label: "Add",
             icon: Icons.add_circle_outline,
-            onTap: () => context.read<AddPlantCubit>().resetAddPlantState(),
+            onTap: () {
+              context.read<AddPlantCubit>().resetAddPlantState();
+              context.read<WebSocketBloc>().add(
+                    ClientWantsPlaceholderUrl(jwt: "jwt"),
+                  );
+            },
           ),
-          AppNavigationItem(
+          const AppNavigationItem(
             routeLabel: NavigationConstants.settings,
             label: "Settings",
             icon: Icons.settings,
-            onTap: () {
-              // TODO: Get data
-            },
           ),
         ],
       ),

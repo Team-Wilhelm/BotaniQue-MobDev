@@ -31,11 +31,22 @@ class AppText extends StatelessWidget {
       softWrap: softWrap,
       style: TextStyle(
         color: colour,
-        fontSize: MediaQuery.of(context).size.width / fontSize,
+        fontSize: _getFontSize(context),
         fontWeight: fontWeight,
         decoration: decoration,
         overflow: overflow,
       ),
     );
+  }
+
+  _getFontSize(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth < 600) {
+      return screenWidth / fontSize;
+    } else if (screenWidth < 800) {
+      return screenWidth / fontSize / 1.5;
+    } else {
+      return 800 / fontSize / 1.5;
+    }
   }
 }

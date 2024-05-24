@@ -89,6 +89,7 @@ enum ButtonType {
   outline,
   inactive,
   warning,
+  transparent,
 }
 
 enum ButtonShape {

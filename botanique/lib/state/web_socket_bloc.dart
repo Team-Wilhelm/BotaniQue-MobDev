@@ -45,7 +45,7 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       },
     );
 
-    on<ServerLogsUserOut>(
+    on<ServerLogsOutUser>(
       (event, emit) {
         final storageRepository = StorageRepository.storageRepository;
         storageRepository.deleteData(LocalStorageKeys.jwt);
@@ -85,7 +85,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
     add(ClientWantsAllCollections(
         jwt:
             jwt!)); // result from this is handled in main, because it requires interaction with the AllPlantsCubit, where the plants are requested subsequently,
-    add(ClientWantsPlaceholderUrl(jwt: jwt!));
     add(ClientWantsUserInfo(jwt: jwt!));
     add(ClientWantsStats(jwt: jwt!));
   }

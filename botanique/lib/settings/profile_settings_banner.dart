@@ -1,8 +1,10 @@
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../state/user_cubit.dart';
 import '../util/asset_constants.dart';
+import '../util/content_size_helper.dart';
 
 class ProfileSettingsBanner extends StatelessWidget {
   const ProfileSettingsBanner({
@@ -32,7 +34,7 @@ class ProfileSettingsBanner extends StatelessWidget {
           top: diameter * 1.2,
           child: Container(
             height: diameter * 0.4,
-            width: MediaQuery.of(context).size.width,
+            width: ContentSizeHelper.getContentWidth(context),
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
               color: AppColors.background,
@@ -45,7 +47,7 @@ class ProfileSettingsBanner extends StatelessWidget {
         ),
         Positioned(
           top: diameter * 0.75,
-          left: MediaQuery.of(context).size.width / 2 - diameter / 2,
+          left: ContentSizeHelper.getContentWidth(context) / 2 - diameter / 2,
           child: Container(
             width: diameter,
             height: diameter,
@@ -58,15 +60,14 @@ class ProfileSettingsBanner extends StatelessWidget {
             ),
             child: Center(
               child: BlocBuilder<UserCubit, UserCubitState>(
-                builder: (context, state) {
-                  return GestureDetector(
-                    onTap: onEditTapped,
-                    child: ClipOval(
-                      child: _buildImage(context, diameter),
-                    ),
-                  );
-                }
-              ),
+                  builder: (context, state) {
+                return GestureDetector(
+                  onTap: onEditTapped,
+                  child: ClipOval(
+                    child: _buildImage(context, diameter),
+                  ),
+                );
+              }),
             ),
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField({
@@ -11,6 +12,8 @@ class AppTextField extends StatelessWidget {
     this.suffixIcon,
     this.fillColor = AppColors.inputFill,
     this.textColor = TextColors.textDark,
+    this.inputFormatters = const [],
+    this.validator,
   });
 
   final TextEditingController textFieldController;
@@ -20,10 +23,14 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Color fillColor;
   final Color textColor;
+  final List<TextInputFormatter> inputFormatters;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      inputFormatters: inputFormatters,
+      validator: validator,
       obscureText: textInputType == TextInputType.visiblePassword,
       controller: textFieldController,
       keyboardType: textInputType,
@@ -37,7 +44,7 @@ class AppTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
         suffixIconColor: textColor,
         hintText: placeholder,
-        hintStyle: const TextStyle(color: TextColors.textSecondary),
+        hintStyle: TextStyle(color: textColor.withOpacity(0.5)),
         filled: true,
         fillColor: fillColor,
         contentPadding:

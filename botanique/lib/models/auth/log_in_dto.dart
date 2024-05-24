@@ -12,3 +12,16 @@ class LoginDto with LoginDtoMappable {
     required this.password,
   });
 }
+
+@MappableClass()
+class RegisterUserDto with RegisterUserDtoMappable {
+  final String email;
+  final String password;
+  final String username;
+
+  RegisterUserDto({
+    required this.email,
+    required this.password,
+    required this.username,
+  });
+}

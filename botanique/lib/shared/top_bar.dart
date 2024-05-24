@@ -37,12 +37,12 @@ class TopBar extends StatelessWidget {
       children: [
         AppIconButton(
           icon: Icons.arrow_back_ios_new,
-          buttonType: ButtonType.outline,
+          buttonType: ButtonType.transparent,
           onPressed: () {
             if (onBack != null) {
               onBack!();
             }
-            Navigator.pop(context); // TODO: Implement back navigation animation
+            Navigator.pop(context);
           },
         ),
         AppText(
@@ -50,28 +50,30 @@ class TopBar extends StatelessWidget {
           fontSize: FontSizes.h5,
           fontWeight: FontWeight.bold,
         ),
-        PopupMenuButton<TopBarAction>(
-          tooltip: "More options",
-          elevation: 0,
-          icon: const Icon(Icons.more_vert),
-          onSelected: (action) => action.onPressed(),
-          itemBuilder: (context) {
-            return actions!.map((action) {
-              return PopupMenuItem<TopBarAction>(
-                value: action,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText(text: action.text),
-                    const SizedBox(width: 8),
-                    if (action.icon != null)
-                      Icon(action.icon, color: TextColors.textDark),
-                  ],
-                ),
-              );
-            }).toList();
-          },
-        ),
+        if (actions != null && actions!.isNotEmpty)
+          PopupMenuButton<TopBarAction>(
+            tooltip: "More options",
+            elevation: 0,
+            icon: const Icon(Icons.more_vert),
+            onSelected: (action) => action.onPressed(),
+            itemBuilder: (context) {
+              return actions!.map((action) {
+                return PopupMenuItem<TopBarAction>(
+                  value: action,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppText(text: action.text),
+                      const SizedBox(width: 8),
+                      if (action.icon != null)
+                        Icon(action.icon, color: TextColors.textDark),
+                    ],
+                  ),
+                );
+              }).toList();
+            },
+          ),
+        if (actions == null || actions!.isEmpty) const SizedBox(width: 24),
       ],
     );
   }

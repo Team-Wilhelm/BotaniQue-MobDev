@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/events/client_events.dart';
 import '../style/app_style.dart';
+import '../util/content_size_helper.dart';
 import 'plant_detail/plant_detail_screen.dart';
 
 class PlantCard extends StatelessWidget {
@@ -51,7 +52,7 @@ class PlantCard extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.045,
+                  height: ContentSizeHelper.getContentHeight(context) * 0.045,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,

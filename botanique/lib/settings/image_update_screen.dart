@@ -2,25 +2,27 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../models/enums/app_enums.dart';
 import '../models/events/client_events.dart';
 import '../shared/app_text.dart';
+import '../shared/buttons/app_icon_button.dart';
+import '../shared/image_choice_dialog.dart';
 import '../shared/screen_base.dart';
 import '../shared/top_bar.dart';
 import '../state/user_cubit.dart';
 import '../state/web_socket_bloc.dart';
 import '../style/app_style.dart';
 import '../util/asset_constants.dart';
+import '../util/content_size_helper.dart';
 import '../util/xfile_converter.dart';
-import '../shared/buttons/app_icon_button.dart';
-import '../shared/image_choice_dialog.dart';
 
 class ImageUpdateScreen extends StatelessWidget {
   const ImageUpdateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final imageSize = MediaQuery.of(context).size.width * 0.8;
+    final imageSize = ContentSizeHelper.getContentWidth(context) * 0.8;
     return ScreenBase(
       child: Column(
         children: [
@@ -41,7 +43,8 @@ class ImageUpdateScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         ImageChoiceDialog(
-                          title: "How do you want to update your profile picture?",
+                          title:
+                              "How do you want to update your profile picture?",
                           cubit: context.read<UserCubit>(),
                         ).show(context: context);
                       },
@@ -54,7 +57,9 @@ class ImageUpdateScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AppIconButton(
-                          disabled: context.read<UserCubit>().state.xFileImage == null,
+                          disabled:
+                              context.read<UserCubit>().state.xFileImage ==
+                                  null,
                           onPressed: () {
                             context.read<UserCubit>().deleteXFileImage();
                             Navigator.of(context).pop();
@@ -65,16 +70,21 @@ class ImageUpdateScreen extends StatelessWidget {
                         ),
                         spacer,
                         AppIconButton(
-                          disabled: context.read<UserCubit>().state.xFileImage == null,
+                          disabled:
+                              context.read<UserCubit>().state.xFileImage ==
+                                  null,
                           onPressed: () {
                             context.read<WebSocketBloc>().add(
-                              ClientWantsToUpdateProfileImage(
-                                jwt: "",
-                                base64Image: XFileConverter.toBase64(
-                                  context.read<UserCubit>().state.xFileImage!,
-                                ),
-                              ),
-                            );
+                                  ClientWantsToUpdateProfileImage(
+                                    jwt: "",
+                                    base64Image: XFileConverter.toBase64(
+                                      context
+                                          .read<UserCubit>()
+                                          .state
+                                          .xFileImage!,
+                                    ),
+                                  ),
+                                );
                             context.read<UserCubit>().deleteXFileImage();
                           },
                           icon: Icons.check,
@@ -83,10 +93,17 @@ class ImageUpdateScreen extends StatelessWidget {
                         ),
                         spacer,
                         AppIconButton(
-                          disabled: context.read<UserCubit>().state.xFileImage == null &&
-                              context.read<UserCubit>().state.userDto.blobUrl == null,
+                          disabled: context
+                                      .read<UserCubit>()
+                                      .state
+                                      .xFileImage ==
+                                  null &&
+                              context.read<UserCubit>().state.userDto.blobUrl ==
+                                  null,
                           onPressed: () {
-                            context.read<WebSocketBloc>().add(ClientWantsToDeleteProfileImage(jwt: ""));
+                            context
+                                .read<WebSocketBloc>()
+                                .add(ClientWantsToDeleteProfileImage(jwt: ""));
                             context.read<UserCubit>().deleteXFileImage();
                           },
                           icon: Icons.delete,
@@ -107,37 +124,38 @@ class ImageUpdateScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(BuildContext context, UserCubitState state, double imageSize) {
+  Widget _buildImage(
+      BuildContext context, UserCubitState state, double imageSize) {
     if (state.xFileImage != null) {
-        return Image.file(
-            File(state.xFileImage!.path),
-            width: imageSize,
-            height: imageSize,
-            fit: BoxFit.cover,
-        );
+      return Image.file(
+        File(state.xFileImage!.path),
+        width: imageSize,
+        height: imageSize,
+        fit: BoxFit.cover,
+      );
     } else if (state.userDto.blobUrl != null) {
-        return Image.network(
-            state.userDto.blobUrl!,
-            width: imageSize,
-            height: imageSize,
-            fit: BoxFit.cover,
-            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                return Image.asset(
-                    AssetConstants.profile,
-                    width: imageSize,
-                    height: imageSize,
-                    fit: BoxFit.cover,
-                );
-            },
-        );
-    } else {
-        return Image.asset(
+      return Image.network(
+        state.userDto.blobUrl!,
+        width: imageSize,
+        height: imageSize,
+        fit: BoxFit.cover,
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) {
+          return Image.asset(
             AssetConstants.profile,
             width: imageSize,
             height: imageSize,
             fit: BoxFit.cover,
-        );
+          );
+        },
+      );
+    } else {
+      return Image.asset(
+        AssetConstants.profile,
+        width: imageSize,
+        height: imageSize,
+        fit: BoxFit.cover,
+      );
     }
-}
-
+  }
 }

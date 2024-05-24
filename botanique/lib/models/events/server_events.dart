@@ -44,6 +44,14 @@ class ServerSendsImageWithoutBackground extends ServerEvent
   });
 }
 
+@MappableClass(discriminatorValue: 'ServerSignsUserUp')
+class ServerSignsUserUp extends ServerEvent with ServerSignsUserUpMappable {
+
+  ServerSignsUserUp({
+    super.eventType = "ServerSignsUserUp",
+  });
+}
+
 /*
   Plants
  */
@@ -126,10 +134,10 @@ class ServerSendsLatestConditionsForPlant extends ServerEvent
   });
 }
 
-@MappableClass(discriminatorValue: 'ServerLogsUserOut')
-class ServerLogsUserOut extends ServerEvent with ServerLogsUserOutMappable {
-  ServerLogsUserOut({
-    super.eventType = "ServerLogsUserOut",
+@MappableClass(discriminatorValue: 'ServerLogsOutUser')
+class ServerLogsOutUser extends ServerEvent with ServerLogsOutUserMappable {
+  ServerLogsOutUser({
+    super.eventType = "ServerLogsOutUser",
   });
 }
 
@@ -152,6 +160,13 @@ class ServerSendsPlaceholderUrl extends ServerEvent
   ServerSendsPlaceholderUrl({
     required this.placeholderUrl,
     super.eventType = "ServerSendsPlaceholderUrl",
+  });
+}
+
+@MappableClass(discriminatorValue: 'ServerConfirmsDelete')
+class ServerConfirmsDelete extends ServerEvent with ServerConfirmsDeleteMappable {
+  ServerConfirmsDelete({
+    super.eventType = "ServerConfirmsDelete",
   });
 }
 
@@ -275,9 +290,18 @@ class ServerRejectsUpdate extends ServerSendsErrorMessage
     with ServerRejectsUpdateMappable {
   final GetUserDto getUserDto;
   ServerRejectsUpdate({
-    super.eventType = "ServerRejectsUpdate",
+        super.eventType = "ServerRejectsUpdate",
+      required super.error,
+      required this.getUserDto,
+      });
+}
+
+@MappableClass(discriminatorValue: 'ServerRespondsUserAlreadyExists')
+class ServerRespondsUserAlreadyExists extends ServerSendsErrorMessage
+    with ServerRespondsUserAlreadyExistsMappable {
+  ServerRespondsUserAlreadyExists({
+    super.eventType = "ServerRespondsUserAlreadyExists",
     required super.error,
-    required this.getUserDto
   });
 }
 

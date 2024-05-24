@@ -1,6 +1,7 @@
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:botanique/util/content_size_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -17,6 +18,7 @@ class WelcomeScreen extends StatelessWidget {
         backgroundColor: AppColors.welcomeScreenBackground,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const AppText(
               text: 'Welcome to BotaniQue',
@@ -30,11 +32,12 @@ class WelcomeScreen extends StatelessWidget {
             ),
             spacer,
             SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width,
+              width: ContentSizeHelper.getContentWidth(context),
+              height: ContentSizeHelper.getContentHeight(context) * 0.6,
               child: Lottie.network(
-                  'https://lottie.host/bb24e446-457b-4a11-9ee1-238202f7b46d/nZCAZvKzWr.json',
-                  repeat: false),
+                'https://lottie.host/bb24e446-457b-4a11-9ee1-238202f7b46d/nZCAZvKzWr.json',
+                repeat: false,
+              ),
             ),
             spacer,
             ElevatedButton(
@@ -42,10 +45,12 @@ class WelcomeScreen extends StatelessWidget {
                     .read<NavigationCubit>()
                     .changePage(NavigationConstants.auth),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary[20]!,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width / 5,
-                        vertical: 8)),
+                  backgroundColor: AppColors.primary[20]!,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: ContentSizeHelper.getContentWidth(context) / 5,
+                    vertical: 8,
+                  ),
+                ),
                 child: const AppText(
                   text: 'Log In',
                   fontSize: FontSizes.h4,
@@ -53,7 +58,15 @@ class WelcomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 )),
             spacer,
-            const AppText(text: 'Create an account', fontSize: FontSizes.h5),
+            GestureDetector(
+              onTap: () => context.read<NavigationCubit>()
+                ..toggleSignUpScreen()
+                ..changePage(NavigationConstants.auth),
+              child: const AppText(
+                text: 'Create an account',
+                fontSize: FontSizes.h5,
+              ),
+            ),
             spacer,
             const AppText(
               text: 'Forgot password?',

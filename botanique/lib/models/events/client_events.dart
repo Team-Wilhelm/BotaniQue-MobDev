@@ -31,23 +31,20 @@ class ClientWantsToLogIn extends ClientEvent with ClientWantsToLogInMappable {
 
 @MappableClass(discriminatorValue: 'ClientWantsToLogOut')
 class ClientWantsToLogOut extends ClientEvent with ClientWantsToLogOutMappable {
-  final String email;
-
   ClientWantsToLogOut({
-    required this.email,
     required super.eventType,
   });
 }
 
-/* @MappableClass()
+@MappableClass(discriminatorValue: 'ClientWantsToSignUp')
 class ClientWantsToSignUp extends ClientEvent with ClientWantsToSignUpMappable {
   final RegisterUserDto registerUserDto;
 
   ClientWantsToSignUp({
     required this.registerUserDto,
-    required super.eventType,
+    super.eventType = "ClientWantsToSignUp",
   });
-} */
+}
 
 /*
   * Events with JWT

@@ -1,10 +1,11 @@
 import 'package:botanique/shared/app_text.dart';
+import 'package:botanique/shared/buttons/app_button_base.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/enums/app_enums.dart';
 
-class AppButton extends StatelessWidget {
+class AppButton extends StatelessWidget with AppButtonBase {
   const AppButton({
     super.key,
     required this.onPressed,
@@ -14,6 +15,9 @@ class AppButton extends StatelessWidget {
     this.disabled = false,
     this.fontPercentage = FontSizes.regular,
     this.fullWidth = false,
+    this.leadingIcon,
+    this.style,
+    this.contentColor,
   });
 
   final VoidCallback onPressed;
@@ -23,92 +27,48 @@ class AppButton extends StatelessWidget {
   final ButtonShape buttonShape;
   final double fontPercentage;
   final bool fullWidth;
+  final IconData? leadingIcon;
+
+  /// Used to override the default button styles, prefer using buttonType and buttonShape to keep the design consistent.
+  final ButtonStyle? style;
+
+  /// Used to override the default button styles, prefer using buttonType and buttonShape to keep the design consistent.
+  final Color? contentColor;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: fullWidth ? double.infinity : null,
-      child: ElevatedButton( // TODO: remove ElevatedButton maybe
+      child: ElevatedButton(
         onPressed: disabled ? null : onPressed,
-        style: styleButton(context),
-        child: AppText(
-          text: text,
-          fontSize: fontPercentage,
-          colour: textColor,
+        style: style ??
+            styleButton(
+              context: context,
+              buttonType: buttonType,
+              buttonShape: buttonShape,
+              disabled: disabled,
+            ),
+        child: Row(
+          mainAxisAlignment: hasLeadingIcon
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.center,
+          children: [
+            if (hasLeadingIcon)
+              Icon(
+                leadingIcon,
+                color: contentColor ?? getContentColor(buttonType, disabled),
+              ),
+            if (hasLeadingIcon) const SizedBox(width: 16),
+            AppText(
+              text: text,
+              fontSize: fontPercentage,
+              colour: contentColor ?? getContentColor(buttonType, disabled),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  ButtonStyle styleButton(BuildContext context) {
-    Color backgroundColor;
-    switch (buttonType) {
-      case ButtonType.primary:
-        backgroundColor = AppColors.primary[20]!;
-        break;
-      case ButtonType.secondary:
-        backgroundColor = Theme.of(context).colorScheme.secondary;
-        break;
-      case ButtonType.outline:
-        backgroundColor = Colors.transparent;
-        break;
-      case ButtonType.inactive:
-        backgroundColor = TextColors.textLight;
-        break;
-      case ButtonType.warning:
-        backgroundColor = AppColors.error;
-        break;
-    }
-
-    if (disabled) {
-      backgroundColor = backgroundColor.withOpacity(0.5);
-    }
-
-    return ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: borderRadius,
-        side: buttonType == ButtonType.outline
-            ? BorderSide(color: AppColors.primary[20]!)
-            : BorderSide.none,
-      ),
-    );
-  }
-
-  Color get textColor {
-    Color textColor;
-    switch (buttonType) {
-      case ButtonType.primary:
-        textColor = TextColors.textLight;
-        break;
-      case ButtonType.secondary:
-        textColor = TextColors.textDark;
-        break;
-      case ButtonType.outline:
-        textColor = AppColors.primary[20]!;
-        break;
-      case ButtonType.inactive:
-        textColor = TextColors.textSecondary;
-        break;
-      case ButtonType.warning:
-        textColor = TextColors.textLight;
-        break;
-    }
-
-    if (disabled) {
-      textColor = textColor.withOpacity(0.5);
-    }
-
-    return textColor;
-  }
-
-  BorderRadius get borderRadius {
-    switch (buttonShape) {
-      case ButtonShape.square:
-        return BorderRadius.circular(8);
-      case ButtonShape.round:
-        return BorderRadius.circular(20);
-    }
-  }
+  get hasLeadingIcon => leadingIcon != null;
 }

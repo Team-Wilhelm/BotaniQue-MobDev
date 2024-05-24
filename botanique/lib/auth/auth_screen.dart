@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:botanique/models/events/server_events.dart';
+import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/style/app_style.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../state/navigation_cubit.dart';
+import '../util/content_size_helper.dart';
 import '../util/navigation_constants.dart';
 import 'auth_form.dart';
 
@@ -18,20 +20,19 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return BlocListener<WebSocketBloc, ServerEvent>(
       listener: (context, state) {
         if (state is ServerAuthenticatesUser) {
           context.read<NavigationCubit>().changePage(NavigationConstants.home);
         } else if (state is ServerRejectsWrongCredentials) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: AppText(
-            text: state.error,
-          )));
+          AppSnackbar(context).showError(state.error);
+        } else if (state is ServerSignsUserUp) {
+          AppSnackbar(context).showSuccess("Account created successfully");
+          context.read<NavigationCubit>().toggleSignUpScreen();
         }
       },
       child: FutureBuilder<ui.Image>(
-        future: loadImage(AssetConstants.leaves),
+        future: loadImage(AssetConstants.leavesSmall),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -48,8 +49,9 @@ class AuthScreen extends StatelessWidget {
                     CustomPaint(
                       painter: CurvePainter(snapshot.data!),
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        width: screenWidth,
+                        height:
+                            ContentSizeHelper.getContentHeight(context) * 0.3,
+                        width: ContentSizeHelper.getContentWidth(context),
                       ),
                     ),
                     AppText(
@@ -84,9 +86,9 @@ class AuthScreen extends StatelessWidget {
   }
 
   EdgeInsets getEdgeInsets(BuildContext context) {
-    double sidePadding = MediaQuery.of(context).size.width * 0.1;
-    double topPadding = MediaQuery.of(context).size.height * 0.05;
-    double bottomPadding = MediaQuery.of(context).size.height * 0.03;
+    double sidePadding = ContentSizeHelper.getContentWidth(context) * 0.1;
+    double topPadding = ContentSizeHelper.getContentHeight(context) * 0.05;
+    double bottomPadding = ContentSizeHelper.getContentHeight(context) * 0.03;
     return EdgeInsets.fromLTRB(
         sidePadding, topPadding, sidePadding, bottomPadding);
   }

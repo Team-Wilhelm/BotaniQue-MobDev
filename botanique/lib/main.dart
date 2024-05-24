@@ -2,7 +2,6 @@ import 'package:botanique/all_plants/all_plants_screen.dart';
 import 'package:botanique/auth/auth_screen.dart';
 import 'package:botanique/home/home_screen.dart';
 import 'package:botanique/models/events/server_events.dart';
-import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/settings/settings_screen.dart';
 import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/navigation/app_navbar.dart';
@@ -12,6 +11,7 @@ import 'package:botanique/state/home_cubit.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
+import 'package:botanique/util/content_size_helper.dart';
 import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +102,7 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       home: Scaffold(
+        backgroundColor: AppColors.background,
         body: BlocConsumer<WebSocketBloc, ServerEvent>(
           listener: (context, serverEvent) =>
               _handleGlobalEvents(context, serverEvent),
@@ -115,28 +116,32 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
               )
             },
             builder: (context, state) {
-              return PageView(
-                controller: _pageController,
-                children: _screens,
+              return Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: ContentSizeHelper.getContentWidth(context),
+                  child: PageView(
+                    controller: _pageController,
+                    children: _screens,
+                  ),
+                ),
               );
             },
           ),
         ),
         bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
-            builder: (context, navigationState) {
-          return AppNavbar(
-            isHidden: navigationState.isNavBarHidden,
-          );
-        }),
+          builder: (context, navigationState) {
+            return AppNavbar(
+              isHidden: navigationState.isNavBarHidden,
+            );
+          },
+        ),
       ),
     );
   }
 }
 
 void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
-  /*if (serverEvent is InitialServerEvent) {
-    context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
-  } */
   if (serverEvent is ServerAuthenticatesUser) {
     context.read<NavigationCubit>().changePage(NavigationConstants.home);
   } else if (serverEvent is ServerRespondsNotAuthenticated) {
@@ -154,15 +159,9 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     context
         .read<AddPlantCubit>()
         .setPlaceholderSasUrl(serverEvent.placeholderUrl);
-  }
-  //Collections
-  else if (serverEvent is ServerSavesCollection) {
-    context.read<AllPlantsCubit>().addOrUpdateCollections(serverEvent.collection);
-  } else if (serverEvent is ServerDeletesCollection) {
-    context.read<AllPlantsCubit>()..selectCollection(GetCollectionDto.allPlants(), context.read<WebSocketBloc>())..refreshData(context.read<WebSocketBloc>());
-  }
-
-  else if (serverEvent is ServerSendsErrorMessage) {
+  } else if (serverEvent is ServerSendsStats) {
+    context.read<UserCubit>().setStats(serverEvent.stats);
+  } else if (serverEvent is ServerSendsErrorMessage) {
     if (serverEvent is ServerRespondsNotFound &&
         serverEvent.error.contains("No conditions log")) {
       // This is handled in the actual screen
@@ -171,29 +170,12 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     print('Error: ${serverEvent.error}');
     AppSnackbar(context).showError(serverEvent.error);
   } else if (serverEvent is ServerSendsUserInfo) {
-    context.read<UserCubit>()..updateUsername(serverEvent.getUserDto.username)..setUserEmail(serverEvent.getUserDto.userEmail);
+    context.read<UserCubit>()
+      ..updateUsername(serverEvent.getUserDto.username)
+      ..setUserEmail(serverEvent.getUserDto.userEmail);
     if (serverEvent.getUserDto.blobUrl != null) {
-      context
-          .read<UserCubit>()
-          .updateBlobUrl(serverEvent.getUserDto.blobUrl!);
+      context.read<UserCubit>().updateBlobUrl(serverEvent.getUserDto.blobUrl!);
     }
     context.read<NavigationCubit>().changePage(NavigationConstants.home);
-  }
-  // Settings screen updates
-  else if (serverEvent is ServerConfirmsUpdateUsername) {
-    context.read<UserCubit>().updateUsername(serverEvent.username);
-    AppSnackbar(context).showSuccess("Username updated!");
-  } else if (serverEvent is ServerConfirmsUpdatePassword) {
-    AppSnackbar(context).showSuccess("Password updated!");
-  } else if (serverEvent is ServerConfirmsProfileImageUpdate) {
-    context.read<UserCubit>().updateBlobUrl(serverEvent.blobUrl);
-    AppSnackbar(context).showSuccess("Profile image updated updated!");
-  } else if (serverEvent is ServerConfirmsDeleteProfileImage) {
-    context.read<UserCubit>().deleteBlobUrl();
-    AppSnackbar(context).showSuccess("Profile image set to default!");
-  } else if (serverEvent is ServerRejectsUpdate) {
-    AppSnackbar(context).showError(serverEvent.error);
-  } else if (serverEvent is ServerSendsStats) {
-    context.read<UserCubit>().setStats(serverEvent.stats);
   }
 }

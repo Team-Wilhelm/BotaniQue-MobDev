@@ -23,7 +23,7 @@ class HomeScreenGreeting extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(
-                text: "Hi, ${state.userDto.username ?? 'green thumb'}!",
+                text: "Hi, ${state.userDto.username ?? 'Green Thumb'}!",
                 fontSize: FontSizes.h3,
                 fontWeight: FontWeight.bold,
               ),

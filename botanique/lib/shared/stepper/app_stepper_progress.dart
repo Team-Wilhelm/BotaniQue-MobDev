@@ -2,6 +2,7 @@ import 'package:botanique/shared/stepper/app_stepper.dart';
 import 'package:flutter/material.dart';
 
 import '../../style/app_style.dart';
+import '../../util/content_size_helper.dart';
 import '../app_text.dart';
 
 class AppStepperProgress extends StatefulWidget {
@@ -91,7 +92,7 @@ class _AppStepperProgressState extends State<AppStepperProgress>
   }
 
   double _getProgressIndicatorSize(BuildContext context) {
-    return MediaQuery.of(context).size.height * 0.07;
+    return ContentSizeHelper.getContentHeight(context) * 0.07;
   }
 
   Widget _getProgressIndicator() {
