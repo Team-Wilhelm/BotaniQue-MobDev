@@ -1,13 +1,12 @@
 import 'package:botanique/models/enums/app_enums.dart';
 import 'package:botanique/models/events/client_events.dart';
-import 'package:botanique/settings/app_expansion_tile.dart';
 import 'package:botanique/settings/collections/edit_collections_screen.dart';
 import 'package:botanique/settings/image_update_screen.dart';
 import 'package:botanique/settings/profile_settings_banner.dart';
+import 'package:botanique/settings/settings_screen_padding.dart';
+import 'package:botanique/settings/settings_section.dart';
 import 'package:botanique/shared/app_card.dart';
-import 'package:botanique/shared/app_snackbar.dart';
 import 'package:botanique/shared/app_text.dart';
-import 'package:botanique/shared/app_text_field.dart';
 import 'package:botanique/state/navigation_cubit.dart';
 import 'package:botanique/state/user_cubit.dart';
 import 'package:botanique/state/web_socket_bloc.dart';
@@ -19,36 +18,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../shared/buttons/app_button.dart';
 import '../shared/buttons/app_icon_button.dart';
 import '../util/content_size_helper.dart';
-import 'panel_content/panel_item.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  int openPanelId = -1;
-  late List<PanelItem> panelItems;
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordRepeatController =
-      TextEditingController();
-
-  @override
-  void initState() {
-    _buildPanelItems();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
-    _passwordRepeatController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ProfileSettingsBanner(
                   diameter: diameter,
                   onEditTapped: () {
-                    _handleOnImageEditTapped();
+                    _handleOnImageEditTapped(context);
                   }),
               SizedBox(height: diameter * 0.55),
               AppText(
@@ -79,23 +51,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               spacer,
               _buildStatsCard(diameter),
               spacerDouble,
-              const AppText(
-                text: "Settings",
-                textAlign: TextAlign.center,
-                fontSize: FontSizes.h4,
-                fontWeight: FontWeight.bold,
+              SettingsSection(
+                diameter: diameter,
               ),
               spacer,
-              ...panelItems.map(
-                (item) => AppExpansionTile(
-                  item: item,
-                  diameter: diameter,
-                  tileToggleCallback: _handleTileToggle,
-                ),
-              ),
-              spacer,
-              Padding(
-                padding: _getLargerSymmetricHorizontalPadding(),
+              SettingsScreenContentMargin(
+                largePadding: true,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -103,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       flex: 4,
                       child: AppButton(
                         onPressed: () {
-                          _handleOnManageCollectionsTapped();
+                          _handleOnManageCollectionsTapped(context);
                         },
                         text: "Manage Collections",
                       ),
@@ -130,10 +91,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
               ),
-              spacer,
-              Padding(
-                padding: _getLargerSymmetricHorizontalPadding(),
-                child: const Row(
+              spacerDouble,
+              const SettingsScreenContentMargin(
+                largePadding: true,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(child: Divider(color: TextColors.textSecondary)),
@@ -149,9 +110,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: ContentSizeHelper.getSettingsContentPadding(context),
-                child: const AppText(
+              const SettingsScreenContentMargin(
+                child: AppText(
                   text:
                       "Created by Wilhelmina, an all-women development team. We believe in empowering plant lovers and promoting sustainable living through innovative technology.",
                   overflow: TextOverflow.visible,
@@ -168,127 +128,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   /* Methods */
-  void _handleTileToggle(int id) {
-    setState(() {
-      if (openPanelId == id) {
-        panelItems[id - 1].controller.collapse();
-        openPanelId = -1;
-      } else {
-        if (openPanelId > 0) {
-          panelItems[openPanelId - 1].controller.collapse();
-        }
-        panelItems[id - 1].controller.expand();
-        openPanelId = id;
-      }
-    });
-  }
-
-  void _handleUpdateUsername(TextEditingController controller) {
-    context
-        .read<WebSocketBloc>()
-        .add(ClientWantsToUpdateUsername(jwt: "", username: controller.text));
-    controller.clear();
-  }
-
-  void _handleUpdatePassword(TextEditingController controller) {
-    context
-        .read<WebSocketBloc>()
-        .add(ClientWantsToUpdatePassword(jwt: "", password: controller.text));
-    controller.clear();
-  }
-
-  void _handleOnImageEditTapped() {
+  void _handleOnImageEditTapped(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return const ImageUpdateScreen();
     }));
   }
 
-  void _handleOnManageCollectionsTapped() {
+  void _handleOnManageCollectionsTapped(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return EditCollectionsScreen();
     }));
   }
 
   /* Widgets */
-  List<PanelItem> _buildPanelItems() {
-    // TODO: validation
-    return panelItems = <PanelItem>[
-      PanelItem(
-        id: 1,
-        headerValue: 'Username',
-        controller: ExpansionTileController(),
-        panelContent: Column(
-          children: [
-            AppTextField(
-              textFieldController: _usernameController,
-              placeholder: "Enter new username",
-              prefixIcon: const Icon(Icons.person),
-            ),
-            spacer,
-            AppButton(
-                onPressed: () {
-                  if (_usernameController.text.isNotEmpty &&
-                      _usernameController.text.length <= 51) {
-                    _handleUpdateUsername(_usernameController);
-                    _handleTileToggle(1);
-                  } else {
-                    AppSnackbar(context)
-                        .showError("Can't be empty or exceed 50 characters");
-                  }
-                },
-                text: "Submit")
-          ],
-        ),
-      ),
-      PanelItem(
-        id: 2,
-        headerValue: 'Password',
-        controller: ExpansionTileController(),
-        panelContent: Column(
-          children: [
-            AppTextField(
-              textFieldController: _passwordController,
-              placeholder: "Enter new password",
-              prefixIcon: const Icon(Icons.password),
-            ),
-            spacer,
-            AppTextField(
-              textFieldController: _passwordRepeatController,
-              placeholder: "Repeat new password",
-              prefixIcon: const Icon(Icons.password),
-            ),
-            spacer,
-            AppButton(
-                onPressed: () {
-                  if (_passwordController.text.isEmpty ||
-                      _passwordRepeatController.text.isEmpty) {
-                    AppSnackbar(context)
-                        .showError("Please fill in both fields");
-                    return;
-                  } else if (_passwordController.text !=
-                      _passwordRepeatController.text) {
-                    AppSnackbar(context).showError("Passwords do not match");
-                    return;
-                  } else if (_passwordController.text.length < 8 ||
-                      _passwordController.text.length > 256) {
-                    AppSnackbar(context)
-                        .showError("Must be between 8-256 characters");
-                    return;
-                  } else {
-                    _handleUpdatePassword(_passwordController);
-                    _handleTileToggle(2);
-                  }
-                },
-                text: "Submit")
-          ],
-        ),
-      ),
-    ];
-  }
-
   Widget _buildStatsCard(double diameter) {
-    return Padding(
-      padding: ContentSizeHelper.getSettingsContentPadding(context),
+    return SettingsScreenContentMargin(
       child: AppCard(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: diameter * 0.08),
@@ -320,13 +174,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         const SizedBox(height: 4),
         AppText(text: text)
       ],
-    );
-  }
-
-  EdgeInsets _getLargerSymmetricHorizontalPadding() {
-    double sidePadding = MediaQuery.of(context).size.width * 0.08;
-    return EdgeInsets.symmetric(
-      horizontal: sidePadding,
     );
   }
 }

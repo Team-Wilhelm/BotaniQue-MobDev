@@ -1,4 +1,4 @@
-import 'package:botanique/util/content_size_helper.dart';
+import 'package:botanique/settings/settings_screen_padding.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/app_card.dart';
@@ -20,22 +20,31 @@ class AppExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: ContentSizeHelper.getSettingsContentPadding(context)
-          .copyWith(bottom: diameter * 0.08),
+    return SettingsScreenContentMargin(
       child: AppCard(
+        border: Border.all(
+          color: AppColors.cardBackground.withOpacity(0.7),
+          width: 2,
+        ),
+        color: AppColors.background,
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: ExpansionTile(
             controller: item.controller,
             childrenPadding: EdgeInsets.symmetric(
-                horizontal: diameter * 0.16, vertical: diameter * 0.08),
+              horizontal: diameter * 0.16,
+              vertical: diameter * 0.08,
+            ),
             initiallyExpanded: false,
             iconColor: AppColors.accent,
-            title: AppText(
-              text: item.headerValue,
-              fontSize: FontSizes.h6,
-              fontWeight: FontWeight.bold,
+            title: Row(
+              children: [
+                AppText(
+                  text: item.headerValue,
+                  fontSize: FontSizes.h6,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
             ),
             onExpansionChanged: (bool expanded) {
               tileToggleCallback(item.id);
