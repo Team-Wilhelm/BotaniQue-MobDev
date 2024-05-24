@@ -50,12 +50,11 @@ class _SettingsSectionState extends State<SettingsSection> {
     return Column(
       children: [
         const AppText(
-          text: "Settings",
-          textAlign: TextAlign.center,
+          text: "User Settings",
           fontSize: FontSizes.h4,
           fontWeight: FontWeight.bold,
         ),
-        spacer,
+        const SizedBox(height: 4),
         Column(
           children: [
             ...panelItems.map(

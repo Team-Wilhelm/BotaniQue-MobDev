@@ -8,11 +8,17 @@ class AppCard extends StatelessWidget {
     required this.child,
     this.color = AppColors.cardBackground,
     this.border,
+    this.applyGradient = false,
+    this.height,
+    this.width,
   });
 
   final Widget child;
   final Color color;
   final Border? border;
+  final bool applyGradient;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +28,7 @@ class AppCard extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(16),
         border: border,
+        gradient: gradient,
         boxShadow: [
           BoxShadow(
             color: TextColors.textSecondary.withOpacity(0.2),
@@ -30,7 +37,23 @@ class AppCard extends StatelessWidget {
           ),
         ],
       ),
+      height: height,
+      width: width,
       child: child,
     );
   }
+
+  get gradient => applyGradient
+      ? LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.topRight,
+          colors: [
+            color,
+            color.withOpacity(0.8),
+            color.withOpacity(0.7),
+            color.withOpacity(0.8),
+            color,
+          ],
+        )
+      : null;
 }

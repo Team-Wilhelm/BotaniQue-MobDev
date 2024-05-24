@@ -144,6 +144,8 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildStatsCard(double diameter) {
     return SettingsScreenContentMargin(
       child: AppCard(
+        applyGradient: true,
+        color: AppColors.primary[0]!,
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: diameter * 0.08),
           child: Row(
@@ -167,12 +169,12 @@ class SettingsScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.numbers, color: AppColors.accent),
-            AppText(text: number),
+            const Icon(Icons.numbers, color: TextColors.textLight),
+            AppText(text: number, colour: TextColors.textLight),
           ],
         ),
         const SizedBox(height: 4),
-        AppText(text: text)
+        AppText(text: text, colour: TextColors.textLight),
       ],
     );
   }
