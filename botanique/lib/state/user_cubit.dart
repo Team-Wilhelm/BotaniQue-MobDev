@@ -15,6 +15,10 @@ class UserCubit extends Cubit<UserCubitState> implements ImageActionCubit {
     emit(state.copyWith(userDto: userDto));
   }
 
+  void setStats(Stats stats) {
+    emit(state.copyWith(stats: stats));
+  }
+
   void updateUsername(String username) {
     final UserDto userDto = state.userDto.copyWith(username: username);
     emit(state.copyWith(userDto: userDto));
@@ -59,18 +63,20 @@ class UserCubit extends Cubit<UserCubitState> implements ImageActionCubit {
 
 class UserCubitState {
   final UserDto userDto;
+  final Stats stats;
   final XFile? xFileImage;
 
-  UserCubitState({required this.userDto, this.xFileImage});
+  UserCubitState({required this.userDto, required this.stats, this.xFileImage});
 
-  UserCubitState copyWith({UserDto? userDto, XFile? xFileImage}) {
+  UserCubitState copyWith({UserDto? userDto, Stats? stats, XFile? xFileImage}) {
     return UserCubitState(
       userDto: userDto ?? this.userDto,
+      stats: stats ?? this.stats,
       xFileImage: xFileImage,
     );
   }
 
   static UserCubitState empty() {
-    return UserCubitState(userDto: UserDto(), xFileImage: null);
+    return UserCubitState(userDto: UserDto(), stats: Stats(), xFileImage: null);
   }
 }

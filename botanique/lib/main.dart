@@ -159,8 +159,9 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     context
         .read<AddPlantCubit>()
         .setPlaceholderSasUrl(serverEvent.placeholderUrl);
-  }
-  else if (serverEvent is ServerSendsErrorMessage) {
+  } else if (serverEvent is ServerSendsStats) {
+    context.read<UserCubit>().setStats(serverEvent.stats);
+  } else if (serverEvent is ServerSendsErrorMessage) {
     if (serverEvent is ServerRespondsNotFound &&
         serverEvent.error.contains("No conditions log")) {
       // This is handled in the actual screen
@@ -169,7 +170,9 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
     print('Error: ${serverEvent.error}');
     AppSnackbar(context).showError(serverEvent.error);
   } else if (serverEvent is ServerSendsUserInfo) {
-    context.read<UserCubit>().updateUsername(serverEvent.getUserDto.username);
+    context.read<UserCubit>()
+      ..updateUsername(serverEvent.getUserDto.username)
+      ..setUserEmail(serverEvent.getUserDto.userEmail);
     if (serverEvent.getUserDto.blobUrl != null) {
       context.read<UserCubit>().updateBlobUrl(serverEvent.getUserDto.blobUrl!);
     }

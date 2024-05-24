@@ -82,9 +82,11 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
 
   void _requestInitialData() {
     add(ClientWantsToGetCriticalPlants(jwt: jwt!));
-    add(
-      ClientWantsAllCollections(jwt: jwt!),
-    ); // result from this is handled in main, because it requires interaction with the AllPlantsCubit, where the plants are requested subsequently,
+    add(ClientWantsAllCollections(
+        jwt:
+            jwt!)); // result from this is handled in main, because it requires interaction with the AllPlantsCubit, where the plants are requested subsequently,
+    add(ClientWantsUserInfo(jwt: jwt!));
+    add(ClientWantsStats(jwt: jwt!));
   }
 
   @override

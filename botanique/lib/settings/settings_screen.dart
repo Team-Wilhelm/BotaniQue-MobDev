@@ -11,6 +11,7 @@ import 'package:botanique/state/web_socket_bloc.dart';
 import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../models/dtos/user/user_dto.dart';
 
 import '../shared/app_snackbar.dart';
 import '../util/content_size_helper.dart';
@@ -53,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       spacer,
-                      _buildStatsCard(diameter),
+                      _buildStatsCard(diameter, userState.stats),
                       spacerDouble,
                       SettingsSection(
                         diameter: diameter,
@@ -99,7 +100,7 @@ class SettingsScreen extends StatelessWidget {
   }
 
 /* Widgets */
-  Widget _buildStatsCard(double diameter) {
+  Widget _buildStatsCard(double diameter, Stats stats) {
     return AppCard(
       applyGradient: true,
       color: AppColors.primary[0]!,
@@ -108,9 +109,9 @@ class SettingsScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildStatsColumn("25", "Plants"),
-            _buildStatsColumn("25", "Happy plants"),
-            _buildStatsColumn("5", "Collections"),
+            _buildStatsColumn(stats.totalPlants.toString(), "Plants"),
+            _buildStatsColumn(stats.happyPlants.toString(), "Happy plants"),
+            _buildStatsColumn(stats.collections.toString(), "Collections"),
           ],
         ),
       ),

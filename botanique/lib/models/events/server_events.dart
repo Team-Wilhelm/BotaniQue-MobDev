@@ -97,7 +97,7 @@ class ServerConfirmsUpdatePassword extends ServerEvent
 @MappableClass(discriminatorValue: 'ServerConfirmsProfileImageUpdate')
 class ServerConfirmsProfileImageUpdate extends ServerEvent
     with ServerConfirmsProfileImageUpdateMappable {
-  final String blobUrl;
+    final String blobUrl;
 
   ServerConfirmsProfileImageUpdate({
     required this.blobUrl,
@@ -289,10 +289,11 @@ class ServerRejectsInvalidFile extends ServerSendsErrorMessage
 class ServerRejectsUpdate extends ServerSendsErrorMessage
     with ServerRejectsUpdateMappable {
   final GetUserDto getUserDto;
-  ServerRejectsUpdate(
-      {super.eventType = "ServerRejectsUpdate",
+  ServerRejectsUpdate({
+        super.eventType = "ServerRejectsUpdate",
       required super.error,
-      required this.getUserDto});
+      required this.getUserDto,
+      });
 }
 
 @MappableClass(discriminatorValue: 'ServerRespondsUserAlreadyExists')
@@ -303,3 +304,13 @@ class ServerRespondsUserAlreadyExists extends ServerSendsErrorMessage
     required super.error,
   });
 }
+
+@MappableClass(discriminatorValue: 'ServerSendsStats')
+class ServerSendsStats extends ServerEvent with ServerSendsStatsMappable {
+  final Stats stats;
+  ServerSendsStats({
+    super.eventType = "ServerSendsStats",
+    required this.stats
+});
+}
+
