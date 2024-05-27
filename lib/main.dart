@@ -34,9 +34,13 @@ void main() async {
   //Bloc.observer = LoggerBlocObserver();
 
   // Connect to WebSocket
-  final wsUri = kIsWeb
+  const ci = bool.fromEnvironment('CI', defaultValue: false);
+  var wsUri = kIsWeb
       ? Uri.parse('ws://localhost:8181')
       : Uri.parse('ws://10.0.2.2:8181');
+  if (ci) {
+    wsUri = Uri.parse("wss://botanique-7869187b5581.herokuapp.com/");
+  }
   final channel = WebSocketChannel.connect(wsUri);
 
   runApp(
