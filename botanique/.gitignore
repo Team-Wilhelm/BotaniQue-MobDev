@@ -46,3 +46,7 @@ app.*.map.json
 **/*.mapper.dart
 
 pubspec.lock
+# Chromedriver
+chromedriver-*/
+chromedriver*
+LICENSE.chromedriver
