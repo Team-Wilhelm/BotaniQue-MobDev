@@ -1,2 +1,7 @@
 .idea/workspace.xml
 .idea/vcs.xml
+
+# Chromedriver
+chromedriver-*/
+chromedriver*
+LICENSE.chromedriver
