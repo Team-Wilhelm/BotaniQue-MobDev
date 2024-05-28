@@ -25,8 +25,8 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _emailController =
-      TextEditingController(text: "bob@app.com"); // TODO: remove
-  final _passwordController = TextEditingController(text: "password");
+      TextEditingController();
+  final _passwordController = TextEditingController();
   final _repeatPasswordController = TextEditingController();
   final _userNameController = TextEditingController();
 
@@ -127,7 +127,7 @@ class _AuthFormState extends State<AuthForm> {
                   AppTextField(
                     prefixIcon: const Icon(Icons.person),
                     textFieldController: _userNameController,
-                    placeholder: "Username (Bob...)",
+                    placeholder: "Enter username",
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(50),
                     ],
