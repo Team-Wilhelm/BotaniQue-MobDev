@@ -24,8 +24,7 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final _emailController =
-      TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _repeatPasswordController = TextEditingController();
   final _userNameController = TextEditingController();
@@ -189,14 +188,14 @@ class _AuthFormState extends State<AuthForm> {
 
   Icon get _passwordVisibilityIcon {
     return _isPasswordVisible
-        ? const Icon(Icons.visibility)
-        : const Icon(Icons.visibility_off);
+        ? const Icon(Icons.visibility_off)
+        : const Icon(Icons.visibility);
   }
 
   TextInputType get _passwordInputType {
     return _isPasswordVisible
-        ? TextInputType.visiblePassword
-        : TextInputType.text;
+        ? TextInputType.text
+        : TextInputType.visiblePassword;
   }
 
   void _togglePasswordVisibility() {

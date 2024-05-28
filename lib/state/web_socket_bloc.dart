@@ -21,7 +21,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
     // Server events, by defualt, the event is just emitted, but if a different handler is registered, it will be executed instead
     on<ServerEvent>(
       (event, emit) {
-        print("Received event: ${event.toJson()}");
         emit(event);
       },
     );
@@ -76,7 +75,6 @@ class WebSocketBloc extends Bloc<BaseEvent, ServerEvent> {
       event = event.copyWith(jwt: jwt!);
     }
 
-    print("Sending event: ${event.eventType}");
     channel.sink.add(event.toJson());
   }
 
