@@ -4,6 +4,7 @@ import 'package:botanique/state/add_plant/add_plant_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../state/add_plant/plant_requirements_cubit.dart';
 import '../../state/all_plants_cubit.dart';
 import '../../state/web_socket_bloc.dart';
 import '../../util/navigation_constants.dart';
@@ -60,6 +61,7 @@ class AppNavbar extends StatelessWidget {
             icon: Icons.add_circle_outline,
             onTap: () {
               context.read<AddPlantCubit>().resetAddPlantState();
+              context.read<PlantRequirementsCubit>().reset();
               context.read<WebSocketBloc>().add(
                     ClientWantsPlaceholderUrl(jwt: "jwt"),
                   );
