@@ -53,7 +53,7 @@ mixin AppButtonBase {
       case ButtonShape.square:
         return BorderRadius.circular(8);
       case ButtonShape.round:
-        return BorderRadius.circular(20);
+        return BorderRadius.circular(35);
     }
   }
 

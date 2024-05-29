@@ -3,6 +3,7 @@ import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/shared/app_card.dart';
 import 'package:botanique/shared/app_text.dart';
 import 'package:botanique/shared/buttons/app_icon_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CollectionCard extends StatelessWidget {
@@ -23,16 +24,14 @@ class CollectionCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: AppText(text: collection.name),
-              ),
-            ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: AppText(text: collection.name)),
+            ),
           ),
-          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

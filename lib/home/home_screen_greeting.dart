@@ -19,18 +19,24 @@ class HomeScreenGreeting extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                text: "Hi, ${state.userDto.username ?? 'Green Thumb'}!",
-                fontSize: FontSizes.h3,
-                fontWeight: FontWeight.bold,
-              ),
-              const AppText(
-                text: "Leaf it to us!",
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: AppText(
+                    text: "Hi, ${state.userDto.username ?? 'Green Thumb'}!",
+                    fontSize: FontSizes.h3,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const AppText(
+                  text: "Leaf it to us!",
+                ),
+              ],
+            ),
           ),
           GestureDetector(
             onTap: () {
