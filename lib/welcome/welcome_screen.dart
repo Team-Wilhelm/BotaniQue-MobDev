@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
-import '../util/navigation_constants.dart';
+import '../auth/auth_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -41,9 +41,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             spacer,
             ElevatedButton(
-                onPressed: () => context
-                    .read<NavigationCubit>()
-                    .changePage(NavigationConstants.auth),
+                onPressed: () => _navigateToAuthScreen(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary[20]!,
                   padding: EdgeInsets.symmetric(
@@ -59,9 +57,10 @@ class WelcomeScreen extends StatelessWidget {
                 )),
             spacer,
             GestureDetector(
-              onTap: () => context.read<NavigationCubit>()
-                ..toggleSignUpScreen()
-                ..changePage(NavigationConstants.auth),
+              onTap: () => {
+                context.read<NavigationCubit>().toggleSignUpScreen(),
+                _navigateToAuthScreen(context),
+              },
               child: const AppText(
                 text: 'Create an account',
                 fontSize: FontSizes.h5,
@@ -76,6 +75,14 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _navigateToAuthScreen(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const AuthScreen(),
       ),
     );
   }

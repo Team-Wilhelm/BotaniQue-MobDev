@@ -80,9 +80,10 @@ class BotaniQueApp extends StatefulWidget {
 
 class _BotaniQueAppState extends State<BotaniQueApp> {
   final PageController _pageController = PageController(
-    initialPage:
-        NavigationConstants.pageNameToIndex(NavigationConstants.welcome),
+    initialPage: NavigationConstants.pageNameToIndex(NavigationConstants.home),
   );
+
+  bool _hasPushedWelcomeScreen = false;
 
   @override
   void dispose() {
@@ -105,51 +106,77 @@ class _BotaniQueAppState extends State<BotaniQueApp> {
       title: 'BotaniQue',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: Scaffold(
-        backgroundColor: AppColors.background,
-        body: BlocConsumer<WebSocketBloc, ServerEvent>(
-          listener: (context, serverEvent) =>
-              _handleGlobalEvents(context, serverEvent),
-          builder: (context, state) =>
-              BlocConsumer<NavigationCubit, NavigationState>(
-            listener: (context, state) => {
-              _pageController.animateToPage(
-                state.index,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-              )
-            },
-            builder: (context, state) {
-              return Align(
-                alignment: Alignment.topCenter,
-                child: SizedBox(
-                  width: ContentSizeHelper.getContentWidth(context),
-                  child: PageView(
-                    controller: _pageController,
-                    children: _screens,
-                  ),
-                ),
+      home: Builder(builder: (context) {
+        if (!_hasPushedWelcomeScreen) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+          });
+
+          _hasPushedWelcomeScreen = true;
+        }
+
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          body: BlocConsumer<WebSocketBloc, ServerEvent>(
+            listener: (context, serverEvent) =>
+                _handleGlobalEvents(context, serverEvent),
+            builder: (context, state) =>
+                BlocConsumer<NavigationCubit, NavigationState>(
+              listener: _navigateToPage(_pageController),
+              builder: _scaffoldBodyBuilder(context, _pageController, _screens),
+            ),
+          ),
+          bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
+            builder: (context, navigationState) {
+              return AppNavbar(
+                isHidden: navigationState.isNavBarHidden,
               );
             },
           ),
-        ),
-        bottomNavigationBar: BlocBuilder<NavigationCubit, NavigationState>(
-          builder: (context, navigationState) {
-            return AppNavbar(
-              isHidden: navigationState.isNavBarHidden,
-            );
-          },
+        );
+      }),
+    );
+  }
+}
+
+Widget Function(BuildContext, NavigationState) _scaffoldBodyBuilder(
+    BuildContext context, PageController pageController, List<Widget> screens) {
+  return (context, state) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: SizedBox(
+        width: ContentSizeHelper.getContentWidth(context),
+        child: PageView(
+          controller: pageController,
+          children: screens,
         ),
       ),
     );
-  }
+  };
+}
+
+Function(BuildContext, NavigationState) _navigateToPage(
+    PageController pageController) {
+  return (context, state) => {
+        pageController.animateToPage(
+          state.index,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+        ),
+      };
 }
 
 void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
   if (serverEvent is ServerAuthenticatesUser) {
     context.read<NavigationCubit>().changePage(NavigationConstants.home);
+    Navigator.of(context).popUntil((route) => route.isFirst);
   } else if (serverEvent is ServerRespondsNotAuthenticated) {
-    context.read<NavigationCubit>().changePage(NavigationConstants.auth);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const AuthScreen(),
+      ),
+    );
   } else if (serverEvent is ServerSendsAllCollections) {
     final collectionsCubit = context.read<AllPlantsCubit>();
     collectionsCubit.setCollections(serverEvent.collections);

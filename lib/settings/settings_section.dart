@@ -76,7 +76,6 @@ class _SettingsSectionState extends State<SettingsSection> {
   }
 
   List<PanelItem> _buildPanelItems() {
-    // TODO: validation
     return panelItems = <PanelItem>[
       PanelItem(
         id: 1,

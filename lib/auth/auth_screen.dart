@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../state/navigation_cubit.dart';
 import '../util/content_size_helper.dart';
-import '../util/navigation_constants.dart';
 import 'auth_form.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -22,9 +21,7 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<WebSocketBloc, ServerEvent>(
       listener: (context, state) {
-        if (state is ServerAuthenticatesUser) {
-          context.read<NavigationCubit>().changePage(NavigationConstants.home);
-        } else if (state is ServerRejectsWrongCredentials) {
+        if (state is ServerRejectsWrongCredentials) {
           AppSnackbar(context).showError(state.error);
         } else if (state is ServerSignsUserUp) {
           AppSnackbar(context).showSuccess("Account created successfully");

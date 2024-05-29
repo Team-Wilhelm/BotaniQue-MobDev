@@ -24,17 +24,13 @@ class NavigationState {
   final bool isSignUpScreen;
   final bool isNavBarHidden;
 
-  NavigationState(
-    this.index,
-    this.isSignUpScreen,
-    this.isNavBarHidden,
-  );
+  NavigationState(this.index, this.isSignUpScreen, this.isNavBarHidden,);
 
-  NavigationState copyWith({
-    int? index,
-    bool? isSignUpScreen,
-    bool? isNavBarHidden,
-  }) {
+  NavigationState copyWith(
+      {int? index,
+      bool? isSignUpScreen,
+      bool? isNavBarHidden,
+      bool? isUserAuthenticated}) {
     return NavigationState(
       index ?? this.index,
       isSignUpScreen ?? this.isSignUpScreen,
@@ -44,8 +40,9 @@ class NavigationState {
 
   static NavigationState initial() {
     return NavigationState(
-        NavigationConstants.pageNameToIndex(NavigationConstants.welcome),
-        false,
-        true);
+      -1,
+      false,
+      true,
+    );
   }
 }
