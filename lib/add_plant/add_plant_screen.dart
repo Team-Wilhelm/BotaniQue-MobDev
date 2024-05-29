@@ -111,6 +111,7 @@ class _AddPlantScreenState extends State<AddPlantScreen> {
 
             return AppStepper(
               onFinishPressed: () => savePressed(context),
+              onNextPressed: () => FocusScope.of(context).unfocus(), // Close keyboard
               steps: steps,
             );
           },

@@ -7,7 +7,7 @@ class XFileConverter {
   static XFile fromBase64(String base64String) {
     var tempDir = Directory.systemTemp;
     var tempFile = File(
-        '${tempDir.path}/image.jpeg'); // Change 'jpeg' to the actual image type
+        '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpeg'); // Change 'jpeg' to the actual image type
     tempFile.writeAsBytesSync(base64Decode(base64String));
     return XFile(tempFile.path);
   }

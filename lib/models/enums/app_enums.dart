@@ -20,7 +20,7 @@ extension PlantDetailStatExtension on PlantDetailStat {
       case PlantDetailStat.temperature:
         return "Temperature";
       case PlantDetailStat.light:
-        return "Light Exposure";
+        return "Light";
       case PlantDetailStat.humidity:
         return "Humidity";
       case PlantDetailStat.mood:

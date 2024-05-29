@@ -29,9 +29,11 @@ class AddPlantFirstStepContent extends StatelessWidget {
             mainAxisAlignment: ContentSizeHelper.isLargeScreen(context)
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const AppText(
                 text: "What do you call your green friend?",
+                overflow: TextOverflow.visible,
               ),
               AppIconButton(
                 buttonType: ButtonType.transparent,

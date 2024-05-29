@@ -1,14 +1,13 @@
 import 'package:botanique/shared/app_card.dart';
+import 'package:botanique/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/events/client_events.dart';
 import '../shared/app_text.dart';
 import '../shared/buttons/app_button.dart';
-import '../state/navigation_cubit.dart';
 import '../state/web_socket_bloc.dart';
 import '../style/app_style.dart';
-import '../util/navigation_constants.dart';
 import 'collections/edit_collections_screen.dart';
 
 class OtherSettingsSection extends StatelessWidget {
@@ -61,7 +60,7 @@ class OtherSettingsSection extends StatelessWidget {
 
   void _handleOnManageCollectionsTapped(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return EditCollectionsScreen();
+      return const EditCollectionsScreen();
     }));
   }
 
@@ -71,7 +70,12 @@ class OtherSettingsSection extends StatelessWidget {
             eventType: "ClientWantsToLogOut",
           ),
         );
-    context.read<NavigationCubit>().changePage(NavigationConstants.welcome);
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const WelcomeScreen(),
+      ),
+    );
   }
 
   ButtonStyle get _settingsScreenButtonStyle {

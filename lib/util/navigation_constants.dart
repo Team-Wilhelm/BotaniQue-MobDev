@@ -23,8 +23,6 @@ class NavigationConstants {
     NavigationConstants.allPlants: 1,
     NavigationConstants.addPlant: 2,
     NavigationConstants.settings: 3,
-    NavigationConstants.welcome: 4,
-    NavigationConstants.auth: 5,
   };
 
   static int pageNameToIndex(String pageName) {
@@ -50,7 +48,7 @@ class NavigationConstants {
       case NavigationConstants.auth:
         return const AuthScreen();
       case NavigationConstants.success:
-        return const SuccessScreen();  
+        return const SuccessScreen();
 
       default:
         throw Exception('Page $pageName not found');

@@ -69,20 +69,23 @@ class _AppStepperProgressState extends State<AppStepperProgress>
             children: [
               _getProgressIndicator(),
               const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppText(
-                    text: widget.step.title,
-                    colour: TextColors.textLight,
-                  ),
-                  AppText(
-                    text: widget.step.subtitle ?? "",
-                    colour: TextColors.textLight,
-                    fontSize: FontSizes.tiny,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      text: widget.step.title,
+                      colour: TextColors.textLight,
+                    ),
+                    AppText(
+                      text: widget.step.subtitle ?? "",
+                      colour: TextColors.textLight,
+                      fontSize: FontSizes.tiny,
+                      overflow: TextOverflow.visible,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -102,7 +105,7 @@ class _AppStepperProgressState extends State<AppStepperProgress>
         SizedBox(
           height: _getProgressIndicatorSize(context),
           width: _getProgressIndicatorSize(context),
-          child: CircularProgressIndicator.adaptive(
+          child: CircularProgressIndicator(
             value: _progressAnimation.value + (1 / widget.totalSteps),
             strokeWidth: 7,
             valueColor: AlwaysStoppedAnimation<Color>(

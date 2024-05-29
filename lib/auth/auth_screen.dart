@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../state/navigation_cubit.dart';
 import '../util/content_size_helper.dart';
-import '../util/navigation_constants.dart';
 import 'auth_form.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -20,67 +19,68 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<WebSocketBloc, ServerEvent>(
-      listener: (context, state) {
-        if (state is ServerAuthenticatesUser) {
-          context.read<NavigationCubit>().changePage(NavigationConstants.home);
-        } else if (state is ServerRejectsWrongCredentials) {
-          AppSnackbar(context).showError(state.error);
-        } else if (state is ServerSignsUserUp) {
-          AppSnackbar(context).showSuccess("Account created successfully");
-          context.read<NavigationCubit>().toggleSignUpScreen();
-        }
-      },
-      child: FutureBuilder<ui.Image>(
-        future: loadImage(AssetConstants.leavesSmall),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+    return PopScope(
+      canPop: false,
+      child: BlocListener<WebSocketBloc, ServerEvent>(
+        listener: (context, state) {
+          if (state is ServerRejectsWrongCredentials) {
+            AppSnackbar(context).showError(state.error);
+          } else if (state is ServerSignsUserUp) {
+            AppSnackbar(context).showSuccess("Account created successfully");
+            context.read<NavigationCubit>().toggleSignUpScreen();
           }
-          return SafeArea(
-            child: Scaffold(
-              backgroundColor: Theme.of(context).colorScheme.background,
-              body: BlocBuilder<NavigationCubit, NavigationState>(
-                  builder: (context, navigationState) {
-                return Column(
-                  children: [
-                    CustomPaint(
-                      painter: CurvePainter(snapshot.data!),
-                      child: SizedBox(
-                        height:
-                            ContentSizeHelper.getContentHeight(context) * 0.3,
-                        width: ContentSizeHelper.getContentWidth(context),
-                      ),
-                    ),
-                    AppText(
-                      text: navigationState.isSignUpScreen
-                          ? "Create an account"
-                          : "Nice to see you again!",
-                      fontSize: FontSizes.h2,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    AppText(
-                      text: navigationState.isSignUpScreen
-                          ? "Sign up to get started"
-                          : "Log in to your account",
-                      fontSize: FontSizes.small,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: getEdgeInsets(context),
-                        child: AuthForm(
-                          isSignUp: navigationState.isSignUpScreen,
+        },
+        child: FutureBuilder<ui.Image>(
+          future: loadImage(AssetConstants.leavesSmall),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return SafeArea(
+              child: Scaffold(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                body: BlocBuilder<NavigationCubit, NavigationState>(
+                    builder: (context, navigationState) {
+                  return Column(
+                    children: [
+                      CustomPaint(
+                        painter: CurvePainter(snapshot.data!),
+                        child: SizedBox(
+                          height:
+                              ContentSizeHelper.getContentHeight(context) * 0.3,
+                          width: ContentSizeHelper.getContentWidth(context),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              }),
-            ),
-          );
-        },
+                      AppText(
+                        text: navigationState.isSignUpScreen
+                            ? "Create an account"
+                            : "Nice to see you again!",
+                        fontSize: FontSizes.h2,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      AppText(
+                        text: navigationState.isSignUpScreen
+                            ? "Sign up to get started"
+                            : "Log in to your account",
+                        fontSize: FontSizes.small,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: getEdgeInsets(context),
+                          child: AuthForm(
+                            isSignUp: navigationState.isSignUpScreen,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

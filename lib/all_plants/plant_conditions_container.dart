@@ -1,5 +1,6 @@
 import 'package:botanique/models/models/conditions.dart';
 import 'package:botanique/style/app_style.dart';
+import 'package:botanique/util/content_size_helper.dart';
 import 'package:botanique/util/helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -55,9 +56,9 @@ class PlantConditionsContainer extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _getStatGridTile(stats[i]),
+                    _getStatGridTile(stats[i], context),
                     const SizedBox(height: 16),
-                    _getStatGridTile(stats[i + 2]),
+                    _getStatGridTile(stats[i + 2], context),
                   ],
                 )
             ],
@@ -67,7 +68,7 @@ class PlantConditionsContainer extends StatelessWidget {
     );
   }
 
-  Widget _getStatGridTile(PlantDetailStat stat) {
+  Widget _getStatGridTile(PlantDetailStat stat, BuildContext context) {
     final value = conditionsLog!.getStatValue(stat);
     return Container(
       padding: const EdgeInsets.all(4),
@@ -83,10 +84,12 @@ class PlantConditionsContainer extends StatelessWidget {
                 text: _formatIdealRange(stat),
                 fontSize: FontSizes.tiny,
               ),
-              AppText(
-                text: stat.value,
-                fontWeight: FontWeight.bold,
-              ),
+              if (ContentSizeHelper.getContentWidth(context) > 375)
+                AppText(
+                  text: stat.value,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                ),
               AppText(
                 text: _formatStatValue(value, stat),
                 colour: _getStatColor(value, stat),
