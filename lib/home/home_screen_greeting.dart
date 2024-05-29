@@ -23,7 +23,7 @@ class HomeScreenGreeting extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(
-                text: "Hi, ${state.userDto.username ?? 'Green Thumb'}!",
+                text: "Hi, ${truncateWithEllipsis(state.userDto.username ?? 'Green Thumb', 15)}",
                 fontSize: FontSizes.h3,
                 fontWeight: FontWeight.bold,
               ),
@@ -65,6 +65,14 @@ class HomeScreenGreeting extends StatelessWidget {
       return NetworkImage(blobUrl);
     } else {
       return const AssetImage(AssetConstants.profile);
+    }
+  }
+
+  String truncateWithEllipsis(String text, int cutoff) {
+    if (text.length <= cutoff) {
+      return '$text!';
+    } else {
+      return '${text.substring(0, cutoff)}...';
     }
   }
 }

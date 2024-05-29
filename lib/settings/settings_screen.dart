@@ -43,11 +43,14 @@ class SettingsScreen extends StatelessWidget {
                 SettingsScreenContentMargin(
                   child: Column(
                     children: [
-                      AppText(
-                        text: userState.userDto.username ?? "My Profile",
-                        textAlign: TextAlign.center,
-                        fontSize: FontSizes.h3,
-                        fontWeight: FontWeight.bold,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: AppText(
+                          text: userState.userDto.username ?? "My Profile",
+                          textAlign: TextAlign.center,
+                          fontSize: FontSizes.h3,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const AppText(
                         text: "Superior plant lover!",

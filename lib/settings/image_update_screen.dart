@@ -67,6 +67,7 @@ class ImageUpdateScreen extends StatelessWidget {
                           icon: Icons.cancel,
                           tooltip: "Cancel changes",
                           size: 32,
+                          buttonShape: ButtonShape.round,
                         ),
                         spacer,
                         AppIconButton(
@@ -90,6 +91,7 @@ class ImageUpdateScreen extends StatelessWidget {
                           icon: Icons.check,
                           tooltip: "Save changes",
                           size: 48,
+                          buttonShape: ButtonShape.round,
                         ),
                         spacer,
                         AppIconButton(
@@ -110,6 +112,7 @@ class ImageUpdateScreen extends StatelessWidget {
                           buttonType: ButtonType.warning,
                           tooltip: "Delete current profile picture",
                           size: 32,
+                          buttonShape: ButtonShape.round,
                         ),
                       ],
                     ),
