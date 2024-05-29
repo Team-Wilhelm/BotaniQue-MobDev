@@ -102,7 +102,7 @@ class _AppStepperProgressState extends State<AppStepperProgress>
         SizedBox(
           height: _getProgressIndicatorSize(context),
           width: _getProgressIndicatorSize(context),
-          child: CircularProgressIndicator.adaptive(
+          child: CircularProgressIndicator(
             value: _progressAnimation.value + (1 / widget.totalSteps),
             strokeWidth: 7,
             valueColor: AlwaysStoppedAnimation<Color>(

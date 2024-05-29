@@ -28,6 +28,11 @@ dart run vector_graphics_compiler -i assets/foo.svg -o assets/foo.svg.vec
 flutter pub run flutter_launcher_icons
 ```
 
+## To run app in production mode (connect to deployed BE)
+```bash
+flutter run --dart-define=CI=true
+```
+
 ### To run the app locally on chrome (to ensure that pictures can be loaded)
 1- Go to flutter\bin\cache and remove a file named: flutter_tools.stamp
 
