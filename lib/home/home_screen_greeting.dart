@@ -19,18 +19,24 @@ class HomeScreenGreeting extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppText(
-                text: "Hi, ${truncateWithEllipsis(state.userDto.username ?? 'Green Thumb', 15)}",
-                fontSize: FontSizes.h3,
-                fontWeight: FontWeight.bold,
-              ),
-              const AppText(
-                text: "Leaf it to us!",
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: AppText(
+                    text: "Hi, ${state.userDto.username ?? 'Green Thumb'}!",
+                    fontSize: FontSizes.h3,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const AppText(
+                  text: "Leaf it to us!",
+                ),
+              ],
+            ),
           ),
           GestureDetector(
             onTap: () {
@@ -65,14 +71,6 @@ class HomeScreenGreeting extends StatelessWidget {
       return NetworkImage(blobUrl);
     } else {
       return const AssetImage(AssetConstants.profile);
-    }
-  }
-
-  String truncateWithEllipsis(String text, int cutoff) {
-    if (text.length <= cutoff) {
-      return '$text!';
-    } else {
-      return '${text.substring(0, cutoff)}...';
     }
   }
 }
