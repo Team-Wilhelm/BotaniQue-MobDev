@@ -171,7 +171,7 @@ void _handleGlobalEvents(BuildContext context, ServerEvent serverEvent) {
       // This is handled in the actual screen
       return;
     }
-
+    print("Error: ${serverEvent.error}");
     AppSnackbar(context).showError(serverEvent.error);
   } else if (serverEvent is ServerSendsUserInfo) {
     context.read<UserCubit>()

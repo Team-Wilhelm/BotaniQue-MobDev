@@ -45,36 +45,50 @@ class TopBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        AppText(
-          text: title,
-          fontSize: FontSizes.h5,
-          fontWeight: FontWeight.bold,
-        ),
-        if (actions != null && actions!.isNotEmpty)
-          PopupMenuButton<TopBarAction>(
-            tooltip: "More options",
-            elevation: 0,
-            icon: const Icon(Icons.more_vert),
-            onSelected: (action) => action.onPressed(),
-            itemBuilder: (context) {
-              return actions!.map((action) {
-                return PopupMenuItem<TopBarAction>(
-                  value: action,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppText(text: action.text),
-                      const SizedBox(width: 8),
-                      if (action.icon != null)
-                        Icon(action.icon, color: TextColors.textDark),
-                    ],
-                  ),
-                );
-              }).toList();
-            },
-          ),
+        _buildTitle(context),
+        if (actions != null && actions!.isNotEmpty) _buildPopUpMenu(context),
         if (actions == null || actions!.isEmpty) const SizedBox(width: 24),
       ],
+    );
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    return Expanded(
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: AppText(
+            text: title,
+            fontSize: FontSizes.h5,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPopUpMenu(BuildContext context) {
+    return PopupMenuButton<TopBarAction>(
+      tooltip: "More options",
+      elevation: 0,
+      icon: const Icon(Icons.more_vert),
+      onSelected: (action) => action.onPressed(),
+      itemBuilder: (context) {
+        return actions!.map((action) {
+          return PopupMenuItem<TopBarAction>(
+            value: action,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppText(text: action.text),
+                const SizedBox(width: 8),
+                if (action.icon != null)
+                  Icon(action.icon, color: TextColors.textDark),
+              ],
+            ),
+          );
+        }).toList();
+      },
     );
   }
 }

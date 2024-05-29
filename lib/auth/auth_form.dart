@@ -159,6 +159,8 @@ class _AuthFormState extends State<AuthForm> {
       return;
     }
 
+    Focus.of(context).unfocus();
+
     final LoginDto loginDto = LoginDto(
       email: _emailController.text,
       password: _passwordController.text,
@@ -173,6 +175,8 @@ class _AuthFormState extends State<AuthForm> {
     if (_formKey.currentState!.validate() == false) {
       return;
     }
+
+    Focus.of(context).unfocus();
 
     final RegisterUserDto registerUserDto = RegisterUserDto(
       email: _emailController.text,

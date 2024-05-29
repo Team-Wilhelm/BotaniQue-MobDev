@@ -44,7 +44,7 @@ class AuthBottomText extends StatelessWidget {
   }
 
   String _getFirstSentence() {
-    return isSignUp ? "Already have an account?" : "Don't have an account?";
+    return isSignUp ? "Have an account?" : "Don't have an account?";
   }
 
   String _getSecondSentence() {
