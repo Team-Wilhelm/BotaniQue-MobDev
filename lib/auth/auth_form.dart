@@ -135,7 +135,9 @@ class _AuthFormState extends State<AuthForm> {
                 const Spacer(),
                 spacer,
                 AppButton(
-                  onPressed: widget.isSignUp ? onSignUpPressed : onLoginPressed,
+                  onPressed: widget.isSignUp
+                      ? () => onSignUpPressed(context)
+                      : () => onLoginPressed(context),
                   text: widget.isSignUp ? "Sign Up" : "Log In",
                   fullWidth: true,
                   disabled: _isButtonDisabled,
@@ -154,12 +156,14 @@ class _AuthFormState extends State<AuthForm> {
     );
   }
 
-  void onLoginPressed() {
+  void onLoginPressed(BuildContext context) {
     if (_formKey.currentState!.validate() == false) {
       return;
     }
 
-    Focus.of(context).unfocus();
+    if (mounted) {
+      FocusScope.of(context).unfocus();
+    }
 
     final LoginDto loginDto = LoginDto(
       email: _emailController.text,
@@ -171,12 +175,14 @@ class _AuthFormState extends State<AuthForm> {
         );
   }
 
-  void onSignUpPressed() {
+  void onSignUpPressed(BuildContext context) {
     if (_formKey.currentState!.validate() == false) {
       return;
     }
 
-    Focus.of(context).unfocus();
+    if (mounted) {
+      FocusScope.of(context).unfocus();
+    }
 
     final RegisterUserDto registerUserDto = RegisterUserDto(
       email: _emailController.text,
