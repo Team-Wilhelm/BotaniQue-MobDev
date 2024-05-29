@@ -1,12 +1,10 @@
 import 'package:botanique/add_plant/collection_dropdown.dart';
 import 'package:botanique/models/models/collections.dart';
 import 'package:botanique/shared/app_text_field.dart';
-import 'package:botanique/shared/buttons/app_icon_button.dart';
-import 'package:botanique/util/content_size_helper.dart';
+import 'package:botanique/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../models/enums/app_enums.dart';
 import '../../shared/app_text.dart';
 
 class AddPlantFirstStepContent extends StatelessWidget {
@@ -25,24 +23,8 @@ class AddPlantFirstStepContent extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: ContentSizeHelper.isLargeScreen(context)
-                ? MainAxisAlignment.center
-                : MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const AppText(
-                text: "What do you call your green friend?",
-                overflow: TextOverflow.visible,
-              ),
-              AppIconButton(
-                buttonType: ButtonType.transparent,
-                icon: Icons.help_outline,
-                onPressed: () {},
-                tooltip:
-                    "Don't worry if you don't have a name, if you leave it blank we'll give it a name for you!",
-              ),
-            ],
+          const AppText(
+            text: "What do you call your green friend?",
           ),
           AppTextField(
             textFieldController: plantNameController,
@@ -50,6 +32,18 @@ class AddPlantFirstStepContent extends StatelessWidget {
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
             ],
+          ),
+          const SizedBox(height: 4),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6),
+            child: AppText(
+              text:
+              "Don't worry if you don't have a name, if you leave it blank we'll give it a name for you!",
+              fontSize: FontSizes.tiny,
+              overflow: TextOverflow.visible,
+              softWrap: true,
+              textAlign: TextAlign.center,
+            ),
           ),
           const SizedBox(height: 24),
           AppText(
